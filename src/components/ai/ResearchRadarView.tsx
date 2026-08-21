@@ -18,7 +18,33 @@ interface TrendItem {
 
 interface Props {
   trends: TrendItem[];
+  lang?: 'en' | 'ko';
 }
+
+const LABELS: Record<'en' | 'ko', Record<string, string>> = {
+  en: {
+    search: 'Search papers, modalities, topics...',
+    entries: 'entries · updated weekly from arXiv',
+    llmSummary: 'LLM summary',
+    excerpt: 'Abstract excerpt',
+    summary: 'Summary',
+    significance: 'Significance: ',
+    whyUs: 'Why it matters to us: ',
+    noMatch: 'No matching radar entries',
+    noMatchDesc: 'Try a different keyword or topic filter.',
+  },
+  ko: {
+    search: '논문·모달리티·주제 검색...',
+    entries: '건 · arXiv에서 매주 갱신',
+    llmSummary: 'LLM 요약',
+    excerpt: '초록 발췌',
+    summary: '요약',
+    significance: '의의: ',
+    whyUs: '우리 연구실과의 연결: ',
+    noMatch: '조건에 맞는 항목이 없습니다',
+    noMatchDesc: '다른 검색어나 주제 필터를 시도해 보세요.',
+  },
+};
 
 const TOPICS = [
   'All',
@@ -29,7 +55,8 @@ const TOPICS = [
   'Brain-LLM Alignment',
 ];
 
-export default function ResearchRadarView({ trends }: Props) {
+export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
+  const L = LABELS[lang];
   const [selectedTopic, setSelectedTopic] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -60,7 +87,7 @@ export default function ResearchRadarView({ trends }: Props) {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search papers, modalities, topics..."
+              placeholder={L.search}
               className="w-full bg-paper border border-line rounded-lg pl-10 pr-9 py-2.5 text-sm text-ink placeholder-ink-faint focus:border-lab-600 transition-colors"
             />
             {searchQuery && (
@@ -74,7 +101,7 @@ export default function ResearchRadarView({ trends }: Props) {
             )}
           </div>
           <span className="font-mono text-xs text-ink-faint shrink-0">
-            {filteredTrends.length} entries · updated weekly from arXiv
+            {filteredTrends.length}{lang === 'ko' ? '' : ' '}{L.entries}
           </span>
         </div>
 
@@ -135,10 +162,10 @@ export default function ResearchRadarView({ trends }: Props) {
                   <Brain className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>
                     {trend.generatedBy && trend.generatedBy.startsWith('llm')
-                      ? 'LLM summary'
+                      ? L.llmSummary
                       : trend.generatedBy === 'extractive-fallback'
-                        ? 'Abstract excerpt'
-                        : 'Summary'}
+                        ? L.excerpt
+                        : L.summary}
                   </span>
                 </div>
                 <ul className="space-y-1.5">
@@ -152,12 +179,12 @@ export default function ResearchRadarView({ trends }: Props) {
               </div>
 
               <p className="text-sm text-ink-soft mb-3 leading-relaxed">
-                <strong className="text-ink">Significance: </strong>
+                <strong className="text-ink">{L.significance}</strong>
                 {trend.significance}
               </p>
 
               <div className="p-3 rounded-xl bg-lab-50 border border-lab-600/20 text-sm text-lab-900 leading-relaxed mb-4">
-                <strong>Why it matters to us: </strong>
+                <strong>{L.whyUs}</strong>
                 {trend.labRelevance}
               </div>
             </div>
@@ -174,8 +201,8 @@ export default function ResearchRadarView({ trends }: Props) {
       {filteredTrends.length === 0 && (
         <div className="text-center py-16 card">
           <Brain className="w-10 h-10 text-ink-faint mx-auto mb-3" aria-hidden="true" />
-          <h3 className="text-lg font-semibold text-ink mb-1">No matching radar entries</h3>
-          <p className="text-sm text-ink-soft">Try a different keyword or topic filter.</p>
+          <h3 className="text-lg font-semibold text-ink mb-1">{L.noMatch}</h3>
+          <p className="text-sm text-ink-soft">{L.noMatchDesc}</p>
         </div>
       )}
     </div>

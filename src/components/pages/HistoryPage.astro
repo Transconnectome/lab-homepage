@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allHistory = (await getCollection('history')).filter((h) => (h.data.lang ?? 'en') === lang);
+const sortedHistory = allHistory.sort((a, b) => a.data.order - b.data.order);
+const pageTitle = lang === 'ko' ? '연혁 | 서울대학교 커넥톰 연구실' : 'History | SNU Connectome Laboratory';
+---
+
+<BaseLayout lang={lang} title={pageTitle}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-14">
+    <div class="max-w-2xl space-y-4">
+      <p class="eyebrow">{t('history.eyebrow')}</p>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('history.title')}</h1>
+      <p class="text-lg text-ink-soft leading-relaxed">{t('history.desc')}</p>
+    </div>
+
+    <div class="relative border-l-2 border-line ml-3 sm:ml-4 space-y-10 pl-8 sm:pl-10 py-2">
+      {sortedHistory.map(async (item) => {
+        const { Content } = await item.render();
+        return (
+          <article class="relative">
+            <span class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-4 h-4 rounded-full bg-lab-700 border-4 border-paper" aria-hidden="true" />
+            <div class="card p-7 sm:p-8 space-y-4">
+              <header class="flex items-center justify-between gap-3 border-b border-line pb-3">
+                <span class="chip-accent">{item.data.period}</span>
+                <span class="font-mono text-xs text-ink-faint">{item.data.year}</span>
+              </header>
+              <h2 class="font-display text-xl font-semibold text-ink leading-snug">{item.data.title}</h2>
+              <div class="prose prose-stone prose-sm max-w-none prose-headings:font-display prose-a:text-lab-700">
+                <Content />
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</BaseLayout>

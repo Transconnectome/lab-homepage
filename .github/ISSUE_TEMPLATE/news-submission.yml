@@ -1,0 +1,63 @@
+name: "📰 뉴스 제출 (News submission)"
+description: "연구실 소식을 제출하면 AI가 홈페이지 뉴스 스토리(영문+국문)로 작성해 게시합니다."
+title: "[News] "
+labels: ["news-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        연구실 소식(논문 게재, 수상, 학회 발표, 행사, 전시 등)을 알려주세요.
+        제출하면 AI가 제공된 **사실만으로** 영문·국문 뉴스 스토리를 작성해 홈페이지 News에 게시합니다.
+        한국어로 편하게 쓰셔도 됩니다 — 영문 기사도 자동으로 만들어집니다.
+
+  - type: input
+    id: headline
+    attributes:
+      label: "한 줄 요약 (What happened?)"
+      description: "예: 홍길동 학생 논문이 NeurIPS 2026에 게재 승인"
+      placeholder: "무슨 일이 있었나요?"
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: "날짜 (Date, YYYY-MM-DD)"
+      placeholder: "2026-08-21"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "분류 (Category)"
+      options:
+        - paper
+        - award
+        - conference
+        - event
+        - exhibition
+        - general
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: "자세한 내용 (Details)"
+      description: "누가, 무엇을, 어디서, 왜 중요한지. 이름·논문 제목·학회명·수상명 등은 정확하게 적어주세요. 여기 적힌 사실만 기사에 들어갑니다."
+      placeholder: |
+        - 관련된 사람: (예: 홍길동 대학원생, 차지욱 교수)
+        - 논문/수상/행사 이름:
+        - 배경이나 의미:
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: "관련 링크 (Link, optional)"
+      description: "논문 DOI, 학회 페이지, 기사 URL 등"
+      placeholder: "https://..."
+    validations:
+      required: false

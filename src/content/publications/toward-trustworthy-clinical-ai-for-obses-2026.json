@@ -89,7 +89,7 @@
     "Odile A. van den Heuvel",
     "Jiook Cha"
   ],
-  "venue": "medRxiv",
+  "venue": "medRxiv preprint",
   "year": 2026,
   "doi": "10.64898/2026.04.24.26351711",
   "url": "https://doi.org/10.64898/2026.04.24.26351711",
@@ -102,5 +102,6 @@
     "Maria Pak",
     "Sangyoon Bae",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

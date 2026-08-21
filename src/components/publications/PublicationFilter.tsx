@@ -17,13 +17,50 @@ interface PublicationItem {
   spotlight?: string | null;
   abstract?: string | null;
   labMembers: string[];
+  kind?: 'journal' | 'conference' | 'workshop' | 'preprint';
 }
 
 interface Props {
   publications: PublicationItem[];
+  lang?: 'en' | 'ko';
 }
 
 const MAX_VISIBLE_AUTHORS = 12;
+
+const LABELS: Record<'en' | 'ko', Record<string, string>> = {
+  en: {
+    search: 'Search title, author, venue...',
+    year: 'Year',
+    allYears: 'All years',
+    includePreprints: 'Include preprints',
+    paper: 'Paper',
+    code: 'Code',
+    copied: 'Copied',
+    noMatch: 'No publications matched',
+    noMatchDesc: 'Clear the filters or try a different search term.',
+    etAl: 'authors',
+    kindJournal: 'Journal',
+    kindConference: 'Conference',
+    kindWorkshop: 'Workshop',
+    kindPreprint: 'Preprint',
+  },
+  ko: {
+    search: '제목·저자·게재지 검색...',
+    year: '연도',
+    allYears: '전체 연도',
+    includePreprints: '프리프린트 포함',
+    paper: '논문',
+    code: '코드',
+    copied: '복사됨',
+    noMatch: '조건에 맞는 논문이 없습니다',
+    noMatchDesc: '필터를 해제하거나 다른 검색어를 시도해 보세요.',
+    etAl: '명의 저자',
+    kindJournal: '저널',
+    kindConference: '학회',
+    kindWorkshop: '워크숍',
+    kindPreprint: '프리프린트',
+  },
+};
 
 function bibtexKey(pub: PublicationItem): string {
   const first = pub.authors[0] || 'connectomelab';
@@ -32,27 +69,35 @@ function bibtexKey(pub: PublicationItem): string {
   return `${family.toLowerCase().replace(/[^a-z]/g, '')}${pub.year}${word}`;
 }
 
-export default function PublicationFilter({ publications }: Props) {
+export default function PublicationFilter({ publications, lang = 'en' }: Props) {
+  const L = LABELS[lang];
   const [selectedTag, setSelectedTag] = useState<string>('All');
   const [selectedYear, setSelectedYear] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [includePreprints, setIncludePreprints] = useState<boolean>(false);
+
+  // Peer-reviewed by default; preprints shown only when explicitly toggled on.
+  const basePublications = useMemo(
+    () => publications.filter((p) => includePreprints || (p.kind ?? 'journal') !== 'preprint'),
+    [publications, includePreprints]
+  );
 
   const allTags = useMemo(() => {
     const set = new Set<string>();
-    publications.forEach((p) => p.tags.forEach((t) => set.add(t)));
+    basePublications.forEach((p) => p.tags.forEach((t) => set.add(t)));
     return ['All', ...Array.from(set).sort()];
-  }, [publications]);
+  }, [basePublications]);
 
   const allYears = useMemo(() => {
-    const years = Array.from(new Set(publications.map((p) => p.year.toString()))).sort(
+    const years = Array.from(new Set(basePublications.map((p) => p.year.toString()))).sort(
       (a, b) => Number(b) - Number(a)
     );
     return ['All', ...years];
-  }, [publications]);
+  }, [basePublications]);
 
   const filteredPublications = useMemo(() => {
-    return publications.filter((pub) => {
+    return basePublications.filter((pub) => {
       const matchTag = selectedTag === 'All' || pub.tags.includes(selectedTag);
       const matchYear = selectedYear === 'All' || pub.year.toString() === selectedYear;
       const query = searchQuery.toLowerCase();
@@ -63,7 +108,10 @@ export default function PublicationFilter({ publications }: Props) {
         (pub.abstract && pub.abstract.toLowerCase().includes(query));
       return matchTag && matchYear && matchSearch;
     });
-  }, [publications, selectedTag, selectedYear, searchQuery]);
+  }, [basePublications, selectedTag, selectedYear, searchQuery]);
+
+  const kindLabel = (k?: string) =>
+    k === 'conference' ? L.kindConference : k === 'workshop' ? L.kindWorkshop : k === 'preprint' ? L.kindPreprint : L.kindJournal;
 
   const copyBibtex = (pub: PublicationItem) => {
     const bibtex = `@article{${bibtexKey(pub)},\n  title={${pub.title}},\n  author={${pub.authors.join(' and ')}},\n  journal={${pub.venue}},\n  year={${pub.year}},${pub.doi ? `\n  doi={${pub.doi}},` : ''}\n  url={${pub.url || ''}}\n}`;
@@ -88,7 +136,7 @@ export default function PublicationFilter({ publications }: Props) {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search title, author, venue..."
+              placeholder={L.search}
               className="w-full bg-paper border border-line rounded-lg pl-10 pr-9 py-2.5 text-sm text-ink placeholder-ink-faint focus:border-lab-600 transition-colors"
             />
             {searchQuery && (
@@ -102,8 +150,8 @@ export default function PublicationFilter({ publications }: Props) {
             )}
           </div>
 
-          <div className="flex items-center gap-3">
-            <label htmlFor="pub-year" className="font-mono text-xs text-ink-faint">Year</label>
+          <div className="flex items-center gap-3 flex-wrap">
+            <label htmlFor="pub-year" className="font-mono text-xs text-ink-faint">{L.year}</label>
             <select
               id="pub-year"
               value={selectedYear}
@@ -111,11 +159,20 @@ export default function PublicationFilter({ publications }: Props) {
               className="bg-paper border border-line rounded-lg px-3 py-2 text-sm text-ink focus:border-lab-600"
             >
               {allYears.map((year) => (
-                <option key={year} value={year}>{year === 'All' ? 'All years' : year}</option>
+                <option key={year} value={year}>{year === 'All' ? L.allYears : year}</option>
               ))}
             </select>
+            <label className="flex items-center gap-1.5 text-xs text-ink-soft cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={includePreprints}
+                onChange={(e) => setIncludePreprints(e.target.checked)}
+                className="rounded border-line accent-[#0E7490]"
+              />
+              {L.includePreprints}
+            </label>
             <span className="font-mono text-xs text-ink-faint">
-              {filteredPublications.length} / {publications.length}
+              {filteredPublications.length} / {basePublications.length}
             </span>
           </div>
         </div>
@@ -150,6 +207,7 @@ export default function PublicationFilter({ publications }: Props) {
               <div className="space-y-2.5 flex-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="chip-accent">{pub.year}</span>
+                  <span className="chip">{kindLabel(pub.kind)}</span>
                   {pub.spotlight && <span className="chip">✨ {pub.spotlight}</span>}
                   {pub.tags.map((tag) => (
                     <span key={tag} className="chip">#{tag}</span>
@@ -177,7 +235,7 @@ export default function PublicationFilter({ publications }: Props) {
                     );
                   })}
                   {hiddenCount > 0 && (
-                    <span className="text-ink-faint"> … et al. ({pub.authors.length} authors)</span>
+                    <span className="text-ink-faint"> … et al. ({pub.authors.length} {L.etAl})</span>
                   )}
                 </p>
 
@@ -198,7 +256,7 @@ export default function PublicationFilter({ publications }: Props) {
                     className="px-3.5 py-2 rounded-lg bg-paper hover:bg-lab-50 text-ink-soft hover:text-lab-800 text-sm flex items-center justify-center gap-1.5 border border-line transition-colors"
                   >
                     <BookOpen className="w-4 h-4 text-lab-700" aria-hidden="true" />
-                    <span>Paper</span>
+                    <span>{L.paper}</span>
                   </a>
                 )}
                 {pub.codeUrl && (
@@ -209,7 +267,7 @@ export default function PublicationFilter({ publications }: Props) {
                     className="px-3.5 py-2 rounded-lg bg-paper hover:bg-lab-50 text-ink-soft hover:text-lab-800 text-sm flex items-center justify-center gap-1.5 border border-line transition-colors"
                   >
                     <Code className="w-4 h-4 text-lab-700" aria-hidden="true" />
-                    <span>Code</span>
+                    <span>{L.code}</span>
                   </a>
                 )}
                 <button
@@ -219,7 +277,7 @@ export default function PublicationFilter({ publications }: Props) {
                   {copiedId === pub.title ? (
                     <>
                       <Check className="w-4 h-4 text-emerald-600" aria-hidden="true" />
-                      <span className="text-emerald-700 font-semibold">Copied</span>
+                      <span className="text-emerald-700 font-semibold">{L.copied}</span>
                     </>
                   ) : (
                     <>
@@ -237,8 +295,8 @@ export default function PublicationFilter({ publications }: Props) {
       {filteredPublications.length === 0 && (
         <div className="text-center py-16 card">
           <BookOpen className="w-10 h-10 text-ink-faint mx-auto mb-3" aria-hidden="true" />
-          <h3 className="text-lg font-semibold text-ink mb-1">No publications matched</h3>
-          <p className="text-sm text-ink-soft">Clear the filters or try a different search term.</p>
+          <h3 className="text-lg font-semibold text-ink mb-1">{L.noMatch}</h3>
+          <p className="text-sm text-ink-soft">{L.noMatchDesc}</p>
         </div>
       )}
     </div>

@@ -10,7 +10,7 @@
     "Jae-Won Kim",
     "Jiook Cha"
   ],
-  "venue": "Studies in computational intelligence",
+  "venue": "Studies in Computational Intelligence",
   "year": 2022,
   "doi": "10.1007/978-3-030-93080-6_7",
   "url": "https://doi.org/10.1007/978-3-030-93080-6_7",
@@ -23,5 +23,6 @@
     "Bo‐Gyeom Kim",
     "Eunji Lee",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "conference"
 }

@@ -1,0 +1,87 @@
+name: News from Issue
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: news-submission
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Generate & publish news story
+    # Run when a news-submission issue comes from a lab member (org member /
+    # collaborator / owner), or when a maintainer adds the 'approved' label to
+    # an outside submission. Never on forks.
+    if: >-
+      github.repository == 'Transconnectome/lab-homepage' &&
+      contains(github.event.issue.labels.*.name, 'news-submission') &&
+      (
+        contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association) ||
+        contains(github.event.issue.labels.*.name, 'approved')
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate bilingual news story from the issue
+        id: gen
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python scripts/news_from_issue.py
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (validates the generated story)
+        run: npm run build
+
+      - name: Commit & push
+        run: |
+          git config --global user.name 'Connectome Lab Bot'
+          git config --global user.email 'bot@connectomelab.com'
+          git add src/content/news/
+          git commit -m "news: ${{ steps.gen.outputs.title_en }} (from issue #${{ github.event.issue.number }})"
+          git pull --rebase origin main
+          git push origin main
+
+      - name: Deploy to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+      - uses: actions/deploy-pages@v4
+
+      - name: Comment & close the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body \
+            "게시 완료 🎉 뉴스 스토리가 홈페이지에 올라갔습니다: https://www.connectomelab.com/news (영문) · https://www.connectomelab.com/ko/news (국문). 내용 수정이 필요하면 src/content/news/${{ steps.gen.outputs.slug }}.md 를 편집해 주세요."
+          gh issue close ${{ github.event.issue.number }} --repo ${{ github.repository }}
+
+      - name: Report failure on the issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body \
+            "자동 게시에 실패했습니다 😢 관리자가 확인 후 처리하겠습니다. (워크플로 로그: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"

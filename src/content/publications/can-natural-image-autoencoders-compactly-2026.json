@@ -9,7 +9,7 @@
     "Jiook Cha",
     "Taesup Moon"
   ],
-  "venue": "arXiv (Cornell University)",
+  "venue": "arXiv preprint",
   "year": 2026,
   "doi": "10.48550/arxiv.2604.03619",
   "url": "https://doi.org/10.48550/arxiv.2604.03619",
@@ -22,5 +22,6 @@
     "Jubin Choi",
     "Jungwoo Seo",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

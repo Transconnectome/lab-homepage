@@ -6,7 +6,7 @@
     "Blake A. Richards",
     "Jiook Cha"
   ],
-  "venue": "arXiv (Cornell University)",
+  "venue": "arXiv preprint",
   "year": 2025,
   "doi": "10.48550/arxiv.2510.18516",
   "url": "https://doi.org/10.48550/arxiv.2510.18516",
@@ -17,5 +17,6 @@
   "labMembers": [
     "Sangyoon Bae",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

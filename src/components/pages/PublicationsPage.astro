@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PublicationFilter from '../publications/PublicationFilter';
+import { getCollection } from 'astro:content';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allPubs = await getCollection('publications');
+const pubData = allPubs.map((p) => p.data).sort((a, b) => b.year - a.year);
+const peerReviewed = pubData.filter((p) => p.kind === 'journal' || p.kind === 'conference' || p.kind === 'workshop');
+const years = peerReviewed.map((p) => p.year);
+const minYear = years.length ? Math.min(...years) : 0;
+const maxYear = years.length ? Math.max(...years) : 0;
+
+const heading =
+  lang === 'ko'
+    ? `피어리뷰 논문 ${peerReviewed.length}편, ${minYear}–${maxYear}`
+    : `${peerReviewed.length} peer-reviewed papers, ${minYear}–${maxYear}`;
+const pageTitle = lang === 'ko' ? '논문 | 서울대학교 커넥톰 연구실' : 'Publications | SNU Connectome Laboratory';
+---
+
+<BaseLayout lang={lang} title={pageTitle}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="max-w-2xl space-y-4">
+      <p class="eyebrow">{t('pubs.eyebrow')}</p>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{heading}</h1>
+      <p class="text-lg text-ink-soft leading-relaxed">{t('pubs.desc')}</p>
+      <p class="font-mono text-xs text-ink-faint">
+        {t('pubs.alsoOn')}
+        <a
+          href="https://scholar.google.com/citations?user=d_s86n8AAAAJ"
+          target="_blank"
+          rel="noreferrer"
+          class="text-lab-700 hover:text-lab-800 underline ml-1"
+        >Google Scholar</a>
+      </p>
+    </div>
+
+    <PublicationFilter publications={pubData} lang={lang} client:load />
+  </div>
+</BaseLayout>

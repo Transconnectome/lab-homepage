@@ -1,5 +1,5 @@
 {
-  "title": "GANDALF: Generative Adversarial Networks with Discriminator-Adaptive Loss Fine-tuning for Alzheimer's Disease Diagnosis from MRI",
+  "title": "GANDALF: Generative Adversarial Networks with Discriminator-Adaptive Loss Fine-Tuning for Alzheimer’s Disease Diagnosis from MRI",
   "authors": [
     "Hoo-Chang Shin",
     "Alvin Ihsani",
@@ -10,15 +10,16 @@
     "Jiook Cha",
     "Alzheimer’s Disease Neuroimaging Initiative"
   ],
-  "venue": "arXiv (Cornell University)",
+  "venue": "Lecture Notes in Computer Science",
   "year": 2020,
-  "doi": "10.48550/arxiv.2008.04396",
-  "url": "https://doi.org/10.48550/arxiv.2008.04396",
+  "doi": "10.1007/978-3-030-59713-9_66",
+  "url": "https://doi.org/10.1007/978-3-030-59713-9_66",
   "tags": [
     "Neuroimaging"
   ],
   "featured": false,
   "labMembers": [
     "Jiook Cha"
-  ]
+  ],
+  "kind": "conference"
 }

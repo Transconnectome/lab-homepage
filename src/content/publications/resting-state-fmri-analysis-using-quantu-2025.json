@@ -1,5 +1,5 @@
 {
-  "title": "Resting-state fMRI Analysis using Quantum Time-series Transformer",
+  "title": "Resting-State fMRI Analysis Using Quantum Time-Series Transformer",
   "authors": [
     "Junghoon Park",
     "Jungwoo Seo",
@@ -9,10 +9,10 @@
     "Jiook Cha",
     "Shinjae Yoo"
   ],
-  "venue": "arXiv (Cornell University)",
+  "venue": "2025 IEEE International Conference on Quantum Computing and Engineering (QCE)",
   "year": 2025,
-  "doi": "10.48550/arxiv.2509.00711",
-  "url": "https://doi.org/10.48550/arxiv.2509.00711",
+  "doi": "10.1109/qce65121.2025.00256",
+  "url": "https://doi.org/10.1109/qce65121.2025.00256",
   "tags": [
     "Neuroimaging",
     "Quantum ML",
@@ -24,5 +24,6 @@
     "Jungwoo Seo",
     "Sangyoon Bae",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "conference"
 }

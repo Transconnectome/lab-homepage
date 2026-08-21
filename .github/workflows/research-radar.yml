@@ -19,7 +19,7 @@ jobs:
   sync:
     name: Sync, validate, commit, deploy
     # Guard: never run the scheduled sync on forks
-    if: github.repository == 'snuconnectome/lab-homepage'
+    if: github.repository == 'Transconnectome/lab-homepage'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

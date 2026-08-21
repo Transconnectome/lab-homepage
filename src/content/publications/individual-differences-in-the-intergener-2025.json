@@ -10,7 +10,7 @@
     "Jonathan Posner",
     "Yoonjung Yoonie Joo"
   ],
-  "venue": "Research Square",
+  "venue": "Research Square preprint",
   "year": 2025,
   "doi": "10.21203/rs.3.rs-7405635/v1",
   "url": "https://doi.org/10.21203/rs.3.rs-7405635/v1",
@@ -27,5 +27,6 @@
     "Bo-Gyeom Kim",
     "Gakyung Kim",
     "Yoonjung Yoonie Joo"
-  ]
+  ],
+  "kind": "preprint"
 }

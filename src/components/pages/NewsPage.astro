@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allNews = (await getCollection('news')).filter((n) => (n.data.lang ?? 'en') === lang);
+const sortedNews = allNews.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const CATEGORY_LABELS: Record<string, Record<string, string>> = {
+  en: { award: 'Award', paper: 'Paper', conference: 'Conference', event: 'Event', exhibition: 'Exhibition', general: 'News' },
+  ko: { award: '수상', paper: '논문', conference: '학회', event: '행사', exhibition: '전시', general: '소식' },
+};
+const pageTitle = lang === 'ko' ? '소식 | 서울대학교 커넥톰 연구실' : 'News | SNU Connectome Laboratory';
+---
+
+<BaseLayout lang={lang} title={pageTitle}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="max-w-2xl space-y-4">
+      <p class="eyebrow">{t('news.eyebrow')}</p>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('news.title')}</h1>
+      <p class="text-lg text-ink-soft leading-relaxed">{t('news.desc')}</p>
+    </div>
+
+    <div class="space-y-5">
+      {sortedNews.map(async (item) => {
+        const { Content } = await item.render();
+        return (
+          <article class="card card-hover p-7 space-y-3">
+            {item.data.image && (
+              <img
+                src={item.data.image}
+                alt=""
+                loading="lazy"
+                class="w-full aspect-[16/9] object-cover rounded-lg"
+              />
+            )}
+            <div class="flex items-center gap-2.5">
+              <span class="chip-accent">{CATEGORY_LABELS[lang][item.data.category] ?? item.data.category}</span>
+              <span class="font-mono text-xs text-ink-faint">{item.data.date}</span>
+            </div>
+            <h2 class="font-display text-xl font-semibold text-ink leading-snug">
+              {item.data.link ? (
+                <a href={item.data.link} target="_blank" rel="noreferrer" class="hover:text-lab-700 transition-colors">
+                  {item.data.title}
+                </a>
+              ) : (
+                item.data.title
+              )}
+            </h2>
+            {item.data.titleKo && <p class="text-sm text-ink-faint">{item.data.titleKo}</p>}
+            <div class="prose prose-stone prose-sm max-w-none prose-a:text-lab-700">
+              <Content />
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</BaseLayout>

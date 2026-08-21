@@ -7,10 +7,10 @@
     "Shinjae Yoo",
     "Jiook Cha"
   ],
-  "venue": "eScholarship (California Digital Library)",
+  "venue": "eScholarship repository",
   "year": 2021,
   "doi": null,
-  "url": null,
+  "url": "https://escholarship.org/uc/item/6xj6n6z9",
   "tags": [
     "AI & Foundation Models"
   ],
@@ -18,5 +18,6 @@
   "labMembers": [
     "Seungwook Han",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

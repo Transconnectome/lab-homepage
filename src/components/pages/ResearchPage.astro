@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allResearch = (await getCollection('research')).filter((r) => (r.data.lang ?? 'en') === lang);
+const sortedResearch = allResearch.sort((a, b) => a.data.order - b.data.order);
+const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실' : 'Research | SNU Connectome Laboratory';
+---
+
+<BaseLayout lang={lang} title={pageTitle}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-14">
+    <div class="max-w-2xl space-y-4">
+      <p class="eyebrow">{t('research.eyebrow')}</p>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('research.title')}</h1>
+      <p class="text-lg text-ink-soft leading-relaxed">{t('research.desc')}</p>
+    </div>
+
+    <div class="space-y-10">
+      {sortedResearch.map(async (item) => {
+        const { Content } = await item.render();
+        return (
+          <article id={item.data.baseSlug ?? item.slug} class="card p-8 sm:p-10 space-y-6 scroll-mt-24">
+            <header class="border-b border-line pb-5 space-y-1">
+              <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink">{item.data.title}</h2>
+              <p class="font-mono text-sm text-lab-700">{item.data.titleKo}</p>
+            </header>
+
+            {item.data.keyHighlights.length > 0 && (
+              <div class="p-5 rounded-xl bg-paper border border-line space-y-2">
+                <div class="eyebrow">{t('research.keyDirections')}</div>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {item.data.keyHighlights.map((hl: string) => (
+                    <li class="text-sm text-ink-soft flex items-start gap-2">
+                      <span class="text-lab-700 font-bold mt-0.5">▹</span>
+                      <span>{hl}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-semibold prose-a:text-lab-700">
+              <Content />
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</BaseLayout>

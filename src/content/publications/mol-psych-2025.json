@@ -10,5 +10,6 @@
   "featured": true,
   "spotlight": "Molecular Psychiatry 2025",
   "abstract": "This study demonstrates how psychiatric polygenic risk profiles functionally mediate the transgenerational transmission of major depressive disorder across family lineages, shaping neurodevelopmental risk pathways in youth.",
-  "labMembers": ["Eunji Lee", "Bo-Gyeom Kim", "Gakyung Kim", "Yoonjung Yoonie Joo", "Jiook Cha"]
+  "labMembers": ["Eunji Lee", "Bo-Gyeom Kim", "Gakyung Kim", "Yoonjung Yoonie Joo", "Jiook Cha"],
+  "kind": "journal"
 }

@@ -9,5 +9,6 @@
   "tags": ["Brain-LLM Alignment", "NLP", "fMRI", "Representational Geometry"],
   "featured": false,
   "abstract": "Investigating representational alignment between high-dimensional neural activity and Large Language Models, revealing that standard linear regression encodings severely underestimate brain-language congruence compared to nonlinear multimodal mappings.",
-  "labMembers": ["Dongyeop Han", "Jiook Cha"]
+  "labMembers": ["Dongyeop Han", "Jiook Cha"],
+  "kind": "preprint"
 }

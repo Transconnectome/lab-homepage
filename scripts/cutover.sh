@@ -23,7 +23,7 @@
 # =============================================================================
 set -euo pipefail
 
-REPO="snuconnectome/lab-homepage"
+REPO="Transconnectome/lab-homepage"
 DOMAIN="www.connectomelab.com"
 PAGES_HOST="snuconnectome.github.io"
 MARKER="Six networks, one lab"   # unique to the NEW site (the da Vinci quote also existed on the old Google Site)

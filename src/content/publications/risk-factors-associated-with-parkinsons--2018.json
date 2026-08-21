@@ -7,7 +7,7 @@
     "Junbeom Kwon",
     "Hyunsun Lim"
   ],
-  "venue": "bioRxiv (Cold Spring Harbor Laboratory)",
+  "venue": "bioRxiv preprint",
   "year": 2018,
   "doi": "10.1101/253690",
   "url": "https://doi.org/10.1101/253690",
@@ -18,5 +18,6 @@
   "labMembers": [
     "Jiook Cha",
     "Junbeom Kwon"
-  ]
+  ],
+  "kind": "preprint"
 }
