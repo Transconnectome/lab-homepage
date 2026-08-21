@@ -1,0 +1,17 @@
+{
+  "name": "QuantumTSTransformer",
+  "repo": "Transconnectome/QuantumTSTransformer",
+  "blurb": "A time-series quantum transformer exploring quantum machine learning for sequential data.",
+  "blurbKo": "시계열 데이터를 위한 양자 머신러닝을 탐구하는 Time-Series Quantum Transformer.",
+  "network": "subcortical",
+  "publicationSlug": null,
+  "highlight": null,
+  "featured": false,
+  "order": 23,
+  "generatedBy": "llm:claude-fable-5",
+  "repoUrl": "https://github.com/Transconnectome/QuantumTSTransformer",
+  "stars": 3,
+  "primaryLanguage": "Python",
+  "lastPush": "2025-10-31",
+  "archived": false
+}

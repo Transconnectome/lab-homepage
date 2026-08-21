@@ -43,6 +43,11 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: python scripts/generate_research_ideas.py
 
+      - name: Refresh project repo metadata
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/sync_project_metadata.py
+
       # Validation gate: never commit generated content that breaks the build.
       - name: Setup Node.js
         uses: actions/setup-node@v4

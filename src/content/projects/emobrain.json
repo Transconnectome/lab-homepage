@@ -1,0 +1,17 @@
+{
+  "name": "EmoBrain",
+  "repo": "Transconnectome/EmoBrain",
+  "blurb": "Emotion representation learning with brain foundation models and naturalistic fMRI.",
+  "blurbKo": "뇌 파운데이션 모델과 자연주의적 fMRI로 정서 표상을 학습하는 프로젝트.",
+  "network": "salience",
+  "publicationSlug": null,
+  "highlight": null,
+  "featured": true,
+  "order": 3,
+  "generatedBy": "llm:claude-fable-5",
+  "repoUrl": "https://github.com/Transconnectome/EmoBrain",
+  "stars": 0,
+  "primaryLanguage": "Python",
+  "lastPush": "2026-08-18",
+  "archived": false
+}

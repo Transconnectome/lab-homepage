@@ -127,6 +127,30 @@ const ideasCollection = defineCollection({
   }),
 });
 
+const projectsCollection = defineCollection({
+  type: 'data',
+  schema: z.object({
+    // Curated fields — hand-maintained; scripts/sync_project_metadata.py never writes these.
+    name: z.string(),
+    repo: z.string(), // "owner/name" — the sync key; the set of files on disk IS the allowlist
+    blurb: z.string(),
+    blurbKo: z.string().nullable().optional(),
+    // Hub ids of the research-map networks (mirrors the BrainViewer hub ids).
+    network: z.enum(['dmn', 'ecn', 'salience', 'sensory', 'subcortical', 'eeg-mesh']),
+    publicationSlug: z.string().nullable().optional(), // publications entry id (filename minus .json)
+    highlight: z.string().nullable().optional(), // e.g. "NeurIPS 2023"
+    featured: z.boolean().default(false),
+    order: z.number().default(99),
+    generatedBy: z.string().nullable().optional(), // provenance when the blurb is LLM-drafted
+    // Synced fields — machine-owned, refreshed weekly from the GitHub API.
+    repoUrl: z.string(),
+    stars: z.number().nullable().optional(),
+    primaryLanguage: z.string().nullable().optional(),
+    lastPush: z.string().nullable().optional(),
+    archived: z.boolean().default(false),
+  }),
+});
+
 export const collections = {
   members: membersCollection,
   research: researchCollection,
@@ -135,4 +159,5 @@ export const collections = {
   trends: trendsCollection,
   history: historyCollection,
   ideas: ideasCollection,
+  projects: projectsCollection,
 };

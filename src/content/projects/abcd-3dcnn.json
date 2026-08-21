@@ -1,0 +1,17 @@
+{
+  "name": "ABCD-3DCNN",
+  "repo": "Transconnectome/ABCD-3DCNN",
+  "blurb": "Large-scale 3D convolutional networks predicting cognitive traits from adolescent structural MRI (ABCD).",
+  "blurbKo": "청소년 구조 MRI(ABCD)로 인지 특성을 예측하는 대규모 3D CNN.",
+  "network": "subcortical",
+  "publicationSlug": "training-a-large-scale-3d-convolutional--2021",
+  "highlight": null,
+  "featured": false,
+  "order": 22,
+  "generatedBy": "llm:claude-fable-5",
+  "repoUrl": "https://github.com/Transconnectome/ABCD-3DCNN",
+  "stars": 7,
+  "primaryLanguage": "Jupyter Notebook",
+  "lastPush": "2023-10-16",
+  "archived": false
+}

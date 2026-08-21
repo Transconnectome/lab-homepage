@@ -1,0 +1,17 @@
+{
+  "name": "Intell_PLE_Pathway",
+  "repo": "Transconnectome/Intell_PLE_Pathway",
+  "blurb": "Analysis code for gene–environment pathways to cognitive intelligence and psychotic-like experiences in children (Park et al.).",
+  "blurbKo": "아동의 인지 지능과 정신증 유사 경험에 이르는 유전–환경 경로 분석 코드 (Park et al.).",
+  "network": "subcortical",
+  "publicationSlug": "geneenvironment-pathways-to-cognitive-in-2024",
+  "highlight": "eLife",
+  "featured": false,
+  "order": 21,
+  "generatedBy": "llm:claude-fable-5",
+  "repoUrl": "https://github.com/Transconnectome/Intell_PLE_Pathway",
+  "stars": 0,
+  "primaryLanguage": "R",
+  "lastPush": "2023-06-29",
+  "archived": false
+}

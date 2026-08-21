@@ -51,6 +51,10 @@ export const ui = {
       'We welcome graduate students, postdocs, and undergraduate interns from psychology, AI, neuroscience, physics, and beyond. Tell us what you want to figure out.',
     'home.joinCta': 'How to apply',
     'home.emailPi': 'Email the PI',
+    'home.projectsEyebrow': 'Open source',
+    'home.projectsTitle': 'Featured projects',
+    'home.allProjects': 'All code on GitHub →',
+    'home.projectPaper': 'Paper',
 
     // Research page
     'research.eyebrow': 'Research',
@@ -203,6 +207,10 @@ export const ui = {
       '심리학, 인공지능, 신경과학, 물리학 등 다양한 배경의 대학원생, 박사후연구원, 학부 인턴을 환영합니다. 무엇을 밝혀내고 싶은지 들려주세요.',
     'home.joinCta': '지원 방법',
     'home.emailPi': '교수님께 이메일',
+    'home.projectsEyebrow': '오픈 소스',
+    'home.projectsTitle': '주요 프로젝트',
+    'home.allProjects': 'GitHub에서 전체 코드 →',
+    'home.projectPaper': '논문',
 
     // Research page
     'research.eyebrow': '연구',

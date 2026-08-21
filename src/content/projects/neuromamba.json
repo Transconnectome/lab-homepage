@@ -1,0 +1,17 @@
+{
+  "name": "NeuroMamba",
+  "repo": "Transconnectome/NeuroMamba",
+  "blurb": "A state-space foundation model for functional MRI, scaling selective state-space dynamics to whole-brain 4D signals.",
+  "blurbKo": "기능적 MRI를 위한 상태공간(state-space) 파운데이션 모델.",
+  "network": "dmn",
+  "publicationSlug": "neuromamba-2025",
+  "highlight": "NeurIPS 2025 Workshop",
+  "featured": true,
+  "order": 2,
+  "generatedBy": "llm:claude-fable-5",
+  "repoUrl": "https://github.com/Transconnectome/NeuroMamba",
+  "stars": 1,
+  "primaryLanguage": "Python",
+  "lastPush": "2026-05-21",
+  "archived": false
+}

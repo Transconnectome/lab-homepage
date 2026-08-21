@@ -1,0 +1,17 @@
+{
+  "name": "SwiFT",
+  "repo": "Transconnectome/SwiFT",
+  "blurb": "Swin 4D fMRI Transformer — end-to-end representation learning directly on raw 4D fMRI volumes.",
+  "blurbKo": "Swin 4D fMRI Transformer — 원시 4D fMRI 볼륨에서 곧바로 표현을 학습하는 엔드투엔드 모델.",
+  "network": "ecn",
+  "publicationSlug": "swift-swin-4d-fmri-transformer-2023",
+  "highlight": "NeurIPS 2023",
+  "featured": true,
+  "order": 1,
+  "generatedBy": "llm:claude-fable-5",
+  "repoUrl": "https://github.com/Transconnectome/SwiFT",
+  "stars": 86,
+  "primaryLanguage": "Python",
+  "lastPush": "2024-12-05",
+  "archived": false
+}

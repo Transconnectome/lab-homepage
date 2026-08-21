@@ -1,0 +1,17 @@
+{
+  "name": "MBBN-IC",
+  "repo": "snuconnectome/MBBN-IC",
+  "blurb": "Instance-contrastive loss for multi-band brain network transformers.",
+  "blurbKo": "Multi-band 뇌 네트워크 트랜스포머를 위한 instance contrastive 손실 함수.",
+  "network": "ecn",
+  "publicationSlug": null,
+  "highlight": null,
+  "featured": false,
+  "order": 12,
+  "generatedBy": "llm:claude-fable-5",
+  "repoUrl": "https://github.com/snuconnectome/MBBN-IC",
+  "stars": 1,
+  "primaryLanguage": "Python",
+  "lastPush": "2026-02-22",
+  "archived": false
+}

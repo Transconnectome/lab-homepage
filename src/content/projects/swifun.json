@@ -1,0 +1,17 @@
+{
+  "name": "SwiFUN",
+  "repo": "Transconnectome/SwiFUN",
+  "blurb": "Predicting task-related brain activity from resting-state brain dynamics with fMRI Transformers — the SwiFT line, continued.",
+  "blurbKo": "휴지기 뇌 동역학으로부터 과제 관련 뇌 활동을 예측하는 fMRI Transformer.",
+  "network": "ecn",
+  "publicationSlug": "predicting-task-related-brain-activity-f-2025",
+  "highlight": "Imaging Neuroscience 2025",
+  "featured": false,
+  "order": 10,
+  "generatedBy": "llm:claude-fable-5",
+  "repoUrl": "https://github.com/Transconnectome/SwiFUN",
+  "stars": 7,
+  "primaryLanguage": "Python",
+  "lastPush": "2024-10-08",
+  "archived": false
+}

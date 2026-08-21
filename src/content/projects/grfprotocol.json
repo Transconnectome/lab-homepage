@@ -1,0 +1,17 @@
+{
+  "name": "GRFProtocol",
+  "repo": "Transconnectome/GRFProtocol",
+  "blurb": "Validation and practical guidelines for studying individual differences with generalized random forests (Lee et al., 2025).",
+  "blurbKo": "일반화 랜덤 포레스트(GRF)로 개인차를 연구하기 위한 검증과 실무 가이드라인 (Lee et al., 2025).",
+  "network": "subcortical",
+  "publicationSlug": "a-more-comprehensive-and-reliable-analys-2025",
+  "highlight": null,
+  "featured": false,
+  "order": 20,
+  "generatedBy": "llm:claude-fable-5",
+  "repoUrl": "https://github.com/Transconnectome/GRFProtocol",
+  "stars": 0,
+  "primaryLanguage": "R",
+  "lastPush": "2025-11-04",
+  "archived": false
+}

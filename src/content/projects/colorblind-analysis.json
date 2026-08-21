@@ -1,0 +1,17 @@
+{
+  "name": "Project ColorBlind",
+  "repo": "Transconnectome/colorBlind_analysis",
+  "blurb": "An fMRI-based display filter for individuals with color vision deficiency.",
+  "blurbKo": "색각 이상이 있는 사람들을 위한 fMRI 기반 디스플레이 필터 연구.",
+  "network": "sensory",
+  "publicationSlug": null,
+  "highlight": null,
+  "featured": true,
+  "order": 4,
+  "generatedBy": "llm:claude-fable-5",
+  "repoUrl": "https://github.com/Transconnectome/colorBlind_analysis",
+  "stars": 1,
+  "primaryLanguage": "Python",
+  "lastPush": "2026-08-17",
+  "archived": false
+}
