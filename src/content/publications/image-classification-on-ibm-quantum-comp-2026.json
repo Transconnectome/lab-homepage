@@ -7,7 +7,7 @@
     "Hwidong Yoo",
     "Kwangmin Yu"
   ],
-  "venue": "arXiv (Cornell University)",
+  "venue": "arXiv preprint",
   "year": 2026,
   "doi": "10.48550/arxiv.2607.17705",
   "url": "https://doi.org/10.48550/arxiv.2607.17705",
@@ -18,5 +18,6 @@
   "labMembers": [
     "Junghoon Park",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

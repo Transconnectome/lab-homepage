@@ -7,7 +7,7 @@
     "Seung Yun Choi",
     "Jiook Cha"
   ],
-  "venue": "bioRxiv (Cold Spring Harbor Laboratory)",
+  "venue": "bioRxiv preprint",
   "year": 2025,
   "doi": "10.1101/2025.10.28.685232",
   "url": "https://doi.org/10.1101/2025.10.28.685232",
@@ -21,5 +21,6 @@
     "Maria Pak",
     "Seung Yun Choi",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

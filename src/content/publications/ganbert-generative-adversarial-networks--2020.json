@@ -9,7 +9,7 @@
     "Jiook Cha",
     "Alzheimer’s Disease Neuroimaging Initiative"
   ],
-  "venue": "arXiv (Cornell University)",
+  "venue": "arXiv preprint",
   "year": 2020,
   "doi": "10.48550/arxiv.2008.04393",
   "url": "https://doi.org/10.48550/arxiv.2008.04393",
@@ -20,5 +20,6 @@
   "featured": false,
   "labMembers": [
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

@@ -7,7 +7,7 @@
     "Jiook Cha",
     "Hye Won Kime"
   ],
-  "venue": "Columbia Academic Commons (Columbia University)",
+  "venue": "Columbia Academic Commons",
   "year": 2017,
   "doi": "10.7916/d86411nk",
   "url": "https://doi.org/10.7916/d86411nk",
@@ -17,5 +17,6 @@
   "featured": false,
   "labMembers": [
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

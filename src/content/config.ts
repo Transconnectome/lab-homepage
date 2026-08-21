@@ -27,6 +27,8 @@ const membersCollection = defineCollection({
 const researchCollection = defineCollection({
   type: 'content',
   schema: z.object({
+    lang: z.enum(['en', 'ko']).default('en'),
+    baseSlug: z.string().nullable().optional(),
     title: z.string(),
     titleKo: z.string(),
     tagline: z.string(),
@@ -41,6 +43,8 @@ const researchCollection = defineCollection({
 const newsCollection = defineCollection({
   type: 'content',
   schema: z.object({
+    lang: z.enum(['en', 'ko']).default('en'),
+    baseSlug: z.string().nullable().optional(),
     title: z.string(),
     titleKo: z.string().nullable().optional(),
     date: z.string(),
@@ -68,6 +72,7 @@ const publicationsCollection = defineCollection({
     spotlight: z.string().nullable().optional(),
     abstract: z.string().nullable().optional(),
     labMembers: z.array(z.string()).default([]),
+    kind: z.enum(['journal', 'conference', 'workshop', 'preprint']).default('journal'),
   }),
 });
 
@@ -92,6 +97,8 @@ const trendsCollection = defineCollection({
 const historyCollection = defineCollection({
   type: 'content',
   schema: z.object({
+    lang: z.enum(['en', 'ko']).default('en'),
+    baseSlug: z.string().nullable().optional(),
     period: z.string(),
     year: z.number(),
     title: z.string(),
@@ -107,11 +114,15 @@ const ideasCollection = defineCollection({
     titleKo: z.string().nullable().optional(),
     date: z.string(),
     hypothesis: z.string(),
+    hypothesisKo: z.string().nullable().optional(),
     rationale: z.string(),
+    rationaleKo: z.string().nullable().optional(),
     labThreads: z.array(z.string()).default([]),
     externalInspiration: z.array(z.string()).default([]),
     firstExperiment: z.string(),
+    firstExperimentKo: z.string().nullable().optional(),
     risks: z.string(),
+    risksKo: z.string().nullable().optional(),
     generatedBy: z.string(),
   }),
 });

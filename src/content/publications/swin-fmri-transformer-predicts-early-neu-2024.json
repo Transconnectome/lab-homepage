@@ -5,7 +5,7 @@
     "Dowon Kim",
     "Jiook Cha"
   ],
-  "venue": "arXiv (Cornell University)",
+  "venue": "arXiv preprint",
   "year": 2024,
   "doi": "10.48550/arxiv.2412.07783",
   "url": "https://doi.org/10.48550/arxiv.2412.07783",
@@ -18,5 +18,6 @@
   "labMembers": [
     "Dowon Kim",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

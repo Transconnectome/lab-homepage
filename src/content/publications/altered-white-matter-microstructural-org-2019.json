@@ -1,5 +1,5 @@
 {
-  "title": "Altered White Matter Microstructural Organization in Post-Traumatic Stress Disorder across 3,049 Adults: Results from the PGC-ENIGMA PTSD Consortium",
+  "title": "Altered white matter microstructural organization in posttraumatic stress disorder across 3047 adults: results from the PGC-ENIGMA PTSD consortium",
   "authors": [
     "Emily L. Dennis",
     "Seth G. Disner",
@@ -16,7 +16,7 @@
     "Kyle Choi",
     "Nicholas D. Davenport",
     "Maria Densmore",
-    "Stefan S. du Plessis",
+    "Stéfan du Plessis",
     "Gina L. Forster",
     "Jessie L. Frijling",
     "A. Gönenç",
@@ -39,11 +39,11 @@
     "Gen Li",
     "Vincent A. Magnotta",
     "Antje Manthey",
-    "Geoffrey May",
+    "Geoff J. May",
     "Deleene S. Menefee",
     "Laura Nawijn",
-    "Steven M Nelson",
-    "Richard WJ Neufeld",
+    "Steven M. Nelson",
+    "Richard W. J. Neufeld",
     "Jack B. Nitschke",
     "Daniel C.M. O'Doherty",
     "Matthew Peverill",
@@ -60,7 +60,7 @@
     "Jean Théberge",
     "Jana K. Tran",
     "Leigh L. van den Heuvel",
-    "Steven J. van der Werff",
+    "Steven J.A. van der Werff",
     "Sanne J.H. van Rooij",
     "Mirjam van Zuiden",
     "Carmen Vélez",
@@ -100,17 +100,18 @@
     "Murray B. Stein",
     "Thomas Straube",
     "David F. Tate",
-    "Nic J. van der Wee"
+    "Nic J.A. van der Wee"
   ],
-  "venue": "bioRxiv (Cold Spring Harbor Laboratory)",
+  "venue": "Molecular Psychiatry",
   "year": 2019,
-  "doi": "10.1101/677153",
-  "url": "https://doi.org/10.1101/677153",
+  "doi": "10.1038/s41380-019-0631-x",
+  "url": "https://doi.org/10.1038/s41380-019-0631-x",
   "tags": [
     "Psychiatry"
   ],
   "featured": false,
   "labMembers": [
     "Jiook Cha"
-  ]
+  ],
+  "kind": "journal"
 }

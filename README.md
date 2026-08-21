@@ -72,7 +72,7 @@ the warmth; the cyan accent carries the lab's technical identity.
 
 ### Development
 ```bash
-git clone https://github.com/snuconnectome/lab-homepage.git
+git clone https://github.com/Transconnectome/lab-homepage.git
 cd lab-homepage
 npm ci
 npm run dev        # http://localhost:4321

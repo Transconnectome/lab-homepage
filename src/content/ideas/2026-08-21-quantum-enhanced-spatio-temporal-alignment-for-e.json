@@ -16,5 +16,9 @@
   ],
   "firstExperiment": "Develop a hybrid quantum-classical spatio-temporal alignment module using parameterized quantum circuits (e.g., inspired by 'Hybrid Quantum Temporal Convolutional Networks') within a STEAM-like architecture. Train this model on publicly available multi-subject EEG datasets (e.g., PhysioNet EEGMotorMovement/Imagery Dataset) for motor imagery decoding. Evaluate improvement in cross-subject generalization (accuracy and F1-score) compared to classical STEAM. Subsequently, apply EEG-PRISM to interpret the feature importance in frequency and source domains.",
   "risks": "Quantum hardware limitations (noise, qubit count) may restrict the complexity of quantum circuits. Integrating QML modules efficiently into large classical foundation models can be challenging. Physiologically-grounded interpretability might be difficult to validate quantitatively without dedicated ground truth beyond typical EEG inverse solutions.",
-  "generatedBy": "llm:google/gemini-2.5-flash"
+  "generatedBy": "llm:google/gemini-2.5-flash",
+  "hypothesisKo": "EEG 파운데이션 모델에 시공간 정렬을 위한 양자 머신러닝 기술을 통합하면 다양한 데이터셋과 피험자에 걸쳐 모델 일반화 성능이 향상한다. 또한 예측 메커니즘의 생리학적 해석이 가능해진다.",
+  "rationaleKo": "최근 STEAM, EEG-PRISM과 같은 EEG 파운데이션 모델의 발전은 견고한 시공간 정렬과 생리학적 해석의 필요성을 강조한다. 우리 연구실은 고차원 뇌 데이터용 QML과 상태 공간 fMRI/EEG 파운데이션 모델 분야에서 독보적인 전문성을 보유한다. 이러한 강점을 바탕으로 양자 원리가 시공간 정렬을 어떻게 최적화할 수 있는지 탐구한다. 이는 고전적인 방법보다 더 효율적이고 미묘한 특징 추출을 가능하게 한다. 이후 EEG-PRISM 프레임워크를 활용하여 이 특징들을 해석한다.",
+  "firstExperimentKo": "STEAM과 유사한 아키텍처 내에서 매개변수화된 양자 회로('Hybrid Quantum Temporal Convolutional Networks'에서 영감을 얻은 접근 방식)를 사용하여 하이브리드 양자-고전 시공간 정렬 모듈을 개발한다. 이 모델을 공개된 다중 피험자 EEG 데이터셋(예: PhysioNet EEGMotorMovement/Imagery Dataset)으로 훈련하여 운동 상상 디코딩을 수행한다. 고전적인 STEAM과 비교하여 피험자 간 일반화 성능(정확도 및 F1 점수)의 개선 여부를 평가한다. 그 후, EEG-PRISM을 적용하여 주파수 및 소스 도메인에서 특징 중요도를 해석한다.",
+  "risksKo": "양자 하드웨어의 한계(노이즈, 큐비트 수)가 양자 회로의 복잡성을 제한할 수 있다. QML 모듈을 대규모 고전 파운데이션 모델에 효율적으로 통합하는 것은 어려울 수 있다. 생리학적 해석의 경우, 일반적인 EEG 역원 해법을 넘어서는 전용 그라운드 트루스가 없으면 정량적으로 검증하기 어려울 수 있다."
 }

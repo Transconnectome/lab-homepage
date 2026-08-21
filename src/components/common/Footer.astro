@@ -1,4 +1,11 @@
 ---
+import { useTranslations, localePath, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 ---
 
@@ -9,48 +16,44 @@ const currentYear = new Date().getFullYear();
       <div class="md:col-span-2 space-y-4">
         <div class="flex items-center gap-2.5">
           <img src="/assets/logo-mark.png" alt="" class="w-7 h-7" />
-          <span class="font-display font-semibold text-ink">SNU Connectome Laboratory</span>
+          <span class="font-display font-semibold text-ink">
+            {lang === 'ko' ? '서울대학교 커넥톰 연구실' : 'SNU Connectome Laboratory'}
+          </span>
         </div>
         <blockquote class="font-display text-ink-soft italic border-l-2 border-lab-600 pl-4 leading-relaxed">
           “Study the science of art. Study the art of science. Develop your senses — especially learn how to see.
           Realize that everything connects to everything else.”
           <span class="block font-sans font-mono text-xs text-ink-faint mt-2 not-italic">— Leonardo da Vinci</span>
         </blockquote>
-        <p class="text-sm leading-relaxed">
-          Department of Psychology · Interdisciplinary Program in AI (GSAI) · Department of Brain &amp; Cognitive Sciences
-        </p>
+        <p class="text-sm leading-relaxed" set:html={t('footer.affiliations')} />
       </div>
 
       <!-- Navigation -->
       <div class="space-y-3">
-        <h4 class="eyebrow">Navigate</h4>
+        <h4 class="eyebrow">{t('footer.navigate')}</h4>
         <ul class="space-y-2">
-          <li><a href="/research" class="hover:text-lab-700 transition-colors">Research</a></li>
-          <li><a href="/publications" class="hover:text-lab-700 transition-colors">Publications</a></li>
-          <li><a href="/team" class="hover:text-lab-700 transition-colors">People</a></li>
-          <li><a href="/news" class="hover:text-lab-700 transition-colors">News</a></li>
-          <li><a href="/history" class="hover:text-lab-700 transition-colors">History</a></li>
-          <li><a href="/radar" class="hover:text-lab-700 transition-colors">Research Radar</a></li>
-          <li><a href="/ideas" class="hover:text-lab-700 transition-colors">AI Idea Lab</a></li>
-          <li><a href="/join" class="text-lab-700 font-semibold hover:text-lab-800 transition-colors">Join us</a></li>
+          <li><a href={localePath(lang, '/research')} class="hover:text-lab-700 transition-colors">{t('nav.research')}</a></li>
+          <li><a href={localePath(lang, '/publications')} class="hover:text-lab-700 transition-colors">{t('nav.publications')}</a></li>
+          <li><a href={localePath(lang, '/team')} class="hover:text-lab-700 transition-colors">{t('nav.people')}</a></li>
+          <li><a href={localePath(lang, '/news')} class="hover:text-lab-700 transition-colors">{t('nav.news')}</a></li>
+          <li><a href={localePath(lang, '/history')} class="hover:text-lab-700 transition-colors">{t('nav.history')}</a></li>
+          <li><a href={localePath(lang, '/radar')} class="hover:text-lab-700 transition-colors">{t('footer.researchRadar')}</a></li>
+          <li><a href={localePath(lang, '/ideas')} class="hover:text-lab-700 transition-colors">{t('footer.ideaLab')}</a></li>
+          <li><a href={localePath(lang, '/join')} class="text-lab-700 font-semibold hover:text-lab-800 transition-colors">{t('nav.join')}</a></li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div class="space-y-3">
-        <h4 class="eyebrow">Contact</h4>
+        <h4 class="eyebrow">{t('footer.contact')}</h4>
         <address class="not-italic space-y-2 leading-relaxed">
-          <p>
-            Office M512, Building 16<br />
-            Seoul National University<br />
-            1 Gwanak-ro, Gwanak-gu, Seoul
-          </p>
+          <p set:html={t('footer.address')} />
           <p>
             <a href="mailto:connectome@snu.ac.kr" class="hover:text-lab-700 transition-colors">connectome@snu.ac.kr</a><br />
             <a href="tel:+82-2-880-8618" class="hover:text-lab-700 transition-colors">+82-2-880-8618</a>
           </p>
           <p class="flex flex-col gap-1 pt-1">
-            <a href="https://github.com/snuconnectome" target="_blank" rel="noreferrer" class="hover:text-lab-700 transition-colors">GitHub</a>
+            <a href="https://github.com/Transconnectome" target="_blank" rel="noreferrer" class="hover:text-lab-700 transition-colors">GitHub</a>
             <a href="https://scholar.google.com/citations?user=d_s86n8AAAAJ" target="_blank" rel="noreferrer" class="hover:text-lab-700 transition-colors">Google Scholar</a>
           </p>
         </address>
@@ -60,7 +63,7 @@ const currentYear = new Date().getFullYear();
     <!-- Bottom bar -->
     <div class="pt-8 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-ink-faint">
       <div>© {currentYear} SNU Connectome Lab (PI: Jiook Cha)</div>
-      <a href="#top" class="hover:text-ink transition-colors">↑ Back to top</a>
+      <a href="#top" class="hover:text-ink transition-colors">{t('footer.backToTop')}</a>
     </div>
   </div>
 </footer>

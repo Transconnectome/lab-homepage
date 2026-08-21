@@ -8,7 +8,7 @@
     "Gyeongcheol Cho",
     "Jong Hyun Jung"
   ],
-  "venue": "Research Square",
+  "venue": "Research Square preprint",
   "year": 2026,
   "doi": "10.21203/rs.3.rs-9990161/v1",
   "url": "https://doi.org/10.21203/rs.3.rs-9990161/v1",
@@ -20,5 +20,6 @@
     "Yoonjung Yoonie Joo",
     "Junghoon Park",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

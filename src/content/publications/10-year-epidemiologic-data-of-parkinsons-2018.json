@@ -7,7 +7,7 @@
     "Jiook Cha",
     "Hye Won Kim"
   ],
-  "venue": "bioRxiv (Cold Spring Harbor Laboratory)",
+  "venue": "bioRxiv preprint",
   "year": 2018,
   "doi": "10.1101/253682",
   "url": "https://doi.org/10.1101/253682",
@@ -17,5 +17,6 @@
   "featured": false,
   "labMembers": [
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

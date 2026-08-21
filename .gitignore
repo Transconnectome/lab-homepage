@@ -29,3 +29,6 @@ env/
 
 # local preview server log
 .preview.log
+
+# local Claude Code session artifacts (worktrees etc.)
+.claude/

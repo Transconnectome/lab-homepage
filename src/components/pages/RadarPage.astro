@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ResearchRadarView from '../ai/ResearchRadarView';
+import { getCollection } from 'astro:content';
+import { useTranslations, localePath, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allTrends = await getCollection('trends');
+const trendData = allTrends
+  .map((tr) => tr.data)
+  .sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
+const pageTitle = lang === 'ko' ? '리서치 레이더 | 서울대학교 커넥톰 연구실' : 'Research Radar | SNU Connectome Laboratory';
+---
+
+<BaseLayout lang={lang} title={pageTitle}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <div class="max-w-2xl space-y-4">
+      <p class="eyebrow">{t('radar.eyebrow')}</p>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('radar.title')}</h1>
+      <p class="text-lg text-ink-soft leading-relaxed">{t('radar.desc')}</p>
+      <p class="text-base text-ink-soft">
+        {t('radar.ideasHint')}
+        <a href={localePath(lang, '/ideas')} class="text-lab-700 hover:text-lab-800 underline font-semibold mx-1">{t('radar.ideasLink')}</a>
+        {t('radar.ideasHint2')}
+      </p>
+    </div>
+
+    <ResearchRadarView trends={trendData} lang={lang} client:load />
+  </div>
+</BaseLayout>

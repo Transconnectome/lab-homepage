@@ -24,18 +24,24 @@ interface Member {
 
 interface Props {
   members: Member[];
+  lang?: 'en' | 'ko';
 }
 
-const CATEGORY_TABS: { id: string; label: string; match: (c: Member['category']) => boolean }[] = [
-  { id: 'all', label: 'Everyone', match: () => true },
-  { id: 'pi', label: 'Principal Investigator', match: (c) => c === 'pi' },
-  { id: 'grad', label: 'Graduate Students', match: (c) => c === 'phd' || c === 'ms' },
-  { id: 'undergrad', label: 'Interns', match: (c) => c === 'undergrad' },
-  { id: 'staff', label: 'Staff', match: (c) => c === 'staff' },
-  { id: 'alumni', label: 'Alumni', match: (c) => c === 'alumni' },
+const TAB_LABELS: Record<'en' | 'ko', Record<string, string>> = {
+  en: { all: 'Everyone', pi: 'Principal Investigator', grad: 'Graduate Students', undergrad: 'Interns', staff: 'Staff', alumni: 'Alumni' },
+  ko: { all: '전체', pi: '지도교수', grad: '대학원생', undergrad: '학부 인턴', staff: '스태프', alumni: '동문' },
+};
+
+const CATEGORY_TABS: { id: string; match: (c: Member['category']) => boolean }[] = [
+  { id: 'all', match: () => true },
+  { id: 'pi', match: (c) => c === 'pi' },
+  { id: 'grad', match: (c) => c === 'phd' || c === 'ms' },
+  { id: 'undergrad', match: (c) => c === 'undergrad' },
+  { id: 'staff', match: (c) => c === 'staff' },
+  { id: 'alumni', match: (c) => c === 'alumni' },
 ];
 
-export default function MemberGrid({ members }: Props) {
+export default function MemberGrid({ members, lang = 'en' }: Props) {
   const [selected, setSelected] = useState('all');
 
   // Only show tabs that actually have members
@@ -61,7 +67,7 @@ export default function MemberGrid({ members }: Props) {
                 : 'bg-white text-ink-soft hover:text-ink border border-line hover:border-lab-600/40'
             }`}
           >
-            {tab.label}
+            {TAB_LABELS[lang][tab.id]}
           </button>
         ))}
       </div>
@@ -95,10 +101,16 @@ export default function MemberGrid({ members }: Props) {
               {/* Name & role */}
               <div>
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <h3 className="font-display text-lg font-semibold text-ink leading-tight">{member.name}</h3>
-                  {member.nameKo && <span className="text-sm text-ink-faint">{member.nameKo}</span>}
+                  <h3 className="font-display text-lg font-semibold text-ink leading-tight">
+                    {lang === 'ko' && member.nameKo ? member.nameKo : member.name}
+                  </h3>
+                  <span className="text-sm text-ink-faint">
+                    {lang === 'ko' ? member.name : member.nameKo}
+                  </span>
                 </div>
-                <p className="text-sm font-semibold text-lab-700 mt-0.5">{member.role}</p>
+                <p className="text-sm font-semibold text-lab-700 mt-0.5">
+                  {lang === 'ko' && member.roleKo ? member.roleKo : member.role}
+                </p>
                 {member.affiliations.length > 0 && (
                   <p className="text-sm text-ink-faint mt-0.5">{member.affiliations[0]}</p>
                 )}

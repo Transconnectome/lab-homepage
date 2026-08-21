@@ -7,7 +7,7 @@
     "H. Eric Tseng",
     "Shinjae Yoo"
   ],
-  "venue": "arXiv (Cornell University)",
+  "venue": "arXiv preprint",
   "year": 2025,
   "doi": "10.48550/arxiv.2505.08782",
   "url": "https://doi.org/10.48550/arxiv.2505.08782",
@@ -19,5 +19,6 @@
   "labMembers": [
     "Junghoon Park",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

@@ -6,7 +6,7 @@
     "Shinjae Yoo",
     "Jiook Cha"
   ],
-  "venue": "arXiv (Cornell University)",
+  "venue": "arXiv preprint",
   "year": 2025,
   "doi": "10.48550/arxiv.2503.23394",
   "url": "https://doi.org/10.48550/arxiv.2503.23394",
@@ -19,5 +19,6 @@
     "Sangyoon Bae",
     "Junbeom Kwon",
     "Jiook Cha"
-  ]
+  ],
+  "kind": "preprint"
 }

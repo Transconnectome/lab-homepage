@@ -2,23 +2,26 @@
 import Navbar from '../components/common/Navbar.astro';
 import Footer from '../components/common/Footer.astro';
 import AskLabAI from '../components/ai/AskLabAI';
+import type { Lang } from '../i18n/ui';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  lang?: Lang;
 }
 
 const {
   title = 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실',
   description = 'Seoul National University Connectome Lab (PI: Jiook Cha). We study how the brain\'s connections give rise to mind — with brain foundation models (Neuro-X, NeuroMamba, DIVER-0), multimodal genetics, computational psychiatry, and quantum machine learning.',
   ogImage = '/assets/og-image.jpg',
+  lang = 'en',
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,7 +69,7 @@ const {
       Skip to content
     </a>
 
-    <Navbar />
+    <Navbar lang={lang} />
 
     <main id="main" class="flex-1">
       <slot />
@@ -75,6 +78,6 @@ const {
     <!-- Floating lab guide (curated FAQ, not a live AI) -->
     <AskLabAI client:idle />
 
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>

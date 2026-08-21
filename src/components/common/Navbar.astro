@@ -1,37 +1,46 @@
 ---
+import { useTranslations, altLangPath, localePath, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.replace(/\/$/, '') || '/';
 
 const navItems = [
-  { label: 'Research', href: '/research' },
-  { label: 'Publications', href: '/publications' },
-  { label: 'People', href: '/team' },
-  { label: 'News', href: '/news' },
-  { label: 'History', href: '/history' },
-  { label: 'Radar', href: '/radar' },
-  { label: 'Ideas', href: '/ideas' },
+  { label: t('nav.research'), href: localePath(lang, '/research') },
+  { label: t('nav.publications'), href: localePath(lang, '/publications') },
+  { label: t('nav.people'), href: localePath(lang, '/team') },
+  { label: t('nav.news'), href: localePath(lang, '/news') },
+  { label: t('nav.history'), href: localePath(lang, '/history') },
+  { label: t('nav.radar'), href: localePath(lang, '/radar') },
+  { label: t('nav.ideas'), href: localePath(lang, '/ideas') },
 ];
+const langHref = altLangPath(pathname, lang);
 ---
 
 <header class="sticky top-0 z-40 w-full border-b border-line bg-paper/90 backdrop-blur-md">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
     <!-- Brand -->
-    <a href="/" class="flex items-center gap-3 group min-w-0">
+    <a href={localePath(lang, '/')} class="flex items-center gap-3 group min-w-0">
       <img src="/assets/logo-mark.png" alt="" class="w-8 h-8 shrink-0" />
       <div class="min-w-0">
         <div class="font-display font-semibold text-ink text-base leading-tight truncate">
           Connectome Lab
         </div>
         <div class="font-mono text-[11px] text-ink-faint tracking-wide truncate">
-          Seoul National University
+          {lang === 'ko' ? '서울대학교' : 'Seoul National University'}
         </div>
       </div>
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
+    <nav class="hidden lg:flex items-center gap-0.5" aria-label="Primary">
       {navItems.map((item) => {
-        const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+        const isActive = currentPath === item.href || (item.href !== '/' && item.href !== '/ko' && currentPath.startsWith(item.href));
         return (
           <a
             href={item.href}
@@ -50,15 +59,22 @@ const navItems = [
 
     <div class="flex items-center gap-2">
       <a
-        href="/join"
+        href={langHref}
+        class="px-3 py-2 rounded-lg border border-line bg-white text-sm text-ink-soft hover:text-lab-800 hover:border-lab-600/40 transition-colors font-medium"
+        aria-label={lang === 'ko' ? 'Switch to English' : '한국어로 보기'}
+      >
+        {t('nav.langToggle')}
+      </a>
+      <a
+        href={localePath(lang, '/join')}
         class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-lab-700 hover:bg-lab-800 text-white font-semibold text-sm transition-colors"
       >
-        Join us
+        {t('nav.join')}
       </a>
 
       <button
         id="mobile-menu-btn"
-        class="md:hidden p-2 rounded-lg border border-line bg-white text-ink-soft hover:text-ink"
+        class="lg:hidden p-2 rounded-lg border border-line bg-white text-ink-soft hover:text-ink"
         aria-label="Toggle menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
@@ -71,8 +87,8 @@ const navItems = [
   </div>
 
   <!-- Mobile drawer -->
-  <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-5 border-t border-line bg-paper space-y-1">
-    {[...navItems, { label: 'Join us', href: '/join' }].map((item) => (
+  <div id="mobile-menu" class="hidden lg:hidden px-4 pt-2 pb-5 border-t border-line bg-paper space-y-1">
+    {[...navItems, { label: t('nav.join'), href: localePath(lang, '/join') }].map((item) => (
       <a
         href={item.href}
         class="block px-4 py-2.5 rounded-lg text-base text-ink-soft hover:bg-white hover:text-lab-800 transition-colors"
