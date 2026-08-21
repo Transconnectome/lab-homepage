@@ -2,8 +2,8 @@
   "title": "Quantum-Enhanced Spatio-Temporal Alignment for EEG Foundation Models with Physiologically-Grounded Interpretability",
   "titleKo": "생리적 근거 기반 해석 가능성을 갖춘 양자 강화 시공간 정렬 EEG 파운데이션 모델",
   "date": "2026-08-21",
-  "hypothesis": "Integrating quantum machine learning techniques for spatio-temporal alignment within EEG foundation models will enhance their generalizability across diverse datasets and subjects, while enabling physiologically-grounded interpretability of predictive mechanisms.",
-  "rationale": "Recent advances in EEG foundation models (e.g., STEAM, EEG-PRISM) highlight the need for robust spatio-temporal alignment and physiological interpretability. Our lab's expertise in Quantum Machine Learning (QML) for high-dimensional brain data and state-space fMRI/EEG foundation models uniquely positions us to explore how quantum principles can optimize spatio-temporal alignment, potentially offering more efficient and nuanced feature extraction than classical methods, and then interpret these features using EEG-PRISM's framework.",
+  "hypothesis": "Quantum spatio-temporal alignment inside EEG foundation models improves cross-dataset and cross-subject generalization while enabling physiologically grounded interpretability.",
+  "rationale": "Recent EEG foundation models (STEAM, EEG-PRISM) demand robust spatio-temporal alignment and interpretability — a natural fit for a lab strong in both QML and state-space models.",
   "labThreads": [
     "fMRI & EEG Foundation Models",
     "Quantum Machine Learning (QML) for High-Dimensional Brain Data",
@@ -14,11 +14,11 @@
     "EEG-PRISM: Physiologically-Grounded Interpretability of Predictions by EEG Foundation Models (arXiv (2026-08))",
     "Q-DIVER: Integrated Quantum Transfer Learning and Differentiable Quantum Architecture Search with EEG Data (2026 International Conference on Quantum Communications, Networking, and Computing (QCNC))"
   ],
-  "firstExperiment": "Develop a hybrid quantum-classical spatio-temporal alignment module using parameterized quantum circuits (e.g., inspired by 'Hybrid Quantum Temporal Convolutional Networks') within a STEAM-like architecture. Train this model on publicly available multi-subject EEG datasets (e.g., PhysioNet EEGMotorMovement/Imagery Dataset) for motor imagery decoding. Evaluate improvement in cross-subject generalization (accuracy and F1-score) compared to classical STEAM. Subsequently, apply EEG-PRISM to interpret the feature importance in frequency and source domains.",
-  "risks": "Quantum hardware limitations (noise, qubit count) may restrict the complexity of quantum circuits. Integrating QML modules efficiently into large classical foundation models can be challenging. Physiologically-grounded interpretability might be difficult to validate quantitatively without dedicated ground truth beyond typical EEG inverse solutions.",
+  "firstExperiment": "Add a parameterized-quantum-circuit alignment module to a STEAM-like model, train on PhysioNet motor-imagery EEG, compare cross-subject accuracy/F1 against classical STEAM, and interpret features with EEG-PRISM.",
+  "risks": "Quantum-hardware noise and qubit limits constrain circuit complexity, and physiological interpretability is hard to validate without ground truth.",
   "generatedBy": "llm:google/gemini-2.5-flash",
-  "hypothesisKo": "EEG 파운데이션 모델에 시공간 정렬을 위한 양자 머신러닝 기술을 통합하면 다양한 데이터셋과 피험자에 걸쳐 모델 일반화 성능이 향상한다. 또한 예측 메커니즘의 생리학적 해석이 가능해진다.",
-  "rationaleKo": "최근 STEAM, EEG-PRISM과 같은 EEG 파운데이션 모델의 발전은 견고한 시공간 정렬과 생리학적 해석의 필요성을 강조한다. 우리 연구실은 고차원 뇌 데이터용 QML과 상태 공간 fMRI/EEG 파운데이션 모델 분야에서 독보적인 전문성을 보유한다. 이러한 강점을 바탕으로 양자 원리가 시공간 정렬을 어떻게 최적화할 수 있는지 탐구한다. 이는 고전적인 방법보다 더 효율적이고 미묘한 특징 추출을 가능하게 한다. 이후 EEG-PRISM 프레임워크를 활용하여 이 특징들을 해석한다.",
-  "firstExperimentKo": "STEAM과 유사한 아키텍처 내에서 매개변수화된 양자 회로('Hybrid Quantum Temporal Convolutional Networks'에서 영감을 얻은 접근 방식)를 사용하여 하이브리드 양자-고전 시공간 정렬 모듈을 개발한다. 이 모델을 공개된 다중 피험자 EEG 데이터셋(예: PhysioNet EEGMotorMovement/Imagery Dataset)으로 훈련하여 운동 상상 디코딩을 수행한다. 고전적인 STEAM과 비교하여 피험자 간 일반화 성능(정확도 및 F1 점수)의 개선 여부를 평가한다. 그 후, EEG-PRISM을 적용하여 주파수 및 소스 도메인에서 특징 중요도를 해석한다.",
-  "risksKo": "양자 하드웨어의 한계(노이즈, 큐비트 수)가 양자 회로의 복잡성을 제한할 수 있다. QML 모듈을 대규모 고전 파운데이션 모델에 효율적으로 통합하는 것은 어려울 수 있다. 생리학적 해석의 경우, 일반적인 EEG 역원 해법을 넘어서는 전용 그라운드 트루스가 없으면 정량적으로 검증하기 어려울 수 있다."
+  "hypothesisKo": "EEG foundation model에 quantum ML 기반 시공간 정렬을 넣으면 데이터셋·피험자 간 일반화가 좋아지고, 예측 메커니즘의 생리학적 해석도 가능해진다.",
+  "rationaleKo": "STEAM, EEG-PRISM 같은 최신 EEG foundation model은 시공간 정렬과 해석 가능성을 요구한다. QML과 state-space 모델 양쪽에 강한 연구실이 시도하기에 적기다.",
+  "firstExperimentKo": "STEAM류 아키텍처에 parameterized quantum circuit 정렬 모듈을 넣어 PhysioNet motor-imagery EEG로 학습한다. 피험자 간 정확도·F1을 고전 STEAM과 비교하고 EEG-PRISM으로 특징을 해석한다.",
+  "risksKo": "양자 하드웨어의 노이즈·큐비트 한계가 회로 복잡도를 제한하고, 생리학적 해석은 ground truth 없이는 정량 검증이 어렵다."
 }

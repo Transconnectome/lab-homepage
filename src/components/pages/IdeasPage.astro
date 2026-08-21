@@ -43,6 +43,22 @@ const pageTitle = lang === 'ko' ? 'AI 아이디어 랩 | 서울대학교 커넥�
               : idea.data.titleKo && <p class="text-sm text-ink-faint">{idea.data.titleKo}</p>}
           </header>
 
+          {idea.data.image && (
+            <figure class="space-y-1.5">
+              <img
+                src={idea.data.image}
+                alt={idea.data.titleKo ?? idea.data.title}
+                class="rounded-xl border border-line w-full"
+                loading="lazy"
+              />
+              {idea.data.imageGeneratedBy && (
+                <figcaption class="font-mono text-xs text-ink-faint">
+                  🤖 {idea.data.imageGeneratedBy}
+                </figcaption>
+              )}
+            </figure>
+          )}
+
           <div class="p-4 rounded-xl bg-paper border border-line">
             <div class="eyebrow mb-1.5">{t('ideas.hypothesis')}</div>
             <p class="text-base text-ink leading-relaxed">{pick(idea.data.hypothesis, idea.data.hypothesisKo)}</p>

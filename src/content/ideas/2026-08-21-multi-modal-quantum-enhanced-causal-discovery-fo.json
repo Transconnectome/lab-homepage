@@ -2,8 +2,8 @@
   "title": "Multi-Modal Quantum-Enhanced Causal Discovery for Psychiatric Trajectories",
   "titleKo": "정신과적 궤적 예측을 위한 다중 모드 양자 강화 인과 발견",
   "date": "2026-08-21",
-  "hypothesis": "Integrating quantum machine learning with multi-modal data (genetics, neuroimaging, environment) will enable more accurate and robust causal discovery of factors influencing psychiatric trajectories, surpassing the capabilities of classical latent-space causal discovery methods.",
-  "rationale": "Our lab is deeply invested in 'Computational Psychiatry & Multi-Modal Genetics,' aiming to predict mental health trajectories. While 'Latent-Space Causal Discovery from Indirect Neuroimaging Observations' shows promising directions, the inherent complexity and high dimensionality of multi-modal data, coupled with potentially subtle non-linear causal relationships, are ideal candidates for quantum enhancements. QML's ability to handle high-dimensional spaces and non-linearities could provide a superior framework for causal inference, especially when integrating polygenic risk scores and complex connectomic data.",
+  "hypothesis": "Combining quantum ML with multimodal data (genetics, neuroimaging, environment) enables more accurate causal discovery of psychiatric-trajectory factors than classical latent-space methods.",
+  "rationale": "The lab already predicts mental-health trajectories from multimodal data; QML's strength in high-dimensional, nonlinear settings suits causal inference that integrates polygenic scores and connectomes.",
   "labThreads": [
     "Computational Psychiatry & Multi-Modal Genetics",
     "Quantum Machine Learning (QML) for High-Dimensional Brain Data",
@@ -15,11 +15,11 @@
     "Polygenic architecture of brain structure and function, behaviors, and psychopathologies in children (Nature Communications (2025))",
     "Q-DIVER: Integrated Quantum Transfer Learning and Differentiable Quantum Architecture Search with EEG Data (2026 International Conference on Quantum Communications, Networking, and Computing (QCNC))"
   ],
-  "firstExperiment": "Utilize existing multi-modal datasets from the lab (e.g., those used for 'Polygenic risk-informed white matter integrity improves deep learning-based prediction of youth depression'), including polygenic risk scores (PRS), white matter tractography features, and environmental adversity measures, alongside longitudinal depression scores. Develop a quantum-enhanced causal discovery model, possibly inspired by 'Integrated Quantum Transfer Learning' ideas for feature selection, to identify causal links between these multi-modal factors and subsequent changes in depression severity. Compare the causal graphs and predictive accuracy for future depression trajectories with classical latent-space causal discovery methods (e.g., ANM-based approaches).",
-  "risks": "The development of robust quantum causal discovery algorithms is still nascent and highly theoretical. Interpreting the causal mechanisms identified by QML models can be even more challenging than with classical methods. The statistical power for discovering subtle causal effects in complex, multi-modal human data with limited sample sizes remains a significant hurdle for any method, classical or quantum.",
+  "firstExperiment": "Train a quantum-enhanced causal-discovery model on the lab's PRS, white-matter tractography, adversity, and longitudinal depression data, then compare causal graphs and predictive accuracy against classical latent-space methods.",
+  "risks": "Quantum causal-discovery algorithms are nascent, hard to interpret, and statistical power for subtle causal effects in limited samples remains a hurdle.",
   "generatedBy": "llm:google/gemini-2.5-flash",
-  "hypothesisKo": "양자 머신러닝을 유전체, 뇌 영상, 환경 정보를 포함하는 다중 모드 데이터와 통합하면 정신 질환의 진행 경로에 영향을 미치는 요인들을 보다 정확하고 견고하게 파악할 수 있다. 이는 기존의 잠재 공간 인과 관계 발견 방법의 한계를 뛰어넘는다.",
-  "rationaleKo": "우리 연구실은 ‘계산 정신의학 및 다중 모드 유전체학’ 연구에 깊이 관여하며 정신 건강의 궤적을 예측하는 것을 목표로 한다. ‘간접적인 뇌 영상 관찰을 통한 잠재 공간 인과 관계 발견’이 유망한 방향을 제시하지만, 다중 모드 데이터의 본질적인 복잡성과 고차원성, 그리고 미묘한 비선형적 인과 관계는 양자 기술을 활용하기에 이상적인 조건이다. QML은 고차원 공간과 비선형성을 다루는 능력이 탁월하여, 특히 다유전자 위험 점수(polygenic risk scores)와 복잡한 연결체(connectomic) 데이터를 통합할 때 인과 추론을 위한 우월한 프레임워크를 제공할 수 있다.",
-  "firstExperimentKo": "기존의 연구실 보유 다중 모드 데이터셋(예: ‘다유전자 위험도 기반 백질 통합성이 청소년 우울증의 딥러닝 예측을 개선한다’ 연구에 사용된 데이터)을 활용한다. 여기에는 다유전자 위험 점수(PRS), 백질 추적화 특성, 환경적 역경 측정치와 함께 종단적 우울증 점수가 포함된다. ‘통합 양자 전이 학습(Integrated Quantum Transfer Learning)’ 아이디어를 특징 선택에 적용하는 것을 참고하여, 양자 기반의 인과 관계 발견 모델을 개발한다. 이 모델을 통해 다중 모드 요인과 이후 우울증 심각도 변화 사이의 인과적 연결성을 식별한다. 이렇게 도출된 인과 그래프와 미래 우울증 경로 예측 정확도를 기존 잠재 공간 인과 관계 발견 방법(예: ANM 기반 접근법)과 비교한다.",
-  "risksKo": "견고한 양자 인과 관계 발견 알고리즘의 개발은 아직 초기 단계이며 매우 이론적이다. QML 모델이 식별하는 인과 메커니즘을 해석하는 것은 고전적인 방법보다 훨씬 더 어려울 수 있다. 제한된 샘플 크기를 가진 복잡하고 다중 모드인 인간 데이터에서 미묘한 인과 효과를 발견하기 위한 통계적 검정력은 고전적인 방법이든 양자 방법이든 여전히 중요한 난관이다."
+  "hypothesisKo": "Quantum ML을 유전체·뇌영상·환경 데이터와 결합하면 정신질환 궤적에 영향을 주는 요인의 인과 구조를 고전적 latent-space 방법보다 정확하게 찾을 수 있다.",
+  "rationaleKo": "연구실은 computational psychiatry와 multimodal genetics로 정신건강 궤적 예측을 연구해왔다. 고차원·비선형 관계에 강한 QML은 polygenic score와 connectome 데이터를 통합한 인과 추론에 적합하다.",
+  "firstExperimentKo": "청소년 우울 연구에 쓴 PRS·백질 tractography·환경 역경·종단 우울 점수 데이터로 양자 강화 인과 발견 모델을 학습한다. 도출된 인과 그래프와 예측 정확도를 고전 latent-space 방법과 비교한다.",
+  "risksKo": "양자 인과 발견 알고리즘은 아직 초기 단계이고, 해석이 어려우며, 제한된 표본에서 미묘한 인과 효과를 찾을 통계적 검정력이 부족할 수 있다."
 }

@@ -1,0 +1,22 @@
+{
+  "title": "PRS-Conditioned Brain-State Prototypes",
+  "titleKo": "PRS 조건부 뇌상태 프로토타입",
+  "date": "2026-08-22",
+  "hypothesis": "Aligning NeuroMamba embeddings to PRS-conditioned brain-state prototypes will improve cross-site prediction of youth depression over simple PRS-feature concatenation.",
+  "hypothesisKo": "NeuroMamba embedding을 PRS 조건부 뇌상태 prototype에 정렬하면, 단순 PRS feature 결합보다 청소년 우울의 cross-site 예측이 좋아진다.",
+  "rationale": "EEG-PRIME shows that conditioned prototypes can improve transfer. The lab can extend this idea to genotype–fMRI alignment using its developmental genetics and foundation-model expertise.",
+  "rationaleKo": "EEG-PRIME은 조건부 prototype이 전이를 높일 가능성을 보였다. 연구실의 발달 유전체와 foundation model 역량으로 이를 genotype–fMRI 정렬에 확장할 수 있다.",
+  "labThreads": [
+    "NeuroMamba",
+    "Polygenic architecture of brain structure and function",
+    "Polygenic risk-informed white matter integrity"
+  ],
+  "externalInspiration": [
+    "EEG-PRIME: Prototype-Aligned Representation Learning with Multi-Level Conditioning for EEG Decoding"
+  ],
+  "firstExperiment": "Use ABCD genotypes, resting fMRI, adversity, and depressive symptoms with NeuroMamba plus a PRS-conditioned prototype head. Test held-out-site R², calibration error, and bootstrap prototype ARI.",
+  "firstExperimentKo": "ABCD genotype·resting fMRI·역경·우울 증상에 NeuroMamba와 PRS-conditioned prototype head를 적용한다. held-out-site R², calibration error, bootstrap prototype ARI를 측정한다.",
+  "risks": "Ancestry and site confounding may turn prototypes into demographic labels rather than biological states.",
+  "risksKo": "ancestry와 site 교란 때문에 prototype이 생물학적 상태가 아닌 인구학적 label이 될 수 있다.",
+  "generatedBy": "llm:gpt-5.6-sol (codex)"
+}

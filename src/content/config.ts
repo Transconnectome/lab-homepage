@@ -124,6 +124,8 @@ const ideasCollection = defineCollection({
     risks: z.string(),
     risksKo: z.string().nullable().optional(),
     generatedBy: z.string(),
+    image: z.string().nullable().optional(), // /assets/ideas/<slug>.png, rendered by scripts/generate_idea_infographics.py
+    imageGeneratedBy: z.string().nullable().optional(),
   }),
 });
 

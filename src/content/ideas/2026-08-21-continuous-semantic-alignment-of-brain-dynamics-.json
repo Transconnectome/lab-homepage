@@ -2,8 +2,8 @@
   "title": "Continuous Semantic Alignment of Brain Dynamics to Art and Music via Quantum Reservoir Computing",
   "titleKo": "양자 리저버 컴퓨팅을 통한 뇌 역학의 예술 및 음악과의 연속적 의미 정렬",
   "date": "2026-08-21",
-  "hypothesis": "Quantum reservoir computing can effectively model the continuous, non-linear dynamics of brain activity evoked by art and music, enabling a more precise and robust semantic alignment between neural signals and artistic features than classical approaches.",
-  "rationale": "Our lab explores the 'science of art' and 'EEG Reconstruction & Interactive Media,' focusing on how brain activity relates to aesthetic experiences. Recent work like 'Repurposing Image Diffusion Models for Training-Free Music Style Transfer' shows a growing interest in bridging neural data with artistic expression. Leveraging quantum reservoir computing, known for its ability to model complex time-series with high efficiency, could provide a breakthrough in establishing a continuous semantic alignment, akin to the 'Brain Latent Predictive Model' but tailored for artistic domains.",
+  "hypothesis": "Quantum reservoir computing can model the nonlinear brain dynamics evoked by art and music better than classical approaches, enabling continuous semantic alignment between neural signals and artistic features.",
+  "rationale": "The lab's art-science and EEG-reconstruction threads already link brain activity to aesthetic experience; QRC's strength on complex time series makes a continuous, art-specific semantic alignment feasible now.",
   "labThreads": [
     "Art & Neuroscience: EEG Reconstruction & Interactive Media",
     "Quantum Machine Learning (QML) for High-Dimensional Brain Data",
@@ -14,11 +14,13 @@
     "Repurposing Image Diffusion Models for Training-Free Music Style Transfer on Mel-Spectrograms (2026 IEEE International Conference on Image Processing (ICIP))",
     "Hybrid Quantum Temporal Convolutional Networks (2026 International Conference on Quantum Communications, Networking, and Computing (QCNC))"
   ],
-  "firstExperiment": "Record EEG data from participants experiencing various forms of abstract art (visuals and music). Concurrently, extract semantic features from the art stimuli (e.g., using CLIP embeddings for images, or audio feature extractors for music). Train a quantum reservoir computer (QRC) using the EEG time series as input to predict the continuous semantic embeddings of the art. Evaluate the alignment quality using metrics like cosine similarity between predicted and actual semantic embeddings, comparing QRC performance to classical reservoir computing or recurrent neural networks.",
-  "risks": "Defining and extracting 'semantic features' from abstract art in a universally agreed-upon manner is inherently subjective. The interpretability of QRC models can be opaque, making it difficult to understand *how* the alignment is achieved. Data scarcity for EEG during diverse artistic experiences might limit training effectiveness.",
+  "firstExperiment": "Record EEG during abstract art and music; extract CLIP/audio embeddings from the stimuli; train a QRC to predict those embeddings from EEG and compare cosine similarity against classical reservoirs and RNNs.",
+  "risks": "Semantic features of abstract art are subjective, QRC models are hard to interpret, and EEG data for diverse artistic experiences is scarce.",
   "generatedBy": "llm:google/gemini-2.5-flash",
-  "hypothesisKo": "양자 리저버 컴퓨팅은 예술과 음악으로 유발되는 뇌 활동의 비선형적이고 연속적인 역학을 효과적으로 모델링한다. 이를 통해 고전적인 접근 방식보다 신경 신호와 예술적 특징 간에 더 정확하고 견고한 의미론적 정렬을 가능하게 한다.",
-  "rationaleKo": "우리 연구실은 '예술 과학'과 'EEG 재구성 및 인터랙티브 미디어' 분야에서 뇌 활동이 미학적 경험과 어떻게 연관되는지 탐구한다. '학습 없는 음악 스타일 전이를 위한 이미지 확산 모델 재활용'과 같은 최근 연구들은 신경 데이터와 예술적 표현을 연결하려는 관심이 증가함을 보여준다. 복잡한 시계열을 고효율로 모델링하는 능력이 뛰어난 양자 리저버 컴퓨팅을 활용하면 '뇌 잠재 예측 모델'과 유사하면서도 예술 영역에 특화된 연속적인 의미론적 정렬을 확립하는 데 획기적인 발전을 이룰 수 있다.",
-  "firstExperimentKo": "참가자들이 다양한 형태의 추상 예술(시각 및 음악)을 경험할 때 EEG 데이터를 기록한다. 동시에 예술 자극에서 의미론적 특징을 추출한다(예: 이미지의 경우 CLIP 임베딩, 음악의 경우 오디오 특징 추출기 사용). EEG 시계열을 입력으로 사용하여 예술의 연속적인 의미론적 임베딩을 예측하도록 양자 리저버 컴퓨터(QRC)를 훈련한다. 예측된 의미론적 임베딩과 실제 임베딩 간의 코사인 유사도와 같은 지표를 사용하여 정렬 품질을 평가하고, QRC 성능을 고전적인 리저버 컴퓨팅이나 순환 신경망과 비교한다.",
-  "risksKo": "추상 예술에서 '의미론적 특징'을 보편적으로 합의된 방식으로 정의하고 추출하는 것은 본질적으로 주관적이다. QRC 모델의 해석 가능성이 불투명하여 정렬이 *어떻게* 달성되는지 이해하기 어려울 수 있다. 다양한 예술적 경험 중 EEG 데이터 부족은 훈련 효과를 제한할 가능성이 있다."
+  "hypothesisKo": "Quantum reservoir computing(QRC)은 예술과 음악이 유발하는 뇌 활동의 비선형 동역학을 고전 모델보다 잘 포착한다. 이를 통해 신경 신호와 예술적 특징 사이의 연속적 의미 정렬이 가능해진다.",
+  "rationaleKo": "연구실의 art-science와 EEG 재구성 연구는 뇌 활동과 미적 경험의 관계를 다뤄왔다. 복잡한 시계열에 강한 QRC를 쓰면 예술 영역에 특화된 연속적 의미 정렬을 시도할 수 있다.",
+  "firstExperimentKo": "추상 예술·음악 감상 중 EEG를 기록하고, 자극에서 CLIP·오디오 임베딩을 추출한다. EEG로 그 임베딩을 예측하는 QRC를 학습해 cosine similarity로 고전 reservoir·RNN과 비교한다.",
+  "risksKo": "추상 예술의 '의미 특징' 정의가 주관적이고, QRC 해석이 불투명하며, 예술 감상 EEG 데이터가 부족할 수 있다.",
+  "image": "/assets/ideas/2026-08-21-continuous-semantic-alignment-of-brain-dynamics-.png",
+  "imageGeneratedBy": "imagegen:openai/gpt-image-2 (codex)"
 }

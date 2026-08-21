@@ -1,18 +1,31 @@
 #!/usr/bin/env python3
 """
-Connectome Lab - AI Research Idea Generator
+Connectome Lab - AI Research Idea Generator (v2)
 
 Reads the lab's research areas, recent publications, and the latest Research
-Radar trends, then asks an LLM (OpenRouter / Gemini) to propose a small number
-of NEW research ideas that connect external advances to the lab's own threads.
+Radar trends, then asks an LLM to propose a small number of NEW research ideas
+that connect external advances to the lab's own threads.
+
+v2 changes:
+- Korean-first, concise output: every idea carries short easy-Korean body
+  fields (hypothesisKo, rationaleKo, firstExperimentKo, risksKo) with English
+  technical terms kept as-is, plus equally concise English twins. Hard length
+  caps are enforced at validation so verbose ideas are dropped, not published.
+- Dual backend via IDEAS_BACKEND env:
+    "openrouter" (default)  OpenRouter API + OPENROUTER_API_KEY — used by the
+                            weekly GitHub Actions workflow.
+    "codex"                 local `codex exec` (ChatGPT login auth, no API
+                            key) — used by the DGX runner. Set CODEX_MODEL so
+                            generatedBy can record the exact model id.
 
 Honesty rules:
-- Requires OPENROUTER_API_KEY. There is NO non-LLM fallback: an "AI idea page"
-  fed by templated text would misrepresent itself, so without a key this
-  script writes nothing and exits 0.
+- There is NO non-LLM fallback: an "AI idea page" fed by templated text would
+  misrepresent itself, so without a usable backend this script writes nothing
+  and exits 0.
 - Every record carries `generatedBy` (exact model id); the /ideas page renders
   a fixed "AI-generated, not lab-endorsed" disclaimer.
-- Output is schema-validated before writing; invalid ideas are dropped.
+- Output is schema-validated before writing; invalid or over-long ideas are
+  dropped.
 """
 
 import urllib.request
@@ -20,13 +33,23 @@ import json
 import os
 import re
 import glob
+import shutil
+import subprocess
 import sys
+import tempfile
 import datetime
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 IDEAS_DIR = os.path.join(ROOT, "src", "content", "ideas")
-LLM_MODEL = "google/gemini-2.5-flash"
+OPENROUTER_MODEL = "google/gemini-2.5-flash"
 MAX_NEW_IDEAS = 3
+
+# field -> max length (chars); the brevity guard that motivated v2
+LENGTH_CAPS = {
+    "hypothesisKo": 300, "rationaleKo": 300, "firstExperimentKo": 350, "risksKo": 200,
+    "hypothesis": 350, "rationale": 350, "firstExperiment": 400, "risks": 250,
+}
+BODY_FIELDS = list(LENGTH_CAPS.keys())
 
 
 def norm(s):
@@ -79,19 +102,21 @@ def existing_idea_titles():
 
 
 def validate_idea(d):
-    return (
-        isinstance(d.get("title"), str) and len(d["title"]) > 8
-        and isinstance(d.get("hypothesis"), str) and len(d["hypothesis"]) > 30
-        and isinstance(d.get("rationale"), str) and len(d["rationale"]) > 30
-        and isinstance(d.get("labThreads"), list) and len(d["labThreads"]) >= 1
-        and isinstance(d.get("externalInspiration"), list) and len(d["externalInspiration"]) >= 1
-        and isinstance(d.get("firstExperiment"), str) and len(d["firstExperiment"]) > 30
-        and isinstance(d.get("risks"), str) and len(d["risks"]) > 20
-    )
+    for k in ["title", "titleKo"] + BODY_FIELDS:
+        if not isinstance(d.get(k), str) or len(d[k].strip()) < 5:
+            return False
+    for k in ["labThreads", "externalInspiration"]:
+        if not isinstance(d.get(k), list) or len(d[k]) < 1:
+            return False
+    for k, cap in LENGTH_CAPS.items():
+        if len(d[k]) > cap:
+            print(f"[!] over length cap ({k}: {len(d[k])} > {cap}): {d.get('title','')[:50]}")
+            return False
+    return True
 
 
-def call_llm(context, api_key):
-    prompt = f"""You are a research strategist working with the Seoul National University Connectome Lab
+def build_prompt(context):
+    return f"""You are a research strategist working with the Seoul National University Connectome Lab
 (PI: Jiook Cha; brain foundation models, connectomics, multimodal genetics & computational
 psychiatry, quantum ML, art-science). Based on the context below, propose exactly {MAX_NEW_IDEAS}
 NEW research ideas that connect recent external advances to the lab's existing threads.
@@ -99,52 +124,110 @@ NEW research ideas that connect recent external advances to the lab's existing t
 Rules:
 - Each idea must be genuinely novel for this lab (not a restatement of an existing lab project),
   concrete enough to start within 6 months with a small team, and honest about risks.
-- Cite external inspiration by paper title (and arXiv id when known) from the trends provided.
-- Cite lab threads by the lab's own project/paper names.
-- Write in clear English. Also give a natural Korean translation of the title.
+- Cite external inspiration by paper title from the trends provided; cite lab threads by the
+  lab's own project/paper names. At most 4 items in each list, short names only.
+- KOREAN IS THE PRIMARY LANGUAGE of the body fields. Write short, easy Korean that a first-year
+  graduate student or curious visitor can read at a glance, keeping technical terms in English
+  as-is (e.g. foundation model, polygenic score, state-space). Then give equally concise
+  English twins of each field.
+- BE SHORT. Hard limits (ideas exceeding them are dropped):
+  hypothesisKo: at most 2 sentences, <= 250 Korean characters (the testable claim).
+  rationaleKo: at most 2 sentences, <= 250 characters (why now, why this lab).
+  firstExperimentKo: at most 2 sentences, <= 300 characters, naming data + model + metric.
+  risksKo: exactly 1 sentence, <= 150 characters (the main way this fails).
+  English twins: same spirit, hypothesis <= 300 / rationale <= 300 / firstExperiment <= 350 /
+  risks <= 200 characters.
 
 {context}
 
 Return STRICT JSON: {{"ideas": [{{
-  "title": str,
+  "title": str (English),
   "titleKo": str,
-  "hypothesis": str  (2-3 sentences: the testable claim),
-  "rationale": str   (why now, why this lab),
+  "hypothesis": str, "hypothesisKo": str,
+  "rationale": str, "rationaleKo": str,
   "labThreads": [str, ...],
   "externalInspiration": [str, ...],
-  "firstExperiment": str (a concrete first experiment with data + model + metric),
-  "risks": str (the main ways this fails)
+  "firstExperiment": str, "firstExperimentKo": str,
+  "risks": str, "risksKo": str
 }}, ...]}}"""
 
+
+def parse_json_loosely(text):
+    """Extract the outermost JSON object even if wrapped in markdown fences or prose."""
+    text = text.strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+    start, end = text.find("{"), text.rfind("}")
+    if start == -1 or end <= start:
+        raise ValueError("no JSON object found in LLM output")
+    return json.loads(text[start:end + 1])
+
+
+def call_openrouter(prompt, api_key):
     req = urllib.request.Request(
         "https://openrouter.ai/api/v1/chat/completions",
         data=json.dumps({
-            "model": LLM_MODEL,
+            "model": OPENROUTER_MODEL,
             "messages": [{"role": "user", "content": prompt}],
             "response_format": {"type": "json_object"},
         }).encode("utf-8"),
         headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
     )
-    with urllib.request.urlopen(req, timeout=120) as resp:
+    with urllib.request.urlopen(req, timeout=180) as resp:
         data = json.loads(resp.read().decode("utf-8"))
-    return json.loads(data["choices"][0]["message"]["content"])
+    return parse_json_loosely(data["choices"][0]["message"]["content"])
+
+
+def call_codex(prompt):
+    """Headless `codex exec`: read-only sandbox, no session persisted, final message to a file."""
+    model = os.environ.get("CODEX_MODEL", "").strip()
+    with tempfile.NamedTemporaryFile(mode="r", suffix=".txt", delete=False) as out:
+        out_path = out.name
+    try:
+        cmd = ["codex", "exec", "--ephemeral", "--skip-git-repo-check",
+               "-s", "read-only", "--color", "never",
+               "--output-last-message", out_path]
+        if model:
+            cmd += ["-m", model]
+        cmd.append("-")
+        proc = subprocess.run(cmd, input=prompt, capture_output=True, text=True, timeout=1800)
+        if proc.returncode != 0:
+            raise RuntimeError(f"codex exec failed (rc={proc.returncode}): {proc.stderr[-400:]}")
+        with open(out_path, encoding="utf-8") as f:
+            return parse_json_loosely(f.read())
+    finally:
+        os.unlink(out_path)
 
 
 def main():
-    api_key = os.environ.get("OPENROUTER_API_KEY")
-    if not api_key:
-        print("[!] OPENROUTER_API_KEY not set — skipping idea generation (no non-LLM fallback by design).")
-        return 0
+    backend = os.environ.get("IDEAS_BACKEND", "openrouter").strip().lower()
+
+    if backend == "codex":
+        if not shutil.which("codex"):
+            print("[!] IDEAS_BACKEND=codex but codex CLI not found — skipping idea generation.")
+            return 0
+        model = os.environ.get("CODEX_MODEL", "").strip()
+        generated_by = f"llm:{model} (codex)" if model else "llm:codex-cli (model unspecified)"
+        api_key = None
+    else:
+        api_key = os.environ.get("OPENROUTER_API_KEY")
+        if not api_key:
+            print("[!] OPENROUTER_API_KEY not set — skipping idea generation (no non-LLM fallback by design).")
+            return 0
+        generated_by = f"llm:{OPENROUTER_MODEL}"
 
     os.makedirs(IDEAS_DIR, exist_ok=True)
     context = gather_lab_context()
     seen = existing_idea_titles()
     today = datetime.date.today().isoformat()
+    prompt = build_prompt(context)
 
     try:
-        result = call_llm(context, api_key)
+        result = call_codex(prompt) if backend == "codex" else call_openrouter(prompt, api_key)
     except Exception as e:
-        print(f"[!] LLM call failed: {e}")
+        print(f"[!] LLM call failed ({backend}): {e}")
         return 0
 
     added = 0
@@ -157,15 +240,19 @@ def main():
             continue
         record = {
             "title": idea["title"].strip(),
-            "titleKo": (idea.get("titleKo") or "").strip() or None,
+            "titleKo": idea["titleKo"].strip(),
             "date": today,
             "hypothesis": idea["hypothesis"].strip(),
+            "hypothesisKo": idea["hypothesisKo"].strip(),
             "rationale": idea["rationale"].strip(),
-            "labThreads": [str(t) for t in idea["labThreads"]][:6],
-            "externalInspiration": [str(t) for t in idea["externalInspiration"]][:6],
+            "rationaleKo": idea["rationaleKo"].strip(),
+            "labThreads": [str(t) for t in idea["labThreads"]][:4],
+            "externalInspiration": [str(t) for t in idea["externalInspiration"]][:4],
             "firstExperiment": idea["firstExperiment"].strip(),
+            "firstExperimentKo": idea["firstExperimentKo"].strip(),
             "risks": idea["risks"].strip(),
-            "generatedBy": f"llm:{LLM_MODEL}",
+            "risksKo": idea["risksKo"].strip(),
+            "generatedBy": generated_by,
         }
         slug = f"{today}-{clean_filename(record['title'])}"
         out = os.path.join(IDEAS_DIR, f"{slug}.json")
@@ -176,7 +263,7 @@ def main():
         added += 1
         print(f"[+] {slug}.json")
 
-    print(f"[✓] Idea generation finished. Added {added} new ideas.")
+    print(f"[✓] Idea generation finished ({backend}). Added {added} new ideas.")
     return 0
 
 

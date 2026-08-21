@@ -1,0 +1,23 @@
+{
+  "title": "Causal Semantic Memory Canvas",
+  "titleKo": "인과적 의미 기억 캔버스",
+  "date": "2026-08-22",
+  "hypothesis": "Predicting continuous semantic latents from recall EEG and intervening on causal latent factors will separately control affect and scene content in audiovisual reconstructions.",
+  "hypothesisKo": "회상 EEG를 연속 semantic latent로 예측하고 causal intervention을 적용하면, 정서와 장면 내용을 분리해 재구성할 수 있다.",
+  "rationale": "BLPM and EEG-JEPA enable semantic and state prediction. Combining them with the lab’s memory reconstruction and latent causal discovery can turn plausible generation into testable causal control.",
+  "rationaleKo": "BLPM과 EEG-JEPA는 의미·상태 예측을 가능하게 한다. 연구실의 기억 재구성과 latent causal discovery를 결합하면 그럴듯한 생성을 검증 가능한 인과 조절로 바꿀 수 있다.",
+  "labThreads": [
+    "Revisiting Your Memory",
+    "Latent-Space Causal Discovery",
+    "Mind the Gap"
+  ],
+  "externalInspiration": [
+    "Continuous-Latent Predictive Modeling with Semantic Alignment for EEG-Language Foundation Models",
+    "EEG-JEPA: Structured Latent Prediction for EEG Foundation Models"
+  ],
+  "firstExperiment": "Use existing affect-context memory EEG and stimulus descriptions to train a CELP+N-MET encoder with a causal latent head. Compare Recall@10, affect CCC, and intervention specificity against the current generator.",
+  "firstExperimentKo": "기존 affect-context memory EEG와 자극 설명으로 CELP+N-MET encoder 및 causal latent head를 학습한다. Recall@10, affect CCC, intervention specificity를 기존 생성 모델과 비교한다.",
+  "risks": "Semantic latents may encode stimulus labels and generator priors rather than recalled experience.",
+  "risksKo": "semantic latent가 실제 기억보다 자극 label과 생성모델 prior를 학습할 수 있다.",
+  "generatedBy": "llm:gpt-5.6-sol (codex)"
+}

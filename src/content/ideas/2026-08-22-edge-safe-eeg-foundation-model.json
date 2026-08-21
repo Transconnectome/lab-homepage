@@ -1,0 +1,23 @@
+{
+  "title": "Edge-Safe EEG Foundation Model",
+  "titleKo": "경량·공격안전 EEG 파운데이션 모델",
+  "date": "2026-08-22",
+  "hypothesis": "Redundancy-aware token pooling plus proxy-prototype adversarial training will reduce CPU latency by 40% and attack success by 30%, with under one-point loss in balanced accuracy.",
+  "hypothesisKo": "중복 기반 token pooling과 proxy-prototype adversarial training을 결합하면 balanced accuracy 손실 1%p 이내에서 CPU 지연 40%, 공격 성공률 30%를 줄일 수 있다.",
+  "rationale": "ZIPBrain enables local deployment, while SW-ProxyCE exposes a new attack surface. Testing both together extends the lab’s trustworthy clinical AI work from prediction reliability to model security.",
+  "rationaleKo": "ZIPBrain은 local deployment를 돕지만 SW-ProxyCE는 새 공격면을 드러냈다. 둘을 함께 검증하면 연구실의 trustworthy clinical AI를 예측 신뢰성에서 보안으로 확장할 수 있다.",
+  "labThreads": [
+    "DIVER-0",
+    "Q-DIVER",
+    "Toward trustworthy clinical AI for OCD"
+  ],
+  "externalInspiration": [
+    "ZIPBrain: Can EEG Foundation Models Be Faster, Locally Deployable, but Accurate?",
+    "SW-ProxyCE: Zero-Query Adversarial Transfer from Public EEG Encoders to Private Downstream Models"
+  ],
+  "firstExperiment": "Add ZIPBrain pooling to DIVER-0 and train on TUAB EEG with SW-ProxyCE examples from a public encoder. Measure CPU latency, MACs, balanced accuracy, and attack success rate on a private head.",
+  "firstExperimentKo": "DIVER-0에 ZIPBrain pooling을 넣고 TUAB EEG와 public encoder 기반 SW-ProxyCE 예제로 학습한다. private head에서 CPU latency, MACs, balanced accuracy, 공격 성공률을 측정한다.",
+  "risks": "A lower measured attack rate may reflect gradient masking rather than genuine robustness.",
+  "risksKo": "측정된 공격 성공률 감소가 실제 robustness가 아니라 gradient masking일 수 있다.",
+  "generatedBy": "llm:gpt-5.6-sol (codex)"
+}
