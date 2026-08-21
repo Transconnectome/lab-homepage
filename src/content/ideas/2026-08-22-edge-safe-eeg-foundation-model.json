@@ -19,5 +19,7 @@
   "firstExperimentKo": "DIVER-0에 ZIPBrain pooling을 넣고 TUAB EEG와 public encoder 기반 SW-ProxyCE 예제로 학습한다. private head에서 CPU latency, MACs, balanced accuracy, 공격 성공률을 측정한다.",
   "risks": "A lower measured attack rate may reflect gradient masking rather than genuine robustness.",
   "risksKo": "측정된 공격 성공률 감소가 실제 robustness가 아니라 gradient masking일 수 있다.",
-  "generatedBy": "llm:gpt-5.6-sol (codex)"
+  "generatedBy": "llm:gpt-5.6-sol (codex)",
+  "image": "/assets/ideas/2026-08-22-edge-safe-eeg-foundation-model.png",
+  "imageGeneratedBy": "imagegen:openai/gpt-image-2 (codex)"
 }

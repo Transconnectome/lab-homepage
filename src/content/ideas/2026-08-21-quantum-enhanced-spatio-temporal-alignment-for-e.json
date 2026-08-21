@@ -20,5 +20,7 @@
   "hypothesisKo": "EEG foundation model에 quantum ML 기반 시공간 정렬을 넣으면 데이터셋·피험자 간 일반화가 좋아지고, 예측 메커니즘의 생리학적 해석도 가능해진다.",
   "rationaleKo": "STEAM, EEG-PRISM 같은 최신 EEG foundation model은 시공간 정렬과 해석 가능성을 요구한다. QML과 state-space 모델 양쪽에 강한 연구실이 시도하기에 적기다.",
   "firstExperimentKo": "STEAM류 아키텍처에 parameterized quantum circuit 정렬 모듈을 넣어 PhysioNet motor-imagery EEG로 학습한다. 피험자 간 정확도·F1을 고전 STEAM과 비교하고 EEG-PRISM으로 특징을 해석한다.",
-  "risksKo": "양자 하드웨어의 노이즈·큐비트 한계가 회로 복잡도를 제한하고, 생리학적 해석은 ground truth 없이는 정량 검증이 어렵다."
+  "risksKo": "양자 하드웨어의 노이즈·큐비트 한계가 회로 복잡도를 제한하고, 생리학적 해석은 ground truth 없이는 정량 검증이 어렵다.",
+  "image": "/assets/ideas/2026-08-21-quantum-enhanced-spatio-temporal-alignment-for-e.png",
+  "imageGeneratedBy": "imagegen:openai/gpt-image-2 (codex)"
 }

@@ -18,5 +18,7 @@
   "firstExperimentKo": "ABCD genotype·resting fMRI·역경·우울 증상에 NeuroMamba와 PRS-conditioned prototype head를 적용한다. held-out-site R², calibration error, bootstrap prototype ARI를 측정한다.",
   "risks": "Ancestry and site confounding may turn prototypes into demographic labels rather than biological states.",
   "risksKo": "ancestry와 site 교란 때문에 prototype이 생물학적 상태가 아닌 인구학적 label이 될 수 있다.",
-  "generatedBy": "llm:gpt-5.6-sol (codex)"
+  "generatedBy": "llm:gpt-5.6-sol (codex)",
+  "image": "/assets/ideas/2026-08-22-prs-conditioned-brain-state-prototypes.png",
+  "imageGeneratedBy": "imagegen:openai/gpt-image-2 (codex)"
 }
