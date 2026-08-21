@@ -1,5 +1,8 @@
 name: Deploy to GitHub Pages
 
+# NOTE: this file was touched after the repo transfer to Transconnectome —
+# GitHub stopped delivering push events to workflows registered under the
+# previous owner; editing the workflow file forces re-registration.
 on:
   push:
     branches: [main]
