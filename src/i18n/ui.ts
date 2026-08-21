@@ -19,7 +19,7 @@ export const ui = {
     'footer.ideaLab': 'AI Idea Lab',
     'footer.researchRadar': 'Research Radar',
     'footer.affiliations':
-      'Department of Psychology · Interdisciplinary Program in AI (GSAI) · Department of Brain & Cognitive Sciences',
+      'Department of Psychology · Interdisciplinary Program in AI (IPAI) · Department of Brain & Cognitive Sciences',
     'footer.address': 'Office M512, Building 16<br />Seoul National University<br />1 Gwanak-ro, Gwanak-gu, Seoul',
     'footer.backToTop': '↑ Back to top',
 
@@ -129,7 +129,7 @@ export const ui = {
       'We welcome graduate students (PhD / MS-PhD / MS), postdoctoral fellows, and undergraduate research interns on a rolling basis. Applications are reviewed year-round; formal admission follows each SNU graduate admissions cycle.',
     'join.tracksEyebrow': 'Degree programs',
     'join.tracksTitle': 'Three ways into the lab',
-    'join.gsai': 'Interdisciplinary Program in AI (GSAI)',
+    'join.gsai': 'Interdisciplinary Program in AI (IPAI)',
     'join.gsaiDesc':
       'Foundation models (NeuroMamba, DIVER-0), 4D spatiotemporal representation learning, geometric deep learning, and large-scale multimodal brain AI.',
     'join.bcs': 'Dept. of Brain & Cognitive Sciences (BCS)',
@@ -171,7 +171,7 @@ export const ui = {
     'footer.contact': '연락처',
     'footer.ideaLab': 'AI 아이디어 랩',
     'footer.researchRadar': '리서치 레이더',
-    'footer.affiliations': '심리학과 · 협동과정 인공지능전공(GSAI) · 뇌인지과학과',
+    'footer.affiliations': '심리학과 · 협동과정 인공지능전공(IPAI) · 뇌인지과학과',
     'footer.address': '서울특별시 관악구 관악로 1<br />서울대학교 16동 M512호',
     'footer.backToTop': '↑ 맨 위로',
 
@@ -280,7 +280,7 @@ export const ui = {
       '대학원생(박사/석박통합/석사), 박사후연구원, 학부 연구 인턴을 상시 모집합니다. 지원서는 연중 검토하며, 정식 입학은 서울대학교 대학원 입시 일정을 따릅니다.',
     'join.tracksEyebrow': '학위 과정',
     'join.tracksTitle': '연구실로 오는 세 가지 길',
-    'join.gsai': '협동과정 인공지능전공 (GSAI)',
+    'join.gsai': '협동과정 인공지능전공 (IPAI)',
     'join.gsaiDesc':
       '파운데이션 모델(NeuroMamba, DIVER-0), 4D 시공간 표현학습, 기하학적 딥러닝, 대규모 멀티모달 뇌 AI 연구.',
     'join.bcs': '뇌인지과학과 (BCS)',
