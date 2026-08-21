@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { BRAIN_HUBS } from './brainData';
+import { RESEARCH_AXES, AXIS_LINKS } from './brainData';
 
 interface Props {
   selectedId: string | null;
@@ -98,36 +98,38 @@ export default function BrainCanvas({ selectedId, hoveredId, onSelect, onHover, 
     const geometries: THREE.BufferGeometry[] = [particleGeometry];
     const materials: THREE.Material[] = [particleMaterial];
 
-    // Connecting curves between hub nodes. Control points use deterministic
-    // per-tract offsets so the sketch looks identical on every load.
+    // Connecting curves drawn only for real methodological links between
+    // research axes (AXIS_LINKS) — the edges carry meaning, not decoration.
+    // Control points use deterministic per-tract offsets so the sketch looks
+    // identical on every load.
+    const axisById = new Map(RESEARCH_AXES.map((a) => [a.id, a]));
     const tractGroup = new THREE.Group();
     brainGroup.add(tractGroup);
     const tracts: TractEntry[] = [];
-    let tractIndex = 0;
-    for (let i = 0; i < BRAIN_HUBS.length; i++) {
-      for (let j = i + 1; j < BRAIN_HUBS.length; j++) {
-        const p1 = new THREE.Vector3(...BRAIN_HUBS[i].position);
-        const p2 = new THREE.Vector3(...BRAIN_HUBS[j].position);
-        const sway = Math.sin(tractIndex * 12.9898) * 0.4;
-        const lift = Math.cos(tractIndex * 78.233) * 0.4;
-        const mid = new THREE.Vector3()
-          .addVectors(p1, p2)
-          .multiplyScalar(0.5)
-          .add(new THREE.Vector3(0, sway, lift));
-        const curve = new THREE.QuadraticBezierCurve3(p1, mid, p2);
-        const tractGeometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(30));
-        const tractMaterial = new THREE.LineBasicMaterial({
-          color: new THREE.Color(BRAIN_HUBS[i].color),
-          transparent: true,
-          opacity: 0.35,
-        });
-        tractGroup.add(new THREE.Line(tractGeometry, tractMaterial));
-        tracts.push({ material: tractMaterial, aId: BRAIN_HUBS[i].id, bId: BRAIN_HUBS[j].id });
-        geometries.push(tractGeometry);
-        materials.push(tractMaterial);
-        tractIndex++;
-      }
-    }
+    AXIS_LINKS.forEach((link, tractIndex) => {
+      const a = axisById.get(link.a);
+      const b = axisById.get(link.b);
+      if (!a || !b) return;
+      const p1 = new THREE.Vector3(...a.position);
+      const p2 = new THREE.Vector3(...b.position);
+      const sway = Math.sin(tractIndex * 12.9898) * 0.4;
+      const lift = Math.cos(tractIndex * 78.233) * 0.4;
+      const mid = new THREE.Vector3()
+        .addVectors(p1, p2)
+        .multiplyScalar(0.5)
+        .add(new THREE.Vector3(0, sway, lift));
+      const curve = new THREE.QuadraticBezierCurve3(p1, mid, p2);
+      const tractGeometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(30));
+      const tractMaterial = new THREE.LineBasicMaterial({
+        color: new THREE.Color(a.color),
+        transparent: true,
+        opacity: 0.35,
+      });
+      tractGroup.add(new THREE.Line(tractGeometry, tractMaterial));
+      tracts.push({ material: tractMaterial, aId: link.a, bId: link.b });
+      geometries.push(tractGeometry);
+      materials.push(tractMaterial);
+    });
 
     // Interactive hub meshes + dedicated invisible hit spheres. Picking must
     // NOT use the visible meshes: the halo child would be the first raycast
@@ -137,7 +139,7 @@ export default function BrainCanvas({ selectedId, hoveredId, onSelect, onHover, 
     const hitMeshes: THREE.Mesh[] = [];
     const hubGroup = new THREE.Group();
     brainGroup.add(hubGroup);
-    BRAIN_HUBS.forEach((hub) => {
+    RESEARCH_AXES.forEach((hub) => {
       const material = new THREE.MeshBasicMaterial({
         color: new THREE.Color(hub.color),
         transparent: true,
