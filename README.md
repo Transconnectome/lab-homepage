@@ -113,11 +113,12 @@ the built site in the same workflow (a `GITHUB_TOKEN` push cannot trigger
    `www.connectomelab.com` with **Enforce HTTPS**.
 2. DNS: `CNAME` record `www` → `snuconnectome.github.io`.
 
-> ⚠️ `www.connectomelab.com` currently serves the old Google Sites page, so the
-> CNAME file is parked at `CNAME.pending-cutover` (a CNAME in `public/` would make
-> `snuconnectome.github.io` redirect to the yet-unswitched domain and break preview).
-> **Cutover procedure**: ① review the site at `snuconnectome.github.io` → ② move
-> the file back to `public/CNAME` and push → ③ repoint DNS `www` → `snuconnectome.github.io`.
+> ⚠️ **Cutover status**: GitHub Pages is deployed and configured for
+> `www.connectomelab.com` (via `public/CNAME`), but DNS still points that domain at
+> the old Google Sites page — which therefore stays live, untouched. The final step
+> is a single DNS change at the registrar: set the `www` CNAME record to
+> `snuconnectome.github.io`. Until then, preview locally with `npm run preview`
+> (on DGX: `ssh -N -L 4321:127.0.0.1:4321 dgx-spark`, then open `http://localhost:4321`).
 
 ---
 
