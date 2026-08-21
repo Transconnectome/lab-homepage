@@ -1,0 +1,20 @@
+{
+  "title": "Continuous Semantic Alignment of Brain Dynamics to Art and Music via Quantum Reservoir Computing",
+  "titleKo": "양자 리저버 컴퓨팅을 통한 뇌 역학의 예술 및 음악과의 연속적 의미 정렬",
+  "date": "2026-08-21",
+  "hypothesis": "Quantum reservoir computing can effectively model the continuous, non-linear dynamics of brain activity evoked by art and music, enabling a more precise and robust semantic alignment between neural signals and artistic features than classical approaches.",
+  "rationale": "Our lab explores the 'science of art' and 'EEG Reconstruction & Interactive Media,' focusing on how brain activity relates to aesthetic experiences. Recent work like 'Repurposing Image Diffusion Models for Training-Free Music Style Transfer' shows a growing interest in bridging neural data with artistic expression. Leveraging quantum reservoir computing, known for its ability to model complex time-series with high efficiency, could provide a breakthrough in establishing a continuous semantic alignment, akin to the 'Brain Latent Predictive Model' but tailored for artistic domains.",
+  "labThreads": [
+    "Art & Neuroscience: EEG Reconstruction & Interactive Media",
+    "Quantum Machine Learning (QML) for High-Dimensional Brain Data",
+    "fMRI & EEG Foundation Models"
+  ],
+  "externalInspiration": [
+    "Continuous-Latent Predictive Modeling with Semantic Alignment for EEG-Language Foundation Models (arXiv (2026-08))",
+    "Repurposing Image Diffusion Models for Training-Free Music Style Transfer on Mel-Spectrograms (2026 IEEE International Conference on Image Processing (ICIP))",
+    "Hybrid Quantum Temporal Convolutional Networks (2026 International Conference on Quantum Communications, Networking, and Computing (QCNC))"
+  ],
+  "firstExperiment": "Record EEG data from participants experiencing various forms of abstract art (visuals and music). Concurrently, extract semantic features from the art stimuli (e.g., using CLIP embeddings for images, or audio feature extractors for music). Train a quantum reservoir computer (QRC) using the EEG time series as input to predict the continuous semantic embeddings of the art. Evaluate the alignment quality using metrics like cosine similarity between predicted and actual semantic embeddings, comparing QRC performance to classical reservoir computing or recurrent neural networks.",
+  "risks": "Defining and extracting 'semantic features' from abstract art in a universally agreed-upon manner is inherently subjective. The interpretability of QRC models can be opaque, making it difficult to understand *how* the alignment is achieved. Data scarcity for EEG during diverse artistic experiences might limit training effectiveness.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}

@@ -6,20 +6,21 @@
     "Jungwoo Park",
     "Jubin Choi",
     "Jungwoo Seo",
-    "Jiook Cha"
+    "Jiook Cha",
+    "Taesup Moon"
   ],
   "venue": "arXiv (Cornell University)",
   "year": 2026,
-  "doi": null,
-  "url": null,
+  "doi": "10.48550/arxiv.2604.03619",
+  "url": "https://doi.org/10.48550/arxiv.2604.03619",
   "tags": [
-    "fMRI",
-    "Foundation Models"
+    "Neuroimaging",
+    "AI & Foundation Models"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
-    "P. Kim",
     "Jubin Choi",
+    "Jungwoo Seo",
     "Jiook Cha"
   ]
 }

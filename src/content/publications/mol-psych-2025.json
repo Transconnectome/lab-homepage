@@ -1,6 +1,6 @@
 {
   "title": "Polygenic scores for psychiatric traits mediate the impact of multigenerational history of depression on offspring psychopathology",
-  "authors": ["Eunji Lee", "M. T. van Dijk", "Bo-Gyeom Kim", "Jiook Cha"],
+  "authors": ["Eunji Lee", "Milenna T. van Dijk", "Bo-Gyeom Kim", "Gakyung Kim", "Eleanor Murphy", "Ardesheer Talati", "Yoonjung Yoonie Joo", "Myrna M. Weissman", "Jiook Cha"],
   "venue": "Molecular Psychiatry",
   "year": 2025,
   "month": "September",
@@ -10,5 +10,5 @@
   "featured": true,
   "spotlight": "Molecular Psychiatry 2025",
   "abstract": "This study demonstrates how psychiatric polygenic risk profiles functionally mediate the transgenerational transmission of major depressive disorder across family lineages, shaping neurodevelopmental risk pathways in youth.",
-  "labMembers": ["Eunji Lee", "Bo-Gyeom Kim", "Jiook Cha"]
+  "labMembers": ["Eunji Lee", "Bo-Gyeom Kim", "Gakyung Kim", "Yoonjung Yoonie Joo", "Jiook Cha"]
 }

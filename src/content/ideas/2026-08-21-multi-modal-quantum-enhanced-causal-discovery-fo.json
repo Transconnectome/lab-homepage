@@ -1,0 +1,21 @@
+{
+  "title": "Multi-Modal Quantum-Enhanced Causal Discovery for Psychiatric Trajectories",
+  "titleKo": "정신과적 궤적 예측을 위한 다중 모드 양자 강화 인과 발견",
+  "date": "2026-08-21",
+  "hypothesis": "Integrating quantum machine learning with multi-modal data (genetics, neuroimaging, environment) will enable more accurate and robust causal discovery of factors influencing psychiatric trajectories, surpassing the capabilities of classical latent-space causal discovery methods.",
+  "rationale": "Our lab is deeply invested in 'Computational Psychiatry & Multi-Modal Genetics,' aiming to predict mental health trajectories. While 'Latent-Space Causal Discovery from Indirect Neuroimaging Observations' shows promising directions, the inherent complexity and high dimensionality of multi-modal data, coupled with potentially subtle non-linear causal relationships, are ideal candidates for quantum enhancements. QML's ability to handle high-dimensional spaces and non-linearities could provide a superior framework for causal inference, especially when integrating polygenic risk scores and complex connectomic data.",
+  "labThreads": [
+    "Computational Psychiatry & Multi-Modal Genetics",
+    "Quantum Machine Learning (QML) for High-Dimensional Brain Data",
+    "The Neuro-X Project: Towards Large Brain Models"
+  ],
+  "externalInspiration": [
+    "Latent-Space Causal Discovery from Indirect Neuroimaging Observations (arXiv (Cornell University))",
+    "Polygenic risk-informed white matter integrity improves deep learning-based prediction of youth depression (Communications Medicine)",
+    "Polygenic architecture of brain structure and function, behaviors, and psychopathologies in children (Nature Communications (2025))",
+    "Q-DIVER: Integrated Quantum Transfer Learning and Differentiable Quantum Architecture Search with EEG Data (2026 International Conference on Quantum Communications, Networking, and Computing (QCNC))"
+  ],
+  "firstExperiment": "Utilize existing multi-modal datasets from the lab (e.g., those used for 'Polygenic risk-informed white matter integrity improves deep learning-based prediction of youth depression'), including polygenic risk scores (PRS), white matter tractography features, and environmental adversity measures, alongside longitudinal depression scores. Develop a quantum-enhanced causal discovery model, possibly inspired by 'Integrated Quantum Transfer Learning' ideas for feature selection, to identify causal links between these multi-modal factors and subsequent changes in depression severity. Compare the causal graphs and predictive accuracy for future depression trajectories with classical latent-space causal discovery methods (e.g., ANM-based approaches).",
+  "risks": "The development of robust quantum causal discovery algorithms is still nascent and highly theoretical. Interpreting the causal mechanisms identified by QML models can be even more challenging than with classical methods. The statistical power for discovering subtle causal effects in complex, multi-modal human data with limited sample sizes remains a significant hurdle for any method, classical or quantum.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}

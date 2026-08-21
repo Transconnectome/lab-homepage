@@ -5,7 +5,9 @@
   "roleKo": "대학원생 (심리학과)",
   "category": "phd",
   "email": "amyk01@snu.ac.kr",
-  "affiliations": ["Department of Psychology, Seoul National University"],
+  "affiliations": [
+    "Department of Psychology, Seoul National University"
+  ],
   "education": [
     "MS in Psychology, Seoul National University",
     "BA in Social Welfare and Consumer Science, Seoul National University"
@@ -15,6 +17,11 @@
     "Representations of functional brain organization",
     "Adolescent mental health"
   ],
-  "passions": ["Dessert & Journaling", "Quality time with loved ones", "Coffee"],
-  "order": 3
+  "passions": [
+    "Dessert & Journaling",
+    "Quality time with loved ones",
+    "Coffee"
+  ],
+  "order": 3,
+  "avatar": "/assets/members/bogyeom-kim.jpg"
 }

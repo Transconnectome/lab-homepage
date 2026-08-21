@@ -1,0 +1,21 @@
+{
+  "name": "Ahhyun Lee",
+  "nameKo": "이아현",
+  "role": "Graduate Student",
+  "roleKo": "대학원생",
+  "category": "phd",
+  "email": "ahhyun724@snu.ac.kr",
+  "avatar": "/assets/members/ahhyun-lee.jpg",
+  "affiliations": [
+    "Department of Brain and Cognitive Sciences, SNU"
+  ],
+  "education": [
+    "BS in Life Sciences (Minor in Computer Science and Engineering), POSTECH"
+  ],
+  "researchInterests": [
+    "Genomic & Neuroimaging Integration",
+    "EEG Foundation Models"
+  ],
+  "passions": [],
+  "order": 17
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Dong Yeop Han",
+  "nameKo": "한동엽",
+  "role": "Graduate Student",
+  "roleKo": "대학원생",
+  "category": "phd",
+  "email": "dyhan0316@gmail.com",
+  "avatar": "/assets/members/dongyeop-han.jpg",
+  "affiliations": [
+    "Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"
+  ],
+  "education": [
+    "BS in Physics, Sungkyunkwan University (Summa Cum Laude)"
+  ],
+  "researchInterests": [
+    "EEG Foundation Models",
+    "Computational Neuroscience",
+    "Machine Learning"
+  ],
+  "passions": [],
+  "order": 14
+}

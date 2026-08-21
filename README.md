@@ -1,67 +1,84 @@
-# SNU Connectome Laboratory — Intelligent Academic Web Platform
+# SNU Connectome Laboratory — Lab Homepage
 
-Official next-generation academic web platform for the **Connectome Laboratory** at **Seoul National University** (PI: **Prof. Jiook Cha** / 차지욱 교수).
+Official website of the **Connectome Laboratory** at **Seoul National University** (PI: **Prof. Jiook Cha** / 차지욱 교수).
 
-🔗 **Website**: [https://www.connectomelab.com/](https://www.connectomelab.com/)  
+🔗 **Website**: [https://www.connectomelab.com/](https://www.connectomelab.com/)
 🏛️ **Affiliations**: Department of Psychology • Interdisciplinary Program in AI (GSAI) • Department of Brain and Cognitive Sciences (BCS)
 
----
-
-## 🌟 Key Features & Innovations
-
-1. **🧠 Interactive 3D Connectome Viewer (WebGL / Three.js)**
-   - Dynamic 3D neural tractography and functional network visualization (DMN, FPN, Salience, Visual, EEG point cloud).
-   - Clickable nodes linked to real lab research projects (NeuroMamba, SwiFT, DIVER-0, PRS genetics).
-
-2. **⚡ Living SOTA Research Radar (LLM-Powered Intelligence)**
-   - Autonomous crawlers monitoring arXiv, PubMed, and OpenAlex for breakthroughs in:
-     - *Large Brain Models (LBMs) & 4D Spatiotemporal Foundation Models*
-     - *fMRI & EEG Dynamics (NeuroMamba, DIVER-0, SwiFT)*
-     - *Multi-Modal Genetics & Connectomics (Nature Comms, Molecular Psychiatry)*
-     - *Quantum Machine Learning (QML) in Neuroscience*
-   - Automatic 3-bullet point executive summaries, scientific significance, and Connectome Lab context.
-
-3. **🤖 Ask Connectome AI (Interactive Lab Copilot)**
-   - Embedded intelligent chat assistant answering queries about lab research, papers, datasets, recruitment guidelines, and lab culture in real-time.
-
-4. **🔄 Self-Updating Publication & News Engine**
-   - Scheduled GitHub Actions cron and local DGX-Spark scripts that automatically fetch newly indexed papers and preprints.
-
-5. **🎨 Vibrant Lab Culture & History Chronicles**
-   - Visual timeline of Hongcheon retreats, international fellowships (MILA, Brookhaven National Lab), OB/Scene Focus EEG art exhibitions, and graduation archives.
+> *"Study the science of art. Study the art of science."* — Leonardo da Vinci
 
 ---
 
-## 🛠️ Tech Stack
+## Design
 
-- **Framework**: [Astro 5.x](https://astro.build/) (Static Site Generation with zero JS baseline)
-- **UI & 3D Components**: React 18, [Three.js](https://threejs.org/), [Tailwind CSS](https://tailwindcss.com/), [Lucide React](https://lucide.dev/)
-- **Data Collections**: Type-safe Git-based Markdown & JSON schemas with Zod
-- **AI Pipelines**: Python 3.11, OpenAlex API, arXiv API, OpenRouter / Gemini LLM
+Warm, editorial, people-first — a "bright museum with one dark projection room":
+the site runs on a paper-toned light theme (Hahmlet serif display / Pretendard body /
+IBM Plex Mono captions), with a single deep-ink band hosting the interactive 3D
+connectome sketch. Member photos, alumni destinations, and lab-life stories carry
+the warmth; the cyan accent carries the lab's technical identity.
+
+## Features
+
+1. **🧠 Interactive Connectome Sketch (three.js)**
+   - An illustrative 3D visualization of the brain networks the lab studies
+     (labeled as a sketch, not anatomical data). Nodes link to real lab projects.
+
+2. **📚 Full Publication Archive (auto-synced)**
+   - `scripts/sync_scholar.py` pulls the complete record (~145 papers, 2008–present)
+     from the OpenAlex API with cursor pagination, DOI/title dedup against
+     hand-curated entries, and a member-allowlist for author highlighting.
+
+3. **⚡ Research Radar (weekly arXiv scan)**
+   - `scripts/update_research_radar.py` scans arXiv weekly for new papers in brain
+     foundation models, fMRI/EEG dynamics, genomics & connectomics, and quantum ML.
+   - Summaries are generated with Gemini via OpenRouter when `OPENROUTER_API_KEY`
+     is set; otherwise an honestly-labeled abstract excerpt is used. Every record
+     carries a `generatedBy` field surfaced in the UI.
+
+4. **💡 AI Idea Lab (`/ideas`)**
+   - `scripts/generate_research_ideas.py` feeds the lab's research areas, recent
+     publications, and the newest radar trends to Gemini, which proposes weekly
+     research hypotheses (hypothesis / rationale / first experiment / risks).
+   - Published unedited with a fixed "AI-generated, not lab-endorsed" disclaimer
+     and the exact model id on every card. No LLM key → nothing is generated
+     (no fake fallback, by design).
+
+5. **💬 Lab Guide (curated FAQ)**
+   - A floating guide answering common questions about research, admissions, and
+     lab culture from a hand-written FAQ. It is intentionally *not* presented as
+     a live AI — the site is fully static.
+
+6. **👥 People-first content**
+   - Member profiles with photos, education, research interests, and passions;
+     alumni tracked with their current positions; news and history archives.
+
+---
+
+## Tech Stack
+
+- **Framework**: [Astro 5.x](https://astro.build/) (static site generation)
+- **UI**: React 18, [three.js](https://threejs.org/), [Tailwind CSS](https://tailwindcss.com/) (+ typography, animate), [Lucide](https://lucide.dev/)
+- **Content**: type-safe Astro content collections (Zod schemas) in `src/content/`
+- **Pipelines**: Python 3.11 (stdlib only) — OpenAlex API, arXiv API, OpenRouter/Gemini (optional)
 - **CI/CD & Hosting**: GitHub Pages + GitHub Actions (`deploy.yml`, `research-radar.yml`)
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- Node.js `v18.0+` or `v20.0+`
-- Python `3.10+`
+- Node.js `v18.20+`, `v20.3+`, or `v22+`
+- Python `3.10+` (for the sync scripts)
 
-### 1. Installation
+### Development
 ```bash
 git clone https://github.com/snuconnectome/lab-homepage.git
 cd lab-homepage
-npm install
+npm ci
+npm run dev        # http://localhost:4321
 ```
 
-### 2. Development Server
-```bash
-npm run dev
-```
-Open `http://localhost:4321` in your browser.
-
-### 3. Build & Preview
+### Build & Preview
 ```bash
 npm run build
 npm run preview
@@ -69,46 +86,43 @@ npm run preview
 
 ---
 
-## 🤖 Automated Intelligence Pipelines
+## Content Pipelines
 
-### A. Run Scholar & Publications Sync
+### Publications sync (OpenAlex)
 ```bash
 python3 scripts/sync_scholar.py
 ```
 
-### B. Run SOTA Research Radar Sync
+### Research Radar (arXiv, optional LLM synthesis)
 ```bash
-# Optional: Provide OpenRouter API Key for live LLM synthesis
-export OPENROUTER_API_KEY="sk-or-v1-..."
+export OPENROUTER_API_KEY="sk-or-v1-..."   # optional; falls back to labeled excerpts
 python3 scripts/update_research_radar.py
 ```
 
-### C. Run Local DGX-Spark Cron Runner
-```bash
-chmod +x scripts/run_dgx_spark_sync.sh
-./scripts/run_dgx_spark_sync.sh
-```
+### Weekly automation
+`.github/workflows/research-radar.yml` runs both scripts every Monday, **validates
+the generated content with a full `npm run build`** before committing, and deploys
+the built site in the same workflow (a `GITHUB_TOKEN` push cannot trigger
+`deploy.yml`, so the deploy happens in-workflow).
 
 ---
 
-## 🌐 Custom Domain & GitHub Pages Setup
+## Custom Domain & GitHub Pages
 
-1. In GitHub Repository Settings:
-   - Navigate to **Settings** → **Pages**.
-   - Under **Build and deployment** → **Source**, select **GitHub Actions**.
-   - Under **Custom domain**, enter `www.connectomelab.com` and ensure `Enforce HTTPS` is checked.
-2. In DNS Provider (e.g. Domain registrar / DNS manager):
-   - Set **CNAME record**: `www` → `snuconnectome.github.io`
-   - (Optional) Set **A records** for apex domain `@`:
-     - `185.199.108.153`
-     - `185.199.109.153`
-     - `185.199.110.153`
-     - `185.199.111.153`
+1. Repository **Settings → Pages**: Source = **GitHub Actions**; Custom domain =
+   `www.connectomelab.com` with **Enforce HTTPS**.
+2. DNS: `CNAME` record `www` → `snuconnectome.github.io`.
+
+> ⚠️ `www.connectomelab.com` currently serves the old Google Sites page, so the
+> CNAME file is parked at `CNAME.pending-cutover` (a CNAME in `public/` would make
+> `snuconnectome.github.io` redirect to the yet-unswitched domain and break preview).
+> **Cutover procedure**: ① review the site at `snuconnectome.github.io` → ② move
+> the file back to `public/CNAME` and push → ③ repoint DNS `www` → `snuconnectome.github.io`.
 
 ---
 
-## 📄 License & Contact
+## Contact
 
-- **PI**: Prof. Jiook Cha (차지욱 교수) — `connectome@snu.ac.kr`
-- **Lab**: Seoul National University Connectome Laboratory
-- © 2026 Connectome Lab. All rights reserved.
+- **PI**: Prof. Jiook Cha (차지욱) — `connectome@snu.ac.kr` · +82-2-880-8618
+- **Lab**: Office M512, Building 16, Seoul National University
+- © 2026 SNU Connectome Lab. All rights reserved.

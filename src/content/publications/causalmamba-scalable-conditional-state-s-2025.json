@@ -9,10 +9,11 @@
   "doi": "10.48550/arxiv.2510.17318",
   "url": "https://doi.org/10.48550/arxiv.2510.17318",
   "tags": [
-    "Foundation Models"
+    "AI & Foundation Models"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
+    "Sangyoon Bae",
     "Jiook Cha"
   ]
 }

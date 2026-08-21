@@ -6,19 +6,19 @@
     "Jinwoo Lee",
     "Sooyoung Kim",
     "Shinjae Yoo",
-    "Yuewei Lin"
+    "Yuewei Lin",
+    "Jiook Cha"
   ],
-  "venue": "Preprint / Journal",
+  "venue": "Proceedings of the 1st International Workshop on Cognition-oriented Multimodal Affective and Empathetic Computing",
   "year": 2025,
   "doi": "10.1145/3746277.3760413",
   "url": "https://doi.org/10.1145/3746277.3760413",
   "tags": [
-    "EEG",
-    "Genetics"
+    "EEG"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
-    "Hee‐Hwan Wang",
+    "Joonwoo Kwon",
     "Jinwoo Lee",
     "Sooyoung Kim",
     "Jiook Cha"

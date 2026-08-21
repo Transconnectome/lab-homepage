@@ -13,13 +13,17 @@
   "doi": "10.1038/s41467-025-63312-6",
   "url": "https://doi.org/10.1038/s41467-025-63312-6",
   "tags": [
-    "Genetics"
+    "Genetics",
+    "Psychiatry"
   ],
   "featured": true,
   "labMembers": [
+    "Yoonjung Yoonie Joo",
     "Bo‐Gyeom Kim",
     "Gakyung Kim",
     "Eunji Lee",
+    "Jungwoo Seo",
     "Jiook Cha"
-  ]
+  ],
+  "spotlight": "Nature Communications"
 }

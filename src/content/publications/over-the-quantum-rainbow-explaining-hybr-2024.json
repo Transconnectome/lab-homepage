@@ -1,0 +1,22 @@
+{
+  "title": "Over the Quantum Rainbow: Explaining Hybrid Quantum Reinforcement Learning",
+  "authors": [
+    "Junghoon Park",
+    "Jiook Cha",
+    "Samuel Yen-Chi Chen",
+    "Shinjae Yoo",
+    "H. Eric Tseng"
+  ],
+  "venue": "2024 IEEE International Conference on Quantum Computing and Engineering (QCE)",
+  "year": 2024,
+  "doi": "10.1109/qce60285.2024.00185",
+  "url": "https://doi.org/10.1109/qce60285.2024.00185",
+  "tags": [
+    "Quantum ML"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Junghoon Park",
+    "Jiook Cha"
+  ]
+}

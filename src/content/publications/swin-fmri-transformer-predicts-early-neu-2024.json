@@ -1,0 +1,22 @@
+{
+  "title": "Swin fMRI Transformer Predicts Early Neurodevelopmental Outcomes from Neonatal fMRI",
+  "authors": [
+    "Patrick Styll",
+    "Dowon Kim",
+    "Jiook Cha"
+  ],
+  "venue": "arXiv (Cornell University)",
+  "year": 2024,
+  "doi": "10.48550/arxiv.2412.07783",
+  "url": "https://doi.org/10.48550/arxiv.2412.07783",
+  "tags": [
+    "Neuroimaging",
+    "Psychiatry",
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Dowon Kim",
+    "Jiook Cha"
+  ]
+}

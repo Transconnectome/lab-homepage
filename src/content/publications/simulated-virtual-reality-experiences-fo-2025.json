@@ -3,25 +3,22 @@
   "authors": [
     "Byung-Hoon Kim",
     "Jae‐Jin Kim",
-    "Jae‐Jin Kim",
     "Junhyung Kim",
-    "Junhyung Kim",
-    "Jiook Cha"
+    "Jiook Cha",
+    "Sang Won Jeon",
+    "Kang‐Seob Oh",
+    "Dong‐Won Shin",
+    "Sung‐Joon Cho"
   ],
   "venue": "Frontiers in Digital Health",
   "year": 2025,
   "doi": "10.3389/fdgth.2025.1684001",
   "url": "https://doi.org/10.3389/fdgth.2025.1684001",
   "tags": [
-    "Connectomics"
+    "Neuroscience"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
-    "Byung-Hoon Kim",
-    "Jae‐Jin Kim",
-    "Jae‐Jin Kim",
-    "Junhyung Kim",
-    "Junhyung Kim",
     "Jiook Cha"
   ]
 }

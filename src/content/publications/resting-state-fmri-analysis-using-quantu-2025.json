@@ -1,0 +1,28 @@
+{
+  "title": "Resting-state fMRI Analysis using Quantum Time-series Transformer",
+  "authors": [
+    "Junghoon Park",
+    "Jungwoo Seo",
+    "Sangyoon Bae",
+    "Samuel Yen-Chi Chen",
+    "Hua-an Tseng",
+    "Jiook Cha",
+    "Shinjae Yoo"
+  ],
+  "venue": "arXiv (Cornell University)",
+  "year": 2025,
+  "doi": "10.48550/arxiv.2509.00711",
+  "url": "https://doi.org/10.48550/arxiv.2509.00711",
+  "tags": [
+    "Neuroimaging",
+    "Quantum ML",
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Junghoon Park",
+    "Jungwoo Seo",
+    "Sangyoon Bae",
+    "Jiook Cha"
+  ]
+}

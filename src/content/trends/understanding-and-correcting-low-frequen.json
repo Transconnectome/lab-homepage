@@ -9,7 +9,7 @@
   "publishedDate": "2026-08-03",
   "source": "arXiv (2026-08)",
   "topic": "fMRI/EEG Dynamics",
-  "url": "http://arxiv.org/abs/2608.01898v1",
+  "url": "https://arxiv.org/abs/2608.01898v1",
   "summaryPoints": [
     "EEG foundation models exhibit a pervasive low-frequency bias in their learned representations, irrespective of data scale, model capacity, or pretraining objective.",
     "This bias stems from the interplay between EEG's $1/f^α$ spectral characteristics and neural networks' natural inclination to prioritize low-frequency components, exacerbated by $\\ell_2$ reconstruction losses in masked autoencoders.",

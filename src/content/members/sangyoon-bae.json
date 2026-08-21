@@ -5,7 +5,9 @@
   "roleKo": "대학원생 (인공지능협동과정)",
   "category": "phd",
   "email": "stellasybae@snu.ac.kr",
-  "affiliations": ["Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"],
+  "affiliations": [
+    "Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"
+  ],
   "education": [
     "BS in Biological Sciences (Student-Designed Minor: Computational Neuroscience), Seoul National University"
   ],
@@ -22,5 +24,6 @@
     "Mint Chocolate Desserts",
     "MILA Visiting Researcher"
   ],
-  "order": 5
+  "order": 5,
+  "avatar": "/assets/members/sangyoon-bae.jpg"
 }

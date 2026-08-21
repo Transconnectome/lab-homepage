@@ -1,0 +1,22 @@
+{
+  "name": "Yujin Yun",
+  "nameKo": "윤유진",
+  "role": "Graduate Student",
+  "roleKo": "대학원생",
+  "category": "phd",
+  "email": "yunyujin@snu.ac.kr",
+  "avatar": "/assets/members/yujin-yun.jpg",
+  "affiliations": [
+    "Department of Psychology, SNU"
+  ],
+  "education": [
+    "BA in Education & Economics, Seoul National University"
+  ],
+  "researchInterests": [
+    "Naturalistic Stimuli",
+    "Early Intervention",
+    "Developmental Neuroscience"
+  ],
+  "passions": [],
+  "order": 18
+}

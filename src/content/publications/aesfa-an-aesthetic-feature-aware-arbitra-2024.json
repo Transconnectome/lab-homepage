@@ -1,0 +1,22 @@
+{
+  "title": "AesFA: An Aesthetic Feature-Aware Arbitrary Neural Style Transfer",
+  "authors": [
+    "Joonwoo Kwon",
+    "Soo Young Kim",
+    "Yuewei Lin",
+    "Shinjae Yoo",
+    "Jiook Cha"
+  ],
+  "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+  "year": 2024,
+  "doi": "10.1609/aaai.v38i12.29232",
+  "url": "https://doi.org/10.1609/aaai.v38i12.29232",
+  "tags": [
+    "Neuroscience"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Joonwoo Kwon",
+    "Jiook Cha"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "title": "Quantum-Enhanced Spatio-Temporal Alignment for EEG Foundation Models with Physiologically-Grounded Interpretability",
+  "titleKo": "생리적 근거 기반 해석 가능성을 갖춘 양자 강화 시공간 정렬 EEG 파운데이션 모델",
+  "date": "2026-08-21",
+  "hypothesis": "Integrating quantum machine learning techniques for spatio-temporal alignment within EEG foundation models will enhance their generalizability across diverse datasets and subjects, while enabling physiologically-grounded interpretability of predictive mechanisms.",
+  "rationale": "Recent advances in EEG foundation models (e.g., STEAM, EEG-PRISM) highlight the need for robust spatio-temporal alignment and physiological interpretability. Our lab's expertise in Quantum Machine Learning (QML) for high-dimensional brain data and state-space fMRI/EEG foundation models uniquely positions us to explore how quantum principles can optimize spatio-temporal alignment, potentially offering more efficient and nuanced feature extraction than classical methods, and then interpret these features using EEG-PRISM's framework.",
+  "labThreads": [
+    "fMRI & EEG Foundation Models",
+    "Quantum Machine Learning (QML) for High-Dimensional Brain Data",
+    "EEG Reconstruction & Interactive Media"
+  ],
+  "externalInspiration": [
+    "STEAM: A Spatio-TEmporal Alignment Mixture-of-Experts Model with Hierarchical Pre-training for EEG Decoding (arXiv (2026-08))",
+    "EEG-PRISM: Physiologically-Grounded Interpretability of Predictions by EEG Foundation Models (arXiv (2026-08))",
+    "Q-DIVER: Integrated Quantum Transfer Learning and Differentiable Quantum Architecture Search with EEG Data (2026 International Conference on Quantum Communications, Networking, and Computing (QCNC))"
+  ],
+  "firstExperiment": "Develop a hybrid quantum-classical spatio-temporal alignment module using parameterized quantum circuits (e.g., inspired by 'Hybrid Quantum Temporal Convolutional Networks') within a STEAM-like architecture. Train this model on publicly available multi-subject EEG datasets (e.g., PhysioNet EEGMotorMovement/Imagery Dataset) for motor imagery decoding. Evaluate improvement in cross-subject generalization (accuracy and F1-score) compared to classical STEAM. Subsequently, apply EEG-PRISM to interpret the feature importance in frequency and source domains.",
+  "risks": "Quantum hardware limitations (noise, qubit count) may restrict the complexity of quantum circuits. Integrating QML modules efficiently into large classical foundation models can be challenging. Physiologically-grounded interpretability might be difficult to validate quantitatively without dedicated ground truth beyond typical EEG inverse solutions.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}

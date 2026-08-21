@@ -1,15 +1,23 @@
 {
   "name": "Seungju Lee",
   "nameKo": "이승주",
-  "role": "MS (Alumna)",
-  "roleKo": "석사 졸업생",
-  "category": "alumni",
-  "email": "connectome@snu.ac.kr",
-  "affiliations": ["Department of Psychology, SNU"],
-  "education": ["MS in Psychology, Seoul National University"],
+  "role": "Graduate Student",
+  "roleKo": "대학원생",
+  "category": "phd",
+  "email": null,
+  "affiliations": [
+    "Department of Psychology, SNU"
+  ],
+  "education": [
+    "MS in Psychology, Seoul National University"
+  ],
   "researchInterests": [
     "Identification of Neurobiomarkers for Predicting Treatment Response in Major Depressive Disorder (MDD)"
   ],
-  "passions": ["Clinical Neuroimaging", "Data Science"],
-  "order": 22
+  "passions": [
+    "Clinical Neuroimaging",
+    "Data Science"
+  ],
+  "order": 11,
+  "avatar": "/assets/members/seungju-lee.jpg"
 }

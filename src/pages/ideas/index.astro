@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allIdeas = await getCollection('ideas');
+const sortedIdeas = allIdeas.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<BaseLayout
+  title="AI Idea Lab | SNU Connectome Laboratory"
+  description="Research hypotheses proposed weekly by an LLM that reads the lab's publications and the latest arXiv trends. AI-generated conversation starters — not lab-endorsed projects."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <!-- Header -->
+    <div class="max-w-2xl space-y-4">
+      <p class="eyebrow">AI Idea Lab</p>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
+        What would an AI have us try next?
+      </h1>
+      <p class="text-lg text-ink-soft leading-relaxed">
+        Every week, a language model reads our research areas, recent publications, and the
+        newest papers on the <a href="/radar" class="text-lab-700 hover:text-lab-800 underline">Research Radar</a> —
+        then proposes hypotheses connecting the two. We publish them unedited, as conversation
+        starters for lab meetings and prospective students.
+      </p>
+      <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-900 leading-relaxed">
+        <strong>Honesty note:</strong> everything below is machine-generated and
+        <strong> not lab-endorsed</strong>. Ideas may be wrong, infeasible, or already done —
+        judging that is half the fun. Each card names the model that wrote it.
+      </div>
+    </div>
+
+    <!-- Idea cards -->
+    <div class="space-y-6">
+      {sortedIdeas.map((idea) => (
+        <article class="card p-7 sm:p-9 space-y-5">
+          <header class="space-y-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="chip-accent">{idea.data.date}</span>
+              <span class="chip">🤖 {idea.data.generatedBy.replace('llm:', '')}</span>
+            </div>
+            <h2 class="font-display text-xl sm:text-2xl font-semibold text-ink leading-snug">
+              {idea.data.title}
+            </h2>
+            {idea.data.titleKo && <p class="text-sm text-ink-faint">{idea.data.titleKo}</p>}
+          </header>
+
+          <div class="p-4 rounded-xl bg-paper border border-line">
+            <div class="eyebrow mb-1.5">Hypothesis</div>
+            <p class="text-base text-ink leading-relaxed">{idea.data.hypothesis}</p>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="eyebrow">Why now, why us</div>
+            <p class="text-base text-ink-soft leading-relaxed">{idea.data.rationale}</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="space-y-1.5">
+              <div class="eyebrow">Builds on lab work</div>
+              <ul class="space-y-1">
+                {idea.data.labThreads.map((t) => (
+                  <li class="text-sm text-ink-soft flex items-start gap-2">
+                    <span class="text-lab-700 mt-0.5">▹</span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="space-y-1.5">
+              <div class="eyebrow">External inspiration</div>
+              <ul class="space-y-1">
+                {idea.data.externalInspiration.map((t) => (
+                  <li class="text-sm text-ink-soft flex items-start gap-2">
+                    <span class="text-lab-700 mt-0.5">▹</span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="eyebrow">A first experiment</div>
+            <p class="text-base text-ink-soft leading-relaxed">{idea.data.firstExperiment}</p>
+          </div>
+
+          <div class="pt-4 border-t border-line space-y-1.5">
+            <div class="eyebrow">How this fails</div>
+            <p class="text-sm text-ink-faint leading-relaxed">{idea.data.risks}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    {sortedIdeas.length === 0 && (
+      <div class="text-center py-16 card">
+        <h2 class="text-lg font-semibold text-ink mb-1">No ideas yet</h2>
+        <p class="text-sm text-ink-soft">The weekly generator hasn't produced its first batch.</p>
+      </div>
+    )}
+
+    <!-- CTA -->
+    <div class="card p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+      <p class="text-base text-ink-soft leading-relaxed max-w-lg">
+        Did one of these spark something — or strike you as obviously wrong?
+        Either reaction is a great opening line for joining the lab.
+      </p>
+      <a
+        href="/join"
+        class="px-6 py-3 rounded-lg bg-lab-700 hover:bg-lab-800 text-white font-semibold text-base transition-colors shrink-0"
+      >
+        Join the conversation
+      </a>
+    </div>
+  </div>
+</BaseLayout>

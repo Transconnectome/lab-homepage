@@ -1,0 +1,22 @@
+{
+  "name": "Kyungjin Oh",
+  "nameKo": "오경진",
+  "role": "Graduate Student",
+  "roleKo": "대학원생",
+  "category": "phd",
+  "email": "castella@snu.ac.kr",
+  "avatar": "/assets/members/kyungjin-oh.jpg",
+  "affiliations": [
+    "Department of Psychology, SNU"
+  ],
+  "education": [
+    "BA in Psychology & Art History, Seoul National University"
+  ],
+  "researchInterests": [
+    "Visual Narratives",
+    "Neural Correlates of Aesthetic Experience",
+    "Art & Neuroscience"
+  ],
+  "passions": [],
+  "order": 16
+}

@@ -6,18 +6,19 @@
     "Marc J. Gameroff",
     "Jiook Cha",
     "Jonathan Posner",
-    "Ardesheer Talati"
+    "Ardesheer Talati",
+    "Myrna M. Weissman",
+    "Milenna T. van Dijk"
   ],
   "venue": "Journal of Affective Disorders",
   "year": 2025,
   "doi": "10.1016/j.jad.2025.120386",
   "url": "https://doi.org/10.1016/j.jad.2025.120386",
   "tags": [
-    "Connectomics"
+    "Psychiatry"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
-    "Yun Wang",
     "Jiook Cha"
   ]
 }

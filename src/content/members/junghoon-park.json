@@ -5,7 +5,9 @@
   "roleKo": "대학원생 (인공지능협동과정)",
   "category": "phd",
   "email": "utopie9090@snu.ac.kr",
-  "affiliations": ["Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"],
+  "affiliations": [
+    "Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"
+  ],
   "education": [
     "BA in Economics (Minor in Political Science), Seoul National University"
   ],
@@ -20,5 +22,6 @@
     "Philosophy (Nietzsche & Hannah Arendt)",
     "Craft Beer & Coffee"
   ],
-  "order": 8
+  "order": 8,
+  "avatar": "/assets/members/junghoon-park.jpg"
 }

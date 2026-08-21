@@ -6,7 +6,14 @@
     "A Lee",
     "Taeyang Lee",
     "Seong Jin Lee",
-    "Jubin Choi"
+    "Jubin Choi",
+    "Sebin Lee",
+    "Jihyun Bang",
+    "Seungju Lee",
+    "David K. Park",
+    "Shinjae Yoo",
+    "Chun Kee Chung",
+    "Jiook Cha"
   ],
   "venue": "arXiv (Cornell University)",
   "year": 2025,
@@ -14,14 +21,10 @@
   "url": "https://doi.org/10.48550/arxiv.2512.19097",
   "tags": [
     "EEG",
-    "Foundation Models"
+    "AI & Foundation Models"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
-    "Danny Dongyeop Han",
-    "A Lee",
-    "Taeyang Lee",
-    "Seong Jin Lee",
     "Jubin Choi",
     "Sebin Lee",
     "Seungju Lee",

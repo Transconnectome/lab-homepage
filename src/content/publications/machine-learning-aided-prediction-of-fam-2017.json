@@ -1,0 +1,24 @@
+{
+  "title": "Machine learning aided prediction of family history of depression",
+  "authors": [
+    "Allen P. Liu",
+    "Bryant Liu",
+    "Daniel Lee",
+    "Myrna M. Weissman",
+    "Jonathan Posner",
+    "Jiook Cha",
+    "Shinjae Yoo"
+  ],
+  "venue": "2017 New York Scientific Data Summit (NYSDS)",
+  "year": 2017,
+  "doi": "10.1109/nysds.2017.8085046",
+  "url": "https://doi.org/10.1109/nysds.2017.8085046",
+  "tags": [
+    "Psychiatry",
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Jiook Cha"
+  ]
+}

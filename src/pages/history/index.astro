@@ -6,51 +6,38 @@ const allHistory = await getCollection('history');
 const sortedHistory = allHistory.sort((a, b) => a.data.order - b.data.order);
 ---
 
-<BaseLayout title="History & Milestones | SNU Connectome Laboratory">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+<BaseLayout title="History | SNU Connectome Laboratory">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-14">
     <!-- Header -->
-    <div class="max-w-3xl space-y-4">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-800/60 text-cyan-300 text-xs font-mono">
-        <span>LIVING CHRONICLES</span>
-      </div>
-      <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">
-        History & Lab Milestones
+    <div class="max-w-2xl space-y-4">
+      <p class="eyebrow">History</p>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
+        Milestones and memories
       </h1>
-      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-        A chronological journey of our breakthroughs, international internships, hackathons, and community growth.
+      <p class="text-lg text-ink-soft leading-relaxed">
+        Graduations, hackathons, fellowships abroad, and the occasional art exhibition — the
+        lab's story, year by year.
       </p>
     </div>
 
     <!-- Timeline -->
-    <div class="space-y-12 relative before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:w-0.5 before:bg-slate-800">
-      {sortedHistory.map(async (item, idx) => {
+    <div class="relative border-l-2 border-line ml-3 sm:ml-4 space-y-10 pl-8 sm:pl-10 py-2">
+      {sortedHistory.map(async (item) => {
         const { Content } = await item.render();
-        const isEven = idx % 2 === 0;
         return (
-          <div class={`relative flex flex-col md:flex-row items-start ${isEven ? 'md:flex-row-reverse' : ''} gap-8 group`}>
-            {/* Center Timeline Node */}
-            <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-slate-950 border-2 border-cyan-400 flex items-center justify-center text-xs font-mono text-cyan-300 shadow-lg shadow-cyan-500/30 z-10">
-              {idx + 1}
-            </div>
-
-            <!-- Content Card -->
-            <div class="w-full md:w-[calc(50%-2rem)] pl-12 md:pl-0">
-              <div class="p-8 rounded-3xl glass-panel glass-panel-hover border border-slate-800 space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <span class="text-xs font-mono font-bold text-cyan-400 px-2.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-800/80">
-                    {item.data.period}
-                  </span>
-                  <span class="text-xs font-mono text-slate-500">{item.data.year}</span>
-                </div>
-
-                <h3 class="text-xl font-bold text-white leading-snug">{item.data.title}</h3>
-
-                <div class="prose prose-invert prose-xs text-slate-300 leading-relaxed prose-headings:text-cyan-300 prose-ul:space-y-1">
-                  <Content />
-                </div>
+          <article class="relative">
+            <span class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-4 h-4 rounded-full bg-lab-700 border-4 border-paper" aria-hidden="true" />
+            <div class="card p-7 sm:p-8 space-y-4">
+              <header class="flex items-center justify-between gap-3 border-b border-line pb-3">
+                <span class="chip-accent">{item.data.period}</span>
+                <span class="font-mono text-xs text-ink-faint">{item.data.year}</span>
+              </header>
+              <h2 class="font-display text-xl font-semibold text-ink leading-snug">{item.data.title}</h2>
+              <div class="prose prose-stone prose-sm max-w-none prose-headings:font-display prose-a:text-lab-700">
+                <Content />
               </div>
             </div>
-          </div>
+          </article>
         );
       })}
     </div>

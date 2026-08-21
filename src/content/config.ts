@@ -7,7 +7,7 @@ const membersCollection = defineCollection({
     nameKo: z.string(),
     role: z.string(),
     roleKo: z.string(),
-    category: z.enum(['pi', 'phd', 'ms', 'undergrad', 'alumni']),
+    category: z.enum(['pi', 'phd', 'ms', 'undergrad', 'staff', 'alumni']),
     email: z.string().nullable().optional(),
     avatar: z.string().nullable().optional(),
     affiliations: z.array(z.string()).default([]),
@@ -85,6 +85,7 @@ const trendsCollection = defineCollection({
     labRelevance: z.string(),
     modality: z.array(z.string()).default([]),
     badge: z.string().nullable().optional(),
+    generatedBy: z.string().nullable().optional(),
   }),
 });
 
@@ -99,6 +100,22 @@ const historyCollection = defineCollection({
   }),
 });
 
+const ideasCollection = defineCollection({
+  type: 'data',
+  schema: z.object({
+    title: z.string(),
+    titleKo: z.string().nullable().optional(),
+    date: z.string(),
+    hypothesis: z.string(),
+    rationale: z.string(),
+    labThreads: z.array(z.string()).default([]),
+    externalInspiration: z.array(z.string()).default([]),
+    firstExperiment: z.string(),
+    risks: z.string(),
+    generatedBy: z.string(),
+  }),
+});
+
 export const collections = {
   members: membersCollection,
   research: researchCollection,
@@ -106,4 +123,5 @@ export const collections = {
   publications: publicationsCollection,
   trends: trendsCollection,
   history: historyCollection,
+  ideas: ideasCollection,
 };

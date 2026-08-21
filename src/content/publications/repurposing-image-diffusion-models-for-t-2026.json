@@ -6,19 +6,21 @@
     "Sooyoung Kim",
     "Jungwoo Seo",
     "Shinjae Yoo",
-    "Yuewei Lin"
+    "Yuewei Lin",
+    "Jiook Cha"
   ],
-  "venue": "Preprint / Journal",
+  "venue": "2026 IEEE International Conference on Image Processing (ICIP)",
   "year": 2026,
   "doi": "10.1109/icip61757.2026.11630156",
   "url": "https://doi.org/10.1109/icip61757.2026.11630156",
   "tags": [
-    "Foundation Models"
+    "AI & Foundation Models"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
-    "Hee‐Hwan Wang",
+    "Joonwoo Kwon",
     "Sooyoung Kim",
+    "Jungwoo Seo",
     "Jiook Cha"
   ]
 }

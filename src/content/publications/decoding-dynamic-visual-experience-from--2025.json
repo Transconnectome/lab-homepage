@@ -11,10 +11,11 @@
   "doi": "10.48550/arxiv.2510.18516",
   "url": "https://doi.org/10.48550/arxiv.2510.18516",
   "tags": [
-    "Connectomics"
+    "Neuroscience"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
+    "Sangyoon Bae",
     "Jiook Cha"
   ]
 }

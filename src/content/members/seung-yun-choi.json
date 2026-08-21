@@ -5,7 +5,9 @@
   "roleKo": "대학원생 (뇌인지과학과)",
   "category": "phd",
   "email": "syunchoi@snu.ac.kr",
-  "affiliations": ["Department of Brain and Cognitive Sciences, SNU"],
+  "affiliations": [
+    "Department of Brain and Cognitive Sciences, SNU"
+  ],
   "education": [
     "MSc in Development and Socialization in Childhood and Adolescence, Utrecht University",
     "BA in Chinese Literature and Culture & Psychology, Sungkyunkwan University"
@@ -15,6 +17,12 @@
     "Adverse childhood experiences & predictive modeling",
     "Early psychiatric interventions"
   ],
-  "passions": ["Travel", "Sports Climbing", "Cello", "Specialty Coffee"],
-  "order": 9
+  "passions": [
+    "Travel",
+    "Sports Climbing",
+    "Cello",
+    "Specialty Coffee"
+  ],
+  "order": 9,
+  "avatar": "/assets/members/seung-yun-choi.jpg"
 }
