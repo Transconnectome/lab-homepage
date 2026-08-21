@@ -1,0 +1,20 @@
+{
+  "title": "Energy-Efficient and Locally Deployable EEG Foundation Models for Real-time Neuro-Art Generation",
+  "titleKo": "실시간 신경 예술 생성을 위한 에너지 효율적이고 로컬 배포 가능한 EEG 파운데이션 모델",
+  "date": "2026-08-21",
+  "hypothesis": "By integrating redundancy-aware token pooling and low-frequency bias correction with EEG foundation models, we can develop energy-efficient and locally deployable models capable of real-time, low-latency reconstruction of affect-contextualized memories or creative states for interactive neuro-art applications.",
+  "rationale": "The lab has a strong commitment to the convergence of neuroscience and art, with projects like 'EEG Reconstruction & Interactive Media' and 'Revisiting Your Memory'. However, current foundation models can be computationally intensive, limiting real-time interaction. Recent external work on ZIPBrain and understanding/correcting low-frequency bias directly addresses the need for faster, more deployable, and robust EEG foundation models. This synergy can enable truly interactive and responsive neuro-art experiences that are both scientifically grounded and artistically innovative.",
+  "labThreads": [
+    "Art & Neuroscience: EEG Reconstruction & Interactive Media",
+    "fMRI & EEG Foundation Models",
+    "Revisiting Your Memory: Reconstruction of Affect-Contextualized Memory via EEG-guided Audiovisual Generation"
+  ],
+  "externalInspiration": [
+    "ZIPBrain: Can EEG Foundation Models Be Faster, Locally Deployable, but Accurate? (arXiv (2026-08))",
+    "Understanding and Correcting Low-Frequency Bias in EEG Foundation Model (arXiv (2026-08))",
+    "Repurposing Image Diffusion Models for Training-Free Music Style Transfer on Mel-Spectrograms (2026 IEEE International Conference on Image Processing (ICIP))"
+  ],
+  "firstExperiment": "Integrate the ZIPBrain redundancy-aware token pooling module into an existing EEG-guided audiovisual generation pipeline (e.g., the one from 'Revisiting Your Memory'). Additionally, implement a low-frequency bias correction method (as suggested by the 'Understanding and Correcting Low-Frequency Bias' paper) within the EEG encoder. Evaluate the model's performance in terms of generation quality (e.g., FID score for generated images/audio), latency, and computational resource usage on a low-power edge device, comparing it against the original, unoptimized pipeline for reconstructing target affective states from EEG.",
+  "risks": "Reducing model complexity for deployability might compromise the richness and nuance of the reconstructed artistic output. The real-time generation of complex, high-quality multimodal art from potentially noisy EEG signals is still a significant technical challenge. Ensuring a seamless, low-latency user experience requires robust hardware-software co-optimization. The artistic relevance and subjective quality of 'AI-generated art' can be contentious.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}
