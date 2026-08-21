@@ -27,18 +27,37 @@ def clean_filename(title):
     cleaned = re.sub(r'[^a-zA-Z0-9\s-]', '', title).strip().lower()
     return re.sub(r'[\s-]+', '-', cleaned)[:40]
 
+LLM_MODEL = "google/gemini-2.5-flash"
+
+
+def extractive_fallback(abstract):
+    """Non-LLM fallback: honestly labeled abstract excerpt, no invented claims."""
+    sentences = [s.strip() for s in abstract.split('. ') if len(s.strip()) > 20]
+    points = sentences[:3] if len(sentences) >= 3 else sentences
+    return {
+        "summaryPoints": [p.rstrip('.') + '.' for p in points],
+        "significance": "Automatically extracted from the abstract (no LLM analysis available).",
+        "labRelevance": "Matched by keyword to the lab's research areas.",
+        "generatedBy": "extractive-fallback",
+    }
+
+
+def validate_llm_output(data):
+    pts = data.get("summaryPoints")
+    return (
+        isinstance(pts, list)
+        and 1 <= len(pts) <= 5
+        and all(isinstance(p, str) for p in pts)
+        and isinstance(data.get("significance"), str)
+        and isinstance(data.get("labRelevance"), str)
+    )
+
+
 def summarize_with_llm(title, abstract, openrouter_key=None):
     """Optional LLM summarizer using OpenRouter / Gemini."""
     if not openrouter_key:
-        # Fallback: High-quality rule-based structured extraction
-        sentences = [s.strip() for s in abstract.split('. ') if len(s.strip()) > 20]
-        points = sentences[:3] if len(sentences) >= 3 else sentences
-        return {
-            "summaryPoints": [p.rstrip('.') + '.' for p in points],
-            "significance": "Presents important advancements in scaling neural representation learning for physiological brain dynamics.",
-            "labRelevance": "Directly interfaces with Connectome Lab's active research in foundation models and multimodal brain decoding."
-        }
-    
+        return extractive_fallback(abstract)
+
     # If OpenRouter key is configured
     try:
         url = "https://openrouter.ai/api/v1/chat/completions"
@@ -53,7 +72,7 @@ Provide a JSON with:
 - "labRelevance": 1 sentence relating it to Connectome Lab (Large Brain Models, Neuro-X, NeuroMamba, DIVER-0, PRS genetics, or QML).
 """
         req_data = {
-            "model": "google/gemini-2.5-flash",
+            "model": LLM_MODEL,
             "messages": [{"role": "user", "content": prompt}],
             "response_format": {"type": "json_object"}
         }
@@ -68,15 +87,14 @@ Provide a JSON with:
         with urllib.request.urlopen(req, timeout=20) as resp:
             data = json.loads(resp.read().decode('utf-8'))
             content = data['choices'][0]['message']['content']
-            return json.loads(content)
+            parsed = json.loads(content)
+            if not validate_llm_output(parsed):
+                raise ValueError("LLM output failed schema validation")
+            parsed["generatedBy"] = f"llm:{LLM_MODEL}"
+            return parsed
     except Exception as e:
         print(f"[!] LLM API fallback due to: {e}")
-        sentences = [s.strip() for s in abstract.split('. ') if len(s.strip()) > 20]
-        return {
-            "summaryPoints": [p.rstrip('.') + '.' for p in sentences[:3]],
-            "significance": "Advances representation learning on large-scale neuroimaging datasets.",
-            "labRelevance": "Relevant to ongoing Neuro-X Large Brain Model initiatives."
-        }
+        return extractive_fallback(abstract)
 
 def fetch_arxiv_papers():
     print("[*] Fetching latest papers from arXiv API...")
@@ -141,12 +159,13 @@ def main():
             "publishedDate": p["publishedDate"],
             "source": f"arXiv ({p['publishedDate'][:7]})",
             "topic": topic,
-            "url": p["url"],
+            "url": p["url"].replace("http://", "https://"),
             "summaryPoints": analysis.get("summaryPoints", []),
             "significance": analysis.get("significance", ""),
             "labRelevance": analysis.get("labRelevance", ""),
             "modality": ["fMRI" if "fmri" in lower else "EEG" if "eeg" in lower else "Genomics" if "gene" in lower else "Multi-Modal"],
-            "badge": "Emerging Paper"
+            "badge": "Emerging Paper",
+            "generatedBy": analysis.get("generatedBy"),
         }
         
         with open(out_path, "w", encoding="utf-8") as f:

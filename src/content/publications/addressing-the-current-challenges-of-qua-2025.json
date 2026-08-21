@@ -1,0 +1,23 @@
+{
+  "title": "Addressing the Current Challenges of Quantum Machine Learning through Multi-Chip Ensembles",
+  "authors": [
+    "Junghoon Park",
+    "Jiook Cha",
+    "Samuel Yen-Chi Chen",
+    "H. Eric Tseng",
+    "Shinjae Yoo"
+  ],
+  "venue": "arXiv (Cornell University)",
+  "year": 2025,
+  "doi": "10.48550/arxiv.2505.08782",
+  "url": "https://doi.org/10.48550/arxiv.2505.08782",
+  "tags": [
+    "Quantum ML",
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Junghoon Park",
+    "Jiook Cha"
+  ]
+}

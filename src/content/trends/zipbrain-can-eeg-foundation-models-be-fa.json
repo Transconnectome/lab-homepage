@@ -9,7 +9,7 @@
   "publishedDate": "2026-08-07",
   "source": "arXiv (2026-08)",
   "topic": "fMRI/EEG Dynamics",
-  "url": "http://arxiv.org/abs/2608.07033v1",
+  "url": "https://arxiv.org/abs/2608.07033v1",
   "summaryPoints": [
     "ZIPBrain is introduced as a novel redundancy-aware EEG token pooling module designed to make EEG Foundation Models (EFMs) faster and more deployable.",
     "It addresses the computational burden of EFMs by reducing the token count through a partitioning and merging strategy, leveraging EEG's low Signal-to-Noise Ratio (SNR) characteristics.",

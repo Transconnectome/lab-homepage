@@ -1,0 +1,29 @@
+{
+  "title": "SwiFT: Swin 4D fMRI Transformer",
+  "authors": [
+    "P. Kim",
+    "Junbeom Kwon",
+    "Sunghwan Joo",
+    "Sangyoon Bae",
+    "Dong-Gyu Lee",
+    "Yoonho Jung",
+    "Shinjae Yoo",
+    "Jiook Cha",
+    "Taesup Moon"
+  ],
+  "venue": "NeurIPS 2023",
+  "year": 2023,
+  "doi": "10.48550/arxiv.2307.05916",
+  "url": "https://doi.org/10.48550/arxiv.2307.05916",
+  "tags": [
+    "Neuroimaging",
+    "AI & Foundation Models"
+  ],
+  "featured": true,
+  "labMembers": [
+    "Junbeom Kwon",
+    "Sangyoon Bae",
+    "Jiook Cha"
+  ],
+  "spotlight": "NeurIPS 2023"
+}

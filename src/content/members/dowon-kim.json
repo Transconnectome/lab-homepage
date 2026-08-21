@@ -1,0 +1,22 @@
+{
+  "name": "Dowon Kim",
+  "nameKo": "김도원",
+  "role": "Graduate Student",
+  "roleKo": "대학원생",
+  "category": "phd",
+  "email": "dowonkim00@snu.ac.kr",
+  "avatar": "/assets/members/dowon-kim.jpg",
+  "affiliations": [
+    "Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"
+  ],
+  "education": [
+    "BA in Economics & BS in Computer Science and Engineering, Sogang University"
+  ],
+  "researchInterests": [
+    "Brain Decoding",
+    "Brain-Computer Interfaces",
+    "Deep Learning"
+  ],
+  "passions": [],
+  "order": 15
+}

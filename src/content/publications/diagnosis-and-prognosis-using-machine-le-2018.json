@@ -1,0 +1,25 @@
+{
+  "title": "Diagnosis and Prognosis Using Machine Learning Trained on Brain Morphometry and White Matter Connectomes",
+  "authors": [
+    "Yun Wang",
+    "Chenxiao Xu",
+    "Ji Hwan Park",
+    "Seonjoo Lee",
+    "Yaakov Stern",
+    "Shinjae Yoo",
+    "Jong Hun Kim",
+    "Hyoung Seop Kim",
+    "Jiook Cha"
+  ],
+  "venue": "bioRxiv (Cold Spring Harbor Laboratory)",
+  "year": 2018,
+  "doi": "10.1101/255141",
+  "url": "https://doi.org/10.1101/255141",
+  "tags": [
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Jiook Cha"
+  ]
+}

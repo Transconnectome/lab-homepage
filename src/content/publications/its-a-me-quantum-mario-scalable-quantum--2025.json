@@ -7,15 +7,16 @@
     "Samuel Yen-Chi Chen",
     "Jiook Cha"
   ],
-  "venue": "Preprint / Journal",
+  "venue": "2025 IEEE International Conference on Quantum Artificial Intelligence (QAI)",
   "year": 2025,
   "doi": "10.1109/qai63978.2025.00063",
   "url": "https://doi.org/10.1109/qai63978.2025.00063",
   "tags": [
-    "Foundation Models"
+    "Quantum ML"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
+    "Junghoon Park",
     "Jiook Cha"
   ]
 }

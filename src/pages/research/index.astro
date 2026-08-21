@@ -6,52 +6,38 @@ const allResearch = await getCollection('research');
 const sortedResearch = allResearch.sort((a, b) => a.data.order - b.data.order);
 ---
 
-<BaseLayout title="Research Pillars | SNU Connectome Laboratory">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+<BaseLayout title="Research | SNU Connectome Laboratory">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-14">
     <!-- Header -->
-    <div class="max-w-3xl space-y-4">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-800/60 text-cyan-300 text-xs font-mono">
-        <span>RESEARCH ROADMAP</span>
-      </div>
-      <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">
-        Decoding the Syntax of the Human Brain
+    <div class="max-w-2xl space-y-4">
+      <p class="eyebrow">Research</p>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
+        How do neural connections become a mind?
       </h1>
-      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-        We integrate data science, representation learning, high-performance computing, and biological principles to discover fundamental representations of human mind and brain health.
+      <p class="text-lg text-ink-soft leading-relaxed">
+        We combine representation learning, population genetics, high-performance computing —
+        and occasionally an art gallery — to study the functional anatomy of human connectomes.
       </p>
     </div>
 
-    <!-- Research List -->
-    <div class="space-y-16">
+    <!-- Research areas -->
+    <div class="space-y-10">
       {sortedResearch.map(async (item) => {
         const { Content } = await item.render();
         return (
-          <article id={item.slug} class="p-8 sm:p-12 rounded-3xl glass-panel border border-slate-800 space-y-8 scroll-mt-28">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
-              <div class="space-y-1">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-mono text-cyan-400 font-bold uppercase tracking-wider">
-                    {item.data.category}
-                  </span>
-                  {item.data.featured && (
-                    <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
-                      Major Thrust
-                    </span>
-                  )}
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-black text-white">{item.data.title}</h2>
-                <p class="text-sm font-semibold text-cyan-300 font-mono">{item.data.titleKo}</p>
-              </div>
-            </div>
+          <article id={item.slug} class="card p-8 sm:p-10 space-y-6 scroll-mt-24">
+            <header class="border-b border-line pb-5 space-y-1">
+              <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink">{item.data.title}</h2>
+              <p class="font-mono text-sm text-lab-700">{item.data.titleKo}</p>
+            </header>
 
-            <!-- Key Highlights Box -->
             {item.data.keyHighlights.length > 0 && (
-              <div class="p-5 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-2">
-                <div class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">Key Focus Areas:</div>
+              <div class="p-5 rounded-xl bg-paper border border-line space-y-2">
+                <div class="eyebrow">Key directions</div>
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {item.data.keyHighlights.map((hl: string) => (
-                    <li class="text-xs text-slate-300 flex items-start gap-2">
-                      <span class="text-cyan-400 font-bold mt-0.5">▹</span>
+                    <li class="text-sm text-ink-soft flex items-start gap-2">
+                      <span class="text-lab-700 font-bold mt-0.5">▹</span>
                       <span>{hl}</span>
                     </li>
                   ))}
@@ -59,8 +45,7 @@ const sortedResearch = allResearch.sort((a, b) => a.data.order - b.data.order);
               </div>
             )}
 
-            <!-- Markdown Content -->
-            <div class="prose prose-invert prose-sm sm:prose-base max-w-none text-slate-300 leading-relaxed prose-headings:text-white prose-a:text-cyan-400">
+            <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-semibold prose-a:text-lab-700">
               <Content />
             </div>
           </article>

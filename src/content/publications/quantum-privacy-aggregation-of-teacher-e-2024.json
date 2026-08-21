@@ -1,0 +1,26 @@
+{
+  "title": "Quantum Privacy Aggregation of Teacher Ensembles (QPATE) for Privacy Preserving Quantum Machine Learning",
+  "authors": [
+    "William H. Watkins",
+    "Heehwan Wang",
+    "Sangyoon Bae",
+    "H. Eric Tseng",
+    "Jiook Cha",
+    "Samuel Yen-Chi Chen",
+    "Shinjae Yoo"
+  ],
+  "venue": "ICASSP 2024 - 2024 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)",
+  "year": 2024,
+  "doi": "10.1109/icassp48485.2024.10447786",
+  "url": "https://doi.org/10.1109/icassp48485.2024.10447786",
+  "tags": [
+    "Quantum ML",
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Heehwan Wang",
+    "Sangyoon Bae",
+    "Jiook Cha"
+  ]
+}

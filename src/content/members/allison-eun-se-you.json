@@ -1,0 +1,21 @@
+{
+  "name": "Allison Eun Se You",
+  "nameKo": "유은서",
+  "role": "Graduate Student",
+  "roleKo": "대학원생",
+  "category": "ms",
+  "email": "eunseyou@snu.ac.kr",
+  "avatar": "/assets/members/allison-eun-se-you.jpg",
+  "affiliations": [
+    "Department of Brain and Cognitive Sciences, SNU"
+  ],
+  "education": [
+    "BSc in Molecular Biology & Biotechnology (Minor in Neuroscience), University of Hong Kong"
+  ],
+  "researchInterests": [
+    "Personalized Psychiatry",
+    "Multimodal Data Integration"
+  ],
+  "passions": [],
+  "order": 12
+}

@@ -8,7 +8,7 @@
   "publishedDate": "2026-08-05",
   "source": "arXiv (2026-08)",
   "topic": "fMRI/EEG Dynamics",
-  "url": "http://arxiv.org/abs/2608.16931v1",
+  "url": "https://arxiv.org/abs/2608.16931v1",
   "summaryPoints": [
     "This paper introduces a novel security risk in EEG foundation models: adversarial transfer attacks from public encoders to private downstream models.",
     "They propose SW-ProxyCE, a query-free attack framework that leverages shrinkage-whitened class prototypes from a small labeled reference set to generate transferable adversarial examples.",

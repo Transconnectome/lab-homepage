@@ -4,8 +4,10 @@
   "role": "MS-PhD / Graduate Student",
   "roleKo": "대학원생 (뇌인지과학과)",
   "category": "phd",
-  "email": "connectome@snu.ac.kr",
-  "affiliations": ["Department of Brain and Cognitive Sciences, SNU"],
+  "email": null,
+  "affiliations": [
+    "Department of Brain and Cognitive Sciences, SNU"
+  ],
   "education": [
     "BS in Brain and Cognitive Sciences"
   ],
@@ -14,6 +16,10 @@
     "Real-time Brain-Computer Interface (BCI)",
     "Neuro-Art & EEG Affect Decoding"
   ],
-  "passions": ["OB/Scene Focus Exhibition Artist & Presenter", "Electronic Music & Sound Engineering"],
-  "order": 10
+  "passions": [
+    "OB/Scene Focus Exhibition Artist & Presenter",
+    "Electronic Music & Sound Engineering"
+  ],
+  "order": 10,
+  "avatar": "/assets/members/seokjin-moon.jpg"
 }

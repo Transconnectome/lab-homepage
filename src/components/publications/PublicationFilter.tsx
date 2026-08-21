@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Code, ExternalLink, Copy, Check, Sparkles, BookOpen } from 'lucide-react';
+import { Search, Code, ExternalLink, Copy, Check, BookOpen } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface PublicationItem {
@@ -7,20 +7,29 @@ interface PublicationItem {
   authors: string[];
   venue: string;
   year: number;
-  month?: string;
-  doi?: string;
-  url?: string;
-  pdfUrl?: string;
-  codeUrl?: string;
+  month?: string | null;
+  doi?: string | null;
+  url?: string | null;
+  pdfUrl?: string | null;
+  codeUrl?: string | null;
   tags: string[];
   featured?: boolean;
-  spotlight?: string;
-  abstract?: string;
+  spotlight?: string | null;
+  abstract?: string | null;
   labMembers: string[];
 }
 
 interface Props {
   publications: PublicationItem[];
+}
+
+const MAX_VISIBLE_AUTHORS = 12;
+
+function bibtexKey(pub: PublicationItem): string {
+  const first = pub.authors[0] || 'connectomelab';
+  const family = first.trim().split(/\s+/).pop() || 'connectomelab';
+  const word = (pub.title.match(/[A-Za-z]{4,}/) || ['paper'])[0].toLowerCase();
+  return `${family.toLowerCase().replace(/[^a-z]/g, '')}${pub.year}${word}`;
 }
 
 export default function PublicationFilter({ publications }: Props) {
@@ -32,7 +41,7 @@ export default function PublicationFilter({ publications }: Props) {
   const allTags = useMemo(() => {
     const set = new Set<string>();
     publications.forEach((p) => p.tags.forEach((t) => set.add(t)));
-    return ['All', ...Array.from(set)];
+    return ['All', ...Array.from(set).sort()];
   }, [publications]);
 
   const allYears = useMemo(() => {
@@ -52,85 +61,74 @@ export default function PublicationFilter({ publications }: Props) {
         pub.venue.toLowerCase().includes(query) ||
         pub.authors.some((a) => a.toLowerCase().includes(query)) ||
         (pub.abstract && pub.abstract.toLowerCase().includes(query));
-
       return matchTag && matchYear && matchSearch;
     });
   }, [publications, selectedTag, selectedYear, searchQuery]);
 
-  const copyBibtex = (pub: PublicationItem, e: React.MouseEvent) => {
-    const key = (pub.authors[0]?.split(' ')[1] || 'cha') + pub.year;
-    const bibtex = `@article{${key.toLowerCase()},\n  title={${pub.title}},\n  author={${pub.authors.join(' and ')}},\n  journal={${pub.venue}},\n  year={${pub.year}},\n  ${pub.doi ? `doi={${pub.doi}},` : ''}\n  url={${pub.url || ''}}\n}`;
-
+  const copyBibtex = (pub: PublicationItem) => {
+    const bibtex = `@article{${bibtexKey(pub)},\n  title={${pub.title}},\n  author={${pub.authors.join(' and ')}},\n  journal={${pub.venue}},\n  year={${pub.year}},${pub.doi ? `\n  doi={${pub.doi}},` : ''}\n  url={${pub.url || ''}}\n}`;
     navigator.clipboard.writeText(bibtex);
     setCopiedId(pub.title);
-
-    // Trigger subtle celebratory confetti
-    confetti({
-      particleCount: 30,
-      spread: 60,
-      origin: { y: 0.8 },
-      colors: ['#38bdf8', '#818cf8', '#00e5ff'],
-    });
-
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      confetti({ particleCount: 24, spread: 55, origin: { y: 0.85 }, colors: ['#0E7490', '#0891B2', '#164E63'] });
+    }
     setTimeout(() => setCopiedId(null), 2500);
   };
 
   return (
     <div className="space-y-8">
-      {/* Control Panel: Search & Filters */}
-      <div className="p-6 rounded-3xl glass-panel border border-slate-700/60 shadow-xl space-y-4">
-        <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
-          {/* Search bar */}
+      {/* Controls */}
+      <div className="card p-5 sm:p-6 space-y-4">
+        <div className="flex flex-col md:flex-row gap-4 justify-between md:items-center">
           <div className="relative w-full md:w-96">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-faint" aria-hidden="true" />
+            <label htmlFor="pub-search" className="sr-only">Search publications</label>
             <input
+              id="pub-search"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by title, author, keyword, or venue..."
-              className="w-full bg-slate-900/80 border border-slate-700 rounded-2xl pl-11 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition"
+              placeholder="Search title, author, venue..."
+              className="w-full bg-paper border border-line rounded-lg pl-10 pr-9 py-2.5 text-sm text-ink placeholder-ink-faint focus:border-lab-600 transition-colors"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-white px-1.5 py-0.5 rounded bg-slate-800"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-ink-faint hover:text-ink px-1.5 py-0.5 rounded bg-white border border-line"
+                aria-label="Clear search"
               >
                 ✕
               </button>
             )}
           </div>
 
-          {/* Year selector */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-400 font-mono">Year:</span>
-            <div className="flex gap-1.5 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
+          <div className="flex items-center gap-3">
+            <label htmlFor="pub-year" className="font-mono text-xs text-ink-faint">Year</label>
+            <select
+              id="pub-year"
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(e.target.value)}
+              className="bg-paper border border-line rounded-lg px-3 py-2 text-sm text-ink focus:border-lab-600"
+            >
               {allYears.map((year) => (
-                <button
-                  key={year}
-                  onClick={() => setSelectedYear(year)}
-                  className={`px-3 py-1 rounded-lg text-xs font-mono transition ${
-                    selectedYear === year
-                      ? 'bg-cyan-500 text-slate-950 font-bold'
-                      : 'text-slate-400 hover:text-slate-200'
-                  }`}
-                >
-                  {year}
-                </button>
+                <option key={year} value={year}>{year === 'All' ? 'All years' : year}</option>
               ))}
-            </div>
+            </select>
+            <span className="font-mono text-xs text-ink-faint">
+              {filteredPublications.length} / {publications.length}
+            </span>
           </div>
         </div>
 
-        {/* Tag pills */}
-        <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-800">
+        <div className="flex flex-wrap gap-2 pt-3 border-t border-line">
           {allTags.map((tag) => (
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 selectedTag === tag
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
-                  : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800'
+                  ? 'bg-lab-700 text-white'
+                  : 'bg-paper text-ink-soft hover:text-ink border border-line'
               }`}
             >
               {tag}
@@ -139,123 +137,108 @@ export default function PublicationFilter({ publications }: Props) {
         </div>
       </div>
 
-      {/* Publications List */}
+      {/* List */}
       <div className="space-y-4">
-        {filteredPublications.map((pub, idx) => (
-          <div
-            key={idx}
-            className="p-6 rounded-3xl glass-panel glass-panel-hover border border-slate-800 flex flex-col md:flex-row gap-6 justify-between items-start group"
-          >
-            <div className="space-y-2.5 flex-1">
-              {/* Badges / Spotlight */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-mono font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-2.5 py-0.5 rounded-full">
-                  {pub.year}
-                </span>
-                {pub.spotlight && (
-                  <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-amber-400" />
-                    {pub.spotlight}
-                  </span>
+        {filteredPublications.map((pub, idx) => {
+          const visibleAuthors = pub.authors.slice(0, MAX_VISIBLE_AUTHORS);
+          const hiddenCount = pub.authors.length - visibleAuthors.length;
+          return (
+            <article
+              key={`${pub.title}-${idx}`}
+              className="card card-hover p-6 flex flex-col md:flex-row gap-5 justify-between items-start"
+            >
+              <div className="space-y-2.5 flex-1 min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="chip-accent">{pub.year}</span>
+                  {pub.spotlight && <span className="chip">✨ {pub.spotlight}</span>}
+                  {pub.tags.map((tag) => (
+                    <span key={tag} className="chip">#{tag}</span>
+                  ))}
+                </div>
+
+                <h3 className="text-base sm:text-lg font-semibold text-ink leading-snug">
+                  {pub.url ? (
+                    <a href={pub.url} target="_blank" rel="noreferrer" className="hover:text-lab-700 transition-colors">
+                      {pub.title}
+                    </a>
+                  ) : (
+                    pub.title
+                  )}
+                </h3>
+
+                <p className="text-sm text-ink-soft leading-relaxed">
+                  {visibleAuthors.map((author, aIdx) => {
+                    const isLabMember = pub.labMembers.includes(author);
+                    return (
+                      <span key={aIdx}>
+                        <span className={isLabMember ? 'font-semibold text-lab-800' : ''}>{author}</span>
+                        {aIdx < visibleAuthors.length - 1 ? ', ' : ''}
+                      </span>
+                    );
+                  })}
+                  {hiddenCount > 0 && (
+                    <span className="text-ink-faint"> … et al. ({pub.authors.length} authors)</span>
+                  )}
+                </p>
+
+                <p className="font-mono text-xs text-ink-faint italic">{pub.venue}</p>
+
+                {pub.abstract && (
+                  <p className="text-sm text-ink-soft leading-relaxed pt-1">{pub.abstract}</p>
                 )}
-                {pub.tags.map((tag, tIdx) => (
-                  <span
-                    key={tIdx}
-                    className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-900 text-slate-400 border border-slate-800"
-                  >
-                    #{tag}
-                  </span>
-                ))}
               </div>
 
-              {/* Title */}
-              <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition leading-snug">
-                {pub.url ? (
-                  <a href={pub.url} target="_blank" rel="noreferrer" className="hover:underline flex items-start gap-1.5">
-                    <span>{pub.title}</span>
-                    <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 shrink-0 mt-1" />
+              {/* Actions */}
+              <div className="flex flex-row md:flex-col gap-2 shrink-0 w-full md:w-auto justify-end">
+                {pub.url && (
+                  <a
+                    href={pub.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-3.5 py-2 rounded-lg bg-paper hover:bg-lab-50 text-ink-soft hover:text-lab-800 text-sm flex items-center justify-center gap-1.5 border border-line transition-colors"
+                  >
+                    <BookOpen className="w-4 h-4 text-lab-700" aria-hidden="true" />
+                    <span>Paper</span>
                   </a>
-                ) : (
-                  pub.title
                 )}
-              </h3>
-
-              {/* Authors */}
-              <p className="text-xs text-slate-300 leading-relaxed">
-                {pub.authors.map((author, aIdx) => {
-                  const isLabMember = pub.labMembers.some((m) => author.includes(m) || m.includes(author));
-                  return (
-                    <span key={aIdx}>
-                      <span className={isLabMember ? 'font-semibold text-cyan-300' : 'text-slate-400'}>
-                        {author}
-                      </span>
-                      {aIdx < pub.authors.length - 1 ? ', ' : ''}
-                    </span>
-                  );
-                })}
-              </p>
-
-              {/* Venue */}
-              <p className="text-xs font-mono text-slate-400 italic">{pub.venue}</p>
-
-              {/* Abstract */}
-              {pub.abstract && (
-                <p className="text-xs text-slate-400 leading-relaxed pt-1 line-clamp-2 group-hover:line-clamp-none transition-all">
-                  {pub.abstract}
-                </p>
-              )}
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-row md:flex-col gap-2 shrink-0 w-full md:w-auto justify-end pt-2 md:pt-0 border-t md:border-t-0 border-slate-800">
-              {pub.url && (
-                <a
-                  href={pub.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs flex items-center justify-center gap-1.5 border border-slate-700 transition"
-                >
-                  <BookOpen className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Paper</span>
-                </a>
-              )}
-              {pub.codeUrl && (
-                <a
-                  href={pub.codeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs flex items-center justify-center gap-1.5 border border-slate-700 transition"
-                >
-                  <Code className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>Code</span>
-                </a>
-              )}
-              <button
-                onClick={(e) => copyBibtex(pub, e)}
-                className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs flex items-center justify-center gap-1.5 border border-slate-700 transition"
-              >
-                {copiedId === pub.title ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-300 font-semibold">Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-slate-400" />
-                    <span>BibTeX</span>
-                  </>
+                {pub.codeUrl && (
+                  <a
+                    href={pub.codeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-3.5 py-2 rounded-lg bg-paper hover:bg-lab-50 text-ink-soft hover:text-lab-800 text-sm flex items-center justify-center gap-1.5 border border-line transition-colors"
+                  >
+                    <Code className="w-4 h-4 text-lab-700" aria-hidden="true" />
+                    <span>Code</span>
+                  </a>
                 )}
-              </button>
-            </div>
-          </div>
-        ))}
+                <button
+                  onClick={() => copyBibtex(pub)}
+                  className="px-3.5 py-2 rounded-lg bg-paper hover:bg-lab-50 text-ink-soft hover:text-lab-800 text-sm flex items-center justify-center gap-1.5 border border-line transition-colors"
+                >
+                  {copiedId === pub.title ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-600" aria-hidden="true" />
+                      <span className="text-emerald-700 font-semibold">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" aria-hidden="true" />
+                      <span>BibTeX</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </article>
+          );
+        })}
       </div>
 
       {filteredPublications.length === 0 && (
-        <div className="text-center py-16 rounded-3xl glass-panel border border-slate-800">
-          <BookOpen className="w-12 h-12 text-slate-600 mx-auto mb-3 animate-pulse" />
-          <h3 className="text-lg font-semibold text-white mb-1">No publications matched</h3>
-          <p className="text-sm text-slate-400">Try clearing filters or changing your search terms.</p>
+        <div className="text-center py-16 card">
+          <BookOpen className="w-10 h-10 text-ink-faint mx-auto mb-3" aria-hidden="true" />
+          <h3 className="text-lg font-semibold text-ink mb-1">No publications matched</h3>
+          <p className="text-sm text-ink-soft">Clear the filters or try a different search term.</p>
         </div>
       )}
     </div>

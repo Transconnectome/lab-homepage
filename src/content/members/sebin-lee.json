@@ -4,8 +4,10 @@
   "role": "MS-PhD / Graduate Student",
   "roleKo": "대학원생 (인공지능협동과정)",
   "category": "phd",
-  "email": "connectome@snu.ac.kr",
-  "affiliations": ["Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"],
+  "email": null,
+  "affiliations": [
+    "Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"
+  ],
   "education": [
     "BS in Computer Science & Engineering"
   ],
@@ -14,6 +16,11 @@
     "Geometric Deep Learning for Neural Signals",
     "Self-supervised EEG representation learning"
   ],
-  "passions": ["ICML Genbio Spotlight Author", "Deep Learning Architectures", "Hackathons"],
-  "order": 11
+  "passions": [
+    "ICML Genbio Spotlight Author",
+    "Deep Learning Architectures",
+    "Hackathons"
+  ],
+  "order": 11,
+  "avatar": "/assets/members/sebin-lee.jpg"
 }

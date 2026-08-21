@@ -1,0 +1,24 @@
+{
+  "title": "GANBERT: Generative Adversarial Networks with Bidirectional Encoder Representations from Transformers for MRI to PET synthesis",
+  "authors": [
+    "Hoo-Chang Shin",
+    "Alvin Ihsani",
+    "Swetha Mandava",
+    "Sharath Turuvekere Sreenivas",
+    "Christopher J. Forster",
+    "Jiook Cha",
+    "Alzheimer’s Disease Neuroimaging Initiative"
+  ],
+  "venue": "arXiv (Cornell University)",
+  "year": 2020,
+  "doi": "10.48550/arxiv.2008.04393",
+  "url": "https://doi.org/10.48550/arxiv.2008.04393",
+  "tags": [
+    "Neuroimaging",
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Jiook Cha"
+  ]
+}

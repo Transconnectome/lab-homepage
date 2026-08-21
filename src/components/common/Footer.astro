@@ -2,78 +2,65 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="border-t border-slate-800/80 bg-slate-950 text-slate-400 text-xs py-14 mt-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <!-- Col 1: About & Leonardo Quote -->
-      <div class="md:col-span-2 space-y-3.5">
+<footer class="border-t border-line bg-white text-ink-soft text-sm py-14 mt-24">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <!-- About & Leonardo quote -->
+      <div class="md:col-span-2 space-y-4">
         <div class="flex items-center gap-2.5">
-          <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xs">
-            🧠
-          </div>
-          <span class="font-bold text-white text-sm">SNU Connectome Laboratory</span>
+          <img src="/assets/logo-mark.png" alt="" class="w-7 h-7" />
+          <span class="font-display font-semibold text-ink">SNU Connectome Laboratory</span>
         </div>
-        <blockquote class="text-xs text-slate-400 italic border-l-2 border-cyan-500/60 pl-3 leading-relaxed">
-          "Study the science of art. Study the art of science. Develop your senses — especially learn how to see. Realize that everything connects to everything else."
-          <span class="block text-slate-500 text-[11px] mt-1 not-italic">— Leonardo da Vinci</span>
+        <blockquote class="font-display text-ink-soft italic border-l-2 border-lab-600 pl-4 leading-relaxed">
+          “Study the science of art. Study the art of science. Develop your senses — especially learn how to see.
+          Realize that everything connects to everything else.”
+          <span class="block font-sans font-mono text-xs text-ink-faint mt-2 not-italic">— Leonardo da Vinci</span>
         </blockquote>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Department of Psychology • Interdisciplinary Program in AI (GSAI) • Department of Brain & Cognitive Sciences<br />
-          Seoul National University, Seoul, Republic of Korea
+        <p class="text-sm leading-relaxed">
+          Department of Psychology · Interdisciplinary Program in AI (GSAI) · Department of Brain &amp; Cognitive Sciences
         </p>
       </div>
 
-      <!-- Col 2: Navigation Links -->
+      <!-- Navigation -->
       <div class="space-y-3">
-        <h4 class="font-bold text-white text-xs uppercase tracking-wider text-cyan-400">Navigation</h4>
-        <ul class="space-y-2 text-xs">
-          <li><a href="/research" class="hover:text-cyan-300 transition">Research Pillars</a></li>
-          <li><a href="/publications" class="hover:text-cyan-300 transition">Publications</a></li>
-          <li><a href="/radar" class="hover:text-cyan-300 transition">Living SOTA Radar</a></li>
-          <li><a href="/team" class="hover:text-cyan-300 transition">Members & Culture</a></li>
-          <li><a href="/history" class="hover:text-cyan-300 transition">Lab History</a></li>
+        <h4 class="eyebrow">Navigate</h4>
+        <ul class="space-y-2">
+          <li><a href="/research" class="hover:text-lab-700 transition-colors">Research</a></li>
+          <li><a href="/publications" class="hover:text-lab-700 transition-colors">Publications</a></li>
+          <li><a href="/team" class="hover:text-lab-700 transition-colors">People</a></li>
+          <li><a href="/news" class="hover:text-lab-700 transition-colors">News</a></li>
+          <li><a href="/history" class="hover:text-lab-700 transition-colors">History</a></li>
+          <li><a href="/radar" class="hover:text-lab-700 transition-colors">Research Radar</a></li>
+          <li><a href="/ideas" class="hover:text-lab-700 transition-colors">AI Idea Lab</a></li>
+          <li><a href="/join" class="text-lab-700 font-semibold hover:text-lab-800 transition-colors">Join us</a></li>
         </ul>
       </div>
 
-      <!-- Col 3: Contact & Channels -->
+      <!-- Contact -->
       <div class="space-y-3">
-        <h4 class="font-bold text-white text-xs uppercase tracking-wider text-cyan-400">Connect</h4>
-        <ul class="space-y-2 text-xs">
-          <li>
-            <a href="mailto:connectome@snu.ac.kr" class="hover:text-cyan-300 transition flex items-center gap-1.5">
-              <span>📧</span>
-              <span>connectome@snu.ac.kr</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/snuconnectome" target="_blank" rel="noreferrer" class="hover:text-cyan-300 transition flex items-center gap-1.5">
-              <span>🐙</span>
-              <span>GitHub @snuconnectome</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://scholar.google.com/citations?user=d_s86n8AAAAJ" target="_blank" rel="noreferrer" class="hover:text-cyan-300 transition flex items-center gap-1.5">
-              <span>📚</span>
-              <span>Google Scholar</span>
-            </a>
-          </li>
-          <li>
-            <a href="/join" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1.5">
-              <span>✨</span>
-              <span>Recruiting (QML/AI Interns)</span>
-            </a>
-          </li>
-        </ul>
+        <h4 class="eyebrow">Contact</h4>
+        <address class="not-italic space-y-2 leading-relaxed">
+          <p>
+            Office M512, Building 16<br />
+            Seoul National University<br />
+            1 Gwanak-ro, Gwanak-gu, Seoul
+          </p>
+          <p>
+            <a href="mailto:connectome@snu.ac.kr" class="hover:text-lab-700 transition-colors">connectome@snu.ac.kr</a><br />
+            <a href="tel:+82-2-880-8618" class="hover:text-lab-700 transition-colors">+82-2-880-8618</a>
+          </p>
+          <p class="flex flex-col gap-1 pt-1">
+            <a href="https://github.com/snuconnectome" target="_blank" rel="noreferrer" class="hover:text-lab-700 transition-colors">GitHub</a>
+            <a href="https://scholar.google.com/citations?user=d_s86n8AAAAJ" target="_blank" rel="noreferrer" class="hover:text-lab-700 transition-colors">Google Scholar</a>
+          </p>
+        </address>
       </div>
     </div>
 
-    <!-- Bottom Bar -->
-    <div class="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-mono">
-      <div>© {currentYear} SNU Connectome Lab (PI Jiook Cha). All rights reserved.</div>
-      <div class="flex items-center gap-4">
-        <span>Powered by Astro + GitHub Actions + LLM Research Radar</span>
-        <a href="#top" class="text-slate-400 hover:text-white transition">↑ Top</a>
-      </div>
+    <!-- Bottom bar -->
+    <div class="pt-8 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-ink-faint">
+      <div>© {currentYear} SNU Connectome Lab (PI: Jiook Cha)</div>
+      <a href="#top" class="hover:text-ink transition-colors">↑ Back to top</a>
     </div>
   </div>
 </footer>

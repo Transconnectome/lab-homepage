@@ -6,7 +6,22 @@
     "Eunji Lee",
     "Bo-Gyeom Kim",
     "Gakyung Kim",
-    "Seung Yun Choi"
+    "Seung Yun Choi",
+    "Kahyun Choi",
+    "Sung Hee Hong",
+    "Yumin Jang",
+    "Yu Jin Rah",
+    "Ji Yeon Kim",
+    "Seunghui Han",
+    "Kyung Hwa Lee",
+    "Junhyung Kim",
+    "Milenna T. van Dijk",
+    "Jae-Won Kim",
+    "Grace H. Chung",
+    "Dongil Chung",
+    "Sang Ah Lee",
+    "Yoonjung Yoonie Joo",
+    "Jiook Cha"
   ],
   "venue": "Communications Medicine",
   "year": 2026,
@@ -14,23 +29,18 @@
   "url": "https://doi.org/10.1038/s43856-026-01828-8",
   "tags": [
     "Genetics",
-    "Depression",
-    "Foundation Models"
+    "Psychiatry",
+    "AI & Foundation Models"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
+    "Jungyoun Janice Min",
     "Heehwan Wang",
     "Eunji Lee",
     "Bo-Gyeom Kim",
     "Gakyung Kim",
     "Seung Yun Choi",
-    "Kahyun Choi",
-    "Ji Yeon Kim",
-    "Seunghui Han",
-    "Kyung Hwa Lee",
-    "Junhyung Kim",
-    "Jae-Won Kim",
-    "Sang Ah Lee",
+    "Yoonjung Yoonie Joo",
     "Jiook Cha"
   ]
 }

@@ -1,0 +1,25 @@
+{
+  "title": "Machine learning prediction of incidence of Alzheimer’s disease using large-scale administrative health data",
+  "authors": [
+    "Ji Hwan Park",
+    "Han Eol Cho",
+    "Jong Hun Kim",
+    "Melanie M. Wall",
+    "Yaakov Stern",
+    "Hyunsun Lim",
+    "Shinjae Yoo",
+    "Hyoung Seop Kim",
+    "Jiook Cha"
+  ],
+  "venue": "npj Digital Medicine",
+  "year": 2020,
+  "doi": "10.1038/s41746-020-0256-0",
+  "url": "https://doi.org/10.1038/s41746-020-0256-0",
+  "tags": [
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Jiook Cha"
+  ]
+}

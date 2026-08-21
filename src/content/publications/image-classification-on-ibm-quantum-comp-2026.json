@@ -12,10 +12,11 @@
   "doi": "10.48550/arxiv.2607.17705",
   "url": "https://doi.org/10.48550/arxiv.2607.17705",
   "tags": [
-    "Connectomics"
+    "Quantum ML"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
+    "Junghoon Park",
     "Jiook Cha"
   ]
 }

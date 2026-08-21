@@ -9,7 +9,7 @@
   "publishedDate": "2026-07-31",
   "source": "arXiv (2026-07)",
   "topic": "fMRI/EEG Dynamics",
-  "url": "http://arxiv.org/abs/2608.00114v1",
+  "url": "https://arxiv.org/abs/2608.00114v1",
   "summaryPoints": [
     "EEG-JEPA introduces a structured latent-prediction framework for EEG foundation modeling, moving beyond simple masked waveform reconstruction to infer latent states.",
     "The framework employs a masked context encoder and predictor to infer contextual latent states from a target encoder observing complete input, utilizing Neurotopology-Aware Multi-scale Electrode-Temporal Masking (N-MET) for structured electrode-time prediction.",

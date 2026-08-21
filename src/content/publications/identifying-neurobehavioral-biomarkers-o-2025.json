@@ -6,19 +6,19 @@
     "Byung-Hoon Kim",
     "Kang‐Seob Oh",
     "Young Chul Shin",
-    "Sang Won Jeon"
+    "Sang Won Jeon",
+    "Sung Joon Cho",
+    "Junhyung Kim"
   ],
   "venue": "Journal of Clinical Medicine",
   "year": 2025,
   "doi": "10.3390/jcm15010007",
   "url": "https://doi.org/10.3390/jcm15010007",
   "tags": [
-    "Connectomics"
+    "Psychiatry"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
-    "Jiook Cha",
-    "Byung-Hoon Kim",
-    "Junhyung Kim"
+    "Jiook Cha"
   ]
 }

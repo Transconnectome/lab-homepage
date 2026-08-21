@@ -1,0 +1,24 @@
+{
+  "title": "3D distributed deep learning framework for prediction of human intelligence from brain MRI",
+  "authors": [
+    "Seungwook Han",
+    "Yan Zhang",
+    "Yihui Ren",
+    "Jonathan Posner",
+    "Shinjae Yoo",
+    "Jiook Cha"
+  ],
+  "venue": "Medical Imaging 2020: Biomedical Applications in Molecular, Structural, and Functional Imaging",
+  "year": 2020,
+  "doi": "10.1117/12.2549758",
+  "url": "https://doi.org/10.1117/12.2549758",
+  "tags": [
+    "Neuroimaging",
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Seungwook Han",
+    "Jiook Cha"
+  ]
+}

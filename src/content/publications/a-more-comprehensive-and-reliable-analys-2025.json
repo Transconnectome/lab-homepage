@@ -12,11 +12,13 @@
   "doi": "10.1101/2025.10.28.685232",
   "url": "https://doi.org/10.1101/2025.10.28.685232",
   "tags": [
-    "Genetics"
+    "Neuroscience"
   ],
-  "featured": true,
+  "featured": false,
   "labMembers": [
     "Jinwoo Lee",
+    "Junghoon Park",
+    "Maria Pak",
     "Seung Yun Choi",
     "Jiook Cha"
   ]

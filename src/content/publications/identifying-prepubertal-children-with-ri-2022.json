@@ -1,0 +1,27 @@
+{
+  "title": "Identifying Prepubertal Children with Risk for Suicide Using Deep Neural Network Trained on Multimodal Brain Imaging",
+  "authors": [
+    "Gun Ahn",
+    "Bo‐Gyeom Kim",
+    "Ka-kyeong Kim",
+    "Hyeonjin Kim",
+    "Eunji Lee",
+    "Woo‐Young Ahn",
+    "Jae-Won Kim",
+    "Jiook Cha"
+  ],
+  "venue": "Studies in computational intelligence",
+  "year": 2022,
+  "doi": "10.1007/978-3-030-93080-6_7",
+  "url": "https://doi.org/10.1007/978-3-030-93080-6_7",
+  "tags": [
+    "Psychiatry",
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Bo‐Gyeom Kim",
+    "Eunji Lee",
+    "Jiook Cha"
+  ]
+}

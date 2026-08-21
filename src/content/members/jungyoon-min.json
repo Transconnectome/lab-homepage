@@ -4,14 +4,22 @@
   "role": "MS (Alumna)",
   "roleKo": "석사 졸업생",
   "category": "alumni",
-  "email": "connectome@snu.ac.kr",
-  "affiliations": ["Department of Brain and Cognitive Sciences, SNU"],
-  "education": ["MS in Brain and Cognitive Sciences, Seoul National University"],
+  "email": null,
+  "affiliations": [
+    "Department of Brain and Cognitive Sciences, SNU"
+  ],
+  "education": [
+    "MS in Brain and Cognitive Sciences, Seoul National University"
+  ],
   "researchInterests": [
     "Polygenic Risk & White Matter Diffusion MRI",
     "Deep Learning Prediction of Youth Depression and Suicidality",
     "medRxiv & OHBM 2025 Lead Author"
   ],
-  "passions": ["Neuroimaging & Genetics", "Mentorship"],
-  "order": 21
+  "passions": [
+    "Neuroimaging & Genetics",
+    "Mentorship"
+  ],
+  "order": 21,
+  "avatar": "/assets/members/jungyoon-min.jpg"
 }

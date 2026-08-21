@@ -11,14 +11,14 @@ interface Props {
 }
 
 const {
-  title = 'SNU Connectome Laboratory | 차지욱 교수 연구실',
-  description = 'Seoul National University Connectome Lab (PI: Jiook Cha). Pioneering Large Brain Models (Neuro-X), dynamic connectomics, 4D fMRI/EEG foundation models, computational psychiatry, and quantum machine learning.',
+  title = 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실',
+  description = 'Seoul National University Connectome Lab (PI: Jiook Cha). We study how the brain\'s connections give rise to mind — with brain foundation models (Neuro-X, NeuroMamba, DIVER-0), multimodal genetics, computational psychiatry, and quantum machine learning.',
   ogImage = '/assets/og-image.jpg',
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="ko" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,7 +28,7 @@ const {
     <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="Connectome Lab, Jiook Cha, 차지욱, Seoul National University, SNU, Large Brain Model, Neuro-X, NeuroMamba, DIVER-0, SwiFT, fMRI, EEG, QML, Quantum Machine Learning, Polygenic Risk Score, ABCD Study" />
+    <meta name="keywords" content="Connectome Lab, Jiook Cha, 차지욱, Seoul National University, SNU, Large Brain Model, Neuro-X, NeuroMamba, DIVER-0, SwiFT, fMRI, EEG, Quantum Machine Learning, Polygenic Risk Score, ABCD Study" />
     <meta name="author" content="Jiook Cha, SNU Connectome Lab" />
 
     <!-- Open Graph / Facebook -->
@@ -45,24 +45,36 @@ const {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
 
-    <!-- Google Fonts -->
+    <!-- Fonts: Hahmlet (display serif, KR+Latin), IBM Plex Mono (captions/data) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Pretendard Variable (body, KR+Latin) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
   </head>
-  <body class="min-h-screen flex flex-col bg-[#080c16] text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
-    <!-- Navbar -->
+  <body id="top" class="min-h-screen flex flex-col bg-paper text-ink">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:shadow-lg"
+    >
+      Skip to content
+    </a>
+
     <Navbar />
 
-    <!-- Main Content Area -->
-    <main class="flex-1">
+    <main id="main" class="flex-1">
       <slot />
     </main>
 
-    <!-- Floating AI Research Copilot -->
+    <!-- Floating lab guide (curated FAQ, not a live AI) -->
     <AskLabAI client:idle />
 
-    <!-- Footer -->
     <Footer />
   </body>
 </html>
