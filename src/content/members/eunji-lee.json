@@ -1,0 +1,20 @@
+{
+  "name": "Eunji Lee",
+  "nameKo": "이은지",
+  "role": "PhD / Graduate Student",
+  "roleKo": "대학원생 (심리학과)",
+  "category": "phd",
+  "email": "leee4321@snu.ac.kr",
+  "affiliations": ["Department of Psychology, Seoul National University"],
+  "education": [
+    "BA in Psychology (Minor: Biological Sciences), Seoul National University"
+  ],
+  "researchInterests": [
+    "Polygenic risk prediction",
+    "Gene-environment interactions in mental illness",
+    "Early life stress & adolescent psychopathology",
+    "Early intervention for psychiatric disorders"
+  ],
+  "passions": ["Love and Life", "Scientific Discovery"],
+  "order": 2
+}

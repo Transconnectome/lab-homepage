@@ -1,0 +1,68 @@
+---
+import Navbar from '../components/common/Navbar.astro';
+import Footer from '../components/common/Footer.astro';
+import AskLabAI from '../components/ai/AskLabAI';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'SNU Connectome Laboratory | 차지욱 교수 연구실',
+  description = 'Seoul National University Connectome Lab (PI: Jiook Cha). Pioneering Large Brain Models (Neuro-X), dynamic connectomics, 4D fMRI/EEG foundation models, computational psychiatry, and quantum machine learning.',
+  ogImage = '/assets/og-image.jpg',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="ko" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Connectome Lab, Jiook Cha, 차지욱, Seoul National University, SNU, Large Brain Model, Neuro-X, NeuroMamba, DIVER-0, SwiFT, fMRI, EEG, QML, Quantum Machine Learning, Polygenic Risk Score, ABCD Study" />
+    <meta name="author" content="Jiook Cha, SNU Connectome Lab" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-[#080c16] text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
+    <!-- Navbar -->
+    <Navbar />
+
+    <!-- Main Content Area -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Floating AI Research Copilot -->
+    <AskLabAI client:idle />
+
+    <!-- Footer -->
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MemberGrid from '../../components/people/MemberGrid';
+import { getCollection } from 'astro:content';
+
+const allMembers = await getCollection('members');
+const memberData = allMembers.map(m => m.data).sort((a, b) => a.order - b.order);
+---
+
+<BaseLayout title="Team & Lab Culture | SNU Connectome Laboratory">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+    <!-- Header -->
+    <div class="max-w-3xl space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-800/60 text-cyan-300 text-xs font-mono">
+        <span>PEOPLE & COMMUNITY</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">
+        Scientists, Builders, and Dreamers
+      </h1>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+        We are a multidisciplinary team spanning Psychology, Artificial Intelligence, Cognitive Science, Physics, Economics, and Biomedical Engineering at Seoul National University.
+      </p>
+    </div>
+
+    <!-- Interactive Member Grid -->
+    <MemberGrid members={memberData} client:load />
+
+    <!-- Lab Culture & Passions Showcase -->
+    <div class="p-8 sm:p-12 rounded-3xl glass-panel border border-slate-800 space-y-8">
+      <div class="space-y-2">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-cyan-400 font-bold">Lab Life & Philosophy</h2>
+        <h3 class="text-2xl sm:text-3xl font-black text-white">Work Hard, Dream Boldly, Enjoy Life</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-3">
+          <div class="text-2xl">🏔️</div>
+          <h4 class="font-bold text-white text-base">Hongcheon Retreats & Hackathons</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Intensive multi-day deep dive hackathons in the scenic hills of Gangwon-do. We build new deep learning models (SwiFT IO, EEG foundation models) while cooking meals, playing games, and debating ideas.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-3">
+          <div class="text-2xl">🌍</div>
+          <h4 class="font-bold text-white text-base">Global Fellowships (MILA & BNL)</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Our students regularly conduct 4-to-6 month funded research fellowships at premier international institutions including MILA (Montreal) and Brookhaven National Lab (New York).
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-3">
+          <div class="text-2xl">🍸</div>
+          <h4 class="font-bold text-white text-base">Art, Opera, Coffee & Cocktails</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            From interactive EEG art exhibitions at OB/Scene Focus to Prof. Cha's legendary handmade cocktails and Makgeolli appreciation, we believe creativity thrives on life's finest pleasures.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

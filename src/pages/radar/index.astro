@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ResearchRadarView from '../../components/ai/ResearchRadarView';
+import { getCollection } from 'astro:content';
+
+const allTrends = await getCollection('trends');
+const trendData = allTrends.map(t => t.data).sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
+---
+
+<BaseLayout title="Living Research Radar & SOTA | SNU Connectome Laboratory">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <!-- Header -->
+    <div class="max-w-3xl space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-800/60 text-cyan-300 text-xs font-mono">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span>INTELLIGENT RESEARCH RADAR</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">
+        Living SOTA & Research Trends
+      </h1>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+        An autonomous intelligence engine tracking the global cutting edge in <strong>Large Brain Models</strong>, <strong>Dynamic Connectomics</strong>, <strong>Channel-Equivariant EEG</strong>, and <strong>Quantum Machine Learning</strong>. Papers are automatically discovered from arXiv/PubMed and synthesized by our LLM research pipeline.
+      </p>
+    </div>
+
+    <!-- Interactive SOTA Radar View Component -->
+    <ResearchRadarView trends={trendData} client:load />
+  </div>
+</BaseLayout>

@@ -1,0 +1,23 @@
+{
+  "title": "EEG-PRISM: Physiologically-Grounded Interpretability of Predictions by EEG Foundation Models",
+  "authors": [
+    "Deeksha M Shama",
+    "Punnisa Amornsirikul",
+    "Archana Venkataraman"
+  ],
+  "publishedDate": "2026-08-13",
+  "source": "arXiv (2026-08)",
+  "topic": "fMRI/EEG Dynamics",
+  "url": "http://arxiv.org/abs/2608.13676v1",
+  "summaryPoints": [
+    "EEG-PRISM is a novel method that translates time-channel attribution scores from EEG foundation models into more physiologically relevant domains, specifically the frequency and source domains, without altering the original model.",
+    "The method utilizes linear transformations, including an invertible DFT for frequency mapping and an approximately invertible EEG generative model for source localization, to provide clinically intuitive interpretations.",
+    "Evaluations in both simulated and real EEG data (epilepsy and autism) demonstrated EEG-PRISM's effectiveness in recovering ground-truth spectral activity and localizing seizure onset regions and predictive biomarkers with reasonable accuracy."
+  ],
+  "significance": "This work introduces a crucial tool for making advanced EEG foundation models interpretable in a clinically meaningful way, thereby enabling better understanding of neural mechanisms and identification of disease biomarkers.",
+  "labRelevance": "EEG-PRISM's focus on interpretable AI for EEG foundation models directly aligns with SNU Connectome Lab's Neuro-X initiative, which aims to develop advanced neurotechnology with a strong emphasis on understanding and explaining neural data.",
+  "modality": [
+    "EEG"
+  ],
+  "badge": "Emerging Paper"
+}

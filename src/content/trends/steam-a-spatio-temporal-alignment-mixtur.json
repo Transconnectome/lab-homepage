@@ -1,0 +1,24 @@
+{
+  "title": "STEAM: A Spatio-TEmporal Alignment Mixture-of-Experts Model with Hierarchical Pre-training for EEG Decoding",
+  "authors": [
+    "Zhu Chen",
+    "Dingkun Liu",
+    "Yuheng Chen",
+    "Dongrui Wu"
+  ],
+  "publishedDate": "2026-08-03",
+  "source": "arXiv (2026-08)",
+  "topic": "fMRI/EEG Dynamics",
+  "url": "http://arxiv.org/abs/2608.02070v2",
+  "summaryPoints": [
+    "STEAM is a novel spatio-temporal alignment Mixture-of-Experts (MoE) model designed for EEG decoding, addressing challenges in generalizability and adaptation costs of conventional BCI algorithms.",
+    "It employs a dual-branch spatio-temporal encoder with a Shared Soft Mixture-of-Experts (SSMoE) module to align and exchange information between spatial and temporal representations.",
+    "The model utilizes a hierarchical pre-training strategy that allows for general initialization and subsequent specialization to specific EEG paradigms, achieving superior performance across diverse datasets and evaluation settings."
+  ],
+  "significance": "This work introduces a foundational model for EEG decoding that significantly advances the generalizability and adaptation efficiency of BCI systems, crucial for widespread adoption in clinical and rehabilitative applications.",
+  "labRelevance": "STEAM aligns with the Connectome Lab's focus on Large Brain Models and Neuro-X by developing a sophisticated deep learning architecture for robust and generalizable neural signal decoding, applicable to understanding and leveraging complex brain activity.",
+  "modality": [
+    "EEG"
+  ],
+  "badge": "Emerging Paper"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Heehwan Wang",
+  "nameKo": "왕희환",
+  "role": "PhD / Graduate Student",
+  "roleKo": "대학원생 (인공지능협동과정)",
+  "category": "phd",
+  "email": "dhkdgmlghks@snu.ac.kr",
+  "affiliations": ["Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"],
+  "education": [
+    "MS in Brain and Cognitive Science, Seoul National University",
+    "BA in Psychology (Minor: Brain-Mind-Behavior, Aesthetics), Seoul National University"
+  ],
+  "researchInterests": [
+    "Gene-Brain-Behavior relationship",
+    "Neuroimaging & Deep Learning",
+    "Predictive modeling & early psychiatric intervention",
+    "Art & EEG Brain Decoding"
+  ],
+  "passions": ["Fashion", "Sports & Music", "Food & Beverage", "MILA Fellow (2024-2025)"],
+  "order": 4
+}

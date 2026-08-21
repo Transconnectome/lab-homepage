@@ -1,0 +1,24 @@
+{
+  "title": "EEG-JEPA: Structured Latent Prediction for EEG Foundation Models",
+  "authors": [
+    "Jinhao Li",
+    "Zhiyuan Ma",
+    "Xueqiao Han",
+    "Zhongye Xia"
+  ],
+  "publishedDate": "2026-07-31",
+  "source": "arXiv (2026-07)",
+  "topic": "fMRI/EEG Dynamics",
+  "url": "http://arxiv.org/abs/2608.00114v1",
+  "summaryPoints": [
+    "EEG-JEPA introduces a structured latent-prediction framework for EEG foundation modeling, moving beyond simple masked waveform reconstruction to infer latent states.",
+    "The framework employs a masked context encoder and predictor to infer contextual latent states from a target encoder observing complete input, utilizing Neurotopology-Aware Multi-scale Electrode-Temporal Masking (N-MET) for structured electrode-time prediction.",
+    "EEG-JEPA demonstrates significant improvements in frozen multitask transfer (from 40.49% to 50.42%) and full fine-tuning (from 68.98% to 70.65%) compared to masked waveform reconstruction, setting new benchmarks on EEG-FM-Bench."
+  ],
+  "significance": "This work establishes a more effective pretraining strategy for EEG foundation models, enabling them to learn more transferable and neurally relevant representations by predicting structured latent states rather than noisy raw signals.",
+  "labRelevance": "This research is highly relevant to the 'Large Brain Models' focus of the SNU Connectome Lab, as it develops advanced foundation models for EEG, a key modality for understanding brain function, and optimizes their pretraining for better generalizability and transferability across various tasks.",
+  "modality": [
+    "EEG"
+  ],
+  "badge": "Emerging Paper"
+}

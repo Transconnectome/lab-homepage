@@ -1,0 +1,17 @@
+{
+  "title": "Quantum Circuit Kernels for High-Order Connectome Graph Classification",
+  "authors": ["SNU Connectome Lab QML Initiative"],
+  "publishedDate": "2025-05-10",
+  "source": "QML Frontier Working Paper",
+  "topic": "Quantum ML",
+  "url": "/research/quantum-machine-learning",
+  "summaryPoints": [
+    "Parameterized Quantum Circuits (PQC) encode high-order non-pairwise neural graph interactions into quantum state vectors.",
+    "Bypasses exponential feature map explosion of classical graph kernels.",
+    "Benchmarked on resting-state connectome datasets for high-precision diagnostic clustering."
+  ],
+  "significance": "Positions quantum machine learning as a viable breakthrough avenue for ultra-high-dimensional biological networks.",
+  "labRelevance": "Core focus of Connectome Lab's 2025-2026 Quantum Machine Learning Research Internship program.",
+  "modality": ["Quantum Circuits", "Graph Kernels", "dMRI/fMRI"],
+  "badge": "Emerging Frontier"
+}

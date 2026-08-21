@@ -1,0 +1,21 @@
+{
+  "title": "It's-A-Me, Quantum Mario: Scalable Quantum Reinforcement Learning with Multi-Chip Ensembles",
+  "authors": [
+    "Junghoon Park",
+    "Hua-an Tseng",
+    "Shinjae Yoo",
+    "Samuel Yen-Chi Chen",
+    "Jiook Cha"
+  ],
+  "venue": "Preprint / Journal",
+  "year": 2025,
+  "doi": "10.1109/qai63978.2025.00063",
+  "url": "https://doi.org/10.1109/qai63978.2025.00063",
+  "tags": [
+    "Foundation Models"
+  ],
+  "featured": true,
+  "labMembers": [
+    "Jiook Cha"
+  ]
+}

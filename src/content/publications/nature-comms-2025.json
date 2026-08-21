@@ -1,0 +1,14 @@
+{
+  "title": "Polygenic architecture of brain structure and function, behaviors, and psychopathologies in children",
+  "authors": ["Yoonjung Y. Joo", "Bo-Gyeom Kim", "Gwanwoo Kim", "Eunji Lee", "Jiook Cha"],
+  "venue": "Nature Communications, 16(1), 8467",
+  "year": 2025,
+  "month": "July",
+  "doi": "10.1038/s41467-025-63312-6",
+  "url": "https://www.nature.com/articles/s41467-025-63312-6",
+  "tags": ["Genetics", "Connectome", "fMRI", "ABCD Study", "Psychopathology", "Child Development"],
+  "featured": true,
+  "spotlight": "Nature Communications 2025",
+  "abstract": "We investigate how genome-wide polygenic scores for psychiatric conditions, cognitive traits, and physical phenotypes map onto cortical thickness, surface area, and dynamic functional connectomes in 10,000+ children, revealing distinct neurobiological pathways underlying childhood behavioral vulnerabilities.",
+  "labMembers": ["Bo-Gyeom Kim", "Eunji Lee", "Jiook Cha"]
+}

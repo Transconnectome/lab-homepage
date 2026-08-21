@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PublicationFilter from '../../components/publications/PublicationFilter';
+import { getCollection } from 'astro:content';
+
+const allPubs = await getCollection('publications');
+const pubData = allPubs.map(p => p.data).sort((a, b) => b.year - a.year);
+---
+
+<BaseLayout title="Publications | SNU Connectome Laboratory">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <!-- Header -->
+    <div class="max-w-3xl space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-800/60 text-cyan-300 text-xs font-mono">
+        <span>PUBLICATIONS ARCHIVE</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">
+        Scientific Publications & Preprints
+      </h1>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+        Explore our research spanning Brain Foundation Models, 4D fMRI/EEG spatiotemporal architectures, polygenic risk connectomics in Nature Communications and Molecular Psychiatry, and Quantum ML.
+      </p>
+    </div>
+
+    <!-- Interactive Publication Filter Component -->
+    <PublicationFilter publications={pubData} client:load />
+  </div>
+</BaseLayout>

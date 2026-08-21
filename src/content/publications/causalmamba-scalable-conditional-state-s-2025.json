@@ -1,0 +1,18 @@
+{
+  "title": "CausalMamba: Scalable Conditional State Space Models for Neural Causal Inference",
+  "authors": [
+    "Sangyoon Bae",
+    "Jiook Cha"
+  ],
+  "venue": "arXiv (Cornell University)",
+  "year": 2025,
+  "doi": "10.48550/arxiv.2510.17318",
+  "url": "https://doi.org/10.48550/arxiv.2510.17318",
+  "tags": [
+    "Foundation Models"
+  ],
+  "featured": true,
+  "labMembers": [
+    "Jiook Cha"
+  ]
+}

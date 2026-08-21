@@ -1,0 +1,20 @@
+{
+  "name": "Bogyeom Kim",
+  "nameKo": "김보겸",
+  "role": "PhD / Graduate Student",
+  "roleKo": "대학원생 (심리학과)",
+  "category": "phd",
+  "email": "amyk01@snu.ac.kr",
+  "affiliations": ["Department of Psychology, Seoul National University"],
+  "education": [
+    "MS in Psychology, Seoul National University",
+    "BA in Social Welfare and Consumer Science, Seoul National University"
+  ],
+  "researchInterests": [
+    "Depression & Familial factors",
+    "Representations of functional brain organization",
+    "Adolescent mental health"
+  ],
+  "passions": ["Dessert & Journaling", "Quality time with loved ones", "Coffee"],
+  "order": 3
+}

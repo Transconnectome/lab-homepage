@@ -1,0 +1,27 @@
+{
+  "name": "Jungwoo Seo",
+  "nameKo": "서정우",
+  "role": "PhD / Graduate Student",
+  "roleKo": "대학원생 (뇌인지과학과)",
+  "category": "phd",
+  "email": "jungwoo.seo95@gmail.com",
+  "affiliations": [
+    "Department of Brain and Cognitive Sciences, SNU",
+    "Brookhaven National Laboratory (BNL) Visiting Researcher"
+  ],
+  "education": [
+    "BS in Astronomy (Minor: Physics), Yonsei University"
+  ],
+  "researchInterests": [
+    "MRI generative modeling",
+    "Virtual generative brain simulation",
+    "Physics-informed neural networks for neuroimaging"
+  ],
+  "passions": [
+    "The sunlight at dawn and dusk",
+    "Craft Beer",
+    "Beautiful theories (e.g., Least Action Principle)",
+    "BK Future Innovation Silver Award"
+  ],
+  "order": 7
+}

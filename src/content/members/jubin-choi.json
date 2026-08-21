@@ -1,0 +1,30 @@
+{
+  "name": "Jubin Choi",
+  "nameKo": "최주빈",
+  "role": "PhD / Graduate Student",
+  "roleKo": "대학원생 (뇌인지과학과)",
+  "category": "phd",
+  "email": "jubilant@snu.ac.kr",
+  "affiliations": [
+    "Department of Brain and Cognitive Sciences, SNU",
+    "Brookhaven National Laboratory (BNL) Visiting Researcher"
+  ],
+  "education": [
+    "BS in Computer Science & Brain Sciences"
+  ],
+  "researchInterests": [
+    "Large Brain Models (LBM)",
+    "NeuroMamba: State-Space Foundation Models for fMRI",
+    "Scalable high-performance deep learning for 4D fMRI sequences",
+    "Representation learning on massive neuroimaging cohorts"
+  ],
+  "passions": [
+    "NeurIPS 2025 Spotlight Author",
+    "HPC & GPU Optimization",
+    "Coffee & Long Walks in NY"
+  ],
+  "links": {
+    "website": "https://jubilant-choi.notion.site/neuromamba-neurips2025"
+  },
+  "order": 6
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Maria Pak",
+  "nameKo": "박마리아",
+  "role": "MA (Alumna)",
+  "roleKo": "석사 졸업생",
+  "category": "alumni",
+  "email": "pakmasha99@snu.ac.kr",
+  "affiliations": ["Department of Psychology, SNU"],
+  "education": ["MA in Psychology, Seoul National University"],
+  "researchInterests": ["Cognitive Neuroscience", "fMRI Connectivity"],
+  "passions": ["Neuroscience research"],
+  "order": 20
+}

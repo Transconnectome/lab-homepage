@@ -1,0 +1,25 @@
+{
+  "title": "Can Natural Image Autoencoders Compactly Tokenize fMRI Volumes for Long-Range Dynamics Modeling?",
+  "authors": [
+    "P. Kim",
+    "Juhyeon Park",
+    "Jungwoo Park",
+    "Jubin Choi",
+    "Jungwoo Seo",
+    "Jiook Cha"
+  ],
+  "venue": "arXiv (Cornell University)",
+  "year": 2026,
+  "doi": null,
+  "url": null,
+  "tags": [
+    "fMRI",
+    "Foundation Models"
+  ],
+  "featured": true,
+  "labMembers": [
+    "P. Kim",
+    "Jubin Choi",
+    "Jiook Cha"
+  ]
+}

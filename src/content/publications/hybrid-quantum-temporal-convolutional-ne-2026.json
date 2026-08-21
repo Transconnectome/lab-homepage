@@ -1,0 +1,23 @@
+{
+  "title": "Hybrid Quantum Temporal Convolutional Networks",
+  "authors": [
+    "Junghoon Park",
+    "Maria Pak",
+    "Sebin Lee",
+    "Samuel Yen-Chi Chen",
+    "Shinjae Yoo",
+    "Hua-an Tseng"
+  ],
+  "venue": "Preprint / Journal",
+  "year": 2026,
+  "doi": "10.1109/qcnc69040.2026.00149",
+  "url": "https://doi.org/10.1109/qcnc69040.2026.00149",
+  "tags": [
+    "Connectomics"
+  ],
+  "featured": true,
+  "labMembers": [
+    "Sebin Lee",
+    "Jiook Cha"
+  ]
+}

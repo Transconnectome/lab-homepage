@@ -1,0 +1,13 @@
+{
+  "title": "Mind the Gap: Aligning the Brain with Language Models Requires a Nonlinear and Multimodal Approach",
+  "authors": ["Dongyeop Han", "Jiook Cha"],
+  "venue": "arXiv preprint arXiv:2502.12771",
+  "year": 2025,
+  "month": "February",
+  "doi": "10.48550/arXiv.2502.12771",
+  "url": "https://doi.org/10.48550/arXiv.2502.12771",
+  "tags": ["Brain-LLM Alignment", "NLP", "fMRI", "Representational Geometry"],
+  "featured": false,
+  "abstract": "Investigating representational alignment between high-dimensional neural activity and Large Language Models, revealing that standard linear regression encodings severely underestimate brain-language congruence compared to nonlinear multimodal mappings.",
+  "labMembers": ["Dongyeop Han", "Jiook Cha"]
+}

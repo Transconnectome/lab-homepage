@@ -1,0 +1,17 @@
+{
+  "name": "Bohui Lee",
+  "nameKo": "이보희",
+  "role": "Graduate Student",
+  "roleKo": "대학원생",
+  "category": "ms",
+  "email": "connectome@snu.ac.kr",
+  "affiliations": ["Department of Psychology, SNU"],
+  "education": ["BS/BA in Psychology"],
+  "researchInterests": [
+    "Cognitive Development",
+    "fMRI Pattern Decoding",
+    "Psychopathology"
+  ],
+  "passions": ["Neuroimaging", "Creative Problem Solving"],
+  "order": 13
+}

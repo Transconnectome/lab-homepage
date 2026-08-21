@@ -1,0 +1,43 @@
+name: Auto-Sync Research Trends & Publications
+
+on:
+  schedule:
+    # Run every Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    name: Sync Scholar & Research Trends
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Scholar Sync
+        run: python scripts/sync_scholar.py
+
+      - name: Run SOTA Research Radar Sync
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python scripts/update_research_radar.py
+
+      - name: Commit & Push changes
+        run: |
+          git config --global user.name 'Connectome Lab Bot'
+          git config --global user.email 'bot@connectomelab.com'
+          git add src/content/
+          if git diff --staged --quiet; then
+            echo "No new publications or trends found."
+          else
+            git commit -m "chore(radar): automated weekly research trends & publications update"
+            git push origin main
+          fi

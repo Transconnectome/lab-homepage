@@ -1,0 +1,26 @@
+{
+  "name": "Sangyoon Bae",
+  "nameKo": "배상윤",
+  "role": "PhD / Graduate Student",
+  "roleKo": "대학원생 (인공지능협동과정)",
+  "category": "phd",
+  "email": "stellasybae@snu.ac.kr",
+  "affiliations": ["Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"],
+  "education": [
+    "BS in Biological Sciences (Student-Designed Minor: Computational Neuroscience), Seoul National University"
+  ],
+  "researchInterests": [
+    "Spatiotemporal brain dynamics modeling (fMRI)",
+    "Frequency-Specific Multi-Band Attention",
+    "Self-supervised representation learning for neural decoding",
+    "Biologically inspired deep neural architectures"
+  ],
+  "passions": [
+    "Red Velvet & Jannabi",
+    "Jazz & Ukulele",
+    "Contemporary Dance & Art",
+    "Mint Chocolate Desserts",
+    "MILA Visiting Researcher"
+  ],
+  "order": 5
+}

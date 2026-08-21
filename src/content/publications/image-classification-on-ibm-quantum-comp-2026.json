@@ -1,0 +1,21 @@
+{
+  "title": "Image Classification on IBM Quantum Computers",
+  "authors": [
+    "Junghoon Park",
+    "Jiook Cha",
+    "Jun-gyeong Park",
+    "Hwidong Yoo",
+    "Kwangmin Yu"
+  ],
+  "venue": "arXiv (Cornell University)",
+  "year": 2026,
+  "doi": "10.48550/arxiv.2607.17705",
+  "url": "https://doi.org/10.48550/arxiv.2607.17705",
+  "tags": [
+    "Connectomics"
+  ],
+  "featured": true,
+  "labMembers": [
+    "Jiook Cha"
+  ]
+}

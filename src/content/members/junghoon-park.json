@@ -1,0 +1,24 @@
+{
+  "name": "Junghoon Park",
+  "nameKo": "박정훈",
+  "role": "PhD / Graduate Student",
+  "roleKo": "대학원생 (인공지능협동과정)",
+  "category": "phd",
+  "email": "utopie9090@snu.ac.kr",
+  "affiliations": ["Interdisciplinary Program in Artificial Intelligence (GSAI), SNU"],
+  "education": [
+    "BA in Economics (Minor in Political Science), Seoul National University"
+  ],
+  "researchInterests": [
+    "Causal inference & Socioeconomic-biological integration",
+    "Wholistic science combining economics, genetics & neuroscience",
+    "Large-scale population health modeling"
+  ],
+  "passions": [
+    "(G)I-DLE (Official member of Neverland)",
+    "Rock Music",
+    "Philosophy (Nietzsche & Hannah Arendt)",
+    "Craft Beer & Coffee"
+  ],
+  "order": 8
+}

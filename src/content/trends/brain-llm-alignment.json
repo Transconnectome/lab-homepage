@@ -1,0 +1,17 @@
+{
+  "title": "Representational Geometry of Multimodal Brain-Language Alignments",
+  "authors": ["Dongyeop Han & Jiook Cha (SNU Connectome Lab)"],
+  "publishedDate": "2025-02-18",
+  "source": "arXiv:2502.12771",
+  "topic": "Brain-LLM Alignment",
+  "url": "https://doi.org/10.48550/arXiv.2502.12771",
+  "summaryPoints": [
+    "Critiques the traditional linear regression assumption between LLM activations and fMRI responses.",
+    "Proves that nonlinear multimodal mappings unveil higher-order semantic geometry encoded in associative cortex.",
+    "Bridges the gap between Buzsáki's inside-out brain framework and autoregressive Transformer internal states."
+  ],
+  "significance": "Re-evaluates the mathematical foundation of how artificial neural representations correspond to biological neural manifolds.",
+  "labRelevance": "Foundational theoretical grounding for the Neuro-X Large Brain Model.",
+  "modality": ["fMRI", "LLMs", "Representational Geometry"],
+  "badge": "Theoretical Breakthrough"
+}

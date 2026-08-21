@@ -1,0 +1,17 @@
+{
+  "title": "DIVER-0: Fully Channel-Equivariant EEG Foundation Model",
+  "authors": ["Dongyeop Han, Ahhyun Lee, Taeyang Lee, Sebin Lee, Jiook Cha"],
+  "publishedDate": "2025-07-01",
+  "source": "ICML 2025 GenBio Workshop (Spotlight)",
+  "topic": "fMRI/EEG Dynamics",
+  "url": "https://github.com/snuconnectome",
+  "summaryPoints": [
+    "Formulates EEG sensor arrays as spatial point clouds with continuous coordinate embeddings.",
+    "Guarantees SE(3)/permutation equivariance across arbitrary electrode channel layouts (8 to 256 channels).",
+    "Enables seamless zero-shot cross-dataset transfer across heterogeneous clinical and research setups."
+  ],
+  "significance": "Solves one of the largest obstacles in bio-signal AI: disparate electrode montages across worldwide hospital & research databases.",
+  "labRelevance": "Developed by Connectome Lab members at SNU and MILA.",
+  "modality": ["EEG", "Equivariant GNN", "Zero-Shot"],
+  "badge": "Lab SOTA"
+}

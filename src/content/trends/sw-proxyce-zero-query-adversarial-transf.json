@@ -1,0 +1,23 @@
+{
+  "title": "SW-ProxyCE: Zero-Query Adversarial Transfer from Public EEG Encoders to Private Downstream Models",
+  "authors": [
+    "Linhua Cong",
+    "Dingkun Liu",
+    "Dongrui Wu"
+  ],
+  "publishedDate": "2026-08-05",
+  "source": "arXiv (2026-08)",
+  "topic": "fMRI/EEG Dynamics",
+  "url": "http://arxiv.org/abs/2608.16931v1",
+  "summaryPoints": [
+    "This paper introduces a novel security risk in EEG foundation models: adversarial transfer attacks from public encoders to private downstream models.",
+    "They propose SW-ProxyCE, a query-free attack framework that leverages shrinkage-whitened class prototypes from a small labeled reference set to generate transferable adversarial examples.",
+    "SW-ProxyCE effectively attacks inaccessible downstream models across various EEG tasks and foundation encoders, outperforming task-agnostic attacks and demonstrating that foundation model transferability does not imply adversarial robustness."
+  ],
+  "significance": "This research highlights a critical security vulnerability in the deployment of EEG foundation models, urging the development of robust defenses to protect private downstream applications.",
+  "labRelevance": "This work is highly relevant to Neuro-X, as it addresses critical security and robustness challenges pertinent to the deployment and trustworthiness of large-scale neural data models.",
+  "modality": [
+    "EEG"
+  ],
+  "badge": "Emerging Paper"
+}

@@ -1,0 +1,24 @@
+{
+  "title": "EEG-PRIME: Prototype-Aligned Representation Learning with Multi-Level Conditioning for EEG Decoding",
+  "authors": [
+    "Shuailei Zhang",
+    "Muyun Jiang",
+    "Wei Zhang",
+    "Jinbo Chen"
+  ],
+  "publishedDate": "2026-08-13",
+  "source": "arXiv (2026-08)",
+  "topic": "fMRI/EEG Dynamics",
+  "url": "http://arxiv.org/abs/2608.13072v1",
+  "summaryPoints": [
+    "EEG-PRIME is a novel two-stage foundation model for EEG decoding designed to overcome cross-dataset and cross-subject generalization issues.",
+    "It employs masked pretraining with spectral augmentation followed by prototype-aligned instruction tuning, incorporating task-semantic, dataset-specific, and subject-invariant conditioning for robust decoding.",
+    "EEG-PRIME demonstrates superior performance on diverse EEG tasks and exhibits strong zero-shot transfer capabilities on unseen datasets, outperforming existing baselines and foundation models."
+  ],
+  "significance": "This work represents a significant advancement in EEG decoding by developing a foundation model capable of robust and generalizable performance across diverse datasets and subjects without extensive calibration, paving the way for more practical brain-computer interfaces.",
+  "labRelevance": "The development of EEG-PRIME aligns with the SNU Connectome Lab's Neuro-X initiative, as it focuses on creating generalizable AI models for neural signal decoding, a critical component for advancing neurotechnology.",
+  "modality": [
+    "EEG"
+  ],
+  "badge": "Emerging Paper"
+}

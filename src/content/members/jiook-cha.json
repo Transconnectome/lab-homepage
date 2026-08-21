@@ -1,0 +1,39 @@
+{
+  "name": "Jiook Cha",
+  "nameKo": "차지욱",
+  "role": "Associate Professor & PI",
+  "roleKo": "부교수 / 연구책임자",
+  "category": "pi",
+  "email": "connectome@snu.ac.kr",
+  "avatar": "/assets/members/jiook-cha.jpg",
+  "affiliations": [
+    "Department of Psychology, Seoul National University",
+    "Interdisciplinary Program in Artificial Intelligence (GSAI), SNU",
+    "Department of Brain and Cognitive Sciences, SNU"
+  ],
+  "education": [
+    "PhD in Neuroscience, State University of New York at Stony Brook",
+    "MS in Neurobiology, Catholic University of Korea",
+    "BS in Environmental and Ecological Engineering, Korea University"
+  ],
+  "researchInterests": [
+    "Large Brain Models (LBMs)",
+    "Dynamic Functional Connectomics",
+    "fMRI & EEG Foundation Models",
+    "Computational Psychiatry & Multi-modal Genetics",
+    "Quantum Machine Learning (QML) in Neuroscience"
+  ],
+  "passions": [
+    "Opera & Music",
+    "Espresso Coffee",
+    "Cocktail Crafting",
+    "Traditional Makgeolli",
+    "Art & Science Convergence"
+  ],
+  "links": {
+    "scholar": "https://scholar.google.com/citations?user=d_s86n8AAAAJ",
+    "github": "https://github.com/snuconnectome",
+    "website": "https://www.connectomelab.com"
+  },
+  "order": 1
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Continuous-Latent Predictive Modeling with Semantic Alignment for EEG-Language Foundation Models",
+  "authors": [
+    "Myeong-Ju Cho",
+    "Hye-Bin Shin",
+    "Seo-Hyun Lee",
+    "Seong-Whan Lee"
+  ],
+  "publishedDate": "2026-08-12",
+  "source": "arXiv (2026-08)",
+  "topic": "fMRI/EEG Dynamics",
+  "url": "http://arxiv.org/abs/2608.11656v1",
+  "summaryPoints": [
+    "The paper proposes Brain Latent Predictive Model (BLPM), an EEG-language foundation model that redefines EEG decoding as a continuous semantic embedding prediction problem.",
+    "BLPM introduces a Continuous EEG Latent Predictive (CELP) encoder for learning transferable representations and a Multi-Query Semantic Decomposition (MQSD) module for aligning EEG with textual semantics in a shared latent space.",
+    "The model aims to overcome limitations of masked autoencoding and autoregressive modeling in current EEG foundation models by prioritizing task-relevant semantics and addressing the mismatch between continuous neural dynamics and discrete token spaces."
+  ],
+  "significance": "This work establishes a novel paradigm for EEG-language foundation models, demonstrating improved generalization and alignment of continuous EEG signals with natural language semantics.",
+  "labRelevance": "This research is highly relevant to the 'Large Brain Models' and 'Neuro-X' initiatives at the SNU Connectome Lab, as it advances the development of foundation models for integrating brain activity with artificial intelligence and language processing.",
+  "modality": [
+    "EEG"
+  ],
+  "badge": "Emerging Paper"
+}

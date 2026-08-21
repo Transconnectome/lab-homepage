@@ -1,0 +1,17 @@
+{
+  "title": "Mapping the Genome-Wide Polygenic Landscape Across the Developing Connectome",
+  "authors": ["Yoonjung Y. Joo, Bo-Gyeom Kim, Eunji Lee, Jiook Cha et al."],
+  "publishedDate": "2025-07-15",
+  "source": "Nature Communications (2025)",
+  "topic": "Genomics & Connectomics",
+  "url": "https://doi.org/10.1038/s41467-025-63312-6",
+  "summaryPoints": [
+    "Analyzed polygenic risk scores across 10,000+ developing brains in the ABCD cohort.",
+    "Identified gene-brain convergence nodes in prefrontal and subcortical functional networks.",
+    "Revealed distinct structural vs. functional connectome mediation paths for psychiatric vulnerabilities."
+  ],
+  "significance": "Demonstrates the power of population-scale genomic-connectome convergence for computational psychiatry.",
+  "labRelevance": "Featured major publication from SNU Connectome Lab.",
+  "modality": ["Genomics", "fMRI", "Cortical Morphology"],
+  "badge": "Nature Comms"
+}

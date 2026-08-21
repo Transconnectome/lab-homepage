@@ -1,0 +1,24 @@
+{
+  "title": "Understanding and Correcting Low-Frequency Bias in EEG Foundation Model",
+  "authors": [
+    "Junjie Yu",
+    "Zihan Deng",
+    "Jianyu Zhang",
+    "Junrong Mu"
+  ],
+  "publishedDate": "2026-08-03",
+  "source": "arXiv (2026-08)",
+  "topic": "fMRI/EEG Dynamics",
+  "url": "http://arxiv.org/abs/2608.01898v1",
+  "summaryPoints": [
+    "EEG foundation models exhibit a pervasive low-frequency bias in their learned representations, irrespective of data scale, model capacity, or pretraining objective.",
+    "This bias stems from the interplay between EEG's $1/f^α$ spectral characteristics and neural networks' natural inclination to prioritize low-frequency components, exacerbated by $\\ell_2$ reconstruction losses in masked autoencoders.",
+    "FAME (Frequency-balanced Masked Autoencoding) is proposed, which balances spectral supervision by reconstructing time-frequency activity in predefined EEG bands with independent standardization and equal loss weighting, leading to improved, spectrally balanced representations and state-of-the-art performance on 24 out of 41 downstream tasks."
+  ],
+  "significance": "This research identifies a critical and persistent spectral bias in EEG foundation models, offering a novel frequency-balanced solution that significantly improves representation learning and downstream task performance, pushing the boundaries of transferable EEG AI.",
+  "labRelevance": "This work directly impacts the development of Large Brain Models and Neuro-X initiatives at SNU Connectome Lab by providing crucial insights and a solution for training more effective and balanced EEG foundation models, which are fundamental components for understanding brain activity across diverse tasks and populations.",
+  "modality": [
+    "EEG"
+  ],
+  "badge": "Emerging Paper"
+}

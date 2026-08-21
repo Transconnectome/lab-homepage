@@ -1,0 +1,24 @@
+{
+  "title": "ZIPBrain: Can EEG Foundation Models Be Faster, Locally Deployable, but Accurate?",
+  "authors": [
+    "Lingwei Li",
+    "Yirong Kan",
+    "Peng Chen",
+    "Xu Cao"
+  ],
+  "publishedDate": "2026-08-07",
+  "source": "arXiv (2026-08)",
+  "topic": "fMRI/EEG Dynamics",
+  "url": "http://arxiv.org/abs/2608.07033v1",
+  "summaryPoints": [
+    "ZIPBrain is introduced as a novel redundancy-aware EEG token pooling module designed to make EEG Foundation Models (EFMs) faster and more deployable.",
+    "It addresses the computational burden of EFMs by reducing the token count through a partitioning and merging strategy, leveraging EEG's low Signal-to-Noise Ratio (SNR) characteristics.",
+    "ZIPBrain is a plug-and-play module that improves EFM accuracy (1.3%-10.5%) and significantly reduces inference time (32.7% average, up to 41.8% with CUDA Graph) without substantial computational overhead."
+  ],
+  "significance": "This work demonstrates a crucial advancement in making powerful EEG foundation models practical for real-time, resource-constrained clinical applications by efficiently managing computational demands while enhancing performance.",
+  "labRelevance": "ZIPBrain's focus on accelerating and deploying large EEG models without sacrificing accuracy directly aligns with the SNU Connectome Lab's research into 'Large Brain Models' and could be integrated into our 'Neuro-X' initiatives for more efficient neurological data processing.",
+  "modality": [
+    "EEG"
+  ],
+  "badge": "Emerging Paper"
+}
