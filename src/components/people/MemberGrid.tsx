@@ -101,10 +101,15 @@ export default function MemberGrid({ members, lang = 'en' }: Props) {
               {/* Name & role */}
               <div>
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <h3 className="font-display text-lg font-semibold text-ink leading-tight">
+                  <h3
+                    className="font-display text-lg font-semibold text-ink leading-tight"
+                    lang={lang === 'ko' && member.nameKo ? 'ko' : 'en'}
+                  >
                     {lang === 'ko' && member.nameKo ? member.nameKo : member.name}
                   </h3>
-                  <span className="text-sm text-ink-faint">
+                  {/* The counterpart name is the other script, so it needs its own
+                      lang — both for the Korean type rules and for screen readers. */}
+                  <span className="text-sm text-ink-faint" lang={lang === 'ko' ? 'en' : 'ko'}>
                     {lang === 'ko' ? member.name : member.nameKo}
                   </span>
                 </div>

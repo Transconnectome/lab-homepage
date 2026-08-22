@@ -9,7 +9,10 @@ module.exports = {
         ink: {
           DEFAULT: '#1C1917',
           soft: '#44403C',
-          faint: '#78716C',
+          // Was #78716C — 4.56:1 on paper, which clears WCAG AA by 1.3% and
+          // then carries 12-13px Korean metadata, where minimum contrast meets
+          // minimum size meets Hangul's high stroke density. #57534E is 7.25:1.
+          faint: '#57534E',
         },
         // Single cool accent, inherited from the lab's cyan identity
         lab: {

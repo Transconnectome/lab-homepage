@@ -24,7 +24,7 @@ const pageTitle = lang === 'ko' ? '소식 | 서울대학교 커넥톰 연구실'
     <div class="max-w-2xl space-y-4">
       <p class="eyebrow">{t('news.eyebrow')}</p>
       <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('news.title')}</h1>
-      <p class="text-lg text-ink-soft leading-relaxed">{t('news.desc')}</p>
+      <p class="text-lg text-ink-soft leading-relaxed measure">{t('news.desc')}</p>
     </div>
 
     <div class="space-y-5">
@@ -53,8 +53,8 @@ const pageTitle = lang === 'ko' ? '소식 | 서울대학교 커넥톰 연구실'
                 item.data.title
               )}
             </h2>
-            {item.data.titleKo && <p class="text-sm text-ink-faint">{item.data.titleKo}</p>}
-            <div class="prose prose-stone prose-sm max-w-none prose-a:text-lab-700">
+            {item.data.titleKo && <p class="text-sm text-ink-faint" lang={lang === 'ko' ? 'en' : 'ko'}>{item.data.titleKo}</p>}
+            <div class="prose prose-stone prose-sm measure prose-a:text-lab-700">
               <Content />
             </div>
           </article>

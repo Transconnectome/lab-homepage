@@ -163,12 +163,12 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
 
             <div className="p-4 rounded-xl bg-paper border border-line">
               <div className="eyebrow mb-1.5">{L.hypothesis}</div>
-              <p className="text-base text-ink leading-relaxed">{pick(idea.hypothesis, idea.hypothesisKo)}</p>
+              <p className="text-base text-ink leading-relaxed measure">{pick(idea.hypothesis, idea.hypothesisKo)}</p>
             </div>
 
             <div className="space-y-1.5">
               <div className="eyebrow">{L.whyNow}</div>
-              <p className="text-base text-ink-soft leading-relaxed">{pick(idea.rationale, idea.rationaleKo)}</p>
+              <p className="text-base text-ink-soft leading-relaxed measure">{pick(idea.rationale, idea.rationaleKo)}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -177,7 +177,7 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
                 <ul className="space-y-1">
                   {idea.labThreads.map((th) => (
                     <li key={th} className="text-sm text-ink-soft flex items-start gap-2">
-                      <span className="text-lab-700 mt-0.5">▹</span>
+                      <span className="text-lab-700 mt-0.5">·</span>
                       <span>{th}</span>
                     </li>
                   ))}
@@ -188,7 +188,7 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
                 <ul className="space-y-1">
                   {idea.externalInspiration.map((th) => (
                     <li key={th} className="text-sm text-ink-soft flex items-start gap-2">
-                      <span className="text-lab-700 mt-0.5">▹</span>
+                      <span className="text-lab-700 mt-0.5">·</span>
                       <span>{th}</span>
                     </li>
                   ))}
@@ -198,14 +198,14 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
 
             <div className="space-y-1.5">
               <div className="eyebrow">{L.firstExperiment}</div>
-              <p className="text-base text-ink-soft leading-relaxed">
+              <p className="text-base text-ink-soft leading-relaxed measure">
                 {pick(idea.firstExperiment, idea.firstExperimentKo)}
               </p>
             </div>
 
             <div className="pt-4 border-t border-line space-y-1.5">
               <div className="eyebrow">{L.howFails}</div>
-              <p className="text-sm text-ink-faint leading-relaxed">{pick(idea.risks, idea.risksKo)}</p>
+              <p className="text-sm text-ink-faint leading-relaxed measure">{pick(idea.risks, idea.risksKo)}</p>
             </div>
           </article>
         ))}
