@@ -25,7 +25,7 @@ export const ui = {
 
     // Home
     'home.eyebrow': 'Seoul National University · Connectome Laboratory',
-    'home.mottoCredit': '— Leonardo da Vinci, the lab’s founding instruction',
+    'home.mottoCredit': '— Leonardo da Vinci, the lab’s founding conviction',
     'home.heroDesc':
       'We study how the brain’s connections give rise to mind — cognition, emotion, development, and psychiatric resilience. Our instruments are brain foundation models, multimodal genetics, and quantum machine learning; our conviction is that seeing well is a scientific skill.',
     'home.exploreCta': 'Explore our research',
@@ -181,7 +181,7 @@ export const ui = {
 
     // Home
     'home.eyebrow': '서울대학교 · 커넥톰 연구실',
-    'home.mottoCredit': '— 레오나르도 다빈치, 연구실이 따르는 가르침',
+    'home.mottoCredit': '— 레오나르도 다빈치. 모든 것은 서로 연결되어 있다.',
     'home.heroDesc':
       '뇌의 연결이 어떻게 마음을 만들어내는지 연구합니다. 인지와 정서, 발달, 그리고 정신건강의 회복탄력성까지가 그 대상입니다. 뇌 파운데이션 모델과 멀티모달 유전체학, 양자 머신러닝이 우리의 도구이며, ‘잘 보는 것’이야말로 과학적 능력이라 믿습니다.',
     'home.exploreCta': '연구 살펴보기',
@@ -320,15 +320,18 @@ export function useTranslations(lang: Lang) {
   };
 }
 
-/** Map a pathname to its counterpart in the other language. */
+/**
+ * Map a pathname to its counterpart in the other language.
+ * Korean is the default locale and sits at the root; English is under /en/.
+ */
 export function altLangPath(pathname: string, lang: Lang): string {
-  if (lang === 'en') {
-    return pathname === '/' ? '/ko/' : `/ko${pathname}`;
+  if (lang === 'ko') {
+    return pathname === '/' ? '/en/' : `/en${pathname}`;
   }
-  const stripped = pathname.replace(/^\/ko/, '');
+  const stripped = pathname.replace(/^\/en/, '');
   return stripped === '' || stripped === '/' ? '/' : stripped;
 }
 
 export function localePath(lang: Lang, path: string): string {
-  return lang === 'ko' ? `/ko${path === '/' ? '/' : path}` : path;
+  return lang === 'en' ? `/en${path === '/' ? '/' : path}` : path;
 }

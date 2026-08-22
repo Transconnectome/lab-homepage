@@ -5,7 +5,7 @@ Official website of the **Connectome Laboratory** at **Seoul National University
 🔗 **Website**: [https://www.connectomelab.com/](https://www.connectomelab.com/)
 🏛️ **Affiliations**: Department of Psychology • Interdisciplinary Program in AI (IPAI) • Department of Brain and Cognitive Sciences (BCS)
 
-> *"Study the science of art. Study the art of science."* — Leonardo da Vinci
+> *"Everything Connects to Everything Else."* — Leonardo da Vinci
 
 ---
 
@@ -23,10 +23,13 @@ the warmth; the cyan accent carries the lab's technical identity.
    - An illustrative 3D visualization of the brain networks the lab studies
      (labeled as a sketch, not anatomical data). Nodes link to real lab projects.
 
-2. **📚 Full Publication Archive (auto-synced)**
-   - `scripts/sync_scholar.py` pulls the complete record (~145 papers, 2008–present)
-     from the OpenAlex API with cursor pagination, DOI/title dedup against
-     hand-curated entries, and a member-allowlist for author highlighting.
+2. **📚 Publication Archive (auto-synced)**
+   - `scripts/sync_scholar.py` pulls the record (102 entries, 76 of them
+     peer-reviewed, 2008–present) from the OpenAlex API with cursor pagination.
+     It classifies each entry as journal / conference / workshop / preprint,
+     excludes conference-abstract supplements and errata, fuzzy-dedups
+     preprint-vs-journal versions of the same paper, and highlights authors
+     from a member allowlist rather than by surname.
 
 3. **⚡ Research Radar (weekly arXiv scan)**
    - `scripts/update_research_radar.py` scans arXiv weekly for new papers in brain
@@ -107,18 +110,34 @@ the built site in the same workflow (a `GITHUB_TOKEN` push cannot trigger
 
 ---
 
+## Languages & routing
+
+**Korean is the default language and lives at the root**; English is under `/en/`.
+
+| | Korean | English |
+|---|---|---|
+| Home | `/` | `/en/` |
+| Research | `/research` | `/en/research` |
+
+UI strings live in `src/i18n/ui.ts`; page content is chosen by a `lang` field on
+each content entry (`*-ko.md` files carry `lang: "ko"`). Every page emits
+`hreflang` alternates with Korean as `x-default`. The site previously served
+Korean under `/ko/`, so those paths are kept alive as redirects declared in
+`astro.config.mjs`.
+
+Korean typography is not simply Latin typography with different glyphs — see
+`src/styles/global.css`, where `word-break: keep-all`, negative display
+tracking, and the `:lang(ko)` overrides are documented with the reasons.
+
 ## Custom Domain & GitHub Pages
 
 1. Repository **Settings → Pages**: Source = **GitHub Actions**; Custom domain =
    `www.connectomelab.com` with **Enforce HTTPS**.
-2. DNS: `CNAME` record `www` → `snuconnectome.github.io`.
+2. DNS: `CNAME` record `www` → `transconnectome.github.io`.
 
-> ⚠️ **Cutover status**: GitHub Pages is deployed and configured for
-> `www.connectomelab.com` (via `public/CNAME`), but DNS still points that domain at
-> the old Google Sites page — which therefore stays live, untouched. The final step
-> is a single DNS change at the registrar: set the `www` CNAME record to
-> `snuconnectome.github.io`. Until then, preview locally with `npm run preview`
-> (on DGX: `ssh -N -L 4321:127.0.0.1:4321 dgx-spark`, then open `http://localhost:4321`).
+The DNS cutover from the old Google Sites page is done and the site is live.
+`scripts/cutover.sh --status` reports the current DNS, custom-domain and
+certificate state at any time.
 
 ---
 

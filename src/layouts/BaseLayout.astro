@@ -3,6 +3,7 @@ import Navbar from '../components/common/Navbar.astro';
 import Footer from '../components/common/Footer.astro';
 import AskLabAI from '../components/ai/AskLabAI';
 import type { Lang } from '../i18n/ui';
+import { altLangPath } from '../i18n/ui';
 import '../styles/global.css';
 
 interface Props {
@@ -13,11 +14,23 @@ interface Props {
 }
 
 const {
-  title = 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실',
-  description = 'Seoul National University Connectome Lab (PI: Jiook Cha). We study how the brain\'s connections give rise to mind — with brain foundation models (Neuro-X, NeuroMamba, DIVER-0), multimodal genetics, computational psychiatry, and quantum machine learning.',
+  lang = 'ko',
+  title = lang === 'ko'
+    ? '서울대학교 커넥톰 연구실 | SNU Connectome Laboratory'
+    : 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실',
+  description = lang === 'ko'
+    ? '서울대학교 커넥톰 연구실(PI 차지욱). 뇌의 연결이 어떻게 마음을 만들어내는지 연구합니다 — 뇌 파운데이션 모델(Neuro-X, NeuroMamba, DIVER-0), 멀티모달 유전체학, 계산정신의학, 양자 머신러닝.'
+    : 'Seoul National University Connectome Lab (PI: Jiook Cha). We study how the brain\'s connections give rise to mind — with brain foundation models (Neuro-X, NeuroMamba, DIVER-0), multimodal genetics, computational psychiatry, and quantum machine learning.',
   ogImage = '/assets/og-image.jpg',
-  lang = 'en',
 } = Astro.props;
+
+// Korean is the default locale at the root; English lives under /en/.
+const here = new URL(Astro.request.url).pathname;
+const altPath = altLangPath(here, lang);
+const canonical = new URL(here, Astro.site).toString();
+const altHref = new URL(altPath, Astro.site).toString();
+const koHref = lang === 'ko' ? canonical : altHref;
+const enHref = lang === 'en' ? canonical : altHref;
 ---
 
 <!doctype html>
@@ -31,6 +44,10 @@ const {
     <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ko" href={koHref} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="x-default" href={koHref} />
     <meta name="keywords" content="Connectome Lab, Jiook Cha, 차지욱, Seoul National University, SNU, Large Brain Model, Neuro-X, NeuroMamba, DIVER-0, SwiFT, fMRI, EEG, Quantum Machine Learning, Polygenic Risk Score, ABCD Study" />
     <meta name="author" content="Jiook Cha, SNU Connectome Lab" />
 

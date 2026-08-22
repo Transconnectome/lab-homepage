@@ -26,7 +26,12 @@ set -euo pipefail
 REPO="Transconnectome/lab-homepage"
 DOMAIN="www.connectomelab.com"
 PAGES_HOST="snuconnectome.github.io"
-MARKER="Four research axes, one brain"   # unique to the NEW site (the da Vinci quote also existed on the old Google Site)
+# Fingerprint of the Astro build, not a piece of copy. Earlier markers were
+# headline text, and both went stale within a day of being written — the da
+# Vinci quote also existed on the old Google Site, and "Six networks, one lab"
+# was edited away. Every built page links assets under /_astro/, and the old
+# Google Sites page never could.
+MARKER="/_astro/"
 
 say()  { printf '\n\033[1;36m▸ %s\033[0m\n' "$*"; }
 ok()   { printf '\033[1;32m  ✓ %s\033[0m\n' "$*"; }
@@ -43,10 +48,26 @@ show_status() {
   local pj; pj=$(pages_json)
   echo "  GitHub Pages custom domain: $(echo "$pj" | python3 -c 'import json,sys;d=json.load(sys.stdin);print(d.get("cname") or "(not set)")')"
   echo "  HTTPS enforced:             $(echo "$pj" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("https_enforced"))')"
-  if curl -sfm 10 "https://$DOMAIN" 2>/dev/null | grep -q "$MARKER"; then
-    ok "https://$DOMAIN is serving the NEW site"
+  # Two independent questions, reported separately — conflating them is why an
+  # earlier version of this script said "still the old site" when the content
+  # had in fact cut over and only the certificate was outstanding.
+  #   1. WHAT is served?  Follow redirects, ignore cert validity.
+  #   2. Is the certificate valid?  Strict fetch, no -k.
+  # No `curl | grep -q` here: grep exits the moment it matches, curl then dies
+  # of SIGPIPE, and `set -o pipefail` reports the whole pipeline as failed — so
+  # the check reads as "not serving" precisely when it IS serving. Buffer first.
+  local serving_new=false cert_valid=false body
+  body=$(curl -sfLkm 10 "https://$DOMAIN" 2>/dev/null || true)
+  [[ "$body" == *"$MARKER"* ]] && serving_new=true
+  curl -sfm 10 -o /dev/null "https://$DOMAIN" 2>/dev/null && cert_valid=true
+
+  if $serving_new && $cert_valid; then
+    ok "https://$DOMAIN is serving this build over a valid certificate"
+  elif $serving_new; then
+    warn "this build IS being served, but the HTTPS certificate is not valid yet"
+    echo "     (see the certificate state above; nothing to do but wait)"
   else
-    warn "https://$DOMAIN is still the old site (or unreachable over HTTPS)"
+    warn "$DOMAIN is not serving this build"
   fi
 }
 
@@ -198,7 +219,9 @@ fi
 
 echo "  checking the live site..."
 for _ in $(seq 1 10); do
-  if curl -sfm 15 "https://$DOMAIN" 2>/dev/null | grep -q "$MARKER"; then
+  # Buffered, not piped into grep -q — see the note in show_status().
+  LIVE=$(curl -sfm 15 "https://$DOMAIN" 2>/dev/null || true)
+  if [[ "$LIVE" == *"$MARKER"* ]]; then
     ok "https://$DOMAIN is serving the NEW site 🎉"
     echo
     echo "  Done. If anything looks wrong: ./scripts/cutover.sh --rollback-help"
