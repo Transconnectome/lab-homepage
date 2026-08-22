@@ -16,9 +16,10 @@ Requirements (all DGX-local; the script skips gracefully anywhere else):
 Design notes:
 - Runs SEQUENTIALLY: codex imagegen is slower in parallel (measured by the
   infographics skill), 46-295s per image.
-- Image prompts are "design-mode" briefs: concept-flow visualization with
-  MINIMAL embedded text (title + a few short Korean noun-phrase labels), since
-  Korean rendering inside generated images is the main failure mode.
+- Image prompts are "design-mode" briefs, explanation-first: the actual
+  hypothesis/experiment/risk content is rendered inside the image in easy
+  Korean so a layperson can understand the idea from the image alone
+  (codex rendered 130-363 Korean words accurately in measured runs).
 - This script is NOT in the GitHub Actions workflow on purpose: images are
   generated on DGX and reviewed by a human before they are pushed. The /ideas
   page renders text-only cards for ideas without images, so a missing image is
@@ -46,25 +47,44 @@ PER_IMAGE_TIMEOUT = 900  # codex imagegen measured at 46-295s per image
 
 
 def build_brief(idea):
-    """Design-mode brief for the infographics harness (## Prompt header is parsed by it)."""
+    """Design-mode brief for the infographics harness (## Prompt header is parsed by it).
+
+    Explanation-first: the image must be understandable on its own by a
+    science-curious layperson, so the actual hypothesis/experiment/risk text
+    is rendered inside the image in simplified everyday Korean (codex has
+    rendered 130-363 Korean words accurately in measured runs).
+    """
     title_ko = idea.get("titleKo") or idea.get("title", "")
     hypothesis = idea.get("hypothesisKo") or idea.get("hypothesis", "")
+    rationale = idea.get("rationaleKo") or idea.get("rationale", "")
     experiment = idea.get("firstExperimentKo") or idea.get("firstExperiment", "")
+    risks = idea.get("risksKo") or idea.get("risks", "")
     threads = " · ".join(idea.get("labThreads", [])[:3])
     inspiration = " · ".join(idea.get("externalInspiration", [])[:2])
     return f"""# S1 Brief — {title_ko}
 
 ## Prompt for nanobanana2
-연구 아이디어 한 장 인포그래픽. 주제: "{title_ko}".
-핵심 메시지(가설): {hypothesis}
-개념 흐름(왼쪽→오른쪽): 외부 영감({inspiration}) + 연구실 기반({threads}) → 새 가설 → 첫 실험({experiment}) 순서의 개념 결합 다이어그램.
-청중: 일반 방문객과 대학원생. 언어: 한국어, 전문용어는 영어 유지.
-시각 제약: 밝은 배경(#FAF9F6 계열), 플랫 디자인, 가로형(16:9), 색 4개 이하.
-이미지 안 텍스트는 최소화: 제목 1줄 + 짧은 한국어 명사구 라벨 4개 이하만. 긴 문장은 넣지 않는다.
-레이아웃과 아이콘 선택은 재량에 맡긴다. 개념을 시각적으로 설명하는 것이 문자보다 우선이다.
+과학에 관심 있는 일반 독자를 위한 설명형 인포그래픽 한 장. 사전 지식 없이 이 그림 하나만 보고
+연구 아이디어를 이해할 수 있어야 한다. 설명 텍스트가 주인공이고 그림은 이해를 돕는 보조다.
+
+원자료 (아래 내용을 비전공 성인이 읽기 쉬운 한국어로 다듬어 이미지 안에 렌더한다.
+전문용어는 영어를 남기되 짧은 한국어 풀이를 괄호로 덧붙인다. 어려운 개념에는 일상 비유를 한 줄 더한다):
+- 제목: {title_ko}
+- 이 연구가 답하려는 질문(가설): {hypothesis}
+- 왜 지금 이 연구실이 하는가: {rationale}
+- 어떻게 확인하는가(첫 실험): {experiment}
+- 딛고 서 있는 것: 연구실 기반 = {threads} / 외부 영감 = {inspiration}
+- 조심할 점: {risks}
+
+레이아웃 요구:
+- 맨 위: 쉬운 한국어로 바꾼 큰 제목 + 연구 질문을 일상어로 쓴 부제 한 줄.
+- 본문: "무엇을 하려는가 → 어떻게 확인하는가 → 무엇을 딛고 서 있는가 → 조심할 점" 순서의
+  읽기 흐름이 명확한 블록 구성. 각 블록은 소제목 + 설명 문장 1-2줄 + 내용을 표현하는 아이콘/도해.
+- 텍스트 블록당 한글 최대 2줄, 문장은 짧게. 이미지 전체 단어 수 300 이하.
+- 밝은 배경(#FAF9F6 계열), 플랫 디자인, 가로형(16:9), 색 4개 이하, 글자는 멀리서도 읽히는 크기.
 
 ## Negative
-dark background, 3D, glossy, gradient, circular diagram, photorealistic icons, tiny captions, long sentences, dense paragraph text, poster style
+dark background, 3D, glossy, gradient, circular diagram, photorealistic icons, tiny unreadable text, English-only text, unlabeled decorative diagrams, dense wall of text
 """
 
 
