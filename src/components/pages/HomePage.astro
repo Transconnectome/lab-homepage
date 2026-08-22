@@ -31,6 +31,13 @@ const pageTitle =
   lang === 'ko'
     ? '서울대학교 커넥톰 연구실 | SNU Connectome Laboratory'
     : 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실';
+
+// Category chips must not leak the raw enum ('conference', 'award') onto the
+// Korean page — same mapping the News page uses.
+const CATEGORY_LABELS: Record<string, Record<string, string>> = {
+  en: { award: 'Award', paper: 'Paper', conference: 'Conference', event: 'Event', exhibition: 'Exhibition', general: 'News' },
+  ko: { award: '수상', paper: '논문', conference: '학회', event: '행사', exhibition: '전시', general: '소식' },
+};
 ---
 
 <BaseLayout lang={lang} title={pageTitle}>
@@ -44,7 +51,7 @@ const pageTitle =
         <span class="italic text-lab-700">Study the art of science.</span>
       </h1>
 
-      <p class="font-mono text-xs text-ink-faint">{t('home.mottoCredit')}</p>
+      <p class="text-sm text-ink-faint">{t('home.mottoCredit')}</p>
 
       <p class="text-lg text-ink-soft leading-relaxed max-w-2xl">{t('home.heroDesc')}</p>
 
@@ -70,12 +77,12 @@ const pageTitle =
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
         <div>
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-cyan-400">{t('home.mapEyebrow')}</p>
+          <p class="eyebrow-dark">{t('home.mapEyebrow')}</p>
           <h2 class="font-display text-2xl sm:text-3xl font-semibold text-white mt-2">{t('home.mapTitle')}</h2>
         </div>
         <p class="text-sm text-slate-400 max-w-md leading-relaxed">{t('home.mapDesc')}</p>
       </div>
-      <BrainViewer client:visible />
+      <BrainViewer client:visible lang={lang} />
     </div>
   </section>
 
@@ -94,7 +101,7 @@ const pageTitle =
       {sortedNews.slice(0, 3).map((item) => (
         <article class="card card-hover p-6 flex flex-col gap-3">
           <div class="flex items-center gap-2">
-            <span class="chip">{item.data.category}</span>
+            <span class="chip">{CATEGORY_LABELS[lang][item.data.category] ?? item.data.category}</span>
             <span class="font-mono text-xs text-ink-faint">{item.data.date}</span>
           </div>
           <h3 class="font-semibold text-ink leading-snug">
@@ -133,7 +140,7 @@ const pageTitle =
               <h3 class="font-display text-lg font-semibold text-ink group-hover:text-lab-700 transition-colors leading-snug">
                 {res.data.title}
               </h3>
-              <p class="font-mono text-xs text-lab-700">{res.data.titleKo}</p>
+              <p class="text-sm text-lab-700">{res.data.titleKo}</p>
               <p class="text-sm text-ink-soft leading-relaxed">{res.data.tagline}</p>
             </div>
             <div class="pt-5 mt-5 border-t border-line text-sm font-semibold text-lab-700 group-hover:translate-x-1 transition-transform">

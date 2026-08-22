@@ -1,0 +1,22 @@
+{
+  "title": "Quantum-Enhanced Interpretable EEG Foundation Models for Clinical Neuroscience",
+  "titleKo": "임상 신경과학을 위한 양자 강화 해석 가능한 EEG 파운데이션 모델",
+  "date": "2026-08-21",
+  "category": "foundation-models",
+  "hypothesis": "Integrating parameterized quantum circuits with state-of-the-art EEG foundation models (like those leveraging structured latent prediction or prototype-aligned learning) can enhance their interpretability and generalizability across diverse clinical populations, particularly by improving the physiological relevance of attribution scores or prototype representations.",
+  "rationale": "The lab has strong expertise in both QML for high-dimensional brain data (e.g., Q-DIVER, Hybrid Quantum Temporal Convolutional Networks) and developing EEG foundation models (e.g., NeuroMamba, EEG Reconstruction & Interactive Media). Recent external advances in EEG-PRISM and EEG-JEPA offer new avenues for interpretability and structured learning. Combining quantum advantages in high-dimensional pattern recognition with physiologically-grounded interpretability could lead to truly trustworthy clinical AI for complex neurological and psychiatric disorders, building on the lab's work on trustworthy clinical AI for OCD.",
+  "labThreads": [
+    "양자 머신러닝(QML) 기반 초고차원 뇌데이터 연산 프레임워크",
+    "fMRI·EEG 파운데이션 모델 (NeuroMamba, SwiFT, DIVER-0)",
+    "Art & Neuroscience: EEG Reconstruction & Interactive Media",
+    "Toward trustworthy clinical AI for obsessive-compulsive disorder: reliability, generalizability, and interpretability of a transformer model across the ENIGMA-OCD consortium"
+  ],
+  "externalInspiration": [
+    "EEG-PRISM: Physiologically-Grounded Interpretability of Predictions by EEG Foundation Models (arXiv (2026-08))",
+    "EEG-JEPA: Structured Latent Prediction for EEG Foundation Models (arXiv (2026-07))",
+    "Q-DIVER: Integrated Quantum Transfer Learning and Differentiable Quantum Architecture Search with EEG Data (2026 International Conference on Quantum Communications, Networking, and Computing (QCNC))"
+  ],
+  "firstExperiment": "Implement a quantum-enhanced interpretability module by replacing a classical attention or latent space component within an existing EEG-JEPA or EEG-PRIME architecture with a parameterized quantum circuit (PQC). Evaluate the physiological plausibility of the resulting attribution maps (using EEG-PRISM's frequency/source domain mapping) and compare generalizability metrics (e.g., cross-subject accuracy) on a publicly available EEG dataset for a cognitive task (e.g., P300) against the classical baseline.",
+  "risks": "Quantum hardware limitations and noise remain a significant challenge, potentially limiting the complexity of PQCs that can be effectively integrated. Demonstrating a clear and tangible 'quantum advantage' for interpretability or generalizability over sophisticated classical methods might be difficult in the near term. The computational overhead of QML could also hinder speed and deployability.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}

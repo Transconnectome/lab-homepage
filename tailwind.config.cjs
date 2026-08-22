@@ -31,7 +31,13 @@ module.exports = {
       fontFamily: {
         display: ['Hahmlet', 'Noto Serif KR', 'Georgia', 'serif'],
         sans: ['Pretendard Variable', 'Pretendard', 'Noto Sans KR', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
+        // IBM Plex Mono carries no Hangul, so any Korean inside a mono context
+        // used to fall through to whatever the OS offered — on Linux that was
+        // Noto Sans Mono CJK *JP*, a Japanese face setting Korean text.
+        // Pretendard is already loaded for body copy, so naming it here routes
+        // Hangul to a real Korean face at zero additional payload while Latin
+        // and numerals stay in Plex Mono.
+        mono: ['IBM Plex Mono', 'Pretendard Variable', 'Pretendard', 'ui-monospace', 'monospace'],
       },
     },
   },

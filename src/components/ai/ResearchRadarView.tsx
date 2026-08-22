@@ -100,7 +100,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
               </button>
             )}
           </div>
-          <span className="font-mono text-xs text-ink-faint shrink-0">
+          <span className="mono-meta text-xs text-ink-faint shrink-0">
             {filteredTrends.length}{lang === 'ko' ? '' : ' '}{L.entries}
           </span>
         </div>

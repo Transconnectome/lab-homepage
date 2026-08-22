@@ -1,0 +1,22 @@
+{
+  "title": "Multimodal Brain-Language Foundation Models with Semantic Alignment for Neuro-Psychiatric Trajectory Prediction",
+  "titleKo": "정신과적 궤적 예측을 위한 의미론적 정렬 다중모달 뇌-언어 파운데이션 모델",
+  "date": "2026-08-21",
+  "category": "foundation-models",
+  "hypothesis": "By aligning continuous EEG/fMRI latent representations with large language models through multi-query semantic decomposition, we can build a multimodal brain-language foundation model that predicts mental health trajectories more accurately and provides linguistically interpretable insights into neural correlates of psychiatric conditions.",
+  "rationale": "The lab's Neuro-X Project aims to decode the universal language of the mind, and the Mind the Gap paper highlights the need for nonlinear and multimodal approaches to align brain and language models. The BLPM (Continuous-Latent Predictive Modeling with Semantic Alignment) offers a concrete architecture for this alignment. Integrating this with the lab's strengths in computational psychiatry and multi-modal genetics (e.g., polygenic risk scores, white matter tractography) will allow for a powerful new paradigm in predicting mental health outcomes and understanding their neural and genetic underpinnings.",
+  "labThreads": [
+    "The Neuro-X Project: Towards Large Brain Models",
+    "Computational Psychiatry & Multi-Modal Genetics",
+    "fMRI & EEG Foundation Models",
+    "Mind the Gap: Aligning the Brain with Language Models Requires a Nonlinear and Multimodal Approach",
+    "Polygenic risk-informed white matter integrity improves deep learning-based prediction of youth depression"
+  ],
+  "externalInspiration": [
+    "Continuous-Latent Predictive Modeling with Semantic Alignment for EEG-Language Foundation Models (arXiv (2026-08))",
+    "Polygenic architecture of brain structure and function, behaviors, and psychopathologies in children (Nature Communications (2025))"
+  ],
+  "firstExperiment": "Develop a pilot BLPM-inspired model using existing fMRI and EEG data from cohorts with psychiatric assessments (e.g., from the ABCD dataset used in 'Polygenic architecture...'). Use a pre-trained fMRI/EEG foundation model (like NeuroMamba or a Mamba-based EEG encoder) as the Continuous EEG Latent Predictive (CELP) encoder. Train the Multi-Query Semantic Decomposition (MQSD) module to align these neural latents with embeddings from a clinical language model (e.g., fine-tuned BERT for psychiatric symptom descriptions). Evaluate the model's ability to predict clinical scores (e.g., depression severity) and generate text summaries of associated brain states.",
+  "risks": "Aligning complex, noisy neural signals with high-dimensional, abstract language embeddings is inherently challenging. The 'semantic gap' might be larger than anticipated, requiring sophisticated alignment techniques. Data scarcity for rich, multimodal (EEG/fMRI + clinical texts + genetic) datasets is a practical limitation. Ensuring that the linguistic interpretations are genuinely reflective of neural activity and not just superficial correlations will require careful validation.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}

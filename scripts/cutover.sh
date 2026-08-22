@@ -26,7 +26,7 @@ set -euo pipefail
 REPO="Transconnectome/lab-homepage"
 DOMAIN="www.connectomelab.com"
 PAGES_HOST="snuconnectome.github.io"
-MARKER="Six networks, one lab"   # unique to the NEW site (the da Vinci quote also existed on the old Google Site)
+MARKER="Four research axes, one brain"   # unique to the NEW site (the da Vinci quote also existed on the old Google Site)
 
 say()  { printf '\n\033[1;36m▸ %s\033[0m\n' "$*"; }
 ok()   { printf '\033[1;32m  ✓ %s\033[0m\n' "$*"; }

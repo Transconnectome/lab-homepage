@@ -3,7 +3,7 @@
 Official website of the **Connectome Laboratory** at **Seoul National University** (PI: **Prof. Jiook Cha** / 차지욱 교수).
 
 🔗 **Website**: [https://www.connectomelab.com/](https://www.connectomelab.com/)
-🏛️ **Affiliations**: Department of Psychology • Interdisciplinary Program in AI (GSAI) • Department of Brain and Cognitive Sciences (BCS)
+🏛️ **Affiliations**: Department of Psychology • Interdisciplinary Program in AI (IPAI) • Department of Brain and Cognitive Sciences (BCS)
 
 > *"Study the science of art. Study the art of science."* — Leonardo da Vinci
 
