@@ -2,6 +2,7 @@
   "title": "Causal Semantic Memory Canvas",
   "titleKo": "인과적 의미 기억 캔버스",
   "date": "2026-08-22",
+  "category": "foundation-models",
   "hypothesis": "Predicting continuous semantic latents from recall EEG and intervening on causal latent factors will separately control affect and scene content in audiovisual reconstructions.",
   "hypothesisKo": "회상 EEG를 연속 semantic latent로 예측하고 causal intervention을 적용하면, 정서와 장면 내용을 분리해 재구성할 수 있다.",
   "rationale": "BLPM and EEG-JEPA enable semantic and state prediction. Combining them with the lab’s memory reconstruction and latent causal discovery can turn plausible generation into testable causal control.",

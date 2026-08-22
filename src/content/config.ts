@@ -113,6 +113,9 @@ const ideasCollection = defineCollection({
     title: z.string(),
     titleKo: z.string().nullable().optional(),
     date: z.string(),
+    // Same taxonomy as the research collection's pillars, so ideas can be
+    // browsed by the same categories visitors already see on /research.
+    category: z.enum(['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science']),
     hypothesis: z.string(),
     hypothesisKo: z.string().nullable().optional(),
     rationale: z.string(),

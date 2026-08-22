@@ -49,42 +49,40 @@ PER_IMAGE_TIMEOUT = 900  # codex imagegen measured at 46-295s per image
 def build_brief(idea):
     """Design-mode brief for the infographics harness (## Prompt header is parsed by it).
 
-    Explanation-first: the image must be understandable on its own by a
-    science-curious layperson, so the actual hypothesis/experiment/risk text
-    is rendered inside the image in simplified everyday Korean (codex has
-    rendered 130-363 Korean words accurately in measured runs).
+    Deliberately style-agnostic: earlier versions dictated a fixed palette,
+    flat-icon treatment, and numbered-box layout — all borrowed from the
+    lab's cha-marp slide brand — and the result read as generic academic
+    slides regardless of topic. This version states only the content and
+    two hard constraints (readable, 16:9); visual style, palette, and
+    composition are left to the model's own creative judgment per idea.
     """
     title_ko = idea.get("titleKo") or idea.get("title", "")
     hypothesis = idea.get("hypothesisKo") or idea.get("hypothesis", "")
     rationale = idea.get("rationaleKo") or idea.get("rationale", "")
-    experiment = idea.get("firstExperimentKo") or idea.get("firstExperiment", "")
-    risks = idea.get("risksKo") or idea.get("risks", "")
-    threads = " · ".join(idea.get("labThreads", [])[:3])
-    inspiration = " · ".join(idea.get("externalInspiration", [])[:2])
     return f"""# S1 Brief — {title_ko}
 
 ## Prompt for nanobanana2
-과학에 관심 있는 일반 독자를 위한 설명형 인포그래픽 한 장. 사전 지식 없이 이 그림 하나만 보고
-연구 아이디어를 이해할 수 있어야 한다. 설명 텍스트가 주인공이고 그림은 이해를 돕는 보조다.
+이 연구 아이디어를 표현하는 인포그래픽 한 장을 만들어 주세요. 비주얼 스타일, 색감, 구도,
+시각적 은유는 전적으로 당신의 창의적 판단에 맡깁니다. 네이비·틸·오렌지 아이콘 조합, 번호
+매겨진 박스, 대시보드형 카드처럼 뻔한 학술 발표 슬라이드 톤은 피해 주세요. 잡지 화보처럼
+개성 있어도 좋고, 과학 저널리즘 일러스트처럼 은유적이어도 좋습니다 — 이 이야기를 가장 잘
+전달한다고 판단하는 방식을 스스로 선택하세요. 매번 다른 아이디어이니 스타일도 아이디어마다
+달라져야 자연스럽습니다.
 
-원자료 (아래 내용을 비전공 성인이 읽기 쉬운 한국어로 다듬어 이미지 안에 렌더한다.
-전문용어는 영어를 남기되 짧은 한국어 풀이를 괄호로 덧붙인다. 어려운 개념에는 일상 비유를 한 줄 더한다):
-- 제목: {title_ko}
-- 이 연구가 답하려는 질문(가설): {hypothesis}
-- 왜 지금 이 연구실이 하는가: {rationale}
-- 어떻게 확인하는가(첫 실험): {experiment}
-- 딛고 서 있는 것: 연구실 기반 = {threads} / 외부 영감 = {inspiration}
-- 조심할 점: {risks}
+연구 아이디어: {title_ko}
+핵심 메시지: {hypothesis}
+(배경: {rationale})
 
-레이아웃 요구:
-- 맨 위: 쉬운 한국어로 바꾼 큰 제목 + 연구 질문을 일상어로 쓴 부제 한 줄.
-- 본문: "무엇을 하려는가 → 어떻게 확인하는가 → 무엇을 딛고 서 있는가 → 조심할 점" 순서의
-  읽기 흐름이 명확한 블록 구성. 각 블록은 소제목 + 설명 문장 1-2줄 + 내용을 표현하는 아이콘/도해.
-- 텍스트 블록당 한글 최대 2줄, 문장은 짧게. 이미지 전체 단어 수 300 이하.
-- 밝은 배경(#FAF9F6 계열), 플랫 디자인, 가로형(16:9), 색 4개 이하, 글자는 멀리서도 읽히는 크기.
+분량은 지금까지보다 훨씬 적어야 합니다. 하나의 장면, 하나의 중심 은유만 그려 주세요.
+비교 패널, 보조 다이어그램, 사이드바처럼 화면을 여러 구역으로 나누는 구성은 만들지 마세요.
+이미지 안 텍스트 총량은 80단어를 넘지 않게: 제목 한 줄 + 핵심 메시지를 쉬운 한국어로 옮긴
+문장 한두 개 + 장면 속 라벨 몇 개면 충분합니다 (전문용어는 영어 옆에 짧은 한글 풀이 가능).
+글자보다 여백이 넉넉해야 하고, 가로형(16:9)이며 글자는 실제로 읽힐 만큼 커야 합니다.
+
+그 외 색상 수, 구도, 아이콘/일러스트 스타일은 전부 당신의 선택에 맡깁니다.
 
 ## Negative
-dark background, 3D, glossy, gradient, circular diagram, photorealistic icons, tiny unreadable text, English-only text, unlabeled decorative diagrams, dense wall of text
+navy-teal-orange corporate palette, numbered box grid, dashboard-card layout, multi-panel composition, side-by-side comparison panels, generic academic slide look, cluttered scene, dark background, glossy or glowing sci-fi look, photorealistic human faces or photo-style portraits, movie-poster style, tiny illegible text, warped or stylized title lettering, text overflowing its box, garbled or malformed characters
 """
 
 

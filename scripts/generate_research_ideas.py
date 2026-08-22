@@ -43,6 +43,9 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 IDEAS_DIR = os.path.join(ROOT, "src", "content", "ideas")
 OPENROUTER_MODEL = "google/gemini-2.5-flash"
 MAX_NEW_IDEAS = 3
+# Must mirror the `category` enum on ideasCollection in src/content/config.ts
+# (same taxonomy as the research pillars, so ideas are browsable by topic).
+CATEGORIES = ("foundation-models", "connectomics", "genetics", "qml", "art-science")
 
 # field -> max length (chars); the brevity guard that motivated v2
 LENGTH_CAPS = {
@@ -102,6 +105,9 @@ def existing_idea_titles():
 
 
 def validate_idea(d):
+    if d.get("category") not in CATEGORIES:
+        print(f"[!] invalid/missing category ({d.get('category')!r}): {d.get('title','')[:50]}")
+        return False
     for k in ["title", "titleKo"] + BODY_FIELDS:
         if not isinstance(d.get(k), str) or len(d[k].strip()) < 5:
             return False
@@ -130,6 +136,11 @@ Rules:
   graduate student or curious visitor can read at a glance, keeping technical terms in English
   as-is (e.g. foundation model, polygenic score, state-space). Then give equally concise
   English twins of each field.
+- Assign exactly one "category" per idea from this fixed list: ['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science']
+  (foundation-models = brain/EEG/fMRI representation learning; connectomics = structural/functional
+  connectome analysis; genetics = multi-modal genetics & computational psychiatry; qml = quantum
+  machine learning; art-science = art/music/aesthetic experience). Pick the idea's PRIMARY thread,
+  not every thread it touches.
 - BE SHORT. Hard limits (ideas exceeding them are dropped):
   hypothesisKo: at most 2 sentences, <= 250 Korean characters (the testable claim).
   rationaleKo: at most 2 sentences, <= 250 characters (why now, why this lab).
@@ -143,6 +154,7 @@ Rules:
 Return STRICT JSON: {{"ideas": [{{
   "title": str (English),
   "titleKo": str,
+  "category": str (one of the fixed list above),
   "hypothesis": str, "hypothesisKo": str,
   "rationale": str, "rationaleKo": str,
   "labThreads": [str, ...],
@@ -242,6 +254,7 @@ def main():
             "title": idea["title"].strip(),
             "titleKo": idea["titleKo"].strip(),
             "date": today,
+            "category": idea["category"],
             "hypothesis": idea["hypothesis"].strip(),
             "hypothesisKo": idea["hypothesisKo"].strip(),
             "rationale": idea["rationale"].strip(),

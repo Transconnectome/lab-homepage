@@ -2,6 +2,7 @@
   "title": "Multi-Modal Quantum-Enhanced Causal Discovery for Psychiatric Trajectories",
   "titleKo": "정신과적 궤적 예측을 위한 다중 모드 양자 강화 인과 발견",
   "date": "2026-08-21",
+  "category": "genetics",
   "hypothesis": "Combining quantum ML with multimodal data (genetics, neuroimaging, environment) enables more accurate causal discovery of psychiatric-trajectory factors than classical latent-space methods.",
   "rationale": "The lab already predicts mental-health trajectories from multimodal data; QML's strength in high-dimensional, nonlinear settings suits causal inference that integrates polygenic scores and connectomes.",
   "labThreads": [

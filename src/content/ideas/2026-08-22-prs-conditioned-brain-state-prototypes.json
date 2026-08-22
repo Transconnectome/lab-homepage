@@ -2,6 +2,7 @@
   "title": "PRS-Conditioned Brain-State Prototypes",
   "titleKo": "PRS 조건부 뇌상태 프로토타입",
   "date": "2026-08-22",
+  "category": "genetics",
   "hypothesis": "Aligning NeuroMamba embeddings to PRS-conditioned brain-state prototypes will improve cross-site prediction of youth depression over simple PRS-feature concatenation.",
   "hypothesisKo": "NeuroMamba embedding을 PRS 조건부 뇌상태 prototype에 정렬하면, 단순 PRS feature 결합보다 청소년 우울의 cross-site 예측이 좋아진다.",
   "rationale": "EEG-PRIME shows that conditioned prototypes can improve transfer. The lab can extend this idea to genotype–fMRI alignment using its developmental genetics and foundation-model expertise.",

@@ -2,6 +2,7 @@
   "title": "Quantum-Enhanced Spatio-Temporal Alignment for EEG Foundation Models with Physiologically-Grounded Interpretability",
   "titleKo": "생리적 근거 기반 해석 가능성을 갖춘 양자 강화 시공간 정렬 EEG 파운데이션 모델",
   "date": "2026-08-21",
+  "category": "foundation-models",
   "hypothesis": "Quantum spatio-temporal alignment inside EEG foundation models improves cross-dataset and cross-subject generalization while enabling physiologically grounded interpretability.",
   "rationale": "Recent EEG foundation models (STEAM, EEG-PRISM) demand robust spatio-temporal alignment and interpretability — a natural fit for a lab strong in both QML and state-space models.",
   "labThreads": [
