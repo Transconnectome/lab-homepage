@@ -21,7 +21,7 @@ const pageTitle = lang === 'ko' ? 'AI 아이디어 랩 | 서울대학교 커넥�
     <div class="max-w-2xl space-y-4">
       <p class="eyebrow">{t('ideas.eyebrow')}</p>
       <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('ideas.title')}</h1>
-      <p class="text-lg text-ink-soft leading-relaxed">{t('ideas.desc')}</p>
+      <p class="text-lg text-ink-soft leading-relaxed measure">{t('ideas.desc')}</p>
       <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-900 leading-relaxed">
         <strong>{t('ideas.honestyTitle')}</strong> {t('ideas.honestyBody')}
       </div>
@@ -45,12 +45,12 @@ const pageTitle = lang === 'ko' ? 'AI 아이디어 랩 | 서울대학교 커넥�
 
           <div class="p-4 rounded-xl bg-paper border border-line">
             <div class="eyebrow mb-1.5">{t('ideas.hypothesis')}</div>
-            <p class="text-base text-ink leading-relaxed">{pick(idea.data.hypothesis, idea.data.hypothesisKo)}</p>
+            <p class="text-base text-ink leading-relaxed measure">{pick(idea.data.hypothesis, idea.data.hypothesisKo)}</p>
           </div>
 
           <div class="space-y-1.5">
             <div class="eyebrow">{t('ideas.whyNow')}</div>
-            <p class="text-base text-ink-soft leading-relaxed">{pick(idea.data.rationale, idea.data.rationaleKo)}</p>
+            <p class="text-base text-ink-soft leading-relaxed measure">{pick(idea.data.rationale, idea.data.rationaleKo)}</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -59,7 +59,7 @@ const pageTitle = lang === 'ko' ? 'AI 아이디어 랩 | 서울대학교 커넥�
               <ul class="space-y-1">
                 {idea.data.labThreads.map((th) => (
                   <li class="text-sm text-ink-soft flex items-start gap-2">
-                    <span class="text-lab-700 mt-0.5">▹</span>
+                    <span class="text-lab-700 mt-0.5">·</span>
                     <span>{th}</span>
                   </li>
                 ))}
@@ -70,7 +70,7 @@ const pageTitle = lang === 'ko' ? 'AI 아이디어 랩 | 서울대학교 커넥�
               <ul class="space-y-1">
                 {idea.data.externalInspiration.map((th) => (
                   <li class="text-sm text-ink-soft flex items-start gap-2">
-                    <span class="text-lab-700 mt-0.5">▹</span>
+                    <span class="text-lab-700 mt-0.5">·</span>
                     <span>{th}</span>
                   </li>
                 ))}
@@ -80,12 +80,12 @@ const pageTitle = lang === 'ko' ? 'AI 아이디어 랩 | 서울대학교 커넥�
 
           <div class="space-y-1.5">
             <div class="eyebrow">{t('ideas.firstExperiment')}</div>
-            <p class="text-base text-ink-soft leading-relaxed">{pick(idea.data.firstExperiment, idea.data.firstExperimentKo)}</p>
+            <p class="text-base text-ink-soft leading-relaxed measure">{pick(idea.data.firstExperiment, idea.data.firstExperimentKo)}</p>
           </div>
 
           <div class="pt-4 border-t border-line space-y-1.5">
             <div class="eyebrow">{t('ideas.howFails')}</div>
-            <p class="text-sm text-ink-faint leading-relaxed">{pick(idea.data.risks, idea.data.risksKo)}</p>
+            <p class="text-sm text-ink-faint leading-relaxed measure">{pick(idea.data.risks, idea.data.risksKo)}</p>
           </div>
         </article>
       ))}

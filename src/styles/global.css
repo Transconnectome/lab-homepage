@@ -79,28 +79,38 @@
     }
   }
 
-  /* ---- Korean-specific optical corrections ------------------------------ */
+  /* ---- Korean-specific optical corrections ------------------------------
+     Keyed on :lang(ko), not html[lang="ko"], so they also reach Korean
+     fragments inside the English pages — which is where some of the site's
+     most visible Korean lives (member names, titleKo lines, the navbar
+     subtitle). Those fragments need `lang="ko"` in the markup. */
 
   /* Display sizes: Hangul sets tighter than Latin. Without this the headline
      reads as loosely spaced blocks rather than words. */
-  html[lang='ko'] h1,
-  html[lang='ko'] h2,
-  html[lang='ko'] h3 {
+  h1:lang(ko),
+  h2:lang(ko),
+  h3:lang(ko) {
     letter-spacing: -0.022em;
   }
 
   /* Running text: Hangul needs a little more leading than Latin at the same
      size, and no tracking at all. */
-  html[lang='ko'] body {
-    line-height: 1.75;
+  :lang(ko) {
     letter-spacing: 0;
+  }
+
+  p:lang(ko),
+  li:lang(ko),
+  dd:lang(ko),
+  blockquote:lang(ko) {
+    line-height: 1.75;
   }
 
   /* Latin tracking utilities are calibrated for Latin. Neutralise the wide
      ones when they land on Korean UI text. */
-  html[lang='ko'] .tracking-wide,
-  html[lang='ko'] .tracking-wider,
-  html[lang='ko'] .tracking-widest {
+  .tracking-wide:lang(ko),
+  .tracking-wider:lang(ko),
+  .tracking-widest:lang(ko) {
     letter-spacing: 0;
   }
 }
@@ -109,14 +119,17 @@
   /* Eyebrow: the small label above a section heading.
      Latin sets it as a spaced, uppercase mono label. */
   .eyebrow {
-    @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-lab-700;
+    @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-lab-800;
   }
 
-  /* Hangul has no letter case, so `uppercase` is inert, and 0.18em tracking
-     scatters the syllables ("대 표 성 과"). Korean eyebrows use the text face
-     at label weight with only a hair of tracking. */
-  html[lang='ko'] .eyebrow {
-    @apply font-sans font-semibold tracking-[0.01em];
+  /* Hangul has no letter case, so `uppercase` is inert on it, and 0.18em
+     tracking scatters the syllables ("대 표 성 과"). Korean eyebrows use the
+     text face at label weight with no tracking.
+     `text-transform: none` matters even though Hangul is unicase: without it
+     the rule still uppercases Latin embedded in a Korean label, so a future
+     "fMRI 연구" would render "FMRI 연구" — on the lab's own model names. */
+  .eyebrow:lang(ko) {
+    @apply font-sans font-semibold normal-case tracking-normal;
     font-size: 0.8125rem;
   }
 
@@ -125,9 +138,17 @@
     @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-cyan-400;
   }
 
-  html[lang='ko'] .eyebrow-dark {
-    @apply font-sans font-semibold tracking-[0.01em];
+  .eyebrow-dark:lang(ko) {
+    @apply font-sans font-semibold normal-case tracking-normal;
     font-size: 0.8125rem;
+  }
+
+  /* Line length. Korean body prose was running 55-68 syllables per line
+     against a 35-45 convention; Latin lands near 72 characters at the same
+     cap, which is where Latin wants to be. One owner, in em, so the two
+     scripts stay in step. */
+  .measure {
+    max-width: 36em;
   }
 
   /* Editorial card on paper */
@@ -157,7 +178,7 @@
     @apply font-mono;
   }
 
-  html[lang='ko'] .mono-meta {
+  .mono-meta:lang(ko) {
     @apply font-sans;
   }
 

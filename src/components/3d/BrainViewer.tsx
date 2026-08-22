@@ -111,7 +111,7 @@ function InfoPanel({
         <ul className="space-y-1.5">
           {hub.highlights.map((item) => (
             <li key={item.label} className="text-sm flex items-start gap-1.5 text-slate-200">
-              <span className="text-cyan-400 mt-0.5">▹</span>
+              <span className="text-cyan-400 mt-0.5">·</span>
               <span>{lang === 'ko' ? item.labelKo : item.label}</span>
             </li>
           ))}

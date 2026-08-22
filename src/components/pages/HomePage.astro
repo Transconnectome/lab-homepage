@@ -137,7 +137,7 @@ const CATEGORY_LABELS: Record<string, Record<string, string>> = {
               <h3 class="font-display text-lg font-semibold text-ink group-hover:text-lab-700 transition-colors leading-snug">
                 {res.data.title}
               </h3>
-              <p class="text-sm text-lab-700">{res.data.titleKo}</p>
+              <p class="text-sm text-lab-700" lang={lang === 'ko' ? 'en' : 'ko'}>{res.data.titleKo}</p>
               <p class="text-sm text-ink-soft leading-relaxed">{res.data.tagline}</p>
             </div>
             <div class="pt-5 mt-5 border-t border-line text-sm font-semibold text-lab-700 group-hover:translate-x-1 transition-transform">
