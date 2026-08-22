@@ -23,7 +23,7 @@ const currentYear = new Date().getFullYear();
         <blockquote class="font-display text-ink-soft italic border-l-2 border-lab-600 pl-4 leading-relaxed">
           “Study the science of art. Study the art of science. Develop your senses — especially learn how to see.
           Realize that everything connects to everything else.”
-          <span class="block font-sans font-mono text-xs text-ink-faint mt-2 not-italic">— Leonardo da Vinci</span>
+          <span class="block font-mono text-xs text-ink-faint mt-2 not-italic">— Leonardo da Vinci</span>
         </blockquote>
         <p class="text-sm leading-relaxed" set:html={t('footer.affiliations')} />
       </div>
@@ -61,7 +61,7 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- Bottom bar -->
-    <div class="pt-8 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-ink-faint">
+    <div class="pt-8 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-4 mono-meta text-xs text-ink-faint">
       <div>© {currentYear} SNU Connectome Lab (PI: Jiook Cha)</div>
       <a href="#top" class="hover:text-ink transition-colors">{t('footer.backToTop')}</a>
     </div>

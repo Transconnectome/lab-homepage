@@ -48,11 +48,14 @@ const {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
 
-    <!-- Fonts: Hahmlet (display serif, KR+Latin), IBM Plex Mono (captions/data) -->
+    <!-- Fonts: Hahmlet (display serif, KR+Latin), IBM Plex Mono (captions/data).
+         Only the weights actually used are requested. Korean webfonts ship one
+         file per unicode subset per weight, so every unused weight multiplied
+         the payload across ~13 Hangul subsets. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <!-- Pretendard Variable (body, KR+Latin) -->

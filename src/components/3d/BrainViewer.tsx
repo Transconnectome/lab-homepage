@@ -196,7 +196,7 @@ export default function BrainViewer({ lang = 'en' }: Props) {
         />
 
         {/* Honest caption: this is an illustration, not anatomical data */}
-        <div className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-md border border-cyan-500/30 text-xs font-mono text-cyan-300 pointer-events-none">
+        <div className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-md border border-cyan-500/30 text-xs mono-meta text-cyan-300 pointer-events-none">
           {L.badge}
         </div>
         <div className="absolute top-5 right-5 hidden sm:flex px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-700 text-xs text-slate-400 pointer-events-none">

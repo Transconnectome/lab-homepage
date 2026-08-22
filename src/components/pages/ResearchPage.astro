@@ -29,7 +29,7 @@ const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실'
           <article id={item.data.baseSlug ?? item.slug} class="card p-8 sm:p-10 space-y-6 scroll-mt-24">
             <header class="border-b border-line pb-5 space-y-1">
               <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink">{item.data.title}</h2>
-              <p class="font-mono text-sm text-lab-700">{item.data.titleKo}</p>
+              <p class="text-base text-lab-700">{item.data.titleKo}</p>
             </header>
 
             {item.data.keyHighlights.length > 0 && (

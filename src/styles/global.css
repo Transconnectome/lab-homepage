@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =============================================================================
+   Type system — one system, two scripts.
+
+   Hangul and Latin have different optical requirements, so the rules below are
+   split: shared defaults first, then `html[lang="ko"]` overrides. Three rules
+   do most of the work:
+
+     word-break: keep-all   Korean must break between 어절, never inside one.
+     letter-spacing         Latin labels want tracking; Hangul syllable blocks
+                            already carry even rhythm and break apart with it.
+     font stacks            No Latin-only face may ever carry Hangul (see
+                            tailwind.config.cjs — the mono stack falls through
+                            to Pretendard for Hangul).
+   ========================================================================== */
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -14,6 +29,31 @@
     font-size: 1rem;
     line-height: 1.7;
     overflow-x: hidden;
+
+    /* Korean line breaking. keep-all stops mid-어절 breaks ("만들어/내는지");
+       break-word is the escape hatch so unbreakable tokens (DOIs, arXiv ids,
+       long hyphenated English titles) still wrap instead of overflowing.
+       Applied globally, not only under [lang="ko"]: the English pages carry
+       Korean too (member names, titleKo). keep-all is a no-op for Latin. */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+
+    /* Hangul renders noticeably heavy under macOS subpixel smoothing; grayscale
+       antialiasing is the standard correction on Korean sites. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Avoid a single orphaned syllable on the last line of a heading
+     (the "…(LBM) 구 / 축" failure). Progressive enhancement. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   ::selection {
@@ -38,12 +78,56 @@
       scroll-behavior: auto !important;
     }
   }
+
+  /* ---- Korean-specific optical corrections ------------------------------ */
+
+  /* Display sizes: Hangul sets tighter than Latin. Without this the headline
+     reads as loosely spaced blocks rather than words. */
+  html[lang='ko'] h1,
+  html[lang='ko'] h2,
+  html[lang='ko'] h3 {
+    letter-spacing: -0.022em;
+  }
+
+  /* Running text: Hangul needs a little more leading than Latin at the same
+     size, and no tracking at all. */
+  html[lang='ko'] body {
+    line-height: 1.75;
+    letter-spacing: 0;
+  }
+
+  /* Latin tracking utilities are calibrated for Latin. Neutralise the wide
+     ones when they land on Korean UI text. */
+  html[lang='ko'] .tracking-wide,
+  html[lang='ko'] .tracking-wider,
+  html[lang='ko'] .tracking-widest {
+    letter-spacing: 0;
+  }
 }
 
 @layer components {
-  /* Eyebrow label: the mono "machine whisper" voice */
+  /* Eyebrow: the small label above a section heading.
+     Latin sets it as a spaced, uppercase mono label. */
   .eyebrow {
     @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-lab-700;
+  }
+
+  /* Hangul has no letter case, so `uppercase` is inert, and 0.18em tracking
+     scatters the syllables ("대 표 성 과"). Korean eyebrows use the text face
+     at label weight with only a hair of tracking. */
+  html[lang='ko'] .eyebrow {
+    @apply font-sans font-semibold tracking-[0.01em];
+    font-size: 0.8125rem;
+  }
+
+  /* Same label, on the dark projection band. */
+  .eyebrow-dark {
+    @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-cyan-400;
+  }
+
+  html[lang='ko'] .eyebrow-dark {
+    @apply font-sans font-semibold tracking-[0.01em];
+    font-size: 0.8125rem;
   }
 
   /* Editorial card on paper */
@@ -55,12 +139,34 @@
     @apply transition-all duration-200 hover:-translate-y-0.5 hover:border-lab-600/40 hover:shadow-[0_8px_30px_-12px_rgba(28,25,23,0.15)];
   }
 
-  /* Quiet chip */
+  /* Quiet chip. Chips mix scripts (English enum values next to Korean labels),
+     so they rely on the mono stack's Hangul fall-through rather than a rule. */
   .chip {
     @apply inline-flex items-center rounded-full border border-line bg-paper px-2.5 py-0.5 font-mono text-xs text-ink-soft;
   }
 
   .chip-accent {
     @apply inline-flex items-center rounded-full border border-lab-600/30 bg-lab-50 px-2.5 py-0.5 font-mono text-xs text-lab-800;
+  }
+
+  /* Meta lines that hold Latin data (ids, venues, counts) in English but turn
+     into Korean sentences on /ko/. Even after the mono stack routes Hangul to
+     Pretendard, the interword spaces keep Plex Mono's wide monospace advance,
+     which reads as broken spacing in Korean — so Korean opts out of mono here. */
+  .mono-meta {
+    @apply font-mono;
+  }
+
+  html[lang='ko'] .mono-meta {
+    @apply font-sans;
+  }
+
+  /* The bilingual counterpart line under a title (Korean title on the English
+     pages, English title on the Korean pages). Previously set in mono, which
+     rendered Hangul in a fallback font and made English look like terminal
+     output. */
+  .subtitle-alt {
+    @apply font-sans text-sm text-ink-faint;
+    letter-spacing: 0;
   }
 }
