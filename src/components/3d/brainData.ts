@@ -32,48 +32,24 @@ export interface AxisLink {
 
 export const RESEARCH_AXES: ResearchAxis[] = [
   {
+    // Neuro-X (LBM vision) and the fMRI/EEG foundation models are one research
+    // program — SwiFT/NeuroMamba/DIVER-0 are the building blocks of the LBM —
+    // so they share a single node here.
     id: 'neuro-x',
-    name: 'Neuro-X: Large Brain Models',
-    nameKo: 'Neuro-X: 대규모 뇌 모델 (LBM)',
-    axis: 'Neuro-X · LBM',
-    axisKo: 'Neuro-X · LBM',
-    position: [0, 0.9, 0.1],
+    name: 'Neuro-X: Brain Foundation Models (LBM)',
+    nameKo: '뇌 파운데이션 모델 (Neuro-X · LBM)',
+    axis: 'Brain Foundation Models',
+    axisKo: '뇌 파운데이션 모델',
+    position: [0, 0.8, 0.0],
     color: '#38bdf8',
     description:
-      'A unified AI system pre-trained on massive multi-modal brain data — the lab’s moonshot toward a Large Brain Model that decodes the neural syntax of the mind.',
+      'One program, from architecture to moonshot: deep-learning models designed from neuroscience first principles for 4D brain signals — SwiFT, NeuroMamba, DIVER-0 — scaling toward a unified Large Brain Model that decodes the neural syntax of the mind.',
     descriptionKo:
-      '대규모 멀티모달 뇌 데이터로 사전학습하는 통합 AI 시스템 — 마음의 신경 구문(neural syntax)을 해독하는 대규모 뇌 모델(LBM)을 향한 연구실의 문샷입니다.',
+      '아키텍처에서 문샷까지 하나의 연구 프로그램입니다. 신경과학 제1원리에서 출발해 4D 뇌 신호에 맞게 설계한 모델들(SwiFT·NeuroMamba·DIVER-0)을, 마음의 신경 구문(neural syntax)을 해독하는 통합 대규모 뇌 모델(LBM)로 확장합니다.',
     brainFocus:
-      'Whole-brain dynamics: time-varying functional connectomics across fMRI, EEG and diffusion MRI, framed by Buzsáki’s “inside-out” view of the brain as a prediction engine.',
+      'Whole-brain 4D dynamics — resting-state and task fMRI, EEG rhythms at millisecond resolution across arbitrary electrode montages, and diffusion MRI — framed by Buzsáki’s “inside-out” view of the brain as a prediction engine.',
     brainFocusKo:
-      '전뇌 동역학 — fMRI·EEG·확산 MRI를 아우르는 시변 기능 커넥토믹스. 뇌를 예측 기계로 보는 Buzsáki의 inside-out 관점이 이론적 틀입니다.',
-    highlights: [
-      {
-        label: 'Mind the Gap: nonlinear brain–LLM representation alignment',
-        labelKo: 'Mind the Gap: 뇌-LLM 표상의 비선형 정렬',
-      },
-      {
-        label: 'Dynamic functional connectomics beyond static correlation matrices',
-        labelKo: '정적 상관 행렬을 넘어서는 동적 기능 커넥토믹스',
-      },
-    ],
-  },
-  {
-    id: 'fmri-eeg-foundation-models',
-    name: 'fMRI & EEG Foundation Models',
-    nameKo: 'fMRI·EEG 파운데이션 모델',
-    axis: 'Foundation Models',
-    axisKo: '파운데이션 모델',
-    position: [1.3, 0.7, -0.5],
-    color: '#818cf8',
-    description:
-      'New deep-learning architectures designed from neuroscience first principles for 4D brain signals — state-space models and channel-equivariant networks.',
-    descriptionKo:
-      '신경과학 제1원리에서 출발해 4D 뇌 신호에 맞게 새로 설계한 딥러닝 아키텍처 — 상태공간 모델과 채널 등변 네트워크입니다.',
-    brainFocus:
-      'Resting-state and task fMRI volumes, and EEG rhythms sampled at millisecond resolution across arbitrary electrode montages.',
-    brainFocusKo:
-      '휴지기·과제 fMRI 볼륨, 그리고 임의의 전극 배치에서 밀리초 해상도로 기록되는 EEG 리듬.',
+      '전뇌 4D 동역학 — 휴지기·과제 fMRI, 임의 전극 배치의 밀리초 해상도 EEG 리듬, 확산 MRI. 뇌를 예측 기계로 보는 Buzsáki의 inside-out 관점이 이론적 틀입니다.',
     highlights: [
       {
         label: 'NeuroMamba: state-space foundation model for 4D fMRI (NeurIPS 2025 Spotlight)',
@@ -87,6 +63,10 @@ export const RESEARCH_AXES: ResearchAxis[] = [
         label: 'SwiFT: 4D Swin Transformers for fMRI (NeurIPS 2023)',
         labelKo: 'SwiFT: fMRI를 위한 4D Swin Transformer (NeurIPS 2023)',
       },
+      {
+        label: 'Mind the Gap: nonlinear brain–LLM representation alignment',
+        labelKo: 'Mind the Gap: 뇌-LLM 표상의 비선형 정렬',
+      },
     ],
   },
   {
@@ -95,7 +75,7 @@ export const RESEARCH_AXES: ResearchAxis[] = [
     nameKo: '계산정신의학·다중오믹스 유전체',
     axis: 'Genetics & Psychiatry',
     axisKo: '유전체·정신의학',
-    position: [-1.3, 0.6, 0.2],
+    position: [-1.3, 0.4, 0.2],
     color: '#f43f5e',
     description:
       'Bridging polygenic risk, white-matter tractography and environmental adversity to predict mental-health trajectories in youth.',
@@ -126,7 +106,7 @@ export const RESEARCH_AXES: ResearchAxis[] = [
     nameKo: '뇌데이터를 위한 양자 머신러닝',
     axis: 'Quantum ML',
     axisKo: '양자 ML',
-    position: [0.8, -0.5, 0.7],
+    position: [1.2, -0.1, -0.4],
     color: '#fbbf24',
     description:
       'Parameterized quantum circuits and quantum kernels for connectome graphs whose dimensionality overwhelms classical computation.',
@@ -157,7 +137,7 @@ export const RESEARCH_AXES: ResearchAxis[] = [
     nameKo: '예술 × 뇌과학',
     axis: 'Art × Science',
     axisKo: '예술 × 과학',
-    position: [-0.9, -0.6, -1.1],
+    position: [-0.6, -0.7, -1.2],
     color: '#c084fc',
     description:
       'EEG-based memory reconstruction and interactive media — treating brain science as a cultural and humanistic inquiry, in Da Vinci’s spirit.',
@@ -183,21 +163,11 @@ export const RESEARCH_AXES: ResearchAxis[] = [
 export const AXIS_LINKS: AxisLink[] = [
   {
     a: 'neuro-x',
-    b: 'fmri-eeg-foundation-models',
-    reason: 'SwiFT, NeuroMamba and DIVER-0 are the building blocks of the Large Brain Model.',
-    reasonKo: 'SwiFT·NeuroMamba·DIVER-0가 대규모 뇌 모델(LBM)의 구성 블록입니다.',
-  },
-  {
-    a: 'neuro-x',
     b: 'computational-genetics-psychiatry',
-    reason: 'Polygenic scores join imaging in the LBM’s joint multi-modal latent space.',
-    reasonKo: '다유전자 점수가 뇌영상과 함께 LBM의 멀티모달 잠재공간에 통합됩니다.',
-  },
-  {
-    a: 'fmri-eeg-foundation-models',
-    b: 'computational-genetics-psychiatry',
-    reason: 'Shared large cohorts (e.g., ABCD): foundation-model features feed psychiatric risk prediction.',
-    reasonKo: '대규모 코호트(ABCD 등)를 공유 — 파운데이션 모델의 특징이 정신질환 위험 예측에 투입됩니다.',
+    reason:
+      'Shared large cohorts (e.g., ABCD): foundation-model features and polygenic scores meet in a joint multi-modal latent space for psychiatric risk prediction.',
+    reasonKo:
+      '대규모 코호트(ABCD 등)를 공유 — 파운데이션 모델의 특징과 다유전자 점수가 멀티모달 잠재공간에서 만나 정신질환 위험 예측에 쓰입니다.',
   },
   {
     a: 'computational-genetics-psychiatry',
@@ -206,7 +176,7 @@ export const AXIS_LINKS: AxisLink[] = [
     reasonKo: '양자 커널로 초고차원 유전자-커넥톰 그래프를 다룹니다.',
   },
   {
-    a: 'fmri-eeg-foundation-models',
+    a: 'neuro-x',
     b: 'art-and-neuroscience',
     reason: 'Real-time EEG decoding powers the interactive installations.',
     reasonKo: '실시간 EEG 디코딩이 인터랙티브 설치 작품을 구동합니다.',
