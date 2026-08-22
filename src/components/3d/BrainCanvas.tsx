@@ -50,7 +50,16 @@ export default function BrainCanvas({ selectedId, hoveredId, onSelect, onHover, 
     );
     camera.position.set(0, 1.5, 5.5);
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    // Without this guard a WebGL-less browser (headless, remote desktop,
+    // privacy hardening) throws here and React unmounts the whole island —
+    // taking the DOM legend and info panel down with the canvas.
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    } catch (err) {
+      console.warn('BrainCanvas: WebGL unavailable, rendering without the 3D sketch.', err);
+      return;
+    }
     renderer.setSize(container.clientWidth, container.clientHeight || 500);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
