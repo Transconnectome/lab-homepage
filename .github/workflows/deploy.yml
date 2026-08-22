@@ -3,11 +3,14 @@ name: Deploy to GitHub Pages
 # NOTE (2026-08-21): push events briefly stopped triggering this workflow
 # for ~2h20m (14:02-16:22 UTC) after the repo moved to Transconnectome.
 # workflow_dispatch kept working the whole time, so Actions was not
-# disabled and this wasn't a billing/usage-limit issue. Three separate
-# pushes that only edited this file did NOT restore the push trigger;
-# recovery coincided with toggling Actions off/on in repo Settings, but
-# that correlation was never isolated from a possible GitHub-side
-# self-heal, so treat it as a lead, not a fix. If this recurs, check
+# disabled and this wasn't a billing/usage-limit issue. Three push
+# attempts during the window (two empty probe commits, one that edited
+# this file) all produced zero runs — the trigger was down for pushes
+# in general, not specifically for pushes that left the file unchanged.
+# Recovery lines up with what a commit message from that window
+# describes as toggling Actions off/on in repo Settings, but that was
+# never isolated from a possible GitHub-side self-heal, so treat it as
+# a lead, not a confirmed fix. If this recurs, check
 # `gh api repos/<owner>/<repo>/actions/runs?head_sha=<sha>` for 0 runs
 # (silent drop, no error) before assuming a config problem.
 on:
