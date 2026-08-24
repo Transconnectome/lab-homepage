@@ -1,0 +1,24 @@
+{
+  "title": "Physiologically-Grounded EEG Foundation Model Interpretation",
+  "titleKo": "생리학적 해석이 가능한 EEG 파운데이션 모델",
+  "date": "2026-08-24",
+  "category": "foundation-models",
+  "hypothesis": "EEG 파운데이션 모델의 잠재 공간에서 학습된 표현을 주파수 및 소스 공간으로 변환하면, 뇌 활동 해석의 생리학적 정확도와 임상적 유용성을 크게 향상시킬 수 있을 것이다.",
+  "hypothesisKo": "EEG 파운데이션 모델 표현을 주파수/소스 공간으로 변환하면 뇌 활동 해석의 생리학적 정확도와 임상적 유용성을 높일 수 있다.",
+  "rationale": "EEG-PRISM은 모델 내부 작동을 생리학적으로 의미 있는 방식으로 이해하는 새로운 길을 제시한다. 이는 우리 연구실의 EEG 파운데이션 모델(예: DIVER-0)의 임상 적용을 가속화할 것이다.",
+  "rationaleKo": "EEG-PRISM은 모델 작동을 생리학적으로 이해하는 새 길을 연다. 우리 연구실의 EEG 파운데이션 모델의 임상 적용을 가속화할 수 있다.",
+  "labThreads": [
+    "fMRI·EEG 파운데이션 모델",
+    "Neuro-X 프로젝트",
+    "Art & Neuroscience: EEG Reconstruction"
+  ],
+  "externalInspiration": [
+    "EEG-PRISM: Physiologically-Grounded Interpretability of Predictions by EEG Foundation Models",
+    "Understanding and Correcting Low-Frequency Bias in EEG Foundation Model"
+  ],
+  "firstExperiment": "DIVER-0 모델의 어텐션 맵을 EEG-PRISM 방법론을 사용하여 주파수/소스 공간으로 변환하고, 변환된 해석이 기존의 뇌파 분석 지식과 얼마나 일치하는지 전문가 평가 및 통계적 유사성 지표로 검증한다.",
+  "firstExperimentKo": "DIVER-0 어텐션 맵을 EEG-PRISM으로 주파수/소스 공간으로 변환 후, 전문가 평가 및 통계 지표로 생리학적 일치도를 검증한다.",
+  "risks": "선형 변환의 생리학적 타당성이 부족하거나, 변환된 공간에서의 해석이 기존 방법보다 개선되지 않을 수 있다.",
+  "risksKo": "선형 변환의 생리학적 타당성이 부족하거나 해석 개선이 미미할 수 있다.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}
