@@ -1,0 +1,104 @@
+# Diagnoses and repairs the GitHub Pages custom-domain HTTPS certificate.
+#
+# Context: the certificate request for www.connectomelab.com has been stuck in
+# `authorization_created` since the DNS cutover (claudedocs/HANDOFF.md §5.1) —
+# most likely a Let's Encrypt failed-validation backoff accumulated while DNS
+# still pointed at the previous owner's Pages host. DNS now resolves correctly
+# (CNAME -> transconnectome.github.io), so a single deliberate remove/re-add of
+# the custom domain resets provisioning. That is what `mode: fix` does — once.
+#
+# Modes:
+#   diagnose  read-only: DNS, served content, presented certificate, Pages API
+#   fix       remove + re-add the custom domain, then poll the cert state
+#   enforce   turn on "Enforce HTTPS" (only succeeds once the cert is active)
+name: Pages Doctor
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'diagnose | fix | enforce'
+        required: true
+        default: 'diagnose'
+        type: choice
+        options: [diagnose, fix, enforce]
+
+permissions:
+  contents: read
+  pages: write
+
+concurrency:
+  group: pages-doctor
+  cancel-in-progress: false
+
+jobs:
+  doctor:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DOMAIN: www.connectomelab.com
+      REPO: ${{ github.repository }}
+    steps:
+      - name: DNS
+        run: |
+          echo "== CNAME $DOMAIN =="
+          dig +short CNAME "$DOMAIN" @8.8.8.8 || true
+          echo "== A $DOMAIN =="
+          dig +short A "$DOMAIN" @8.8.8.8 || true
+          echo "== apex A connectomelab.com =="
+          dig +short A connectomelab.com @8.8.8.8 || true
+
+      - name: What is actually served
+        run: |
+          # Buffer everything; `curl | grep -q` + pipefail mis-reports (HANDOFF §4).
+          body=$(curl -sLm 20 "http://$DOMAIN" || true)
+          case "$body" in
+            *"/_astro/"*) echo "CONTENT: the new Astro build is being served" ;;
+            *)            echo "CONTENT: response does NOT look like the Astro build" ;;
+          esac
+          echo "-- font links found in the served HTML --"
+          printf '%s' "$body" | grep -o 'https://fonts.googleapis.com[^"]*' | head -3 || true
+          printf '%s' "$body" | grep -o 'https://cdn.jsdelivr.net[^"]*pretendard[^"]*' | head -3 || true
+          echo "-- strict HTTPS fetch --"
+          code=$(curl -sSm 20 -o /dev/null -w '%{http_code}' "https://$DOMAIN" 2>&1) \
+            && echo "HTTPS OK, status $code" \
+            || echo "HTTPS FAILED: $code"
+          echo "-- certificate presented on :443 --"
+          timeout 15 openssl s_client -connect "$DOMAIN:443" -servername "$DOMAIN" </dev/null 2>/dev/null \
+            | openssl x509 -noout -subject -issuer -dates 2>/dev/null \
+            || echo "no usable certificate presented"
+
+      - name: Pages API state
+        run: |
+          echo "== GET /pages =="
+          gh api "repos/$REPO/pages" || echo "(pages GET failed)"
+          echo "== GET /pages/health-check =="
+          gh api "repos/$REPO/pages/health-check" || echo "(health check unavailable)"
+
+      - name: Fix — remove and re-add the custom domain
+        if: ${{ inputs.mode == 'fix' }}
+        run: |
+          set -e
+          echo "Removing custom domain (site stays up on transconnectome.github.io)..."
+          printf '{"cname":null}' | gh api -X PUT "repos/$REPO/pages" --input -
+          sleep 15
+          echo "Re-adding custom domain $DOMAIN ..."
+          printf '{"cname":"%s"}' "$DOMAIN" | gh api -X PUT "repos/$REPO/pages" --input -
+          echo "Polling certificate state (up to 10 minutes)..."
+          for i in $(seq 1 20); do
+            sleep 30
+            state=$(gh api "repos/$REPO/pages" --jq '.https_certificate.state' || echo unknown)
+            echo "  [$i/20] https_certificate.state = $state"
+            case "$state" in
+              approved|issued|uploaded) echo "Certificate is provisioned."; exit 0 ;;
+              errored|bad_authz) echo "Provisioning errored — see GET /pages output above."; exit 1 ;;
+            esac
+          done
+          echo "Still pending after 10 min — normal for Let's Encrypt; re-run diagnose later."
+
+      - name: Enforce HTTPS
+        if: ${{ inputs.mode == 'enforce' }}
+        run: |
+          set -e
+          printf '{"https_enforced":true}' | gh api -X PUT "repos/$REPO/pages" --input -
+          gh api "repos/$REPO/pages" --jq '{cname: .cname, https_enforced: .https_enforced, cert: .https_certificate.state}'
