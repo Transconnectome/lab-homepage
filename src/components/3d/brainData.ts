@@ -140,14 +140,20 @@ export const RESEARCH_AXES: ResearchAxis[] = [
     position: [-0.6, -0.7, -1.2],
     color: '#c084fc',
     description:
-      'EEG-based memory reconstruction and interactive media — treating brain science as a cultural and humanistic inquiry, in Da Vinci’s spirit.',
+      'How affect is organized in brain and behavior — from awe as an ambivalent affect to EEG-based memory reconstruction and interactive media, treating brain science as a cultural and humanistic inquiry, in Da Vinci’s spirit.',
     descriptionKo:
-      'EEG 기반 기억 재구성과 인터랙티브 미디어 — 다빈치의 정신을 따라 뇌과학을 문화적·인문학적 탐구로 확장합니다.',
+      '정서가 뇌와 행동에서 조직되는 방식 — 양가적 정서로서의 경외(awe)부터 EEG 기반 기억 재구성과 인터랙티브 미디어까지, 다빈치의 정신을 따라 뇌과학을 문화적·인문학적 탐구로 확장합니다.',
     brainFocus:
-      'Real-time affective EEG signals, decoded live to drive generative audio-visual systems.',
+      'Cortical representations of ambivalent affect, and real-time affective EEG signals decoded live to drive generative audio-visual systems.',
     brainFocusKo:
-      '실시간으로 해독되어 생성형 시청각 시스템을 구동하는 정서 EEG 신호.',
+      '양가적 정서의 대뇌 피질 표상, 그리고 실시간으로 해독되어 생성형 시청각 시스템을 구동하는 정서 EEG 신호.',
     highlights: [
+      {
+        label:
+          'Awe is an ambivalent affect in human behavior and cortex — Jinwoo Yi et al., Communications Psychology (2025)',
+        labelKo:
+          '경외(awe)가 행동과 대뇌 피질 모두에서 양가적 정서임을 규명 — 이진우 외, Communications Psychology (2025)',
+      },
       {
         label: 'OB/Scene Focus Exhibition 2025: “Connectome: Reconstruction of Memory”',
         labelKo: 'OB/Scene 포커스 전시 2025: 〈커넥톰: 기억의 재구성〉',
