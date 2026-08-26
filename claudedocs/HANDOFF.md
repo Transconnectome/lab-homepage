@@ -74,7 +74,7 @@ content, and the schema is what stops a bad record reaching the site.
 | Workflow | Trigger | What it does |
 |---|---|---|
 | `deploy.yml` | push to `main` | build + deploy |
-| `research-radar.yml` | Mondays 09:00 KST, or manual | arXiv scan → Gemini summaries → publication sync → AI ideas → project metadata → **full build as a validation gate** → commit → deploy in-workflow |
+| `research-radar.yml` | Mondays 09:00 KST, or manual | offline pipeline tests → arXiv scan (7 topic buckets) → Gemini summaries → publication sync → AI ideas → project metadata → **full build as a validation gate** → commit → deploy in-workflow |
 | `news-submission.yml` | a `news-submission` issue | Gemini writes a bilingual news story from the submitted facts → build gate → commit → deploy → comments and closes the issue |
 
 Both LLM workflows need the `OPENROUTER_API_KEY` repo secret (set; note that
@@ -299,8 +299,10 @@ src/styles/global.css              the type system, with reasons in comments
 src/components/pages/              one component per page, lang-aware
 src/content/                       members, publications, news, research, history, trends, ideas
 scripts/sync_scholar.py            OpenAlex → publications, with kind classification and fuzzy dedup
-scripts/update_research_radar.py   arXiv → radar, Gemini summaries, generatedBy labels
+scripts/update_research_radar.py   arXiv → radar, per-topic buckets + relevance gates
 scripts/generate_research_ideas.py lab context + radar → weekly hypotheses
+scripts/test_radar_buckets.py      offline tests for the radar bucket/gate logic
+scripts/test_ideas_pipeline.py     offline tests for sampling, dedup, category quota
 scripts/news_from_issue.py         issue form → bilingual news story
 scripts/cutover.sh                 DNS/domain/certificate status and cutover
 claudedocs/                        this file, plus the original evaluation

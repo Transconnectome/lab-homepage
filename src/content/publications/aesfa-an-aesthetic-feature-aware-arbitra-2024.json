@@ -2,7 +2,7 @@
   "title": "AesFA: An Aesthetic Feature-Aware Arbitrary Neural Style Transfer",
   "authors": [
     "Joonwoo Kwon",
-    "Soo Young Kim",
+    "Sooyoung Kim",
     "Yuewei Lin",
     "Shinjae Yoo",
     "Jiook Cha"
@@ -17,7 +17,7 @@
   "featured": false,
   "labMembers": [
     "Joonwoo Kwon",
-    "Soo Young Kim",
+    "Sooyoung Kim",
     "Jiook Cha"
   ],
   "kind": "conference"

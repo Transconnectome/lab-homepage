@@ -8,7 +8,7 @@
   ],
   "publishedDate": "2026-08-03",
   "source": "arXiv (2026-08)",
-  "topic": "fMRI/EEG Dynamics",
+  "topic": "Brain Foundation Models (EEG)",
   "url": "https://arxiv.org/abs/2608.01898v1",
   "summaryPoints": [
     "EEG foundation models exhibit a pervasive low-frequency bias in their learned representations, irrespective of data scale, model capacity, or pretraining objective.",

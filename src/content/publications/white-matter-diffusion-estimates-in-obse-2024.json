@@ -1,7 +1,7 @@
 {
   "title": "White matter diffusion estimates in obsessive-compulsive disorder across 1653 individuals: machine learning findings from the ENIGMA OCD Working Group",
   "authors": [
-    "Bo‐Gyeom Kim",
+    "Bogyeom Kim",
     "Gakyung Kim",
     "Yoshinari Abe",
     "Pino Alonso",
@@ -107,12 +107,12 @@
   "doi": "10.1038/s41380-023-02392-6",
   "url": "https://doi.org/10.1038/s41380-023-02392-6",
   "tags": [
-    "Psychiatry",
-    "AI & Foundation Models"
+    "AI & Foundation Models",
+    "Psychiatry/Clinical Psychology"
   ],
   "featured": false,
   "labMembers": [
-    "Bo‐Gyeom Kim",
+    "Bogyeom Kim",
     "Gakyung Kim"
   ],
   "kind": "journal"

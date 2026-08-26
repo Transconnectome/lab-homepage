@@ -1,7 +1,7 @@
 {
   "title": "DIVER-1: Scaling Intracranial EEG Foundation Models for Transferable Representations",
   "authors": [
-    "Danny Dongyeop Han",
+    "Dong Yeop Han",
     "Yonghyeon Gwon",
     "A Lee",
     "Taeyang Lee",
@@ -20,12 +20,12 @@
   "doi": "10.48550/arxiv.2512.19097",
   "url": "https://doi.org/10.48550/arxiv.2512.19097",
   "tags": [
-    "EEG",
-    "AI & Foundation Models"
+    "AI & Foundation Models",
+    "Neuroimaging"
   ],
   "featured": false,
   "labMembers": [
-    "Danny Dongyeop Han",
+    "Dong Yeop Han",
     "Jubin Choi",
     "Sebin Lee",
     "Seungju Lee",

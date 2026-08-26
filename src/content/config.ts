@@ -55,6 +55,19 @@ const newsCollection = defineCollection({
   }),
 });
 
+// Publication filter taxonomy — one shared level of granularity (research domain).
+// Modalities (fMRI, EEG), architectures (Mamba, geometric DL) and sub-fields (MDD,
+// polygenic risk) are folded into the domain they belong to, so no filter chip ends up
+// matching a single paper. Keep in sync with derive_tags() in scripts/sync_scholar.py.
+export const PUBLICATION_TAGS = [
+  'AI & Foundation Models',
+  'Genetics',
+  'Neuroimaging',
+  'Neuroscience',
+  'Psychiatry/Clinical Psychology',
+  'Quantum ML',
+] as const;
+
 const publicationsCollection = defineCollection({
   type: 'data',
   schema: z.object({
@@ -67,12 +80,15 @@ const publicationsCollection = defineCollection({
     url: z.string().nullable().optional(),
     pdfUrl: z.string().nullable().optional(),
     codeUrl: z.string().nullable().optional(),
-    tags: z.array(z.string()).default([]),
+    tags: z.array(z.enum(PUBLICATION_TAGS)).default([]),
     featured: z.boolean().default(false),
     spotlight: z.string().nullable().optional(),
     abstract: z.string().nullable().optional(),
     labMembers: z.array(z.string()).default([]),
     kind: z.enum(['journal', 'conference', 'workshop', 'preprint']).default('journal'),
+    // Manual override for the CS/AI conference view on /publications; leave it
+    // unset and src/utils/publications.ts classifies the venue on its own.
+    csAiVenue: z.boolean().nullable().optional(),
   }),
 });
 
@@ -83,7 +99,18 @@ const trendsCollection = defineCollection({
     authors: z.array(z.string()),
     publishedDate: z.string(),
     source: z.string(),
-    topic: z.enum(['Brain Foundation Models', 'fMRI/EEG Dynamics', 'Genomics & Connectomics', 'Quantum ML', 'Brain-LLM Alignment']),
+    // Discovery buckets for the weekly arXiv sweep. Each value is also a query
+    // bucket in scripts/update_research_radar.py — the two lists must stay in
+    // sync, and a paper's topic is decided by the bucket that surfaced it.
+    topic: z.enum([
+      'Brain Foundation Models (fMRI)',
+      'Brain Foundation Models (EEG)',
+      'Gene & Brain',
+      'Affective & Developmental',
+      'Agentic AI',
+      'Quantum ML',
+      'Brain-LLM Alignment',
+    ]),
     url: z.string(),
     summaryPoints: z.array(z.string()),
     significance: z.string(),
@@ -91,6 +118,10 @@ const trendsCollection = defineCollection({
     modality: z.array(z.string()).default([]),
     badge: z.string().nullable().optional(),
     generatedBy: z.string().nullable().optional(),
+    // 0-1 lab-relevance score from the summarizer; entries below the gate in
+    // update_research_radar.py are never written, so this is a record of what
+    // passed, not a filter the UI applies.
+    labRelevanceScore: z.number().nullable().optional(),
   }),
 });
 
@@ -113,9 +144,14 @@ const ideasCollection = defineCollection({
     title: z.string(),
     titleKo: z.string().nullable().optional(),
     date: z.string(),
-    // Same taxonomy as the research collection's pillars, so ideas can be
-    // browsed by the same categories visitors already see on /research.
-    category: z.enum(['foundation-models', 'connectomics', 'genetics', 'qml', 'affective-neuro']),
+    // Mirrors the research pillars where one exists, plus threads the lab is
+    // actively exploring without a pillar page yet (connectomics, agentic-ai,
+    // affective-development). Kept in sync with CATEGORIES in
+    // scripts/generate_research_ideas.py and the labels in IdeasFilter.tsx.
+    category: z.enum([
+      'foundation-models', 'connectomics', 'genetics', 'qml', 'affective-neuro',
+      'agentic-ai', 'affective-development',
+    ]),
     hypothesis: z.string(),
     hypothesisKo: z.string().nullable().optional(),
     rationale: z.string(),

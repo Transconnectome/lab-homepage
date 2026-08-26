@@ -1,9 +1,16 @@
 {
   "title": "Polygenic architecture of brain structure and function, behaviors, and psychopathologies in children",
-  "authors": ["Yoonjung Yoonie Joo", "Bo-Gyeom Kim", "Gakyung Kim", "Eunji Lee", "Jungwoo Seo", "Jiook Cha"],
+  "authors": [
+    "Yoonjung Yoonie Joo",
+    "Bo-Gyeom Kim",
+    "Gakyung Kim",
+    "Eunji Lee",
+    "Jungwoo Seo",
+    "Jiook Cha"
+  ],
   "publishedDate": "2025-09-26",
   "source": "Nature Communications (2025)",
-  "topic": "Genomics & Connectomics",
+  "topic": "Gene & Brain",
   "url": "https://doi.org/10.1038/s41467-025-63312-6",
   "summaryPoints": [
     "Maps genome-wide polygenic influences onto brain structure and function in the ABCD developmental cohort.",
@@ -12,6 +19,10 @@
   ],
   "significance": "Demonstrates population-scale genomic-connectome convergence as a foundation for computational psychiatry.",
   "labRelevance": "Flagship Connectome Lab publication in Nature Communications.",
-  "modality": ["Genomics", "fMRI", "Cortical Morphology"],
+  "modality": [
+    "Genomics",
+    "fMRI",
+    "Cortical Morphology"
+  ],
   "badge": "Nature Comms"
 }

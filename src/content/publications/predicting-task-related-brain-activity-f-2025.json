@@ -3,7 +3,7 @@
   "authors": [
     "Junbeom Kwon",
     "Jungwoo Seo",
-    "Hee‐Hwan Wang",
+    "Heehwan Wang",
     "Taesup Moon",
     "Shinjae Yoo",
     "Jiook Cha"
@@ -13,14 +13,14 @@
   "doi": "10.1162/imag_a_00440",
   "url": "https://doi.org/10.1162/imag_a_00440",
   "tags": [
-    "Neuroimaging",
-    "AI & Foundation Models"
+    "AI & Foundation Models",
+    "Neuroimaging"
   ],
   "featured": false,
   "labMembers": [
     "Junbeom Kwon",
     "Jungwoo Seo",
-    "Hee‐Hwan Wang",
+    "Heehwan Wang",
     "Jiook Cha"
   ],
   "kind": "journal"

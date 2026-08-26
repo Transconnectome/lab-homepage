@@ -8,7 +8,7 @@
   ],
   "publishedDate": "2026-08-03",
   "source": "arXiv (2026-08)",
-  "topic": "fMRI/EEG Dynamics",
+  "topic": "Brain Foundation Models (EEG)",
   "url": "https://arxiv.org/abs/2608.02070v2",
   "summaryPoints": [
     "STEAM is a novel spatio-temporal alignment Mixture-of-Experts (MoE) model designed for EEG decoding, addressing challenges in generalizability and adaptation costs of conventional BCI algorithms.",

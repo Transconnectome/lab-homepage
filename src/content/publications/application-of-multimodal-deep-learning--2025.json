@@ -3,7 +3,7 @@
   "authors": [
     "Jubin Choi",
     "Miri Suh",
-    "Danny Dongyeop Han",
+    "Dong Yeop Han",
     "Jundong Hwang",
     "Jong‐Hwan Lee",
     "Jiook Cha",
@@ -14,13 +14,13 @@
   "doi": "10.2139/ssrn.5624213",
   "url": "https://doi.org/10.2139/ssrn.5624213",
   "tags": [
-    "Psychiatry",
-    "AI & Foundation Models"
+    "AI & Foundation Models",
+    "Psychiatry/Clinical Psychology"
   ],
   "featured": false,
   "labMembers": [
     "Jubin Choi",
-    "Danny Dongyeop Han",
+    "Dong Yeop Han",
     "Jiook Cha"
   ],
   "kind": "preprint"

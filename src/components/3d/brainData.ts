@@ -139,8 +139,8 @@ export const RESEARCH_AXES: ResearchAxis[] = [
     id: 'art-and-neuroscience',
     name: 'Affective Neuroscience',
     nameKo: '정서 신경과학',
-    axis: 'Affect',
-    axisKo: '정서',
+    axis: 'Affective Neuroscience',
+    axisKo: '정서 신경과학',
     position: [-0.6, -0.7, -1.2],
     color: '#c084fc',
     description:
@@ -153,8 +153,10 @@ export const RESEARCH_AXES: ResearchAxis[] = [
       '자연주의적 자극에 대한 피질·EEG 반응 — 고립된 이미지가 아니라 영화, 음악, 실시간 상호작용입니다.',
     highlights: [
       {
-        label: 'Awe is an ambivalent affect, in behavior and cortex (Communications Psychology 2025)',
-        labelKo: '경외는 행동과 피질 모두에서 양가적 정서다 (Communications Psychology 2025)',
+        label:
+          'Awe is an ambivalent affect in human behavior and cortex — Jinwoo Yi et al., Communications Psychology (2025)',
+        labelKo:
+          '경외(awe)가 행동과 대뇌 피질 모두에서 양가적 정서임을 규명 — 이진우 외, Communications Psychology (2025)',
       },
       {
         label: 'Affect-contextualized memory reconstructed via EEG-guided audiovisual generation',

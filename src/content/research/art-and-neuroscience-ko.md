@@ -29,7 +29,7 @@ baseSlug: "art-and-neuroscience"
 
 ### 1. 경외는 양가적이다
 
-- **저자**: 이진우, 한동엽(Danny Dongyeop Han), Seung-Yeop Oh, 차지욱 —
+- **저자**: 이진우, 한동엽, Seung-Yeop Oh, 차지욱 —
   [*Communications Psychology* (2025)](https://doi.org/10.1038/s44271-025-00299-2)
 - 경외는 보통 긍정 정서로 분류된다. 그러나 이 연구는 행동과 피질 반응 양쪽에서
   경외가 **양가적(ambivalent)** 정서로 기술되는 편이 낫다는 것을 보였다. 정서가

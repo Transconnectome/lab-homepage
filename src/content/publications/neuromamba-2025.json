@@ -1,14 +1,27 @@
 {
   "title": "NeuroMamba: A State-Space Foundation Model for Functional MRI",
-  "authors": ["Jubin Choi", "Jungwoo Seo", "Dongyeop Han", "Jiook Cha"],
+  "authors": [
+    "Jubin Choi",
+    "Jungwoo Seo",
+    "Dong Yeop Han",
+    "Jiook Cha"
+  ],
   "venue": "NeurIPS 2025 Workshop on Foundation Models for the Brain and Body (Spotlight)",
   "year": 2025,
   "month": "December",
   "url": "https://jubilant-choi.notion.site/neuromamba-neurips2025",
-  "tags": ["fMRI", "Foundation Model", "Mamba", "State-Space Models", "4D Spatiotemporal"],
+  "tags": [
+    "AI & Foundation Models",
+    "Neuroimaging"
+  ],
   "featured": true,
   "spotlight": "NeurIPS 2025 Workshop Spotlight",
   "abstract": "Functional MRI yields high-dimensional 4D spatiotemporal brain recordings that are computationally intractable for quadratic self-attention transformers at scale. We present NeuroMamba, the first selective state-space foundation model architecture for 4D fMRI sequences, enabling linear computational scaling with respect to scan duration and superior transferability across diverse cognitive decoding benchmarks.",
-  "labMembers": ["Jubin Choi", "Jungwoo Seo", "Dongyeop Han", "Jiook Cha"],
+  "labMembers": [
+    "Jubin Choi",
+    "Jungwoo Seo",
+    "Dong Yeop Han",
+    "Jiook Cha"
+  ],
   "kind": "workshop"
 }

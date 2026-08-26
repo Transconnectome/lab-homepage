@@ -27,7 +27,7 @@ sometimes put the whole apparatus in a room with an audience.
 
 ### 1. Awe is ambivalent
 
-- **Authors**: Jinwoo Lee, Danny Dongyeop Han, Seung-Yeop Oh, Jiook Cha —
+- **Authors**: Jinwoo Yi, Dong Yeop Han, Seung-Yeop Oh, Jiook Cha —
   [*Communications Psychology* (2025)](https://doi.org/10.1038/s44271-025-00299-2)
 - Awe is usually filed under positive emotion. Across behavior and cortical
   responses, this work finds it is better described as **ambivalent** — carrying
@@ -39,7 +39,7 @@ sometimes put the whole apparatus in a room with an audience.
 ### 2. Reconstructing a remembered feeling
 
 - **Revisiting Your Memory: Reconstruction of Affect-Contextualized Memory via
-  EEG-guided Audiovisual Generation** — Joonwoo Kwon, Heehwan Wang, Jinwoo Lee,
+  EEG-guided Audiovisual Generation** — Joonwoo Kwon, Heehwan Wang, Jinwoo Yi,
   Sooyoung Kim, Shinjae Yoo, Yuewei Lin, Jiook Cha
   ([ACM Multimedia workshop, 2025](https://doi.org/10.1145/3746277.3760413)).
 - Recorded EEG steers a generative audiovisual system, so a recalled episode is

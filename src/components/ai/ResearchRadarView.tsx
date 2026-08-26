@@ -46,33 +46,39 @@ const LABELS: Record<'en' | 'ko', Record<string, string>> = {
   },
 };
 
+// Filter values are the raw `topic` enum from src/content/config.ts; the chips
+// show a compact label so the row stays readable at seven buckets.
 const TOPICS = [
   'All',
-  'Brain Foundation Models',
-  'fMRI/EEG Dynamics',
-  'Genomics & Connectomics',
+  'Brain Foundation Models (fMRI)',
+  'Brain Foundation Models (EEG)',
+  'Gene & Brain',
+  'Affective & Developmental',
+  'Agentic AI',
   'Quantum ML',
   'Brain-LLM Alignment',
 ];
 
-// The topic values are the content-schema enum and stay in English as filter
-// keys; only what the visitor reads is translated.
 const TOPIC_LABELS: Record<'en' | 'ko', Record<string, string>> = {
   en: {
     All: 'All',
-    'Brain Foundation Models': 'Brain Foundation Models',
-    'fMRI/EEG Dynamics': 'fMRI/EEG Dynamics',
-    'Genomics & Connectomics': 'Genomics & Connectomics',
+    'Brain Foundation Models (fMRI)': 'fMRI Foundation Models',
+    'Brain Foundation Models (EEG)': 'EEG Foundation Models',
+    'Gene & Brain': 'Gene & Brain',
+    'Affective & Developmental': 'Affective & Developmental',
+    'Agentic AI': 'Agentic AI',
     'Quantum ML': 'Quantum ML',
     'Brain-LLM Alignment': 'Brain-LLM Alignment',
   },
   ko: {
     All: '전체',
-    'Brain Foundation Models': '뇌 파운데이션 모델',
-    'fMRI/EEG Dynamics': 'fMRI/EEG 역학',
-    'Genomics & Connectomics': '유전체학과 커넥토믹스',
+    'Brain Foundation Models (fMRI)': 'fMRI 파운데이션 모델',
+    'Brain Foundation Models (EEG)': 'EEG 파운데이션 모델',
+    'Gene & Brain': '유전자와 뇌',
+    'Affective & Developmental': '정서·발달 신경과학',
+    'Agentic AI': '에이전틱 AI',
     'Quantum ML': '양자 머신러닝',
-    'Brain-LLM Alignment': '뇌-LLM 정렬',
+    'Brain-LLM Alignment': '뇌-언어모델 정렬',
   },
 };
 

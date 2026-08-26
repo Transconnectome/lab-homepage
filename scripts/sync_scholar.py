@@ -87,18 +87,21 @@ NAME_ALIASES = {
     "yoonjung y. joo": "Yoonjung Yoonie Joo",
     "eun se you": "Allison Eun Se You",
     "allison eun se you": "Allison Eun Se You",
+    # Aliases resolve to the spelling on the member's own profile, because
+    # canonical_author() rewrites the displayed author list to that value.
     "jungyoun janice min": "Jungyoon Min",
     "jungyoung janice min": "Jungyoon Min",
     "min jungyoun janice": "Jungyoon Min",
     "danny dongyeop han": "Dong Yeop Han",
+    "jinwoo lee": "Jinwoo Yi",
 }
 
-# Collaborators whose indexed metadata carries the wrong person's name.
-# OpenAlex resolves the "Tseng" on the lab's quantum papers to two different
-# people (a Ford control-systems researcher and a BU neuroscientist); the actual
-# co-author on all of them is Huan-Hsin Tseng at Brookhaven National Laboratory,
-# as printed on arXiv:2505.08782, arXiv:2509.00711 and the QCNC/QCE proceedings.
-# Keyed by normalised name so hyphen/spacing variants collapse too.
+# Collaborators who are not lab members and whose indexed metadata carries the
+# wrong person's name. OpenAlex resolves the "Tseng" on the lab's quantum papers
+# to two different people (a Ford control-systems researcher and a BU
+# neuroscientist); the actual co-author on all of them is Huan-Hsin Tseng at
+# Brookhaven National Laboratory, as printed on arXiv:2505.08782,
+# arXiv:2509.00711 and the QCNC/QCE proceedings. Keyed by name_key().
 COAUTHOR_CANONICAL = {
     "herictseng": "Huan-Hsin Tseng",
     "huaantseng": "Huan-Hsin Tseng",
@@ -205,18 +208,29 @@ def load_member_allowlist():
     return allow
 
 
-def canonical_author(name):
+def canonical_author(name, allowlist):
     """Normalise one author string as it will be displayed.
 
-    Some deposits carry "Surname, Given Names" while the rest of the same
-    author list is "Given Names Surname"; rendered together they read as a
-    typo. Then fix collaborators the index resolves to the wrong person.
+    Three things go wrong in indexed metadata, in this order:
+
+    1. Some deposits carry "Surname, Given Names" while the rest of the same
+       author list is "Given Names Surname"; rendered together they read as
+       a typo.
+    2. A non-member collaborator can be resolved to the wrong person entirely
+       (see COAUTHOR_CANONICAL).
+    3. A member appears under a romanization their profile does not use. This
+       is applied to the whole author list, not just matched members, so a
+       record never carries two spellings of one person: the frontend bolds an
+       author by testing membership in labMembers, which is string equality.
     """
     if name.count(",") == 1:
         last, first = (x.strip() for x in name.split(","))
         if last and first:
             name = f"{first} {last}"
-    return COAUTHOR_CANONICAL.get(name_key(name), name)
+    key = name_key(name)
+    if key in COAUTHOR_CANONICAL:
+        return COAUTHOR_CANONICAL[key]
+    return allowlist.get(key, name)
 
 
 def match_lab_members(authors, allowlist):
@@ -240,24 +254,36 @@ def clean_filename(title):
     return re.sub(r"[\s-]+", "-", cleaned)[:40]
 
 
+# Canonical publication tags — one shared level of granularity (research domain).
+# Modalities (fMRI, EEG), architectures and sub-fields are folded into their domain so
+# the /publications filter never shows a chip matching a single paper.
+# Keep in sync with PUBLICATION_TAGS in src/content/config.ts.
+PUBLICATION_TAGS = [
+    "AI & Foundation Models",
+    "Genetics",
+    "Neuroimaging",
+    "Neuroscience",
+    "Psychiatry/Clinical Psychology",
+    "Quantum ML",
+]
+
+
 def derive_tags(title):
     t = title.lower()
     tags = []
-    if re.search(r"\bfmri\b|\bmri\b|neuroimag", t):
+    if re.search(r"\bfmri\b|\bmri\b|neuroimag|\beeg\b|\becog\b|\bieeg\b", t):
         tags.append("Neuroimaging")
-    if re.search(r"\beeg\b|\becog\b|\bieeg\b", t):
-        tags.append("EEG")
     if re.search(r"polygenic|genetic\b|genome|genomic|\bgene\b|heritab", t):
         tags.append("Genetics")
     if re.search(r"depress|psychiatr|psychopatholog|suicid|adhd|ocd|ptsd|anxiety|mental", t):
-        tags.append("Psychiatry")
+        tags.append("Psychiatry/Clinical Psychology")
     if re.search(r"quantum", t):
         tags.append("Quantum ML")
     if re.search(r"foundation model|transformer|deep learning|machine learning|neural network|state.space|diffusion|autoencoder", t):
         tags.append("AI & Foundation Models")
     if not tags:
         tags.append("Neuroscience")
-    return tags
+    return [tag for tag in PUBLICATION_TAGS if tag in tags]
 
 
 def fetch_all_openalex_works():
@@ -539,9 +565,10 @@ def main():
         venue = resolve_venue(w, kind, doi)
         if "workshop" in (venue or "").lower():
             kind = "workshop"
-        authors = [canonical_author(a.get("author", {}).get("display_name", ""))
+        authors = [a.get("author", {}).get("display_name", "")
                    for a in w.get("authorships", [])]
-        authors = list(dict.fromkeys(a for a in authors if a))
+        authors = [canonical_author(a, allowlist) for a in authors if a]
+        authors = list(dict.fromkeys(authors))
         entries.append({
             "existing": False,
             "work": w,
