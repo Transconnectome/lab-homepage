@@ -5,15 +5,20 @@
 # most likely a Let's Encrypt failed-validation backoff accumulated while DNS
 # still pointed at the previous owner's Pages host. DNS now resolves correctly
 # (CNAME -> transconnectome.github.io), so a single deliberate remove/re-add of
-# the custom domain resets provisioning. That is what `mode: fix` does — once.
+# the custom domain resets provisioning. That is what mode `fix` does — once.
 #
-# Modes:
+# Modes (from workflow_dispatch input, or .github/pages-doctor-mode on push —
+# the push path exists because a session token without actions:write cannot
+# POST /dispatches):
 #   diagnose  read-only: DNS, served content, presented certificate, Pages API
 #   fix       remove + re-add the custom domain, then poll the cert state
 #   enforce   turn on "Enforce HTTPS" (only succeeds once the cert is active)
 name: Pages Doctor
 
 on:
+  push:
+    branches: [claude/homepage-korean-font-check-dz4neo]
+    paths: ['.github/pages-doctor-mode']
   workflow_dispatch:
     inputs:
       mode:
@@ -39,6 +44,19 @@ jobs:
       DOMAIN: www.connectomelab.com
       REPO: ${{ github.repository }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve mode
+        run: |
+          MODE="${{ inputs.mode }}"
+          if [ -z "$MODE" ] && [ -f .github/pages-doctor-mode ]; then
+            MODE=$(tr -cd 'a-z' < .github/pages-doctor-mode)
+          fi
+          case "$MODE" in diagnose|fix|enforce) ;; *) MODE=diagnose ;; esac
+          echo "MODE=$MODE" >> "$GITHUB_ENV"
+          echo "mode: $MODE"
+
       - name: DNS
         run: |
           echo "== CNAME $DOMAIN =="
@@ -57,8 +75,8 @@ jobs:
             *)            echo "CONTENT: response does NOT look like the Astro build" ;;
           esac
           echo "-- font links found in the served HTML --"
-          printf '%s' "$body" | grep -o 'https://fonts.googleapis.com[^"]*' | head -3 || true
-          printf '%s' "$body" | grep -o 'https://cdn.jsdelivr.net[^"]*pretendard[^"]*' | head -3 || true
+          printf '%s' "$body" | grep -o 'https://fonts.googleapis.com[^\"]*' | head -3 || true
+          printf '%s' "$body" | grep -o 'https://cdn.jsdelivr.net[^\"]*pretendard[^\"]*' | head -3 || true
           echo "-- strict HTTPS fetch --"
           code=$(curl -sSm 20 -o /dev/null -w '%{http_code}' "https://$DOMAIN" 2>&1) \
             && echo "HTTPS OK, status $code" \
@@ -76,7 +94,7 @@ jobs:
           gh api "repos/$REPO/pages/health-check" || echo "(health check unavailable)"
 
       - name: Fix — remove and re-add the custom domain
-        if: ${{ inputs.mode == 'fix' }}
+        if: ${{ env.MODE == 'fix' }}
         run: |
           set -e
           echo "Removing custom domain (site stays up on transconnectome.github.io)..."
@@ -97,7 +115,7 @@ jobs:
           echo "Still pending after 10 min — normal for Let's Encrypt; re-run diagnose later."
 
       - name: Enforce HTTPS
-        if: ${{ inputs.mode == 'enforce' }}
+        if: ${{ env.MODE == 'enforce' }}
         run: |
           set -e
           printf '{"https_enforced":true}' | gh api -X PUT "repos/$REPO/pages" --input -
