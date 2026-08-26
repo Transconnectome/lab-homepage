@@ -25,7 +25,11 @@ set -euo pipefail
 
 REPO="Transconnectome/lab-homepage"
 DOMAIN="www.connectomelab.com"
-PAGES_HOST="snuconnectome.github.io"
+# Must track REPO's owner — this drifted silently after the snuconnectome ->
+# Transconnectome transfer and is the leading suspect for the still-open HTTPS
+# certificate backoff (see claudedocs/HANDOFF.md §5.1): DNS briefly pointed at
+# a stale Pages host, Let's Encrypt validation failed, and GitHub backs off.
+PAGES_HOST="transconnectome.github.io"
 # Fingerprint of the Astro build, not a piece of copy. Earlier markers were
 # headline text, and both went stale within a day of being written — the da
 # Vinci quote also existed on the old Google Site, and "Six networks, one lab"
