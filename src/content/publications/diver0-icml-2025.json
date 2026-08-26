@@ -4,7 +4,7 @@
   "venue": "ICML 2025 Workshop on Generative Biology (Spotlight)",
   "year": 2025,
   "month": "July",
-  "tags": ["EEG", "Foundation Model", "Equivariance", "Geometric Deep Learning"],
+  "tags": ["AI & Foundation Models", "Neuroimaging"],
   "featured": true,
   "spotlight": "ICML 2025 Workshop Spotlight",
   "abstract": "We introduce DIVER-0, a novel channel-equivariant foundation model for electroencephalography (EEG). By enforcing strict spatial permutation and continuous coordinate equivariance, DIVER-0 natively handles heterogeneous montage configurations without requiring spatial interpolation or channel re-referencing.",
