@@ -44,8 +44,11 @@ IDEAS_DIR = os.path.join(ROOT, "src", "content", "ideas")
 OPENROUTER_MODEL = "google/gemini-2.5-flash"
 MAX_NEW_IDEAS = 3
 # Must mirror the `category` enum on ideasCollection in src/content/config.ts
-# (same taxonomy as the research pillars, so ideas are browsable by topic).
-CATEGORIES = ("foundation-models", "connectomics", "genetics", "qml", "art-science")
+# and the labels in src/components/ideas/IdeasFilter.tsx.
+CATEGORIES = (
+    "foundation-models", "connectomics", "genetics", "qml", "art-science",
+    "agentic-ai", "affective-development",
+)
 
 # field -> max length (chars); the brevity guard that motivated v2
 LENGTH_CAPS = {
@@ -136,10 +139,15 @@ Rules:
   graduate student or curious visitor can read at a glance, keeping technical terms in English
   as-is (e.g. foundation model, polygenic score, state-space). Then give equally concise
   English twins of each field.
-- Assign exactly one "category" per idea from this fixed list: ['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science']
+- Assign exactly one "category" per idea from this fixed list:
+  ['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science', 'agentic-ai', 'affective-development']
   (foundation-models = brain/EEG/fMRI representation learning; connectomics = structural/functional
   connectome analysis; genetics = multi-modal genetics & computational psychiatry; qml = quantum
-  machine learning; art-science = art/music/aesthetic experience). Pick the idea's PRIMARY thread,
+  machine learning; art-science = art/music/aesthetic experience; agentic-ai = autonomous/tool-using
+  AI agents APPLIED TO brain research — analysis pipelines, hypothesis generation, literature-scale
+  reasoning over neuroimaging, NOT pure agent methodology with no neuro application;
+  affective-development = affective and developmental human neuroscience, e.g. emotion processing,
+  adolescent brain trajectories, longitudinal cohorts such as ABCD). Pick the idea's PRIMARY thread,
   not every thread it touches.
 - BE SHORT. Hard limits (ideas exceeding them are dropped):
   hypothesisKo: at most 2 sentences, <= 250 Korean characters (the testable claim).

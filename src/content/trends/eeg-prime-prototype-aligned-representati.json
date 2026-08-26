@@ -8,7 +8,7 @@
   ],
   "publishedDate": "2026-08-13",
   "source": "arXiv (2026-08)",
-  "topic": "fMRI/EEG Dynamics",
+  "topic": "Brain Foundation Models (EEG)",
   "url": "https://arxiv.org/abs/2608.13072v1",
   "summaryPoints": [
     "EEG-PRIME is a novel two-stage foundation model for EEG decoding designed to overcome cross-dataset and cross-subject generalization issues.",

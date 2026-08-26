@@ -83,7 +83,18 @@ const trendsCollection = defineCollection({
     authors: z.array(z.string()),
     publishedDate: z.string(),
     source: z.string(),
-    topic: z.enum(['Brain Foundation Models', 'fMRI/EEG Dynamics', 'Genomics & Connectomics', 'Quantum ML', 'Brain-LLM Alignment']),
+    // Discovery buckets for the weekly arXiv sweep. Each value is also a query
+    // bucket in scripts/update_research_radar.py — the two lists must stay in
+    // sync, and a paper's topic is decided by the bucket that surfaced it.
+    topic: z.enum([
+      'Brain Foundation Models (fMRI)',
+      'Brain Foundation Models (EEG)',
+      'Gene & Brain',
+      'Affective & Developmental',
+      'Agentic AI',
+      'Quantum ML',
+      'Brain-LLM Alignment',
+    ]),
     url: z.string(),
     summaryPoints: z.array(z.string()),
     significance: z.string(),
@@ -91,6 +102,10 @@ const trendsCollection = defineCollection({
     modality: z.array(z.string()).default([]),
     badge: z.string().nullable().optional(),
     generatedBy: z.string().nullable().optional(),
+    // 0-1 lab-relevance score from the summarizer; entries below the gate in
+    // update_research_radar.py are never written, so this is a record of what
+    // passed, not a filter the UI applies.
+    labRelevanceScore: z.number().nullable().optional(),
   }),
 });
 
@@ -113,9 +128,14 @@ const ideasCollection = defineCollection({
     title: z.string(),
     titleKo: z.string().nullable().optional(),
     date: z.string(),
-    // Same taxonomy as the research collection's pillars, so ideas can be
-    // browsed by the same categories visitors already see on /research.
-    category: z.enum(['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science']),
+    // Mirrors the research pillars where one exists, plus threads the lab is
+    // actively exploring without a pillar page yet (connectomics, agentic-ai,
+    // affective-development). Kept in sync with CATEGORIES in
+    // scripts/generate_research_ideas.py and the labels in IdeasFilter.tsx.
+    category: z.enum([
+      'foundation-models', 'connectomics', 'genetics', 'qml', 'art-science',
+      'agentic-ai', 'affective-development',
+    ]),
     hypothesis: z.string(),
     hypothesisKo: z.string().nullable().optional(),
     rationale: z.string(),

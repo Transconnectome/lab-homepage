@@ -7,7 +7,7 @@
   ],
   "publishedDate": "2026-08-13",
   "source": "arXiv (2026-08)",
-  "topic": "fMRI/EEG Dynamics",
+  "topic": "Brain Foundation Models (EEG)",
   "url": "https://arxiv.org/abs/2608.13676v1",
   "summaryPoints": [
     "EEG-PRISM is a novel method that translates time-channel attribution scores from EEG foundation models into more physiologically relevant domains, specifically the frequency and source domains, without altering the original model.",
