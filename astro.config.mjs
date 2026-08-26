@@ -5,7 +5,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 // Korean is the default language and lives at the root; English is at /en/.
-const ROUTES = ['', 'research', 'publications', 'team', 'news', 'history', 'radar', 'ideas', 'join'];
+const ROUTES = ['', 'research', 'publications', 'team', 'news', 'radar', 'ideas', 'join'];
 
 // The site shipped with Korean under /ko/ before the languages were swapped.
 // Keep those URLs alive — Astro emits a meta-refresh page per entry in a
