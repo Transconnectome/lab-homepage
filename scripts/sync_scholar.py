@@ -90,6 +90,7 @@ NAME_ALIASES = {
     "jungyoung janice min": "Jungyoung Janice Min",
     "jungyoun janice min": "Jungyoung Janice Min",
     "jungyoon min": "Jungyoung Janice Min",
+    "jinwoo lee": "Jinwoo Yi",
 }
 
 # OpenAlex work types that are never archive publications.
@@ -180,11 +181,24 @@ def load_member_allowlist():
     return allow
 
 
+def _allow_key(name):
+    return name.lower().replace("‐", "-").replace("‑", "-")
+
+
+def canonical_author(name, allowlist):
+    """Indexed romanization -> the spelling the member's profile uses.
+
+    Applied to the whole author list, not just the matched members, so a
+    record never carries two spellings of one person: the frontend bolds an
+    author by testing membership in labMembers, which is string equality.
+    """
+    return allowlist.get(_allow_key(name), name)
+
+
 def match_lab_members(authors, allowlist):
     out = []
     for a in authors:
-        key = a.lower().replace("‐", "-").replace("‑", "-")
-        if key in allowlist and a not in out:
+        if _allow_key(a) in allowlist and a not in out:
             out.append(a)
     return out
 
@@ -515,7 +529,8 @@ def main():
             kind = "workshop"
         authors = [a.get("author", {}).get("display_name", "")
                    for a in w.get("authorships", [])]
-        authors = list(dict.fromkeys(a for a in authors if a))
+        authors = [canonical_author(a, allowlist) for a in authors if a]
+        authors = list(dict.fromkeys(authors))
         entries.append({
             "existing": False,
             "work": w,
