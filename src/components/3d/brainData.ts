@@ -133,10 +133,10 @@ export const RESEARCH_AXES: ResearchAxis[] = [
   },
   {
     id: 'art-and-neuroscience',
-    name: 'Art & Neuroscience',
-    nameKo: '예술 × 뇌과학',
-    axis: 'Art × Science',
-    axisKo: '예술 × 과학',
+    name: 'Affective Neuroscience',
+    nameKo: '정서 신경과학',
+    axis: 'Affective Neuroscience',
+    axisKo: '정서 신경과학',
     position: [-0.6, -0.7, -1.2],
     color: '#c084fc',
     description:
