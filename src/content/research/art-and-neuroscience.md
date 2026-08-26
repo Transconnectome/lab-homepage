@@ -6,7 +6,7 @@ category: "art-science"
 featured: false
 order: 5
 keyHighlights:
-  - "OB/Scene Focus Exhibition (2025): 'Connectome: Reconstruction of Memory' interactive EEG installation"
+  - "[OB/Scene Focus Exhibition (2025)](http://ob-scene.com/focus/programs/keonektom-gieokeui-jaeguseong): 'Connectome: Reconstruction of Memory' interactive EEG installation"
   - "Real-time affective EEG decoding linked with generative audio-visual systems"
   - "Collaborative art & technology research commissions bridging human consciousness and aesthetic expression"
 ---
@@ -18,4 +18,4 @@ keyHighlights:
 
 At Connectome Lab, we believe that understanding the brain is not merely an engineering task, but a profound cultural and humanistic inquiry. 
 
-In late 2025, lab members **Seokjin Moon, Heehwan Wang, and Kyungjin Oh** presented an experimental interactive exhibition at **OB/Scene Focus (옵/신 포커스)** titled *「Connectome: Reconstruction of Memory」*. Using wireless high-density EEG headsets (Enobio) and real-time neural decoding algorithms, participants' affective memories and subjective cognitive states were decoded to sculpt dynamic generative soundscapes and generative visual projections in real time.
+In late 2025, lab members **Seokjin Moon, Heehwan Wang, and Kyungjin Oh** presented an experimental interactive exhibition at **OB/Scene Focus (옵/신 포커스)** titled *[「Connectome: Reconstruction of Memory」](http://ob-scene.com/focus/programs/keonektom-gieokeui-jaeguseong)*. Using wireless high-density EEG headsets (Enobio) and real-time neural decoding algorithms, participants' affective memories and subjective cognitive states were decoded to sculpt dynamic generative soundscapes and generative visual projections in real time.

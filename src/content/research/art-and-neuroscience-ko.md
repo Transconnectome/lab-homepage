@@ -6,7 +6,7 @@ category: "art-science"
 featured: false
 order: 5
 keyHighlights:
-  - "옵/신 포커스(OB/Scene Focus) 전시 (2025): '커넥톰: 기억의 재구성' 인터랙티브 EEG 설치 작품"
+  - "[옵/신 포커스(OB/Scene Focus) 전시 (2025)](http://ob-scene.com/focus/programs/keonektom-gieokeui-jaeguseong): '커넥톰: 기억의 재구성' 인터랙티브 EEG 설치 작품"
   - "생성형 오디오-비주얼 시스템과 연동된 실시간 정서 EEG 디코딩"
   - "인간의 의식과 미적 표현을 잇는 예술·기술 협업 커미션 연구"
 lang: "ko"
@@ -20,4 +20,4 @@ baseSlug: "art-and-neuroscience"
 
 Connectome Lab은 뇌를 이해하는 일이 공학의 과제에 그치지 않고 문화와 인문학을 아우르는 깊은 탐구라고 믿는다.
 
-2025년 말, 연구실 구성원 **문석진, 왕희환, 오경진**은 **옵/신 포커스**(OB/Scene Focus)에서 실험적 인터랙티브 전시 *「커넥톰: 기억의 재구성」*을 선보였다. 무선 고밀도 EEG 헤드셋(Enobio)과 실시간 신경 디코딩 알고리즘으로 참여자의 정서적 기억과 주관적 인지 상태를 읽어 내고, 그 신호에 따라 생성형 사운드스케이프와 시각 프로젝션을 실시간으로 빚어냈다.
+2025년 말, 연구실 구성원 **문석진, 왕희환, 오경진**은 **옵/신 포커스**(OB/Scene Focus)에서 실험적 인터랙티브 전시 *[「커넥톰: 기억의 재구성」](http://ob-scene.com/focus/programs/keonektom-gieokeui-jaeguseong)*을 선보였다. 무선 고밀도 EEG 헤드셋(Enobio)과 실시간 신경 디코딩 알고리즘으로 참여자의 정서적 기억과 주관적 인지 상태를 읽어 내고, 그 신호에 따라 생성형 사운드스케이프와 시각 프로젝션을 실시간으로 빚어냈다.
