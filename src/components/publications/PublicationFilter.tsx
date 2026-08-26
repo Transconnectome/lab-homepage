@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Code, ExternalLink, Copy, Check, BookOpen } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { isCsAiConference } from '../../utils/publications';
 
 interface PublicationItem {
   title: string;
@@ -18,7 +19,11 @@ interface PublicationItem {
   abstract?: string | null;
   labMembers: string[];
   kind?: 'journal' | 'conference' | 'workshop' | 'preprint';
+  csAiVenue?: boolean | null;
 }
+
+/** Venue-type view; mirrored in the ?type= query param so views are linkable. */
+type VenueType = 'all' | 'journal' | 'cs-ai';
 
 interface Props {
   publications: PublicationItem[];
@@ -43,6 +48,13 @@ const LABELS: Record<'en' | 'ko', Record<string, string>> = {
     kindConference: 'Conference',
     kindWorkshop: 'Workshop',
     kindPreprint: 'Preprint',
+    venueType: 'Venue',
+    typeAll: 'All',
+    typeJournal: 'Journals',
+    typeCsAi: 'CS/AI conferences',
+    preprintsNA: 'Preprints are neither journal nor conference papers',
+    csAiNote:
+      'Conference and workshop papers at computing venues — NeurIPS, ICML, AAAI, ICASSP, ICIP, MICCAI, IEEE quantum computing, and the like.',
   },
   ko: {
     search: '제목·저자·게재지 검색...',
@@ -59,6 +71,13 @@ const LABELS: Record<'en' | 'ko', Record<string, string>> = {
     kindConference: '학회',
     kindWorkshop: '워크숍',
     kindPreprint: '프리프린트',
+    venueType: '게재 유형',
+    typeAll: '전체',
+    typeJournal: '저널 논문',
+    typeCsAi: 'CS/AI 학회 논문',
+    preprintsNA: '프리프린트는 저널·학회 논문에 포함되지 않습니다',
+    csAiNote:
+      'NeurIPS, ICML, AAAI, ICASSP, ICIP, MICCAI, IEEE 양자컴퓨팅 등 컴퓨터·AI 분야 학회와 워크숍에 게재된 논문입니다.',
   },
 };
 
@@ -76,12 +95,59 @@ export default function PublicationFilter({ publications, lang = 'en' }: Props) 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [includePreprints, setIncludePreprints] = useState<boolean>(false);
+  const [venueType, setVenueType] = useState<VenueType>('all');
+  const urlSynced = React.useRef(false);
 
-  // Peer-reviewed by default; preprints shown only when explicitly toggled on.
+  // ?type=cs-ai / ?type=journal opens the page straight into that view. Read
+  // after mount rather than during render, so the hydrated markup matches SSR.
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('type');
+    if (param === 'cs-ai' || param === 'journal') setVenueType(param);
+    urlSynced.current = true;
+  }, []);
+
+  // Keep the URL in step with the view, so a filtered list can be linked.
+  useEffect(() => {
+    if (!urlSynced.current) return;
+    const url = new URL(window.location.href);
+    if (venueType === 'all') url.searchParams.delete('type');
+    else url.searchParams.set('type', venueType);
+    window.history.replaceState({}, '', url);
+  }, [venueType]);
+
+  const selectVenueType = (next: VenueType) => {
+    setVenueType(next);
+    // Tag/year options differ per view; a stale pick would show an empty list.
+    setSelectedTag('All');
+    setSelectedYear('All');
+  };
+
+  // Peer-reviewed by default; preprints shown only when explicitly toggled on,
+  // and never in the journal or CS/AI conference views.
   const basePublications = useMemo(
-    () => publications.filter((p) => includePreprints || (p.kind ?? 'journal') !== 'preprint'),
-    [publications, includePreprints]
+    () =>
+      publications.filter((p) => {
+        if (venueType === 'cs-ai') return isCsAiConference(p);
+        if (venueType === 'journal') return (p.kind ?? 'journal') === 'journal';
+        return includePreprints || (p.kind ?? 'journal') !== 'preprint';
+      }),
+    [publications, includePreprints, venueType]
   );
+
+  const venueTypeCounts = useMemo(
+    () => ({
+      all: publications.filter((p) => (p.kind ?? 'journal') !== 'preprint').length,
+      journal: publications.filter((p) => (p.kind ?? 'journal') === 'journal').length,
+      'cs-ai': publications.filter(isCsAiConference).length,
+    }),
+    [publications]
+  );
+
+  const VENUE_TYPES: { value: VenueType; label: string }[] = [
+    { value: 'all', label: L.typeAll },
+    { value: 'journal', label: L.typeJournal },
+    { value: 'cs-ai', label: L.typeCsAi },
+  ];
 
   const allTags = useMemo(() => {
     const set = new Set<string>();
@@ -127,7 +193,34 @@ export default function PublicationFilter({ publications, lang = 'en' }: Props) 
     <div className="space-y-8">
       {/* Controls */}
       <div className="card p-5 sm:p-6 space-y-4">
-        <div className="flex flex-col md:flex-row gap-4 justify-between md:items-center">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <span className="font-mono text-xs text-ink-faint shrink-0">{L.venueType}</span>
+          <div className="flex flex-wrap gap-2" role="group" aria-label={L.venueType}>
+            {VENUE_TYPES.map((type) => (
+              <button
+                key={type.value}
+                onClick={() => selectVenueType(type.value)}
+                aria-pressed={venueType === type.value}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors border ${
+                  venueType === type.value
+                    ? 'bg-lab-700 text-white border-lab-700'
+                    : 'bg-paper text-ink-soft hover:text-ink border-line'
+                }`}
+              >
+                {type.label}
+                <span className={`ml-1.5 font-mono ${venueType === type.value ? 'text-white/70' : 'text-ink-faint'}`}>
+                  {venueTypeCounts[type.value]}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {venueType === 'cs-ai' && (
+          <p className="text-xs text-ink-soft leading-relaxed">{L.csAiNote}</p>
+        )}
+
+        <div className="flex flex-col md:flex-row gap-4 justify-between md:items-center border-t border-line pt-4">
           <div className="relative w-full md:w-96">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-faint" aria-hidden="true" />
             <label htmlFor="pub-search" className="sr-only">Search publications</label>
@@ -162,12 +255,18 @@ export default function PublicationFilter({ publications, lang = 'en' }: Props) 
                 <option key={year} value={year}>{year === 'All' ? L.allYears : year}</option>
               ))}
             </select>
-            <label className="flex items-center gap-1.5 text-xs text-ink-soft cursor-pointer select-none">
+            <label
+              title={venueType === 'all' ? undefined : L.preprintsNA}
+              className={`flex items-center gap-1.5 text-xs select-none ${
+                venueType === 'all' ? 'text-ink-soft cursor-pointer' : 'text-ink-faint cursor-not-allowed'
+              }`}
+            >
               <input
                 type="checkbox"
-                checked={includePreprints}
+                checked={includePreprints && venueType === 'all'}
+                disabled={venueType !== 'all'}
                 onChange={(e) => setIncludePreprints(e.target.checked)}
-                className="rounded border-line accent-[#0E7490]"
+                className="rounded border-line accent-[#0E7490] disabled:opacity-50"
               />
               {L.includePreprints}
             </label>

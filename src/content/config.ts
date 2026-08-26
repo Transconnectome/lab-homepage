@@ -73,6 +73,9 @@ const publicationsCollection = defineCollection({
     abstract: z.string().nullable().optional(),
     labMembers: z.array(z.string()).default([]),
     kind: z.enum(['journal', 'conference', 'workshop', 'preprint']).default('journal'),
+    // Manual override for the CS/AI conference view on /publications; leave it
+    // unset and src/utils/publications.ts classifies the venue on its own.
+    csAiVenue: z.boolean().nullable().optional(),
   }),
 });
 
