@@ -44,20 +44,13 @@ const CS_AI_VENUE_PATTERNS: RegExp[] = [
   /lecture notes in computer science|computer science|\bcomputing\b|computational|\bcomputer\b|data summit/,
 ];
 
-/** Topic tags that stand in for the venue name when the venue is opaque. */
-const CS_AI_TAGS = new Set([
-  'AI & Foundation Models',
-  'Quantum ML',
-  'Foundation Model',
-  'Machine Learning',
-  'Deep Learning',
-  'Geometric Deep Learning',
-  'Equivariance',
-  'State-Space Models',
-  'Mamba',
-  'NLP',
-  'Brain-LLM Alignment',
-]);
+/**
+ * Topic tags that stand in for the venue name when the venue is opaque.
+ * Drawn from PUBLICATION_TAGS in src/content/config.ts — the architecture-level
+ * tags this set used to list (Mamba, Geometric Deep Learning, NLP, …) were folded
+ * into 'AI & Foundation Models', which every one of those papers now carries.
+ */
+const CS_AI_TAGS = new Set(['AI & Foundation Models', 'Quantum ML']);
 
 /** True for peer-reviewed conference and workshop papers at computing venues. */
 export function isCsAiConference(pub: VenueClassifiable): boolean {
