@@ -46,14 +46,41 @@ const LABELS: Record<'en' | 'ko', Record<string, string>> = {
   },
 };
 
+// Filter values are the raw `topic` enum from src/content/config.ts; the chips
+// show a compact label so the row stays readable at seven buckets.
 const TOPICS = [
   'All',
-  'Brain Foundation Models',
-  'fMRI/EEG Dynamics',
-  'Genomics & Connectomics',
+  'Brain Foundation Models (fMRI)',
+  'Brain Foundation Models (EEG)',
+  'Gene & Brain',
+  'Affective & Developmental',
+  'Agentic AI',
   'Quantum ML',
   'Brain-LLM Alignment',
 ];
+
+const TOPIC_LABELS: Record<'en' | 'ko', Record<string, string>> = {
+  en: {
+    All: 'All',
+    'Brain Foundation Models (fMRI)': 'fMRI Foundation Models',
+    'Brain Foundation Models (EEG)': 'EEG Foundation Models',
+    'Gene & Brain': 'Gene & Brain',
+    'Affective & Developmental': 'Affective & Developmental',
+    'Agentic AI': 'Agentic AI',
+    'Quantum ML': 'Quantum ML',
+    'Brain-LLM Alignment': 'Brain-LLM Alignment',
+  },
+  ko: {
+    All: '전체',
+    'Brain Foundation Models (fMRI)': 'fMRI 파운데이션 모델',
+    'Brain Foundation Models (EEG)': 'EEG 파운데이션 모델',
+    'Gene & Brain': '유전자와 뇌',
+    'Affective & Developmental': '정서·발달 신경과학',
+    'Agentic AI': '에이전틱 AI',
+    'Quantum ML': '양자 머신러닝',
+    'Brain-LLM Alignment': '뇌-언어모델 정렬',
+  },
+};
 
 export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
   const L = LABELS[lang];
@@ -116,7 +143,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
                   : 'bg-paper text-ink-soft hover:text-ink border border-line'
               }`}
             >
-              {topic}
+              {TOPIC_LABELS[lang][topic] ?? topic}
             </button>
           ))}
         </div>
@@ -129,7 +156,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
             <div>
               <div className="flex items-center justify-between gap-2 mb-3">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip-accent">{trend.topic}</span>
+                  <span className="chip-accent">{TOPIC_LABELS[lang][trend.topic] ?? trend.topic}</span>
                   {trend.badge && (
                     <span className="chip">
                       <Sparkles className="w-3 h-3 mr-1 text-lab-700" aria-hidden="true" />

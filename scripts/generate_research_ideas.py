@@ -44,8 +44,34 @@ IDEAS_DIR = os.path.join(ROOT, "src", "content", "ideas")
 OPENROUTER_MODEL = "google/gemini-2.5-flash"
 MAX_NEW_IDEAS = 3
 # Must mirror the `category` enum on ideasCollection in src/content/config.ts
-# (same taxonomy as the research pillars, so ideas are browsable by topic).
-CATEGORIES = ("foundation-models", "connectomics", "genetics", "qml", "art-science")
+# and the labels in src/components/ideas/IdeasFilter.tsx.
+CATEGORIES = (
+    "foundation-models", "connectomics", "genetics", "qml", "art-science",
+    "agentic-ai", "affective-development",
+)
+
+# Directions the PI is actively pursuing. Some have no pillar page and no
+# publication yet, so they are labeled as such: without this the model either
+# ignores a whole topic bucket or cites lab work that does not exist.
+LAB_INTEREST_AREAS = """LAB'S ACTIVE INTEREST DIRECTIONS (PI-stated; some have no publications yet,
+so do NOT cite them as existing lab work in labThreads):
+- Brain foundation models across fMRI and EEG alike
+- Agentic AI applied to brain research (analysis pipelines, hypothesis generation,
+  literature-scale reasoning over neuroimaging) — not agent methodology on its own
+- Affective and developmental human neuroscience (emotion, adolescent trajectories, ABCD)
+- Gene-brain association"""
+
+# How many radar entries reach the prompt. Sampled round-robin across topics:
+# a flat "newest N" let one prolific bucket fill the whole context.
+TREND_CONTEXT_SIZE = 14
+
+# Redundancy guards. Title wording varies too much between runs to be a useful
+# signal on its own (back-testing the first twelve ideas, even the genuine
+# near-duplicates peaked at 0.375 token overlap), so the primary rule is
+# source-based: one radar paper should not be mined twice for the same
+# category. EEG-PRISM alone produced three foundation-models ideas that way.
+TITLE_SIMILARITY_CAP = 0.6   # backstop for near-verbatim restatements
+RECENT_MIX_WINDOW = 6        # ideas summarised for the prompt's category mix
 
 # field -> max length (chars); the brevity guard that motivated v2
 LENGTH_CAPS = {
@@ -53,6 +79,10 @@ LENGTH_CAPS = {
     "hypothesis": 350, "rationale": 350, "firstExperiment": 400, "risks": 250,
 }
 BODY_FIELDS = list(LENGTH_CAPS.keys())
+
+
+TITLE_STOPWORDS = {"for", "of", "and", "the", "with", "a", "to", "in", "on",
+                   "via", "using", "from", "by", "an"}
 
 
 def norm(s):
@@ -84,24 +114,106 @@ def gather_lab_context():
     pubs.sort(reverse=True)
     parts.append("RECENT LAB PUBLICATIONS (2024+):\n" + "\n".join(p[1] for p in pubs[:25]))
 
-    trends = []
-    for path in glob.glob(os.path.join(ROOT, "src", "content", "trends", "*.json")):
-        d = json.load(open(path, encoding="utf-8"))
-        trends.append((d.get("publishedDate", ""), f"- [{d.get('topic','')}] {d['title']} ({d.get('source','')}): " + "; ".join(d.get("summaryPoints", [])[:2])))
-    trends.sort(reverse=True)
-    parts.append("LATEST EXTERNAL TRENDS (Research Radar):\n" + "\n".join(t[1] for t in trends[:10]))
+    trends = [json.load(open(path, encoding="utf-8"))
+              for path in glob.glob(os.path.join(ROOT, "src", "content", "trends", "*.json"))]
+    lines = [f"- [{d.get('topic','')}] {d['title']} ({d.get('source','')}): "
+             + "; ".join(d.get("summaryPoints", [])[:2])
+             for d in sample_trends_round_robin(trends, TREND_CONTEXT_SIZE)]
+    parts.append("LATEST EXTERNAL TRENDS (Research Radar):\n" + "\n".join(lines))
+
+    parts.append(LAB_INTEREST_AREAS)
 
     return "\n\n".join(parts)
 
 
-def existing_idea_titles():
-    titles = set()
+def sample_trends_round_robin(trends, limit):
+    """Take the newest entry from each topic in turn until `limit` is reached.
+
+    Taking the newest `limit` overall lets the most prolific bucket crowd out
+    every other direction, which is how twelve radar entries produced ideas in
+    only three categories. Rounds are ordered by topic name so a given content
+    directory always yields the same prompt.
+    """
+    by_topic = {}
+    for d in trends:
+        by_topic.setdefault(d.get("topic", ""), []).append(d)
+    for entries in by_topic.values():
+        entries.sort(key=lambda d: d.get("publishedDate", ""), reverse=True)
+
+    picked, depth = [], 0
+    while len(picked) < limit and any(len(e) > depth for e in by_topic.values()):
+        for topic in sorted(by_topic):
+            if len(picked) >= limit:
+                break
+            if len(by_topic[topic]) > depth:
+                picked.append(by_topic[topic][depth])
+        depth += 1
+    return picked
+
+
+def load_existing_ideas():
+    ideas = []
     for path in glob.glob(os.path.join(IDEAS_DIR, "*.json")):
         try:
-            titles.add(norm(json.load(open(path, encoding="utf-8")).get("title", "")))
+            ideas.append(json.load(open(path, encoding="utf-8")))
         except Exception:
             pass
-    return titles
+    return ideas
+
+
+def title_tokens(title):
+    return {w for w in re.findall(r"[a-z0-9]+", (title or "").lower()) if w not in TITLE_STOPWORDS}
+
+
+def source_key(inspiration):
+    """Normalise a cited paper to a comparable key.
+
+    Entries arrive in several shapes across runs — "ZIPBrain",
+    "EEG-PRISM: Physiologically-Grounded ...", or a full title with a
+    "(arXiv (2026-08))" suffix — so drop everything after the first colon or
+    bracket before normalising.
+    """
+    head = re.split(r"[:(\[]", str(inspiration), 1)[0]
+    return norm(head)
+
+
+def redundancy_reason(idea, existing):
+    """Why `idea` duplicates something already published, or None if it is new."""
+    new_title = norm(idea.get("title", ""))
+    new_tokens = title_tokens(idea.get("title", ""))
+    new_sources = {k for k in (source_key(i) for i in idea.get("externalInspiration", [])) if k}
+
+    for old in existing:
+        if new_title and new_title == norm(old.get("title", "")):
+            return f"same title as {old.get('title','')[:50]}"
+
+        old_tokens = title_tokens(old.get("title", ""))
+        if new_tokens and old_tokens:
+            overlap = len(new_tokens & old_tokens) / len(new_tokens | old_tokens)
+            if overlap >= TITLE_SIMILARITY_CAP:
+                return f"title {overlap:.2f} similar to {old.get('title','')[:50]}"
+
+        if idea.get("category") != old.get("category"):
+            continue
+        old_sources = {k for k in (source_key(i) for i in old.get("externalInspiration", [])) if k}
+        shared = {a for a in new_sources for b in old_sources
+                  if a == b or (len(a) >= 8 and len(b) >= 8 and (a in b or b in a))}
+        if shared:
+            return (f"same source + category ({idea.get('category')}) as "
+                    f"{old.get('title','')[:50]}")
+    return None
+
+
+def recent_category_mix(existing, window=RECENT_MIX_WINDOW):
+    recent = sorted(existing, key=lambda d: d.get("date", ""), reverse=True)[:window]
+    counts = {}
+    for d in recent:
+        counts[d.get("category", "?")] = counts.get(d.get("category", "?"), 0) + 1
+    if not counts:
+        return "RECENT IDEA CATEGORY MIX: none yet."
+    ordered = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
+    return ("RECENT IDEA CATEGORY MIX (last %d ideas): " % len(recent)
+            + ", ".join(f"{k} x{v}" for k, v in ordered))
 
 
 def validate_idea(d):
@@ -121,25 +233,37 @@ def validate_idea(d):
     return True
 
 
-def build_prompt(context):
+def build_prompt(context, category_mix=""):
     return f"""You are a research strategist working with the Seoul National University Connectome Lab
-(PI: Jiook Cha; brain foundation models, connectomics, multimodal genetics & computational
-psychiatry, quantum ML, art-science). Based on the context below, propose exactly {MAX_NEW_IDEAS}
+(PI: Jiook Cha; brain foundation models for fMRI and EEG, connectomics, multimodal genetics &
+computational psychiatry, agentic AI for brain research, affective & developmental
+neuroscience, quantum ML, art-science). Based on the context below, propose exactly {MAX_NEW_IDEAS}
 NEW research ideas that connect recent external advances to the lab's existing threads.
 
 Rules:
 - Each idea must be genuinely novel for this lab (not a restatement of an existing lab project),
   concrete enough to start within 6 months with a small team, and honest about risks.
+- The three ideas must sit in three DIFFERENT categories, and should draw on different
+  external papers. Two ideas mined from one paper for the same category is the failure
+  mode this rule exists to prevent — the second one is dropped, not published.
+- Favour categories that are under-represented in the recent mix below, and directions
+  from the interest list that have no ideas yet. Do not force it: an idea the external
+  evidence does not support is worse than a thinner week.
 - Cite external inspiration by paper title from the trends provided; cite lab threads by the
   lab's own project/paper names. At most 4 items in each list, short names only.
 - KOREAN IS THE PRIMARY LANGUAGE of the body fields. Write short, easy Korean that a first-year
   graduate student or curious visitor can read at a glance, keeping technical terms in English
   as-is (e.g. foundation model, polygenic score, state-space). Then give equally concise
   English twins of each field.
-- Assign exactly one "category" per idea from this fixed list: ['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science']
+- Assign exactly one "category" per idea from this fixed list:
+  ['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science', 'agentic-ai', 'affective-development']
   (foundation-models = brain/EEG/fMRI representation learning; connectomics = structural/functional
   connectome analysis; genetics = multi-modal genetics & computational psychiatry; qml = quantum
-  machine learning; art-science = art/music/aesthetic experience). Pick the idea's PRIMARY thread,
+  machine learning; art-science = art/music/aesthetic experience; agentic-ai = autonomous/tool-using
+  AI agents APPLIED TO brain research — analysis pipelines, hypothesis generation, literature-scale
+  reasoning over neuroimaging, NOT pure agent methodology with no neuro application;
+  affective-development = affective and developmental human neuroscience, e.g. emotion processing,
+  adolescent brain trajectories, longitudinal cohorts such as ABCD). Pick the idea's PRIMARY thread,
   not every thread it touches.
 - BE SHORT. Hard limits (ideas exceeding them are dropped):
   hypothesisKo: at most 2 sentences, <= 250 Korean characters (the testable claim).
@@ -148,6 +272,8 @@ Rules:
   risksKo: exactly 1 sentence, <= 150 characters (the main way this fails).
   English twins: same spirit, hypothesis <= 300 / rationale <= 300 / firstExperiment <= 350 /
   risks <= 200 characters.
+
+{category_mix}
 
 {context}
 
@@ -232,9 +358,9 @@ def main():
 
     os.makedirs(IDEAS_DIR, exist_ok=True)
     context = gather_lab_context()
-    seen = existing_idea_titles()
+    existing = load_existing_ideas()
     today = datetime.date.today().isoformat()
-    prompt = build_prompt(context)
+    prompt = build_prompt(context, recent_category_mix(existing))
 
     try:
         result = call_codex(prompt) if backend == "codex" else call_openrouter(prompt, api_key)
@@ -243,12 +369,20 @@ def main():
         return 0
 
     added = 0
+    used_categories = set()
     for idea in result.get("ideas", [])[:MAX_NEW_IDEAS]:
         if not validate_idea(idea):
             print(f"[!] dropped invalid idea: {str(idea.get('title'))[:60]}")
             continue
-        if norm(idea["title"]) in seen:
-            print(f"[=] duplicate skipped: {idea['title'][:60]}")
+        reason = redundancy_reason(idea, existing)
+        if reason:
+            print(f"[=] redundant, skipped: {idea['title'][:50]} ({reason})")
+            continue
+        # One idea per category per run. Nothing is regenerated to fill the gap:
+        # a thinner week is the honest outcome, same as the no-LLM-key path.
+        if idea["category"] in used_categories:
+            print(f"[=] category already used this run ({idea['category']}): "
+                  f"{idea['title'][:50]}")
             continue
         record = {
             "title": idea["title"].strip(),
@@ -272,7 +406,8 @@ def main():
         with open(out, "w", encoding="utf-8") as f:
             json.dump(record, f, indent=2, ensure_ascii=False)
             f.write("\n")
-        seen.add(norm(record["title"]))
+        existing.append(record)
+        used_categories.add(record["category"])
         added += 1
         print(f"[+] {slug}.json")
 

@@ -7,7 +7,7 @@
   ],
   "publishedDate": "2026-08-05",
   "source": "arXiv (2026-08)",
-  "topic": "fMRI/EEG Dynamics",
+  "topic": "Brain Foundation Models (EEG)",
   "url": "https://arxiv.org/abs/2608.16931v1",
   "summaryPoints": [
     "This paper introduces a novel security risk in EEG foundation models: adversarial transfer attacks from public encoders to private downstream models.",

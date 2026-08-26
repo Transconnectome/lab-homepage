@@ -8,7 +8,7 @@
   ],
   "publishedDate": "2026-07-31",
   "source": "arXiv (2026-07)",
-  "topic": "fMRI/EEG Dynamics",
+  "topic": "Brain Foundation Models (EEG)",
   "url": "https://arxiv.org/abs/2608.00114v1",
   "summaryPoints": [
     "EEG-JEPA introduces a structured latent-prediction framework for EEG foundation modeling, moving beyond simple masked waveform reconstruction to infer latent states.",

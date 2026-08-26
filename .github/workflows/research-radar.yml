@@ -30,6 +30,13 @@ jobs:
         with:
           python-version: '3.11'
 
+      # Guard the generators before they touch content: both suites are offline
+      # and take under a second.
+      - name: Test radar & idea pipeline logic
+        run: |
+          python scripts/test_radar_buckets.py
+          python scripts/test_ideas_pipeline.py
+
       - name: Run Scholar Sync
         run: python scripts/sync_scholar.py
 

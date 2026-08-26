@@ -5,7 +5,8 @@ export interface IdeaItem {
   title: string;
   titleKo?: string | null;
   date: string;
-  category: 'foundation-models' | 'connectomics' | 'genetics' | 'qml' | 'art-science';
+  category: 'foundation-models' | 'connectomics' | 'genetics' | 'qml' | 'art-science'
+    | 'agentic-ai' | 'affective-development';
   hypothesis: string;
   hypothesisKo?: string | null;
   rationale: string;
@@ -27,7 +28,8 @@ interface Props {
 }
 
 const CATEGORY_ORDER: IdeaItem['category'][] = [
-  'foundation-models', 'connectomics', 'genetics', 'qml', 'art-science',
+  'foundation-models', 'connectomics', 'genetics', 'affective-development',
+  'agentic-ai', 'qml', 'art-science',
 ];
 
 const CATEGORY_LABELS: Record<'en' | 'ko', Record<IdeaItem['category'], string>> = {
@@ -37,6 +39,8 @@ const CATEGORY_LABELS: Record<'en' | 'ko', Record<IdeaItem['category'], string>>
     genetics: 'Genetics & Psychiatry',
     qml: 'Quantum ML',
     'art-science': 'Art & Neuroscience',
+    'agentic-ai': 'Agentic AI',
+    'affective-development': 'Affective & Developmental',
   },
   ko: {
     'foundation-models': '파운데이션 모델',
@@ -44,6 +48,8 @@ const CATEGORY_LABELS: Record<'en' | 'ko', Record<IdeaItem['category'], string>>
     genetics: '유전체·정신의학',
     qml: '양자 머신러닝',
     'art-science': '예술과 신경과학',
+    'agentic-ai': '에이전틱 AI',
+    'affective-development': '정서·발달 신경과학',
   },
 };
 

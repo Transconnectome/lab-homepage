@@ -1,9 +1,11 @@
 {
   "title": "NeuroMamba: A State-Space Foundation Model for Functional MRI",
-  "authors": ["Jubin Choi et al. (SNU Connectome Lab)"],
+  "authors": [
+    "Jubin Choi et al. (SNU Connectome Lab)"
+  ],
   "publishedDate": "2025-12-01",
   "source": "NeurIPS 2025 Workshop (Spotlight)",
-  "topic": "Brain Foundation Models",
+  "topic": "Brain Foundation Models (fMRI)",
   "url": "https://jubilant-choi.notion.site/neuromamba-neurips2025",
   "summaryPoints": [
     "Replaces quadratic Transformer self-attention with linear-time selective state-space layers (Mamba) for 4D fMRI.",
@@ -12,6 +14,10 @@
   ],
   "significance": "Pioneers the first scalable State-Space architecture directly tailored to continuous 4D physiological brain dynamics, establishing a new SOTA for fMRI foundation models.",
   "labRelevance": "Led by Connectome Lab PhD student Jubin Choi and Prof. Jiook Cha as part of the core Neuro-X initiative.",
-  "modality": ["fMRI", "4D Spatiotemporal", "Mamba"],
+  "modality": [
+    "fMRI",
+    "4D Spatiotemporal",
+    "Mamba"
+  ],
   "badge": "Lab SOTA"
 }
