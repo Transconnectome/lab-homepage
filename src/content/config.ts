@@ -55,6 +55,19 @@ const newsCollection = defineCollection({
   }),
 });
 
+// Publication filter taxonomy — one shared level of granularity (research domain).
+// Modalities (fMRI, EEG), architectures (Mamba, geometric DL) and sub-fields (MDD,
+// polygenic risk) are folded into the domain they belong to, so no filter chip ends up
+// matching a single paper. Keep in sync with derive_tags() in scripts/sync_scholar.py.
+export const PUBLICATION_TAGS = [
+  'AI & Foundation Models',
+  'Genetics',
+  'Neuroimaging',
+  'Neuroscience',
+  'Psychiatry',
+  'Quantum ML',
+] as const;
+
 const publicationsCollection = defineCollection({
   type: 'data',
   schema: z.object({
@@ -67,7 +80,7 @@ const publicationsCollection = defineCollection({
     url: z.string().nullable().optional(),
     pdfUrl: z.string().nullable().optional(),
     codeUrl: z.string().nullable().optional(),
-    tags: z.array(z.string()).default([]),
+    tags: z.array(z.enum(PUBLICATION_TAGS)).default([]),
     featured: z.boolean().default(false),
     spotlight: z.string().nullable().optional(),
     abstract: z.string().nullable().optional(),

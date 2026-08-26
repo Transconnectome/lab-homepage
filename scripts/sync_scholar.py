@@ -202,13 +202,25 @@ def clean_filename(title):
     return re.sub(r"[\s-]+", "-", cleaned)[:40]
 
 
+# Canonical publication tags — one shared level of granularity (research domain).
+# Modalities (fMRI, EEG), architectures and sub-fields are folded into their domain so
+# the /publications filter never shows a chip matching a single paper.
+# Keep in sync with PUBLICATION_TAGS in src/content/config.ts.
+PUBLICATION_TAGS = [
+    "AI & Foundation Models",
+    "Genetics",
+    "Neuroimaging",
+    "Neuroscience",
+    "Psychiatry",
+    "Quantum ML",
+]
+
+
 def derive_tags(title):
     t = title.lower()
     tags = []
-    if re.search(r"\bfmri\b|\bmri\b|neuroimag", t):
+    if re.search(r"\bfmri\b|\bmri\b|neuroimag|\beeg\b|\becog\b|\bieeg\b", t):
         tags.append("Neuroimaging")
-    if re.search(r"\beeg\b|\becog\b|\bieeg\b", t):
-        tags.append("EEG")
     if re.search(r"polygenic|genetic\b|genome|genomic|\bgene\b|heritab", t):
         tags.append("Genetics")
     if re.search(r"depress|psychiatr|psychopatholog|suicid|adhd|ocd|ptsd|anxiety|mental", t):
@@ -219,7 +231,7 @@ def derive_tags(title):
         tags.append("AI & Foundation Models")
     if not tags:
         tags.append("Neuroscience")
-    return tags
+    return [tag for tag in PUBLICATION_TAGS if tag in tags]
 
 
 def fetch_all_openalex_works():
