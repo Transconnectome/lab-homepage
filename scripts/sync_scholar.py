@@ -211,7 +211,7 @@ PUBLICATION_TAGS = [
     "Genetics",
     "Neuroimaging",
     "Neuroscience",
-    "Psychiatry",
+    "Psychiatry/Clinical Psychology",
     "Quantum ML",
 ]
 
@@ -224,7 +224,7 @@ def derive_tags(title):
     if re.search(r"polygenic|genetic\b|genome|genomic|\bgene\b|heritab", t):
         tags.append("Genetics")
     if re.search(r"depress|psychiatr|psychopatholog|suicid|adhd|ocd|ptsd|anxiety|mental", t):
-        tags.append("Psychiatry")
+        tags.append("Psychiatry/Clinical Psychology")
     if re.search(r"quantum", t):
         tags.append("Quantum ML")
     if re.search(r"foundation model|transformer|deep learning|machine learning|neural network|state.space|diffusion|autoencoder", t):

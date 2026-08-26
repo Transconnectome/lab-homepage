@@ -64,7 +64,7 @@ export const PUBLICATION_TAGS = [
   'Genetics',
   'Neuroimaging',
   'Neuroscience',
-  'Psychiatry',
+  'Psychiatry/Clinical Psychology',
   'Quantum ML',
 ] as const;
 
