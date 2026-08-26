@@ -2,11 +2,11 @@
   "title": "Macro2Micro: A Rapid and Precise Cross-modal Magnetic Resonance Imaging Synthesis using Multi-scale Structural Brain Similarity",
   "authors": [
     "Soo Young Kim",
-    "Kwon, Joonwoo",
+    "Joonwoo Kwon",
     "Junbeom Kwon",
-    "Min, Jungyoun Janice",
-    "Bae, Sangyoon",
-    "Lin, Yuewei",
+    "Jungyoun Janice Min",
+    "Sangyoon Bae",
+    "Yuewei Lin",
     "Shinjae Yoo",
     "Jiook Cha"
   ],
@@ -19,7 +19,11 @@
   ],
   "featured": false,
   "labMembers": [
+    "Soo Young Kim",
+    "Joonwoo Kwon",
     "Junbeom Kwon",
+    "Jungyoun Janice Min",
+    "Sangyoon Bae",
     "Jiook Cha"
   ],
   "kind": "preprint"

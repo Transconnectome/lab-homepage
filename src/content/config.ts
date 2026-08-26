@@ -32,7 +32,7 @@ const researchCollection = defineCollection({
     title: z.string(),
     titleKo: z.string(),
     tagline: z.string(),
-    category: z.enum(['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science']),
+    category: z.enum(['foundation-models', 'connectomics', 'genetics', 'qml', 'affective-neuro']),
     heroImage: z.string().nullable().optional(),
     featured: z.boolean().default(false),
     order: z.number().default(99),
@@ -115,7 +115,7 @@ const ideasCollection = defineCollection({
     date: z.string(),
     // Same taxonomy as the research collection's pillars, so ideas can be
     // browsed by the same categories visitors already see on /research.
-    category: z.enum(['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science']),
+    category: z.enum(['foundation-models', 'connectomics', 'genetics', 'qml', 'affective-neuro']),
     hypothesis: z.string(),
     hypothesisKo: z.string().nullable().optional(),
     rationale: z.string(),

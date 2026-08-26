@@ -5,7 +5,7 @@ export interface IdeaItem {
   title: string;
   titleKo?: string | null;
   date: string;
-  category: 'foundation-models' | 'connectomics' | 'genetics' | 'qml' | 'art-science';
+  category: 'foundation-models' | 'connectomics' | 'genetics' | 'qml' | 'affective-neuro';
   hypothesis: string;
   hypothesisKo?: string | null;
   rationale: string;
@@ -27,7 +27,7 @@ interface Props {
 }
 
 const CATEGORY_ORDER: IdeaItem['category'][] = [
-  'foundation-models', 'connectomics', 'genetics', 'qml', 'art-science',
+  'foundation-models', 'connectomics', 'genetics', 'qml', 'affective-neuro',
 ];
 
 const CATEGORY_LABELS: Record<'en' | 'ko', Record<IdeaItem['category'], string>> = {
@@ -36,14 +36,14 @@ const CATEGORY_LABELS: Record<'en' | 'ko', Record<IdeaItem['category'], string>>
     connectomics: 'Connectomics',
     genetics: 'Genetics & Psychiatry',
     qml: 'Quantum ML',
-    'art-science': 'Art & Neuroscience',
+    'affective-neuro': 'Affective Neuroscience',
   },
   ko: {
     'foundation-models': '파운데이션 모델',
     connectomics: '커넥토믹스',
     genetics: '유전체·정신의학',
     qml: '양자 머신러닝',
-    'art-science': '예술과 신경과학',
+    'affective-neuro': '정서 신경과학',
   },
 };
 
@@ -73,6 +73,12 @@ const LABELS = {
     noMatchDesc: '다른 주제를 선택해 보세요 — 매주 새 아이디어가 추가됩니다.',
   },
 };
+
+// labThreads and externalInspiration are generated free text: on either tree an
+// item may come back in Korean or in English. Tag each one by its own content so
+// the :lang(ko) type rules land on Korean and skip Latin.
+const HANGUL = /[\uac00-\ud7a3]/;
+const itemLang = (s: string) => (HANGUL.test(s) ? 'ko' : 'en');
 
 export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
   const L = LABELS[lang];
@@ -133,16 +139,17 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
           <article key={idea.slug} className="card p-7 sm:p-9 space-y-5">
             <header className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="chip-accent">{idea.date}</span>
+                <span className="chip-accent" lang="en">{idea.date}</span>
                 <span className="chip">{CL[idea.category]}</span>
-                <span className="chip">🤖 {idea.generatedBy.replace('llm:', '')}</span>
+                <span className="chip" lang="en">🤖 {idea.generatedBy.replace('llm:', '')}</span>
               </div>
               <h2 className="font-display text-xl sm:text-2xl font-semibold text-ink leading-snug">
                 {lang === 'ko' && idea.titleKo ? idea.titleKo : idea.title}
               </h2>
+              {/* The counterpart title is the other script and needs its own lang. */}
               {lang === 'ko'
-                ? <p className="text-sm text-ink-faint">{idea.title}</p>
-                : idea.titleKo && <p className="text-sm text-ink-faint">{idea.titleKo}</p>}
+                ? <p className="text-sm text-ink-faint" lang="en">{idea.title}</p>
+                : idea.titleKo && <p className="text-sm text-ink-faint" lang="ko">{idea.titleKo}</p>}
             </header>
 
             {idea.image && (
@@ -178,7 +185,7 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
                   {idea.labThreads.map((th) => (
                     <li key={th} className="text-sm text-ink-soft flex items-start gap-2">
                       <span className="text-lab-700 mt-0.5">·</span>
-                      <span>{th}</span>
+                      <span lang={itemLang(th)}>{th}</span>
                     </li>
                   ))}
                 </ul>
@@ -189,7 +196,7 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
                   {idea.externalInspiration.map((th) => (
                     <li key={th} className="text-sm text-ink-soft flex items-start gap-2">
                       <span className="text-lab-700 mt-0.5">·</span>
-                      <span>{th}</span>
+                      <span lang={itemLang(th)}>{th}</span>
                     </li>
                   ))}
                 </ul>

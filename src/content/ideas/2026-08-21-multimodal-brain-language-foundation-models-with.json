@@ -18,5 +18,9 @@
   ],
   "firstExperiment": "Develop a pilot BLPM-inspired model using existing fMRI and EEG data from cohorts with psychiatric assessments (e.g., from the ABCD dataset used in 'Polygenic architecture...'). Use a pre-trained fMRI/EEG foundation model (like NeuroMamba or a Mamba-based EEG encoder) as the Continuous EEG Latent Predictive (CELP) encoder. Train the Multi-Query Semantic Decomposition (MQSD) module to align these neural latents with embeddings from a clinical language model (e.g., fine-tuned BERT for psychiatric symptom descriptions). Evaluate the model's ability to predict clinical scores (e.g., depression severity) and generate text summaries of associated brain states.",
   "risks": "Aligning complex, noisy neural signals with high-dimensional, abstract language embeddings is inherently challenging. The 'semantic gap' might be larger than anticipated, requiring sophisticated alignment techniques. Data scarcity for rich, multimodal (EEG/fMRI + clinical texts + genetic) datasets is a practical limitation. Ensuring that the linguistic interpretations are genuinely reflective of neural activity and not just superficial correlations will require careful validation.",
-  "generatedBy": "llm:google/gemini-2.5-flash"
+  "generatedBy": "llm:google/gemini-2.5-flash",
+  "hypothesisKo": "연속적인 EEG/fMRI 잠재 표현을 다중 질의 의미 분해로 대규모 언어모델과 정렬하면, 정신건강 궤적을 더 정확히 예측하면서 그 신경 상관을 언어로 해석할 수 있는 뇌-언어 파운데이션 모델을 만들 수 있다.",
+  "rationaleKo": "Neuro-X 프로젝트는 마음의 보편 언어를 해독하려 하고, Mind the Gap은 뇌와 언어모델 정렬에 비선형·멀티모달 접근이 필요하다고 짚는다. 여기에 연구실의 계산정신의학과 멀티모달 유전체 강점을 얹을 수 있다.",
+  "firstExperimentKo": "ABCD처럼 정신과적 평가가 함께 있는 코호트에서 NeuroMamba 등 사전학습 모델을 잠재 인코더로 쓰고, 임상 언어모델 임베딩과 정렬하는 모듈을 학습시킨 뒤 우울 심각도 등 임상 점수 예측과 뇌 상태 텍스트 요약을 평가한다.",
+  "risksKo": "잡음이 많은 신경 신호와 추상적인 언어 임베딩 사이의 의미 간극이 예상보다 클 수 있고, 뇌영상·임상 텍스트·유전체가 함께 있는 데이터 자체가 드물다."
 }

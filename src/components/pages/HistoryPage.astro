@@ -30,8 +30,10 @@ const pageTitle = lang === 'ko' ? '연혁 | 서울대학교 커넥톰 연구실'
             <span class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-4 h-4 rounded-full bg-lab-700 border-4 border-paper" aria-hidden="true" />
             <div class="card p-7 sm:p-8 space-y-4">
               <header class="flex items-center justify-between gap-3 border-b border-line pb-3">
-                <span class="chip-accent">{item.data.period}</span>
-                <span class="font-mono text-xs text-ink-faint">{item.data.year}</span>
+                <span class="chip-accent" lang="en">{item.data.period}</span>
+                {item.data.period !== String(item.data.year) && (
+                  <span class="font-mono text-xs text-ink-faint">{item.data.year}</span>
+                )}
               </header>
               <h2 class="font-display text-xl font-semibold text-ink leading-snug">{item.data.title}</h2>
               <div class="prose prose-stone prose-sm measure prose-headings:font-display prose-a:text-lab-700">

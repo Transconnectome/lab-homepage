@@ -62,6 +62,7 @@ const langHref = altLangPath(pathname, lang);
         href={langHref}
         class="px-3 py-2 rounded-lg border border-line bg-white text-sm text-ink-soft hover:text-lab-800 hover:border-lab-600/40 transition-colors font-medium"
         aria-label={lang === 'ko' ? 'Switch to English' : '한국어로 보기'}
+        lang={lang === 'ko' ? 'en' : 'ko'}
       >
         {t('nav.langToggle')}
       </a>

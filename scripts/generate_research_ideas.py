@@ -45,7 +45,7 @@ OPENROUTER_MODEL = "google/gemini-2.5-flash"
 MAX_NEW_IDEAS = 3
 # Must mirror the `category` enum on ideasCollection in src/content/config.ts
 # (same taxonomy as the research pillars, so ideas are browsable by topic).
-CATEGORIES = ("foundation-models", "connectomics", "genetics", "qml", "art-science")
+CATEGORIES = ("foundation-models", "connectomics", "genetics", "qml", "affective-neuro")
 
 # field -> max length (chars); the brevity guard that motivated v2
 LENGTH_CAPS = {
@@ -53,6 +53,19 @@ LENGTH_CAPS = {
     "hypothesis": 350, "rationale": 350, "firstExperiment": 400, "risks": 250,
 }
 BODY_FIELDS = list(LENGTH_CAPS.keys())
+
+# The prompt asks for Korean first and an English twin second, and the model
+# sometimes answers Korean twice — which published Korean prose on /en/ideas.
+# A field is treated as Korean when Hangul makes up a real share of it, so an
+# English sentence carrying a Korean proper noun still passes.
+HANGUL_RE = re.compile(r"[\uac00-\ud7a3]")
+
+
+def hangul_ratio(text):
+    text = (text or "").strip()
+    if not text:
+        return 0.0
+    return len(HANGUL_RE.findall(text)) / len(text)
 
 
 def norm(s):
@@ -118,13 +131,23 @@ def validate_idea(d):
         if len(d[k]) > cap:
             print(f"[!] over length cap ({k}: {len(d[k])} > {cap}): {d.get('title','')[:50]}")
             return False
+    # English fields must actually be English, and Korean fields Korean.
+    for k in BODY_FIELDS + ["title", "titleKo"]:
+        ko_field = k.endswith("Ko")
+        ratio = hangul_ratio(d[k])
+        if not ko_field and ratio > 0.15:
+            print(f"[!] English field is Korean ({k}): {d.get('title','')[:50]}")
+            return False
+        if ko_field and ratio < 0.05:
+            print(f"[!] Korean field has no Korean ({k}): {d.get('title','')[:50]}")
+            return False
     return True
 
 
 def build_prompt(context):
     return f"""You are a research strategist working with the Seoul National University Connectome Lab
 (PI: Jiook Cha; brain foundation models, connectomics, multimodal genetics & computational
-psychiatry, quantum ML, art-science). Based on the context below, propose exactly {MAX_NEW_IDEAS}
+psychiatry, quantum ML, affective neuroscience). Based on the context below, propose exactly {MAX_NEW_IDEAS}
 NEW research ideas that connect recent external advances to the lab's existing threads.
 
 Rules:
@@ -136,10 +159,11 @@ Rules:
   graduate student or curious visitor can read at a glance, keeping technical terms in English
   as-is (e.g. foundation model, polygenic score, state-space). Then give equally concise
   English twins of each field.
-- Assign exactly one "category" per idea from this fixed list: ['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science']
+- Assign exactly one "category" per idea from this fixed list: ['foundation-models', 'connectomics', 'genetics', 'qml', 'affective-neuro']
   (foundation-models = brain/EEG/fMRI representation learning; connectomics = structural/functional
   connectome analysis; genetics = multi-modal genetics & computational psychiatry; qml = quantum
-  machine learning; art-science = art/music/aesthetic experience). Pick the idea's PRIMARY thread,
+  machine learning; affective-neuro = awe, affect, memory, music/aesthetic experience). Pick the
+  idea's PRIMARY thread,
   not every thread it touches.
 - BE SHORT. Hard limits (ideas exceeding them are dropped):
   hypothesisKo: at most 2 sentences, <= 250 Korean characters (the testable claim).

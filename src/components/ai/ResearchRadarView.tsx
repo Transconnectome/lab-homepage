@@ -55,6 +55,27 @@ const TOPICS = [
   'Brain-LLM Alignment',
 ];
 
+// The topic values are the content-schema enum and stay in English as filter
+// keys; only what the visitor reads is translated.
+const TOPIC_LABELS: Record<'en' | 'ko', Record<string, string>> = {
+  en: {
+    All: 'All',
+    'Brain Foundation Models': 'Brain Foundation Models',
+    'fMRI/EEG Dynamics': 'fMRI/EEG Dynamics',
+    'Genomics & Connectomics': 'Genomics & Connectomics',
+    'Quantum ML': 'Quantum ML',
+    'Brain-LLM Alignment': 'Brain-LLM Alignment',
+  },
+  ko: {
+    All: '전체',
+    'Brain Foundation Models': '뇌 파운데이션 모델',
+    'fMRI/EEG Dynamics': 'fMRI/EEG 역학',
+    'Genomics & Connectomics': '유전체학과 커넥토믹스',
+    'Quantum ML': '양자 머신러닝',
+    'Brain-LLM Alignment': '뇌-LLM 정렬',
+  },
+};
+
 export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
   const L = LABELS[lang];
   const [selectedTopic, setSelectedTopic] = useState<string>('All');
@@ -116,7 +137,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
                   : 'bg-paper text-ink-soft hover:text-ink border border-line'
               }`}
             >
-              {topic}
+              {TOPIC_LABELS[lang][topic] ?? topic}
             </button>
           ))}
         </div>
@@ -129,9 +150,9 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
             <div>
               <div className="flex items-center justify-between gap-2 mb-3">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip-accent">{trend.topic}</span>
+                  <span className="chip-accent">{TOPIC_LABELS[lang][trend.topic] ?? trend.topic}</span>
                   {trend.badge && (
-                    <span className="chip">
+                    <span className="chip" lang="en">
                       <Sparkles className="w-3 h-3 mr-1 text-lab-700" aria-hidden="true" />
                       {trend.badge}
                     </span>
@@ -147,7 +168,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
                   rel="noreferrer"
                   className="hover:text-lab-700 transition-colors inline-flex items-start gap-1.5"
                 >
-                  <span>{trend.title}</span>
+                  <span lang={lang === 'ko' ? 'en' : undefined}>{trend.title}</span>
                   <ExternalLink className="w-4 h-4 text-ink-faint shrink-0 mt-1" aria-hidden="true" />
                 </a>
               </h3>
@@ -168,7 +189,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
                         : L.summary}
                   </span>
                 </div>
-                <ul className="space-y-1.5">
+                <ul className="space-y-1.5" lang={lang === 'ko' ? 'en' : undefined}>
                   {trend.summaryPoints.map((point, pIdx) => (
                     <li key={pIdx} className="text-sm text-ink-soft flex items-start gap-2 leading-relaxed">
                       <span className="text-lab-700 font-bold mt-0.5">•</span>
@@ -180,18 +201,18 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
 
               <p className="text-sm text-ink-soft mb-3 leading-relaxed">
                 <strong className="text-ink">{L.significance}</strong>
-                {trend.significance}
+                <span lang={lang === 'ko' ? 'en' : undefined}>{trend.significance}</span>
               </p>
 
               <div className="p-3 rounded-xl bg-lab-50 border border-lab-600/20 text-sm text-lab-900 leading-relaxed mb-4">
                 <strong>{L.whyUs}</strong>
-                {trend.labRelevance}
+                <span lang={lang === 'ko' ? 'en' : undefined}>{trend.labRelevance}</span>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-line">
               {trend.modality.map((m, mIdx) => (
-                <span key={mIdx} className="chip">#{m}</span>
+                <span key={mIdx} className="chip" lang="en">#{m}</span>
               ))}
             </div>
           </article>

@@ -2,12 +2,12 @@
   "title": "Continuous Semantic Alignment of Brain Dynamics to Art and Music via Quantum Reservoir Computing",
   "titleKo": "양자 리저버 컴퓨팅을 통한 뇌 역학의 예술 및 음악과의 연속적 의미 정렬",
   "date": "2026-08-21",
-  "category": "art-science",
+  "category": "affective-neuro",
   "hypothesis": "Quantum reservoir computing can model the nonlinear brain dynamics evoked by art and music better than classical approaches, enabling continuous semantic alignment between neural signals and artistic features.",
   "rationale": "The lab's art-science and EEG-reconstruction threads already link brain activity to aesthetic experience; QRC's strength on complex time series makes a continuous, art-specific semantic alignment feasible now.",
   "labThreads": [
-    "Art & Neuroscience: EEG Reconstruction & Interactive Media",
-    "Quantum Machine Learning (QML) for High-Dimensional Brain Data",
+    "Affective Neuroscience: Awe, Memory, and Aesthetic Experience",
+    "Quantum Machine Learning for Neuroimaging and Time-Series",
     "fMRI & EEG Foundation Models"
   ],
   "externalInspiration": [

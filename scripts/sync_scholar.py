@@ -87,9 +87,21 @@ NAME_ALIASES = {
     "yoonjung y. joo": "Yoonjung Yoonie Joo",
     "eun se you": "Allison Eun Se You",
     "allison eun se you": "Allison Eun Se You",
-    "jungyoung janice min": "Jungyoung Janice Min",
-    "jungyoun janice min": "Jungyoung Janice Min",
-    "jungyoon min": "Jungyoung Janice Min",
+    "jungyoun janice min": "Jungyoon Min",
+    "jungyoung janice min": "Jungyoon Min",
+    "min jungyoun janice": "Jungyoon Min",
+    "danny dongyeop han": "Dong Yeop Han",
+}
+
+# Collaborators whose indexed metadata carries the wrong person's name.
+# OpenAlex resolves the "Tseng" on the lab's quantum papers to two different
+# people (a Ford control-systems researcher and a BU neuroscientist); the actual
+# co-author on all of them is Huan-Hsin Tseng at Brookhaven National Laboratory,
+# as printed on arXiv:2505.08782, arXiv:2509.00711 and the QCNC/QCE proceedings.
+# Keyed by normalised name so hyphen/spacing variants collapse too.
+COAUTHOR_CANONICAL = {
+    "herictseng": "Huan-Hsin Tseng",
+    "huaantseng": "Huan-Hsin Tseng",
 }
 
 # OpenAlex work types that are never archive publications.
@@ -164,6 +176,19 @@ def norm(s):
     return re.sub(r"[^a-z0-9]+", "", (s or "").lower())
 
 
+def name_key(name):
+    """Fold a person name to a comparison key.
+
+    Indexed metadata spells the same person several ways: "Hee‐Hwan Wang"
+    (non-breaking hyphen) vs "Heehwan Wang", "Eun-Ji Lee" vs "Eunji Lee",
+    "Soo Young Kim" vs "Sooyoung Kim". Those differ only in separators, so the
+    key drops every separator rather than enumerating each spelling. Anything
+    that adds or removes a *name* (e.g. "Danny Dongyeop Han") is a judgement
+    call and stays in NAME_ALIASES.
+    """
+    return re.sub(r"[^a-z]", "", name.lower())
+
+
 def load_member_allowlist():
     """Names of current + former lab members, from the members collection."""
     allow = {}
@@ -174,17 +199,30 @@ def load_member_allowlist():
             continue
         name = d.get("name")
         if name:
-            allow[name.lower()] = name
+            allow[name_key(name)] = name
     for alias, canonical in NAME_ALIASES.items():
-        allow[alias] = canonical
+        allow[name_key(alias)] = canonical
     return allow
+
+
+def canonical_author(name):
+    """Normalise one author string as it will be displayed.
+
+    Some deposits carry "Surname, Given Names" while the rest of the same
+    author list is "Given Names Surname"; rendered together they read as a
+    typo. Then fix collaborators the index resolves to the wrong person.
+    """
+    if name.count(",") == 1:
+        last, first = (x.strip() for x in name.split(","))
+        if last and first:
+            name = f"{first} {last}"
+    return COAUTHOR_CANONICAL.get(name_key(name), name)
 
 
 def match_lab_members(authors, allowlist):
     out = []
     for a in authors:
-        key = a.lower().replace("‐", "-").replace("‑", "-")
-        if key in allowlist and a not in out:
+        if name_key(a) in allowlist and a not in out:
             out.append(a)
     return out
 
@@ -501,7 +539,7 @@ def main():
         venue = resolve_venue(w, kind, doi)
         if "workshop" in (venue or "").lower():
             kind = "workshop"
-        authors = [a.get("author", {}).get("display_name", "")
+        authors = [canonical_author(a.get("author", {}).get("display_name", ""))
                    for a in w.get("authorships", [])]
         authors = list(dict.fromkeys(a for a in authors if a))
         entries.append({

@@ -6,8 +6,8 @@ category: "foundation-models"
 featured: true
 order: 2
 keyHighlights:
-  - "NeuroMamba: 4D 기능적 MRI를 위한 최초의 상태공간 파운데이션 모델 (NeurIPS 2025 Spotlight)"
-  - "DIVER-0: 완전 채널 등변 EEG 파운데이션 모델 (ICML 2025 GenBio Spotlight)"
+  - "NeuroMamba: 4D 기능적 MRI를 위한 최초의 상태공간 파운데이션 모델 (NeurIPS 2025 Brain & Body 워크숍 Spotlight)"
+  - "DIVER-0: 완전 채널 등변 EEG 파운데이션 모델 (ICML 2025 GenBio 워크숍 Spotlight)"
   - "SwiFT & SwiFT IO: 휴지기 및 과제 fMRI를 위한 확장 가능한 4D Swin Transformer 아키텍처"
   - "장거리 공간 뇌 동역학을 위한 주파수 특이적 다중 대역 어텐션"
 lang: "ko"

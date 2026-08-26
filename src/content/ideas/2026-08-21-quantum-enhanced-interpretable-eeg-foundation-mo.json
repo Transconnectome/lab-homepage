@@ -6,9 +6,9 @@
   "hypothesis": "Integrating parameterized quantum circuits with state-of-the-art EEG foundation models (like those leveraging structured latent prediction or prototype-aligned learning) can enhance their interpretability and generalizability across diverse clinical populations, particularly by improving the physiological relevance of attribution scores or prototype representations.",
   "rationale": "The lab has strong expertise in both QML for high-dimensional brain data (e.g., Q-DIVER, Hybrid Quantum Temporal Convolutional Networks) and developing EEG foundation models (e.g., NeuroMamba, EEG Reconstruction & Interactive Media). Recent external advances in EEG-PRISM and EEG-JEPA offer new avenues for interpretability and structured learning. Combining quantum advantages in high-dimensional pattern recognition with physiologically-grounded interpretability could lead to truly trustworthy clinical AI for complex neurological and psychiatric disorders, building on the lab's work on trustworthy clinical AI for OCD.",
   "labThreads": [
-    "양자 머신러닝(QML) 기반 초고차원 뇌데이터 연산 프레임워크",
+    "뉴로이미징과 시계열을 위한 양자 머신러닝(QML)",
     "fMRI·EEG 파운데이션 모델 (NeuroMamba, SwiFT, DIVER-0)",
-    "Art & Neuroscience: EEG Reconstruction & Interactive Media",
+    "Affective Neuroscience: Awe, Memory, and Aesthetic Experience",
     "Toward trustworthy clinical AI for obsessive-compulsive disorder: reliability, generalizability, and interpretability of a transformer model across the ENIGMA-OCD consortium"
   ],
   "externalInspiration": [
@@ -18,5 +18,9 @@
   ],
   "firstExperiment": "Implement a quantum-enhanced interpretability module by replacing a classical attention or latent space component within an existing EEG-JEPA or EEG-PRIME architecture with a parameterized quantum circuit (PQC). Evaluate the physiological plausibility of the resulting attribution maps (using EEG-PRISM's frequency/source domain mapping) and compare generalizability metrics (e.g., cross-subject accuracy) on a publicly available EEG dataset for a cognitive task (e.g., P300) against the classical baseline.",
   "risks": "Quantum hardware limitations and noise remain a significant challenge, potentially limiting the complexity of PQCs that can be effectively integrated. Demonstrating a clear and tangible 'quantum advantage' for interpretability or generalizability over sophisticated classical methods might be difficult in the near term. The computational overhead of QML could also hinder speed and deployability.",
-  "generatedBy": "llm:google/gemini-2.5-flash"
+  "generatedBy": "llm:google/gemini-2.5-flash",
+  "hypothesisKo": "매개변수화 양자 회로를 최신 EEG 파운데이션 모델에 결합하면, 귀인 점수나 프로토타입 표현의 생리학적 타당성을 높여 다양한 임상 집단에서 해석 가능성과 일반화 성능을 함께 끌어올릴 수 있다.",
+  "rationaleKo": "연구실은 고차원 뇌 데이터를 위한 QML(Q-DIVER, HQTCN)과 EEG 파운데이션 모델 양쪽에 강점이 있다. EEG-PRISM과 EEG-JEPA가 연 해석 가능성의 길을 여기에 붙이면 신뢰할 만한 임상 AI로 이어질 수 있다.",
+  "firstExperimentKo": "EEG-JEPA 또는 EEG-PRIME 구조에서 고전적 어텐션이나 잠재 공간 요소 하나를 매개변수화 양자 회로로 바꾸고, EEG-PRISM의 주파수/소스 매핑으로 귀인 맵의 생리학적 타당성과 피험자 간 정확도를 고전 기준선과 비교한다.",
+  "risksKo": "양자 하드웨어의 잡음과 규모 제약이 여전하고, 정교한 고전 기법 대비 해석 가능성이나 일반화에서 분명한 양자 우위를 보이기는 당분간 어려울 수 있다."
 }

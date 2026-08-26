@@ -1,6 +1,6 @@
 # Handoff — SNU Connectome Lab homepage
 
-Last updated 2026-08-22. Repo: `Transconnectome/lab-homepage`. Live at
+Last updated 2026-08-26. Repo: `Transconnectome/lab-homepage`. Live at
 <https://www.connectomelab.com>.
 
 This is the operating manual for whoever picks the site up next. It covers what
@@ -161,6 +161,34 @@ invalid for a reason that wasn't visible in the diff.
 
 ---
 
+## 4b. Content invariants worth keeping green
+
+Three checks caught real defects on 2026-08-26 and are cheap to repeat.
+
+**Every English field must be English, every Korean field Korean.** Three ideas
+had Korean in both halves (so `/en/ideas` showed Korean prose) and three older
+ones had no Korean at all (so the Korean-default page showed long English
+paragraphs). `validate_idea()` in `generate_research_ideas.py` now rejects a
+record whose language does not match the field, using a Hangul *ratio* rather
+than a boolean so an English sentence carrying a Korean proper noun still passes.
+
+**No Hangul inside a `lang="en"` scope, and no Latin prose inside `lang="ko"`.**
+A sweep found 46 violations, mostly the Lab guide (Korean-only on the whole
+English tree) and radar cards (English bodies inheriting the Korean type rules).
+Walk every text node and compare its Hangul content against
+`el.closest('[lang]')`; the target is zero. Chips are the subtle case: `.chip` is
+`font-mono`, so any chip holding Korean needed the `:lang(ko)` sans override now
+in `global.css`, and chips that really do hold Latin data carry `lang="en"`.
+
+**Author names come from OpenAlex and are sometimes the wrong person.** All six
+quantum papers listed "H. Eric Tseng" or "Hua-an Tseng" where the co-author is
+**Huan-Hsin Tseng** (BNL). `COAUTHOR_CANONICAL` in `sync_scholar.py` fixes that
+at sync time. Separately, `name_key()` now folds hyphens and spaces, because
+`Hee‐Hwan Wang` (non-breaking hyphen) failed to match member `Heehwan Wang` and
+left him unhighlighted on eight of his own papers. Fixes to the matcher only
+reach *new* works — existing records are kept as-is — so a matcher change needs
+a one-off replay over `src/content/publications/`.
+
 ## 5. Open items
 
 **1. HTTPS certificate — the only thing blocking a clean launch.**
@@ -177,6 +205,15 @@ re-triggering it** — that extends the backoff. Check with:
 
 If it has not resolved by itself, open a GitHub Support ticket; the domain
 configuration is already correct and you can say so with evidence.
+
+**1b. Korean is still missing for member education, interests and passions.**
+Affiliations and alumni positions now render in Korean through
+`affiliationLabel()` in `src/i18n/ui.ts`, but `education`, `researchInterests`
+and `passions` are English-only in the members collection, so the Korean team
+page still shows English there. They are tagged `lang="en"` so the type rules are
+at least correct. Fixing it properly means Korean fields on the schema for 33
+members. The radar has the same shape of gap: `scripts/update_research_radar.py`
+writes English summaries only, so Korean visitors read English card bodies.
 
 **2. Two news items were never verified.**
 `2025-12-bk-silver-award` and `2025-12-neurips-neuromamba` do not appear on the

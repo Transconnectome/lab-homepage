@@ -1,6 +1,6 @@
 ---
 title: "최주빈 학생, 2025 NeurIPS Foundation Models for Brain & Body 워크숍 Spotlight 발표 선정"
-titleKo: "Jubin Choi selected for Spotlight Presentation at NeurIPS 2025"
+titleKo: "Jubin Choi selected for a Spotlight at the NeurIPS 2025 Brain & Body Workshop"
 date: "2025-12-15"
 category: "conference"
 featured: true

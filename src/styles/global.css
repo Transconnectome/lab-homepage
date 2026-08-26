@@ -170,6 +170,18 @@
     @apply inline-flex items-center rounded-full border border-lab-600/30 bg-lab-50 px-2.5 py-0.5 font-mono text-xs text-lab-800;
   }
 
+  /* Chips are not always Latin data: they also carry news categories, radar
+     topics, research-map network names and alumni destinations, all of which
+     are Korean prose on the Korean tree. Hangul in Plex Mono inherits its wide
+     monospace word advance and reads as broken spacing — the same finding that
+     produced .mono-meta. Chips that really do hold Latin data (a language name,
+     a star count, a year, a venue) declare lang="en" and keep the mono face. */
+  .chip:lang(ko),
+  .chip-accent:lang(ko) {
+    @apply font-sans;
+    letter-spacing: 0;
+  }
+
   /* Meta lines that hold Latin data (ids, venues, counts) in English but turn
      into Korean sentences on /ko/. Even after the mono stack routes Hangul to
      Pretendard, the interword spaces keep Plex Mono's wide monospace advance,

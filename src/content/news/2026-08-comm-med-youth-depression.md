@@ -7,4 +7,4 @@ link: "https://doi.org/10.1038/s43856-026-01828-8"
 image: "/assets/news/2026-08-comm-med-youth-depression.png"
 ---
 
-*Polygenic risk-informed white matter integrity improves deep learning-based prediction of youth depression*, led by first author Jungyoun Janice Min with lab members and collaborators, was published in **Communications Medicine**. The study shows that polygenic risk-informed white matter integrity improves deep learning-based prediction of depression in youth.
+*Polygenic risk-informed white matter integrity improves deep learning-based prediction of youth depression*, led by first author Jungyoun Janice Min (MS, Brain & Cognitive Sciences) with lab members and collaborators, was published in **Communications Medicine**. Adding polygenic risk information to diffusion-MRI measures of white matter integrity improved deep-learning prediction of depression in adolescents.

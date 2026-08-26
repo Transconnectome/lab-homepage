@@ -3,9 +3,9 @@
   "titleKo": "뇌 위상 구조 인지 기반 커넥토믹스 잠재 예측 모델",
   "date": "2026-08-24",
   "category": "connectomics",
-  "hypothesis": "EEG-JEPA의 Neurotopology-Aware Multi-scale Electrode-Temporal Masking(N-MET) 전략을 동적 fMRI 커넥톰 데이터에 적용하면, 뇌의 구조적, 기능적 연결성을 반영하는 보다 의미 있는 잠재 공간 표현을 학습할 수 있을 것이다.",
+  "hypothesis": "Applying EEG-JEPA's Neurotopology-Aware Multi-scale Electrode-Temporal Masking (N-MET) to dynamic fMRI connectome data should yield latent representations that better reflect the brain's structural and functional connectivity.",
   "hypothesisKo": "EEG-JEPA의 N-MET 마스킹 전략을 fMRI 커넥톰에 적용하면 뇌 연결성을 반영하는 의미 있는 잠재 공간 표현 학습이 가능하다.",
-  "rationale": "EEG-JEPA는 단순 마스킹을 넘어선 구조화된 잠재 예측을 제시한다. 이를 동적 커넥토믹스에 적용하면 우리 연구실의 fMRI 파운데이션 모델 및 다유전자 위험 점수(PRS) 연관 연구에 새로운 통찰을 제공할 수 있다.",
+  "rationale": "EEG-JEPA offers structured latent prediction rather than plain masking. Carrying it over to dynamic connectomics could give the lab's fMRI foundation models and polygenic risk score (PRS) association work a new source of insight.",
   "rationaleKo": "EEG-JEPA의 구조화된 예측을 동적 커넥토믹스에 적용하면, fMRI 파운데이션 모델 및 PRS 연관 연구에 새 통찰을 제공할 것이다.",
   "labThreads": [
     "Neuro-X 프로젝트: 대규모 뇌 파운데이션 모델 (LBM) 구축",
@@ -17,9 +17,9 @@
     "Polygenic architecture of brain structure and function, behaviors, and psychopathologies in children",
     "NeuroMamba: A State-Space Foundation Model for Functional MRI"
   ],
-  "firstExperiment": "ABCD 코호트의 fMRI 데이터에서 동적 기능적 커넥톰 시계열을 추출하고, 뇌 영역 간의 해부학적 연결성(tractography)을 반영하는 N-MET 유사 마스킹 전략을 적용하여 JEPA 기반 모델을 훈련시킨다. 학습된 잠재 공간이 PRS와 정신 병리 예측에 얼마나 유용한지 평가한다.",
+  "firstExperiment": "Extract dynamic functional connectome time series from ABCD fMRI, train a JEPA-style model with an N-MET-like masking strategy informed by inter-regional anatomical connectivity (tractography), and test how useful the learned latent space is for PRS and psychopathology prediction.",
   "firstExperimentKo": "ABCD fMRI 동적 커넥톰에 N-MET 유사 마스킹을 적용한 JEPA 모델을 훈련하고, 학습된 잠재 공간이 PRS 및 정신 병리 예측에 얼마나 유용한지 평가한다.",
-  "risks": "정적 뇌 구조 정보와 동적 기능적 연결성의 효과적인 통합이 어렵거나, 마스킹 전략이 fMRI 커넥톰의 복잡한 시공간 패턴을 제대로 포착하지 못할 수 있다.",
+  "risks": "Integrating static structural information with dynamic functional connectivity may not work cleanly, and the masking strategy may fail to capture the spatiotemporal patterns specific to fMRI connectomes.",
   "risksKo": "정적/동적 정보 통합이 어렵거나, 마스킹 전략이 커넥톰 시공간 패턴을 놓칠 수 있다.",
   "generatedBy": "llm:google/gemini-2.5-flash"
 }
