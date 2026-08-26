@@ -32,16 +32,29 @@ the warmth; the cyan accent carries the lab's technical identity.
      from a member allowlist rather than by surname.
 
 3. **⚡ Research Radar (weekly arXiv scan)**
-   - `scripts/update_research_radar.py` scans arXiv weekly for new papers in brain
-     foundation models, fMRI/EEG dynamics, genomics & connectomics, and quantum ML.
+   - `scripts/update_research_radar.py` sweeps arXiv weekly across seven topic
+     buckets, each with its own query and quota: brain foundation models for fMRI
+     and for EEG (kept apart so neither starves the other), gene & brain, affective
+     & developmental, agentic AI applied to brain research, quantum ML, and
+     brain-LLM alignment. A paper's topic is the bucket that surfaced it.
+   - Broad buckets over-fetch and narrow through two gates: a neuro-term match on
+     title+abstract, then the summarizer's own 0-1 `labRelevanceScore` (entries
+     below 0.4 are never written).
    - Summaries are generated with Gemini via OpenRouter when `OPENROUTER_API_KEY`
      is set; otherwise an honestly-labeled abstract excerpt is used. Every record
      carries a `generatedBy` field surfaced in the UI.
+   - `RADAR_DRY_RUN=1` prints each bucket's query URL and candidate counts without
+     writing; `ARXIV_CACHE=<file>` replays a saved feed offline.
 
 4. **💡 AI Idea Lab (`/ideas`)**
    - `scripts/generate_research_ideas.py` feeds the lab's research areas, recent
-     publications, and the newest radar trends to Gemini, which proposes weekly
-     research hypotheses (hypothesis / rationale / first experiment / risks).
+     publications, and radar trends to Gemini, which proposes weekly research
+     hypotheses (hypothesis / rationale / first experiment / risks).
+   - Trends reach the prompt round-robin across topics, so one prolific bucket
+     cannot decide what the whole page is about. Each run publishes at most one
+     idea per category, and an idea is rejected when the same radar paper has
+     already been mined for that category — the failure mode that once produced
+     three foundation-models ideas from a single paper.
    - Published unedited with a fixed "AI-generated, not lab-endorsed" disclaimer
      and the exact model id on every card. No LLM key → nothing is generated
      (no fake fallback, by design).
