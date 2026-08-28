@@ -1,16 +1,21 @@
-# Diagnoses and repairs the GitHub Pages custom-domain HTTPS certificate.
+# Diagnoses and repairs the GitHub Pages custom-domain HTTPS certificate,
+# and verifies live font rendering.
 #
 # Context: the certificate request for www.connectomelab.com has been stuck in
 # `authorization_created` since the DNS cutover (claudedocs/HANDOFF.md §5.1) —
 # most likely a Let's Encrypt failed-validation backoff accumulated while DNS
 # still pointed at the previous owner's Pages host. DNS now resolves correctly
-# (CNAME -> transconnectome.github.io), so a single deliberate remove/re-add of
-# the custom domain resets provisioning. That is what mode `fix` does — once.
+# (CNAME -> transconnectome.github.io). The custom-domain remove/re-add (mode
+# `fix`) turned out to need repo-admin rights — the Actions GITHUB_TOKEN gets
+# 403 on PUT /pages even with pages:write — so fix/enforce are kept for a
+# human running the workflow with suitable credentials, not for CI.
 #
 # Modes (from workflow_dispatch input, or .github/pages-doctor-mode on push —
 # the push path exists because a session token without actions:write cannot
 # POST /dispatches):
 #   diagnose  read-only: DNS, served content, presented certificate, Pages API
+#   render    diagnose + headless-Chromium check of which platform fonts
+#             actually draw the Hangul on the live pages (HANDOFF §6)
 #   fix       remove + re-add the custom domain, then poll the cert state
 #   enforce   turn on "Enforce HTTPS" (only succeeds once the cert is active)
 name: Pages Doctor
@@ -22,11 +27,11 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'diagnose | fix | enforce'
+        description: 'diagnose | render | fix | enforce'
         required: true
         default: 'diagnose'
         type: choice
-        options: [diagnose, fix, enforce]
+        options: [diagnose, render, fix, enforce]
 
 permissions:
   contents: read
@@ -53,7 +58,7 @@ jobs:
           if [ -z "$MODE" ] && [ -f .github/pages-doctor-mode ]; then
             MODE=$(tr -cd 'a-z' < .github/pages-doctor-mode)
           fi
-          case "$MODE" in diagnose|fix|enforce) ;; *) MODE=diagnose ;; esac
+          case "$MODE" in diagnose|render|fix|enforce) ;; *) MODE=diagnose ;; esac
           echo "MODE=$MODE" >> "$GITHUB_ENV"
           echo "mode: $MODE"
 
@@ -90,10 +95,15 @@ jobs:
         run: |
           echo "== GET /pages =="
           gh api "repos/$REPO/pages" || echo "(pages GET failed)"
-          echo "== GET /pages/health-check =="
-          gh api "repos/$REPO/pages/health-check" || echo "(health check unavailable)"
 
-      - name: Fix — remove and re-add the custom domain
+      - name: Render check — which fonts actually draw the Korean text
+        if: ${{ env.MODE == 'render' }}
+        run: |
+          npm i --no-save playwright
+          npx playwright install --with-deps chromium
+          node scripts/verify-live-fonts.mjs
+
+      - name: Fix — remove and re-add the custom domain (needs admin creds)
         if: ${{ env.MODE == 'fix' }}
         run: |
           set -e
@@ -114,7 +124,7 @@ jobs:
           done
           echo "Still pending after 10 min — normal for Let's Encrypt; re-run diagnose later."
 
-      - name: Enforce HTTPS
+      - name: Enforce HTTPS (needs admin creds)
         if: ${{ env.MODE == 'enforce' }}
         run: |
           set -e
