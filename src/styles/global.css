@@ -17,6 +17,25 @@
                             to Pretendard for Hangul).
    ========================================================================== */
 
+/* MaruBuri (마루 부리) SemiBold — the Korean display face (HANDOFF §5.3).
+   Hahmlet's Hangul is a gothic wearing a serif's name (its 부리 are blunt
+   cuts), so display-size Hangul uses Naver MaruBuri instead, self-hosted as a
+   Hangul-only woff2 subset (KS X 1001 syllables + Jamo). The unicode-range
+   does two jobs: Latin text never downloads or uses this file (display Latin
+   stays Hahmlet), and a rare out-of-subset syllable falls through to
+   Hahmlet's Hangul rather than a system face.
+   Licence: MaruBuri is under Naver's font licence, not OFL — self-hosting and
+   subsetting are permitted provided the copyright notice and full licence
+   text ship alongside; both are in /fonts/maruburi/LICENSE.txt. */
+@font-face {
+  font-family: 'MaruBuri';
+  src: url('/fonts/maruburi/MaruBuri-SemiBold.hangul.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+AC00-D7A3, U+1100-11FF, U+3130-318F;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

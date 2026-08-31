@@ -32,7 +32,13 @@ module.exports = {
         line: '#E7E5E4',
       },
       fontFamily: {
-        display: ['Hahmlet', 'Noto Serif KR', 'Georgia', 'serif'],
+        // Display resolves per glyph: MaruBuri's @font-face (global.css) is
+        // limited to Hangul unicode-ranges, so Hangul lands on MaruBuri while
+        // Latin skips straight to Hahmlet. Hahmlet's own Hangul remains the
+        // fallback for the rare syllable outside the self-hosted subset —
+        // its Hangul is a gothic wearing a serif's name (HANDOFF §5.3), which
+        // is why it no longer leads for Korean display text.
+        display: ['MaruBuri', 'Hahmlet', 'Noto Serif KR', 'Georgia', 'serif'],
         sans: ['Pretendard Variable', 'Pretendard', 'Noto Sans KR', 'system-ui', '-apple-system', 'sans-serif'],
         // IBM Plex Mono carries no Hangul, so any Korean inside a mono context
         // used to fall through to whatever the OS offered — on Linux that was
