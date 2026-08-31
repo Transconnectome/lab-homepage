@@ -18,9 +18,7 @@ const minYear = years.length ? Math.min(...years) : 0;
 const maxYear = years.length ? Math.max(...years) : 0;
 
 const heading =
-  lang === 'ko'
-    ? `피어리뷰 논문 ${peerReviewed.length}편, ${minYear}–${maxYear}`
-    : `${peerReviewed.length} peer-reviewed papers, ${minYear}–${maxYear}`;
+  lang === 'ko' ? `연구 논문, ${minYear}–${maxYear}` : `Published research, ${minYear}–${maxYear}`;
 const pageTitle = lang === 'ko' ? '논문 | 서울대학교 커넥톰 연구실' : 'Publications | SNU Connectome Laboratory';
 ---
 

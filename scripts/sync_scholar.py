@@ -261,7 +261,6 @@ def clean_filename(title):
 PUBLICATION_TAGS = [
     "AI & Foundation Models",
     "Genetics",
-    "Neuroimaging",
     "Neuroscience",
     "Psychiatry/Clinical Psychology",
     "Quantum ML",
@@ -271,8 +270,10 @@ PUBLICATION_TAGS = [
 def derive_tags(title):
     t = title.lower()
     tags = []
+    # Imaging modalities fold into Neuroscience — the filter kept splitting the
+    # same community of papers across "Neuroimaging" and "Neuroscience" chips.
     if re.search(r"\bfmri\b|\bmri\b|neuroimag|\beeg\b|\becog\b|\bieeg\b", t):
-        tags.append("Neuroimaging")
+        tags.append("Neuroscience")
     if re.search(r"polygenic|genetic\b|genome|genomic|\bgene\b|heritab", t):
         tags.append("Genetics")
     if re.search(r"depress|psychiatr|psychopatholog|suicid|adhd|ocd|ptsd|anxiety|mental", t):

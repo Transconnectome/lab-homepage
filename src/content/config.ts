@@ -62,7 +62,6 @@ const newsCollection = defineCollection({
 export const PUBLICATION_TAGS = [
   'AI & Foundation Models',
   'Genetics',
-  'Neuroimaging',
   'Neuroscience',
   'Psychiatry/Clinical Psychology',
   'Quantum ML',
