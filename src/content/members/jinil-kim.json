@@ -1,0 +1,31 @@
+{
+  "name": "Jinil Kim",
+  "nameKo": "김진일",
+  "role": "Undergraduate Research Intern",
+  "roleKo": "학부 인턴",
+  "category": "undergrad",
+  "email": "haba6030@gmail.com",
+  "affiliations": [
+    "Seoul National University"
+  ],
+  "education": [
+    "BA in Linguistics & Psychology (senior), SNU",
+    "BS in Computer Science & Engineering (senior), SNU"
+  ],
+  "researchInterests": [
+    "Interpreting latent structure in neural representations",
+    "Implicit Neural Representations (INR)",
+    "Neuroscience priors for brain foundation models"
+  ],
+  "passions": [
+    "Drums",
+    "Workouts",
+    "Musicals"
+  ],
+  "links": {
+    "github": "https://github.com/haba6030",
+    "website": "https://haba6030.github.io"
+  },
+  "order": 20,
+  "avatar": "/assets/members/jinil-kim.jpg"
+}
