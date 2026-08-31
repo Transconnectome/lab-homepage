@@ -20,12 +20,12 @@ baseSlug: "fmri-eeg-foundation-models"
 
 ### 1. [NeuroMamba](https://jubilant-choi.notion.site/neuromamba-neurips2025): fMRI를 위한 상태공간 파운데이션 모델
 - **저자**: 최주빈 외 (NeurIPS 2025 Foundation Models for Brain and Body - **Spotlight**)
-- **핵심 혁신**: 선택적 상태공간 모델(Mamba)을 도입해, 길고 연속적인 4D fMRI 스캔을 처리할 때 트랜스포머가 부딪히는 이차(quadratic) 계산 복잡도의 한계를 넘어섰다. 수만 개의 뇌 복셀과 수천 개의 시간 프레임에 걸친 문맥을 선형 시간으로 모델링한다.
+- **핵심 기여**: 선택적 상태공간 모델(Mamba)을 도입해, 길고 연속적인 4D fMRI 스캔에서 트랜스포머가 부딪히는 이차(quadratic) 계산 복잡도 병목을 피해 간다. 수만 개의 뇌 복셀과 수천 개의 시간 프레임에 걸친 문맥을 선형 시간으로 모델링한다.
 
 ### 2. [DIVER-0](https://arxiv.org/abs/2507.14141): 완전 채널 등변 EEG 파운데이션 모델
 - **저자**: 한동엽, 이아현, 이태양, 이세빈 외 (ICML 2025 GenBio - **Spotlight**)
-- **핵심 혁신**: 어떤 채널 배치에서도 공간 등변성(spatial equivariance)이 엄밀하게 성립하도록 설계해, 임상용과 연구용 EEG 데이터셋 사이의 고질적인 전극 몽타주 불일치를 해소했다.
+- **핵심 기여**: 어떤 채널 배치에서도 공간 등변성(spatial equivariance)이 엄밀하게 성립하도록 설계해, 임상용과 연구용 EEG 데이터셋 사이의 고질적인 전극 몽타주 불일치를 다뤘다.
 
 ### 3. 시공간 다중 대역 동역학
 - **저자**: 배상윤 외 ([arXiv:2503.23394](https://doi.org/10.48550/arXiv.2503.23394))
-- **핵심 혁신**: fMRI의 저주파 혈류역학적 변동 속에 얽혀 있는 정준(canonical) 신경 진동 대역들을 분리해 내는 주파수 특이적 다중 대역 어텐션 메커니즘을 제안했다.
+- **핵심 기여**: fMRI의 저주파 혈류역학적 변동 속에 얽혀 있는 정준(canonical) 신경 진동 대역들을 분리해 내는 주파수 특이적 다중 대역 어텐션 메커니즘을 제안했다.

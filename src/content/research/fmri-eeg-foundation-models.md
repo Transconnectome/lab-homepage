@@ -12,18 +12,18 @@ keyHighlights:
   - "[Frequency-Specific Multi-Band Attention](https://doi.org/10.48550/arXiv.2503.23394) for long-range spatial brain dynamics"
 ---
 
-## Groundbreaking Architectures for 4D Brain Signals
+## New Architectures for 4D Brain Signals
 
-Biological neural signals possess unique spatial symmetries, continuous temporal flows, and non-Euclidean geometries that challenge conventional computer vision and NLP architectures. Connectome Lab pioneers customized deep learning paradigms designed from first neuroscientific principles:
+Biological neural signals possess distinctive spatial symmetries, continuous temporal flows, and non-Euclidean geometries that sit awkwardly in conventional computer vision and NLP architectures. We design deep learning architectures for these signals, starting from neuroscientific first principles:
 
 ### 1. [NeuroMamba](https://jubilant-choi.notion.site/neuromamba-neurips2025): State-Space Foundation Model for fMRI
 - **Authors**: Jubin Choi et al. (NeurIPS 2025 Foundation Models for Brain and Body - **Spotlight**)
-- **Core Innovation**: Overcomes the quadratic computational complexity of Transformers in handling long continuous 4D fMRI scans by integrating selective State-Space Models (Mamba). Enables efficient linear-time context modeling across tens of thousands of volumetric brain voxels over thousands of time frames.
+- **Core contribution**: Sidesteps the quadratic computational complexity of Transformers on long continuous 4D fMRI scans by integrating selective State-Space Models (Mamba), modeling context across tens of thousands of volumetric brain voxels over thousands of time frames in linear time.
 
 ### 2. [DIVER-0](https://arxiv.org/abs/2507.14141): Fully Channel-Equivariant EEG Foundation Model
 - **Authors**: Dongyeop Han, Ahhyun Lee, Taeyang Lee, Sebin Lee et al. (ICML 2025 GenBio - **Spotlight**)
-- **Core Innovation**: Solves the notorious electrode montage mismatch problem across clinical and research EEG datasets by ensuring strict spatial equivariance over arbitrary channel layouts.
+- **Core contribution**: Addresses the long-standing electrode montage mismatch across clinical and research EEG datasets by ensuring strict spatial equivariance over arbitrary channel layouts.
 
 ### 3. Spatiotemporal Multi-Band Dynamics
 - **Authors**: Sangyoon Bae et al. ([arXiv:2503.23394](https://doi.org/10.48550/arXiv.2503.23394))
-- **Core Innovation**: Novel frequency-specific multi-band attention mechanisms that disentangle canonical neural oscillation bands within low-frequency hemodynamic fluctuations in fMRI.
+- **Core contribution**: Frequency-specific multi-band attention mechanisms that disentangle canonical neural oscillation bands within low-frequency hemodynamic fluctuations in fMRI.
