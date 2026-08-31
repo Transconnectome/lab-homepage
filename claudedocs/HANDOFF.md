@@ -270,7 +270,16 @@ writes English summaries only, so Korean visitors read English card bodies.
 old Google Sites history page and could not be confirmed from any external
 source. Confirm with the lab or remove them.
 
-**3. Korean display typeface — decided to defer, with a real finding behind it.**
+**3. Korean display typeface — IMPLEMENTED 2026-08-28** (PI asked for it after
+twice reading the live Korean headings as "font design not applied"). Display
+Hangul now renders in Naver MaruBuri SemiBold, self-hosted as a Hangul-only
+subset at `public/fonts/maruburi/` with the mandatory licence text alongside;
+the `display` stack leads with MaruBuri whose `@font-face` is unicode-ranged
+to Hangul, so Latin display text stays in Hahmlet and out-of-subset syllables
+fall through to Hahmlet's Hangul. The original study and deferral below are
+kept for context.
+
+*(original entry, for context)*
 An 11-agent typography study measured that **Hahmlet's Hangul is a gothic
 wearing a serif's name** (its 부리 are blunt cuts), so Korean headings lose the
 editorial voice the English ones get. It also found the English homepage

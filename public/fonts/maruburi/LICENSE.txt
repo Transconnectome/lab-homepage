@@ -1,0 +1,16 @@
+MaruBuri (마루 부리) SemiBold — redistributed unmodified with attribution.
+
+Copyright notice (from the font's own name table): © NAVER Corp. © NAVER Cultural Foundation Corp.
+
+Source: Naver 한글한글 아름답게 / hangeul.naver.com — official webfont CDN
+  https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-SemiBold.woff2
+
+Licence evidence gathered at fetch time:
+  - fonts-archive/MaruBuri README: ## 라이선스
+  - fonts-archive/MaruBuri README: 라이선스는 언제든지 변경될 수 있습니다. 변경사항을 확인하려면 배포처를 방문해 주세요.
+  - fonts-archive/MaruBuri README: 네이버 글꼴은 본 저작권 안내와 라이선스 전문을 포함해서 다른 소프트웨어와 번들하거나 재배포 또는 판매가 가능하고 자유롭게 수정, 재배포하실 수 있습니다.
+  - fonts-archive/MaruBuri README: 네이버 글꼴 라이선스 전문을 포함하기 어려울 경우 출처 표기를 권장합니다. 예) 이 페이지에는 네이버에서 제공한 나눔 고딕 글꼴이 적용되어 있습니다.
+  - fonts-archive/MaruBuri README: 정확한 사용 조건은 네이버 나눔 글꼴 라이선스 전문을 참고하시기 바랍니다.
+
+See hangeul.naver.com for the governing licence terms. The font file is
+redistributed byte-for-byte unmodified with the copyright notice above.
