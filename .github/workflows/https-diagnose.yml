@@ -4,7 +4,8 @@ name: HTTPS Certificate Diagnosis
 # Runs read-only checks from a runner with unrestricted egress: DNS,
 # live TLS (strict), whether the domain serves the Astro build, the
 # Pages API certificate state, and the CT log. Remove once the site
-# is verified green (see claudedocs/HANDOFF.md §5).
+# is verified green (see claudedocs/HANDOFF.md §5). Re-run 2026-08-31 ~03:0x UTC:
+# verifying Enforce HTTPS + apex records after the admin actioned both.
 
 on:
   workflow_dispatch:
