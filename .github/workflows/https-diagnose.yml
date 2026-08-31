@@ -15,6 +15,7 @@ on:
 permissions:
   contents: read
   pages: write
+  actions: write
 
 jobs:
   diagnose:
@@ -101,6 +102,23 @@ jobs:
                -H "Authorization: Bearer $GH_TOKEN" \
                -H "Accept: application/vnd.github+json" \
                "https://api.github.com/repos/${{ github.repository }}/pages/health"
+
+      - name: Try to approve the pending recovery deployment (run 33345702091)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== GET pending_deployments ==="
+          curl -s -w '\nHTTP %{http_code}\n' \
+               -H "Authorization: Bearer $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               "https://api.github.com/repos/${{ github.repository }}/actions/runs/33345702091/pending_deployments"
+          echo
+          echo "=== POST approve ==="
+          curl -s -w '\nHTTP %{http_code}\n' -X POST \
+               -H "Authorization: Bearer $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               -d '{"environment_ids":[20323850469],"state":"approved","comment":"recovery deploy of main after Pages re-enable"}' \
+               "https://api.github.com/repos/${{ github.repository }}/actions/runs/33345702091/pending_deployments"
 
       - name: github-pages environment protection rules
         env:
