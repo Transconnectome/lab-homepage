@@ -1,0 +1,63 @@
+name: Redeploy main to GitHub Pages
+
+# Temporary recovery workflow. The Pages site was re-enabled on
+# 2026-08-31 after being unpublished, so it has no deployment yet
+# (GET /pages shows status: null) and the domain serves GitHub's 404.
+# deploy.yml only triggers on pushes to main and workflow_dispatch is
+# not available to this session's token, so this builds the CURRENT
+# main and publishes it, triggered from the recovery branch. Remove
+# together with https-diagnose.yml once the site is verified green.
+
+on:
+  push:
+    branches: [claude/https-certificate-issue-i80hbh]
+    paths: ['.github/workflows/redeploy-main.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build Astro Site (main)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+  deploy:
+    name: Deploy Site
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
