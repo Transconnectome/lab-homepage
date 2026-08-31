@@ -85,7 +85,7 @@ export const ui = {
     // Publications page
     'pubs.eyebrow': 'Publications',
     'pubs.desc':
-      "The lab's peer-reviewed record — from Nature Communications and Molecular Psychiatry to NeurIPS and IEEE proceedings — synced from OpenAlex and curated by hand. Lab members are highlighted in each author list.",
+      "A record of research asking how the brain's connections shape the mind and mental health, woven from genomics, neuroimaging, and computational models.",
     'pubs.alsoOn': 'Also on',
 
     // News page
@@ -243,7 +243,7 @@ export const ui = {
     // Publications page
     'pubs.eyebrow': '논문',
     'pubs.desc':
-      'Nature Communications와 Molecular Psychiatry부터 NeurIPS와 IEEE 프로시딩까지 — OpenAlex에서 자동으로 모으고 직접 다듬은 연구실의 피어리뷰 논문 목록입니다. 저자 목록에는 연구실 구성원이 강조되어 있습니다.',
+      '뇌의 연결이 마음과 정신건강을 어떻게 만들어 가는지를, 유전체와 뇌영상, 계산 모형을 엮어 물어 온 연구의 기록입니다.',
     'pubs.alsoOn': '외부 프로필:',
 
     // News page
