@@ -102,6 +102,16 @@ jobs:
                -H "Accept: application/vnd.github+json" \
                "https://api.github.com/repos/${{ github.repository }}/pages/health"
 
+      - name: Namecheap API credential availability (presence only, values never printed)
+        env:
+          NC_USER: ${{ secrets.NAMECHEAP_API_USER }}
+          NC_KEY: ${{ secrets.NAMECHEAP_API_KEY }}
+          NC_IP: ${{ secrets.NAMECHEAP_CLIENT_IP }}
+        run: |
+          [ -n "$NC_USER" ] && echo "NAMECHEAP_API_USER: present" || echo "NAMECHEAP_API_USER: ABSENT"
+          [ -n "$NC_KEY" ]  && echo "NAMECHEAP_API_KEY:  present" || echo "NAMECHEAP_API_KEY:  ABSENT"
+          [ -n "$NC_IP" ]   && echo "NAMECHEAP_CLIENT_IP: present" || echo "NAMECHEAP_CLIENT_IP: ABSENT"
+
       - name: Certificate transparency log (crt.sh)
         run: |
           curl -s --max-time 60 "https://crt.sh/?q=connectomelab.com&output=json" -o crt.json || true
