@@ -1,10 +1,10 @@
 name: HTTPS Certificate Diagnosis
 
-# Temporary diagnostic workflow for the stuck HTTPS certificate
-# (state: authorization_created). Runs read-only checks from a runner
-# with unrestricted egress: DNS, live TLS, the Pages API certificate
-# state, the domain health check (including alt_domain — the apex),
-# and the certificate-transparency log. Remove once HTTPS is verified.
+# Temporary status-check workflow for the 2026-08-31 HTTPS recovery.
+# Runs read-only checks from a runner with unrestricted egress: DNS,
+# live TLS (strict), whether the domain serves the Astro build, the
+# Pages API certificate state, and the CT log. Remove once the site
+# is verified green (see claudedocs/HANDOFF.md §5).
 
 on:
   workflow_dispatch:
@@ -15,7 +15,6 @@ on:
 permissions:
   contents: read
   pages: write
-  actions: write
 
 jobs:
   diagnose:
@@ -33,7 +32,7 @@ jobs:
           echo "=== org verification TXT ==="
           dig +noall +answer _github-pages-challenge-transconnectome.connectomelab.com TXT @8.8.8.8 || true
 
-      - name: Live TLS from outside
+      - name: Live TLS and served content
         run: |
           for d in www.connectomelab.com connectomelab.com; do
             echo "=== https://$d/ ==="
@@ -45,21 +44,18 @@ jobs:
               || echo "(no certificate / connection failed)"
             echo
           done
+          echo "=== is the Astro build being served? (strict TLS, buffered) ==="
+          body=$(curl -sfm 15 "https://www.connectomelab.com/" 2>/dev/null || true)
+          if [[ "$body" == *"/_astro/"* ]]; then
+            echo "YES: https://www.connectomelab.com serves the Astro build over valid TLS"
+          else
+            echo "NO: strict-TLS fetch did not return the Astro build"
+          fi
           echo "=== plain HTTP ==="
           curl -s -o /dev/null -w 'http://www.connectomelab.com/ -> %{http_code} redirect=%{redirect_url}\n' \
             --max-time 20 http://www.connectomelab.com/ || true
           curl -s -o /dev/null -w 'http://connectomelab.com/ -> %{http_code} redirect=%{redirect_url}\n' \
             --max-time 20 http://connectomelab.com/ || true
-
-      - name: Repository visibility and plan context
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "=== GET /repos/${{ github.repository }} (visibility) ==="
-          curl -s -H "Authorization: Bearer $GH_TOKEN" \
-               -H "Accept: application/vnd.github+json" \
-               "https://api.github.com/repos/${{ github.repository }}" \
-            | python3 -c "import json,sys; d=json.load(sys.stdin); print(json.dumps({k: d.get(k) for k in ('full_name','private','visibility','has_pages','default_branch','homepage')}, indent=2))"
 
       - name: Pages API — site and certificate state
         env:
@@ -70,67 +66,6 @@ jobs:
                -H "Authorization: Bearer $GH_TOKEN" \
                -H "Accept: application/vnd.github+json" \
                "https://api.github.com/repos/${{ github.repository }}/pages"
-
-      - name: Attempt to re-create the Pages site (captures GitHub's exact refusal if blocked)
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "=== POST /repos/${{ github.repository }}/pages (build_type=workflow) ==="
-          curl -s -w '\nHTTP %{http_code}\n' -X POST \
-               -H "Authorization: Bearer $GH_TOKEN" \
-               -H "Accept: application/vnd.github+json" \
-               -d '{"build_type":"workflow"}' \
-               "https://api.github.com/repos/${{ github.repository }}/pages"
-          echo
-          echo "=== GET /pages after the attempt ==="
-          curl -s -w '\nHTTP %{http_code}\n' \
-               -H "Authorization: Bearer $GH_TOKEN" \
-               -H "Accept: application/vnd.github+json" \
-               "https://api.github.com/repos/${{ github.repository }}/pages"
-
-      - name: Pages API — domain health check (domain AND alt_domain)
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "=== GET /repos/${{ github.repository }}/pages/health ==="
-          curl -s -w '\nHTTP %{http_code}\n' \
-               -H "Authorization: Bearer $GH_TOKEN" \
-               -H "Accept: application/vnd.github+json" \
-               "https://api.github.com/repos/${{ github.repository }}/pages/health" \
-            | python3 -m json.tool 2>/dev/null || \
-          curl -s -w '\nHTTP %{http_code}\n' \
-               -H "Authorization: Bearer $GH_TOKEN" \
-               -H "Accept: application/vnd.github+json" \
-               "https://api.github.com/repos/${{ github.repository }}/pages/health"
-
-      - name: Cancel the branch-policy-blocked recovery deploy run (idempotent)
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Run 33345702091 (redeploy-main.yml, since removed) is held at
-          # 'waiting' by the github-pages environment branch policy (main
-          # only) and can never proceed; cancel it so a stale artifact is
-          # never deployed by a much later approval. 409 once cancelled.
-          curl -s -w '\nHTTP %{http_code}\n' -X POST \
-               -H "Authorization: Bearer $GH_TOKEN" \
-               -H "Accept: application/vnd.github+json" \
-               "https://api.github.com/repos/${{ github.repository }}/actions/runs/33345702091/cancel" || true
-
-      - name: github-pages environment protection rules
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "=== GET /environments/github-pages ==="
-          curl -s -w '\nHTTP %{http_code}\n' \
-               -H "Authorization: Bearer $GH_TOKEN" \
-               -H "Accept: application/vnd.github+json" \
-               "https://api.github.com/repos/${{ github.repository }}/environments/github-pages"
-          echo
-          echo "=== deployment branch policies ==="
-          curl -s -w '\nHTTP %{http_code}\n' \
-               -H "Authorization: Bearer $GH_TOKEN" \
-               -H "Accept: application/vnd.github+json" \
-               "https://api.github.com/repos/${{ github.repository }}/environments/github-pages/deployment-branch-policies"
 
       - name: Namecheap API credential availability (presence only, values never printed)
         env:
