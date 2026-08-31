@@ -1,0 +1,94 @@
+name: HTTPS Certificate Diagnosis
+
+# Temporary status-check workflow for the 2026-08-31 HTTPS recovery.
+# Runs read-only checks from a runner with unrestricted egress: DNS,
+# live TLS (strict), whether the domain serves the Astro build, the
+# Pages API certificate state, and the CT log. Remove once the site
+# is verified green (see claudedocs/HANDOFF.md §5).
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/https-certificate-issue-i80hbh]
+    paths: ['.github/workflows/https-diagnose.yml']
+
+permissions:
+  contents: read
+  pages: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DNS state
+        run: |
+          for d in www.connectomelab.com connectomelab.com; do
+            echo "=== $d ==="
+            for t in A AAAA CNAME CAA; do
+              echo "--- $t ---"
+              dig +noall +answer "$d" "$t" @8.8.8.8 || true
+            done
+          done
+          echo "=== org verification TXT ==="
+          dig +noall +answer _github-pages-challenge-transconnectome.connectomelab.com TXT @8.8.8.8 || true
+
+      - name: Live TLS and served content
+        run: |
+          for d in www.connectomelab.com connectomelab.com; do
+            echo "=== https://$d/ ==="
+            curl -sv -o /dev/null --max-time 20 "https://$d/" 2>&1 \
+              | grep -Ei 'subject:|issuer:|expire|SSL|HTTP/|error' || true
+            echo "--- served certificate ---"
+            echo | timeout 20 openssl s_client -connect "$d:443" -servername "$d" 2>/dev/null \
+              | openssl x509 -noout -subject -issuer -dates -ext subjectAltName \
+              || echo "(no certificate / connection failed)"
+            echo
+          done
+          echo "=== is the Astro build being served? (strict TLS, buffered) ==="
+          body=$(curl -sfm 15 "https://www.connectomelab.com/" 2>/dev/null || true)
+          if [[ "$body" == *"/_astro/"* ]]; then
+            echo "YES: https://www.connectomelab.com serves the Astro build over valid TLS"
+          else
+            echo "NO: strict-TLS fetch did not return the Astro build"
+          fi
+          echo "=== plain HTTP ==="
+          curl -s -o /dev/null -w 'http://www.connectomelab.com/ -> %{http_code} redirect=%{redirect_url}\n' \
+            --max-time 20 http://www.connectomelab.com/ || true
+          curl -s -o /dev/null -w 'http://connectomelab.com/ -> %{http_code} redirect=%{redirect_url}\n' \
+            --max-time 20 http://connectomelab.com/ || true
+
+      - name: Pages API — site and certificate state
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== GET /repos/${{ github.repository }}/pages ==="
+          curl -s -w '\nHTTP %{http_code}\n' \
+               -H "Authorization: Bearer $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               "https://api.github.com/repos/${{ github.repository }}/pages"
+
+      - name: Namecheap API credential availability (presence only, values never printed)
+        env:
+          NC_USER: ${{ secrets.NAMECHEAP_API_USER }}
+          NC_KEY: ${{ secrets.NAMECHEAP_API_KEY }}
+          NC_IP: ${{ secrets.NAMECHEAP_CLIENT_IP }}
+        run: |
+          [ -n "$NC_USER" ] && echo "NAMECHEAP_API_USER: present" || echo "NAMECHEAP_API_USER: ABSENT"
+          [ -n "$NC_KEY" ]  && echo "NAMECHEAP_API_KEY:  present" || echo "NAMECHEAP_API_KEY:  ABSENT"
+          [ -n "$NC_IP" ]   && echo "NAMECHEAP_CLIENT_IP: present" || echo "NAMECHEAP_CLIENT_IP: ABSENT"
+
+      - name: Certificate transparency log (crt.sh)
+        run: |
+          curl -s --max-time 60 "https://crt.sh/?q=connectomelab.com&output=json" -o crt.json || true
+          python3 - << 'PYEOF'
+          import json
+          try:
+              rows = json.load(open('crt.json'))
+          except Exception as e:
+              print('crt.sh unavailable:', e); raise SystemExit(0)
+          rows.sort(key=lambda r: r.get('not_before',''), reverse=True)
+          print(f'{len(rows)} CT entries; newest 15:')
+          for r in rows[:15]:
+              names = r.get('name_value','').replace('\n',' ')
+              print(f"{r.get('not_before')} | {r.get('issuer_name','')[:45]} | {names}")
+          PYEOF
