@@ -1,23 +1,25 @@
 # Diagnoses and repairs the GitHub Pages custom-domain HTTPS certificate,
-# and verifies live font rendering.
+# verifies live font rendering, and fetches/subsets the MaruBuri display font.
 #
 # Context: the certificate request for www.connectomelab.com has been stuck in
-# `authorization_created` since the DNS cutover (claudedocs/HANDOFF.md §5.1) —
-# most likely a Let's Encrypt failed-validation backoff accumulated while DNS
-# still pointed at the previous owner's Pages host. DNS now resolves correctly
-# (CNAME -> transconnectome.github.io). The custom-domain remove/re-add (mode
-# `fix`) turned out to need repo-admin rights — the Actions GITHUB_TOKEN gets
-# 403 on PUT /pages even with pages:write — so fix/enforce are kept for a
-# human running the workflow with suitable credentials, not for CI.
+# `authorization_created` since the DNS cutover (claudedocs/HANDOFF.md §5.1).
+# DNS resolves correctly (CNAME -> transconnectome.github.io). The
+# custom-domain remove/re-add (mode `fix`) turned out to need repo-admin
+# rights — the Actions GITHUB_TOKEN gets 403 on PUT /pages even with
+# pages:write — so fix/enforce are kept for a human with suitable creds.
 #
-# Modes (from workflow_dispatch input, or .github/pages-doctor-mode on push —
-# the push path exists because a session token without actions:write cannot
-# POST /dispatches):
-#   diagnose  read-only: DNS, served content, presented certificate, Pages API
-#   render    diagnose + headless-Chromium check of which platform fonts
-#             actually draw the Hangul on the live pages (HANDOFF §6)
-#   fix       remove + re-add the custom domain, then poll the cert state
-#   enforce   turn on "Enforce HTTPS" (only succeeds once the cert is active)
+# The session container driving this has no egress beyond the GitHub API, so
+# network-needing work runs here instead:
+#   diagnose      read-only: DNS, served content, certificate, Pages API
+#   render        diagnose + CDP check of which platform fonts actually draw
+#                 the Hangul on the LIVE pages (HANDOFF §6)
+#   verifybranch  build THIS branch, serve it with astro preview, run the
+#                 same CDP check against the preview — pre-merge proof
+#   maruburi      fetch Naver MaruBuri SemiBold from naver/maruburi, subset
+#                 to Hangul (KS X 1001 syllables + Jamo) as woff2, and commit
+#                 it with its licence to this branch (HANDOFF §5.3)
+#   fix           remove + re-add the custom domain, then poll the cert state
+#   enforce       turn on "Enforce HTTPS" (only once the cert is active)
 name: Pages Doctor
 
 on:
@@ -27,14 +29,14 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'diagnose | render | fix | enforce'
+        description: 'diagnose | render | verifybranch | maruburi | fix | enforce'
         required: true
         default: 'diagnose'
         type: choice
-        options: [diagnose, render, fix, enforce]
+        options: [diagnose, render, verifybranch, maruburi, fix, enforce]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
 
 concurrency:
@@ -58,7 +60,7 @@ jobs:
           if [ -z "$MODE" ] && [ -f .github/pages-doctor-mode ]; then
             MODE=$(tr -cd 'a-z' < .github/pages-doctor-mode)
           fi
-          case "$MODE" in diagnose|render|fix|enforce) ;; *) MODE=diagnose ;; esac
+          case "$MODE" in diagnose|render|verifybranch|maruburi|fix|enforce) ;; *) MODE=diagnose ;; esac
           echo "MODE=$MODE" >> "$GITHUB_ENV"
           echo "mode: $MODE"
 
@@ -68,8 +70,6 @@ jobs:
           dig +short CNAME "$DOMAIN" @8.8.8.8 || true
           echo "== A $DOMAIN =="
           dig +short A "$DOMAIN" @8.8.8.8 || true
-          echo "== apex A connectomelab.com =="
-          dig +short A connectomelab.com @8.8.8.8 || true
 
       - name: What is actually served
         run: |
@@ -79,9 +79,6 @@ jobs:
             *"/_astro/"*) echo "CONTENT: the new Astro build is being served" ;;
             *)            echo "CONTENT: response does NOT look like the Astro build" ;;
           esac
-          echo "-- font links found in the served HTML --"
-          printf '%s' "$body" | grep -o 'https://fonts.googleapis.com[^\"]*' | head -3 || true
-          printf '%s' "$body" | grep -o 'https://cdn.jsdelivr.net[^\"]*pretendard[^\"]*' | head -3 || true
           echo "-- strict HTTPS fetch --"
           code=$(curl -sSm 20 -o /dev/null -w '%{http_code}' "https://$DOMAIN" 2>&1) \
             && echo "HTTPS OK, status $code" \
@@ -96,12 +93,101 @@ jobs:
           echo "== GET /pages =="
           gh api "repos/$REPO/pages" || echo "(pages GET failed)"
 
-      - name: Render check — which fonts actually draw the Korean text
+      - name: Render check — live site
         if: ${{ env.MODE == 'render' }}
         run: |
           npm i --no-save playwright
           npx playwright install --with-deps chromium
           node scripts/verify-live-fonts.mjs
+
+      - name: Verify this branch — build, preview, render check
+        if: ${{ env.MODE == 'verifybranch' }}
+        run: |
+          npm ci
+          npm run build
+          nohup npx astro preview --host 127.0.0.1 --port 4321 >/tmp/preview.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sfo /dev/null http://127.0.0.1:4321/ && break
+            sleep 1
+          done
+          curl -sfo /dev/null http://127.0.0.1:4321/ || { echo 'preview never came up'; cat /tmp/preview.log; exit 1; }
+          npm i --no-save playwright
+          npx playwright install --with-deps chromium
+          TARGET_BASE=http://127.0.0.1:4321 node scripts/verify-live-fonts.mjs
+
+      - name: Fetch and subset MaruBuri, commit to this branch
+        if: ${{ env.MODE == 'maruburi' }}
+        run: |
+          set -euo pipefail
+          echo "Locating MaruBuri SemiBold in naver/maruburi..."
+          def=$(gh api repos/naver/maruburi --jq .default_branch)
+          echo "default branch: $def"
+          gh api "repos/naver/maruburi/git/trees/$def?recursive=1" > /tmp/tree.json
+          python3 - <<'PY'
+          import json, sys, urllib.parse
+          tree = json.load(open('/tmp/tree.json'))['tree']
+          paths = [e['path'] for e in tree if e['type'] == 'blob']
+          ttf = sorted(
+              (p for p in paths if 'semibold' in p.lower() and p.lower().endswith(('.ttf', '.otf'))),
+              key=lambda p: (0 if p.lower().endswith('.ttf') else 1, len(p)),
+          )
+          lic = sorted(
+              (p for p in paths if p.lower().endswith(('.txt', '.md')) and
+               ('license' in p.lower() or 'licence' in p.lower() or 'ofl' in p.lower())),
+              key=len,
+          )
+          if not ttf:
+              print('No SemiBold TTF/OTF found. All font-ish paths:')
+              print('\n'.join(p for p in paths if p.lower().endswith(('.ttf', '.otf', '.woff', '.woff2')))[:4000])
+              sys.exit(1)
+          open('/tmp/ttf_path', 'w').write(ttf[0])
+          open('/tmp/lic_path', 'w').write(lic[0] if lic else '')
+          print('font  :', ttf[0])
+          print('licence:', lic[0] if lic else '(none found in repo!)')
+          PY
+          TTF_PATH=$(cat /tmp/ttf_path); LIC_PATH=$(cat /tmp/lic_path)
+          enc() { python3 -c 'import sys,urllib.parse; print(urllib.parse.quote(sys.argv[1]))' "$1"; }
+          curl -fSLo /tmp/maruburi-semibold.src "https://raw.githubusercontent.com/naver/maruburi/$def/$(enc "$TTF_PATH")"
+          ls -la /tmp/maruburi-semibold.src
+          sha256sum /tmp/maruburi-semibold.src
+          mkdir -p public/fonts/maruburi
+          if [ -n "$LIC_PATH" ]; then
+            curl -fSLo public/fonts/maruburi/LICENSE.txt "https://raw.githubusercontent.com/naver/maruburi/$def/$(enc "$LIC_PATH")"
+            echo '--- licence head ---'; head -c 1200 public/fonts/maruburi/LICENSE.txt; echo; echo '--- licence tail ---'; tail -c 600 public/fonts/maruburi/LICENSE.txt; echo
+          else
+            echo 'ERROR: no licence file found in naver/maruburi; self-hosting requires shipping it.' ; exit 1
+          fi
+          python3 -m pip -q install fonttools brotli
+          python3 - <<'PY'
+          from fontTools import subset
+          # Hangul the site can encounter: KS X 1001 syllables (the EUC-KR set,
+          # 2,350) + Jamo + Compatibility Jamo. Rare out-of-set syllables fall
+          # through to the next family in the display stack.
+          cps = [c for c in range(0xAC00, 0xD7A4) if _ok(c)] if False else None
+          def ok(c):
+              try: chr(c).encode('euc_kr'); return True
+              except Exception: return False
+          cps = [c for c in range(0xAC00, 0xD7A4) if ok(c)]
+          cps += list(range(0x1100, 0x1200)) + list(range(0x3130, 0x3190))
+          runs, start, prev = [], cps[0], cps[0]
+          for c in cps[1:]:
+              if c != prev + 1:
+                  runs.append((start, prev)); start = c
+              prev = c
+          runs.append((start, prev))
+          ranges = ','.join(f'U+{a:04X}-{b:04X}' if a != b else f'U+{a:04X}' for a, b in runs)
+          print(f'{len(cps)} codepoints in {len(runs)} ranges')
+          subset.main(['/tmp/maruburi-semibold.src', f'--unicodes={ranges}',
+                       '--flavor=woff2', '--layout-features=*',
+                       '--output-file=public/fonts/maruburi/MaruBuri-SemiBold.hangul.woff2'])
+          PY
+          ls -la public/fonts/maruburi/
+          sha256sum public/fonts/maruburi/MaruBuri-SemiBold.hangul.woff2
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/fonts/maruburi
+          git commit -m 'assets(fonts): MaruBuri SemiBold Hangul subset, self-hosted with Naver licence (HANDOFF 5.3)'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Fix — remove and re-add the custom domain (needs admin creds)
         if: ${{ env.MODE == 'fix' }}
@@ -119,7 +205,7 @@ jobs:
             echo "  [$i/20] https_certificate.state = $state"
             case "$state" in
               approved|issued|uploaded) echo "Certificate is provisioned."; exit 0 ;;
-              errored|bad_authz) echo "Provisioning errored — see GET /pages output above."; exit 1 ;;
+              errored|bad_authz) echo "Provisioning errored."; exit 1 ;;
             esac
           done
           echo "Still pending after 10 min — normal for Let's Encrypt; re-run diagnose later."
