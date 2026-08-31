@@ -1,24 +1,26 @@
 {
-  "title": "Spatiotemporal Learning of Brain Dynamics from fMRI Using Frequency-Specific Multi-Band Attention for Cognitive and Psychiatric Applications",
+  "title": "Learning brain dynamics across distinct scaling regimes reveals psychiatric signatures",
   "authors": [
     "Sangyoon Bae",
     "Junbeom Kwon",
     "Shinjae Yoo",
     "Jiook Cha"
   ],
-  "venue": "arXiv preprint",
-  "year": 2025,
-  "doi": "10.48550/arxiv.2503.23394",
-  "url": "https://doi.org/10.48550/arxiv.2503.23394",
+  "venue": "Communications Biology",
+  "year": 2026,
+  "month": "May",
+  "doi": "10.1038/s42003-026-10011-7",
+  "url": "https://doi.org/10.1038/s42003-026-10011-7",
   "tags": [
     "Neuroimaging",
     "Psychiatry/Clinical Psychology"
   ],
   "featured": false,
+  "abstract": "Introduces Multi-Band Brain Net (MBBN), a transformer-based framework that decomposes fMRI signals into biologically grounded frequency bands, achieving state-of-the-art prediction of psychiatric and cognitive outcomes (major depressive disorder, ADHD, autism spectrum disorder) across 49,673 individuals from UK Biobank, ABCD, and ABIDE.",
   "labMembers": [
     "Sangyoon Bae",
     "Junbeom Kwon",
     "Jiook Cha"
   ],
-  "kind": "preprint"
+  "kind": "journal"
 }
