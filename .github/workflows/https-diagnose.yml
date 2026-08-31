@@ -1,0 +1,92 @@
+name: HTTPS Certificate Diagnosis
+
+# Temporary diagnostic workflow for the stuck HTTPS certificate
+# (state: authorization_created). Runs read-only checks from a runner
+# with unrestricted egress: DNS, live TLS, the Pages API certificate
+# state, the domain health check (including alt_domain — the apex),
+# and the certificate-transparency log. Remove once HTTPS is verified.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/https-certificate-issue-i80hbh]
+    paths: ['.github/workflows/https-diagnose.yml']
+
+permissions:
+  contents: read
+  pages: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DNS state
+        run: |
+          for d in www.connectomelab.com connectomelab.com; do
+            echo "=== $d ==="
+            for t in A AAAA CNAME CAA; do
+              echo "--- $t ---"
+              dig +noall +answer "$d" "$t" @8.8.8.8 || true
+            done
+          done
+          echo "=== org verification TXT ==="
+          dig +noall +answer _github-pages-challenge-transconnectome.connectomelab.com TXT @8.8.8.8 || true
+
+      - name: Live TLS from outside
+        run: |
+          for d in www.connectomelab.com connectomelab.com; do
+            echo "=== https://$d/ ==="
+            curl -sv -o /dev/null --max-time 20 "https://$d/" 2>&1 \
+              | grep -Ei 'subject:|issuer:|expire|SSL|HTTP/|error' || true
+            echo "--- served certificate ---"
+            echo | timeout 20 openssl s_client -connect "$d:443" -servername "$d" 2>/dev/null \
+              | openssl x509 -noout -subject -issuer -dates -ext subjectAltName \
+              || echo "(no certificate / connection failed)"
+            echo
+          done
+          echo "=== plain HTTP ==="
+          curl -s -o /dev/null -w 'http://www.connectomelab.com/ -> %{http_code} redirect=%{redirect_url}\n' \
+            --max-time 20 http://www.connectomelab.com/ || true
+          curl -s -o /dev/null -w 'http://connectomelab.com/ -> %{http_code} redirect=%{redirect_url}\n' \
+            --max-time 20 http://connectomelab.com/ || true
+
+      - name: Pages API — site and certificate state
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== GET /repos/${{ github.repository }}/pages ==="
+          curl -s -H "Authorization: Bearer $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               "https://api.github.com/repos/${{ github.repository }}/pages" \
+            | python3 -m json.tool || true
+
+      - name: Pages API — domain health check (domain AND alt_domain)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== GET /repos/${{ github.repository }}/pages/health ==="
+          curl -s -w '\nHTTP %{http_code}\n' \
+               -H "Authorization: Bearer $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               "https://api.github.com/repos/${{ github.repository }}/pages/health" \
+            | python3 -m json.tool 2>/dev/null || \
+          curl -s -w '\nHTTP %{http_code}\n' \
+               -H "Authorization: Bearer $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               "https://api.github.com/repos/${{ github.repository }}/pages/health"
+
+      - name: Certificate transparency log (crt.sh)
+        run: |
+          curl -s --max-time 60 "https://crt.sh/?q=connectomelab.com&output=json" -o crt.json || true
+          python3 - << 'PYEOF'
+          import json
+          try:
+              rows = json.load(open('crt.json'))
+          except Exception as e:
+              print('crt.sh unavailable:', e); raise SystemExit(0)
+          rows.sort(key=lambda r: r.get('not_before',''), reverse=True)
+          print(f'{len(rows)} CT entries; newest 15:')
+          for r in rows[:15]:
+              names = r.get('name_value','').replace('\n',' ')
+              print(f"{r.get('not_before')} | {r.get('issuer_name','')[:45]} | {names}")
+          PYEOF
