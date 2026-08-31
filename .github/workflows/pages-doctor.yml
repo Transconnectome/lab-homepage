@@ -1,0 +1,160 @@
+# Diagnoses and repairs the GitHub Pages custom-domain HTTPS certificate,
+# verifies live font rendering, and fetches/subsets the MaruBuri display font.
+#
+# Context: the certificate request for www.connectomelab.com has been stuck in
+# `authorization_created` since the DNS cutover (claudedocs/HANDOFF.md §5.1).
+# DNS resolves correctly (CNAME -> transconnectome.github.io). The
+# custom-domain remove/re-add (mode `fix`) turned out to need repo-admin
+# rights — the Actions GITHUB_TOKEN gets 403 on PUT /pages even with
+# pages:write — so fix/enforce are kept for a human with suitable creds.
+#
+# The session container driving this has no egress beyond the GitHub API, so
+# network-needing work runs here instead:
+#   diagnose      read-only: DNS, served content, certificate, Pages API
+#   render        diagnose + CDP check of which platform fonts actually draw
+#                 the Hangul on the LIVE pages (HANDOFF §6)
+#   verifybranch  build THIS branch, serve it with astro preview, run the
+#                 same CDP check against the preview — pre-merge proof
+#   maruburi      fetch Naver MaruBuri SemiBold (scripts/fetch_maruburi.py),
+#                 subset to Hangul, commit font + licence to this branch
+#   fix           remove + re-add the custom domain, then poll the cert state
+#   enforce       turn on "Enforce HTTPS" (only once the cert is active)
+name: Pages Doctor
+
+on:
+  push:
+    branches: [claude/homepage-korean-font-check-dz4neo]
+    paths:
+      - '.github/pages-doctor-mode'
+      - '.github/workflows/pages-doctor.yml'
+      - 'scripts/fetch_maruburi.py'
+      - 'scripts/verify-live-fonts.mjs'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'diagnose | render | verifybranch | maruburi | fix | enforce'
+        required: true
+        default: 'diagnose'
+        type: choice
+        options: [diagnose, render, verifybranch, maruburi, fix, enforce]
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: pages-doctor
+  cancel-in-progress: false
+
+jobs:
+  doctor:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DOMAIN: www.connectomelab.com
+      REPO: ${{ github.repository }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve mode
+        run: |
+          MODE="${{ inputs.mode }}"
+          if [ -z "$MODE" ] && [ -f .github/pages-doctor-mode ]; then
+            MODE=$(tr -cd 'a-z' < .github/pages-doctor-mode)
+          fi
+          case "$MODE" in diagnose|render|verifybranch|maruburi|fix|enforce) ;; *) MODE=diagnose ;; esac
+          echo "MODE=$MODE" >> "$GITHUB_ENV"
+          echo "mode: $MODE"
+
+      - name: DNS
+        run: |
+          echo "== CNAME $DOMAIN =="
+          dig +short CNAME "$DOMAIN" @8.8.8.8 || true
+          echo "== A $DOMAIN =="
+          dig +short A "$DOMAIN" @8.8.8.8 || true
+
+      - name: What is actually served
+        run: |
+          # Buffer everything; `curl | grep -q` + pipefail mis-reports (HANDOFF §4).
+          body=$(curl -sLm 20 "http://$DOMAIN" || true)
+          case "$body" in
+            *"/_astro/"*) echo "CONTENT: the new Astro build is being served" ;;
+            *)            echo "CONTENT: response does NOT look like the Astro build" ;;
+          esac
+          echo "-- strict HTTPS fetch --"
+          code=$(curl -sSm 20 -o /dev/null -w '%{http_code}' "https://$DOMAIN" 2>&1) \
+            && echo "HTTPS OK, status $code" \
+            || echo "HTTPS FAILED: $code"
+          echo "-- certificate presented on :443 --"
+          timeout 15 openssl s_client -connect "$DOMAIN:443" -servername "$DOMAIN" </dev/null 2>/dev/null \
+            | openssl x509 -noout -subject -issuer -dates 2>/dev/null \
+            || echo "no usable certificate presented"
+
+      - name: Pages API state
+        run: |
+          echo "== GET /pages =="
+          gh api "repos/$REPO/pages" || echo "(pages GET failed)"
+
+      - name: Render check — live site
+        if: ${{ env.MODE == 'render' }}
+        run: |
+          npm i --no-save playwright
+          npx playwright install --with-deps chromium
+          node scripts/verify-live-fonts.mjs
+
+      - name: Verify this branch — build, preview, render check
+        if: ${{ env.MODE == 'verifybranch' }}
+        run: |
+          npm ci
+          npm run build
+          nohup npx astro preview --host 127.0.0.1 --port 4321 >/tmp/preview.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sfo /dev/null http://127.0.0.1:4321/ && break
+            sleep 1
+          done
+          curl -sfo /dev/null http://127.0.0.1:4321/ || { echo 'preview never came up'; cat /tmp/preview.log; exit 1; }
+          npm i --no-save playwright
+          npx playwright install --with-deps chromium
+          TARGET_BASE=http://127.0.0.1:4321 node scripts/verify-live-fonts.mjs
+
+      - name: Fetch and subset MaruBuri, commit to this branch
+        if: ${{ env.MODE == 'maruburi' }}
+        run: |
+          set -euo pipefail
+          python3 -m pip -q install fonttools brotli
+          python3 scripts/fetch_maruburi.py
+          ls -la public/fonts/maruburi/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/fonts/maruburi
+          git commit -m 'assets(fonts): MaruBuri SemiBold Hangul subset, self-hosted with Naver licence (HANDOFF 5.3)'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Fix — remove and re-add the custom domain (needs admin creds)
+        if: ${{ env.MODE == 'fix' }}
+        run: |
+          set -e
+          echo "Removing custom domain (site stays up on transconnectome.github.io)..."
+          printf '{"cname":null}' | gh api -X PUT "repos/$REPO/pages" --input -
+          sleep 15
+          echo "Re-adding custom domain $DOMAIN ..."
+          printf '{"cname":"%s"}' "$DOMAIN" | gh api -X PUT "repos/$REPO/pages" --input -
+          echo "Polling certificate state (up to 10 minutes)..."
+          for i in $(seq 1 20); do
+            sleep 30
+            state=$(gh api "repos/$REPO/pages" --jq '.https_certificate.state' || echo unknown)
+            echo "  [$i/20] https_certificate.state = $state"
+            case "$state" in
+              approved|issued|uploaded) echo "Certificate is provisioned."; exit 0 ;;
+              errored|bad_authz) echo "Provisioning errored."; exit 1 ;;
+            esac
+          done
+          echo "Still pending after 10 min — normal for Let's Encrypt; re-run diagnose later."
+
+      - name: Enforce HTTPS (needs admin creds)
+        if: ${{ env.MODE == 'enforce' }}
+        run: |
+          set -e
+          printf '{"https_enforced":true}' | gh api -X PUT "repos/$REPO/pages" --input -
+          gh api "repos/$REPO/pages" --jq '{cname: .cname, https_enforced: .https_enforced, cert: .https_certificate.state}'

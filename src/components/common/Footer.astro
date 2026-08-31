@@ -64,5 +64,13 @@ const currentYear = new Date().getFullYear();
       <div>© {currentYear} SNU Connectome Lab (PI: Jiook Cha)</div>
       <a href="#top" class="hover:text-ink transition-colors">{t('footer.backToTop')}</a>
     </div>
+
+    <!-- Font attribution, the pattern Naver's font licence recommends.
+         The full notice ships with the font at /fonts/maruburi/LICENSE.txt. -->
+    <p class="text-xs text-ink-faint">
+      {lang === 'ko'
+        ? '이 사이트에는 네이버에서 제공한 마루 부리 글꼴이 적용되어 있습니다.'
+        : 'This site uses the MaruBuri typeface provided by Naver.'}
+    </p>
   </div>
 </footer>
