@@ -1,30 +1,27 @@
 {
-  "name": "Jinil Kim",
-  "nameKo": "김진일",
+  "name": "Anna Jung",
+  "nameKo": "정안나",
   "role": "Undergraduate Research Intern",
   "roleKo": "학부 인턴",
   "category": "undergrad",
-  "email": "haba6030@gmail.com",
+  "email": "annajung227@snu.ac.kr",
   "affiliations": [
     "Seoul National University"
   ],
   "education": [
-    "BA in Linguistics & Psychology (senior), SNU",
-    "BS in Computer Science & Engineering (senior), SNU"
+    "BA in English Language and Literature, Business Administration, SNU"
   ],
   "researchInterests": [
-    "Interpreting latent structure in neural representations",
-    "Implicit Neural Representations (INR)",
-    "Neuroscience priors for brain foundation models"
+    "Evaluating Quantum Utility in User Application Cases",
+    "Entrepreneurship with brain foundation model"
   ],
   "passions": [
-    "Drums",
-    "Workouts",
-    "Musicals"
+    "Acting",
+    "Street Dance",
+    "Becoming an Influencer"
   ],
   "links": {
-    "github": "https://github.com/haba6030",
-    "website": "https://haba6030.github.io"
+    "linkedin": "https://www.linkedin.com/in/anna-jung-43507b24a/"
   },
   "order": 20,
   "avatar": "/assets/members/jinil-kim.jpg"
