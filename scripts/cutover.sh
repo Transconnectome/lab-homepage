@@ -25,7 +25,10 @@ set -euo pipefail
 
 REPO="Transconnectome/lab-homepage"
 DOMAIN="www.connectomelab.com"
-PAGES_HOST="snuconnectome.github.io"
+# The repo moved to the Transconnectome org — the Pages host moved with it.
+# (This previously said snuconnectome.github.io, the pre-transfer owner,
+# which would have steered a re-run of Step 2 to the wrong DNS target.)
+PAGES_HOST="transconnectome.github.io"
 # Fingerprint of the Astro build, not a piece of copy. Earlier markers were
 # headline text, and both went stale within a day of being written — the da
 # Vinci quote also existed on the old Google Site, and "Six networks, one lab"
@@ -44,7 +47,15 @@ pages_json() { gh api "repos/$REPO/pages" 2>/dev/null || echo '{}'; }
 
 show_status() {
   say "Current status"
-  echo "  DNS  $DOMAIN CNAME -> $(current_cname || echo '(none)')"
+  # www is currently set up with hardcoded A records rather than a CNAME,
+  # so report both — a "(none)" CNAME with GitHub Pages A records is fine.
+  local www_cname www_a apex_a
+  www_cname=$(current_cname || true)
+  www_a=$(dig +short A "$DOMAIN" 2>/dev/null | paste -sd' ' - || true)
+  apex_a=$(dig +short A "${DOMAIN#www.}" 2>/dev/null | paste -sd' ' - || true)
+  echo "  DNS  $DOMAIN CNAME -> ${www_cname:-(none)}"
+  echo "  DNS  $DOMAIN A     -> ${www_a:-(none)}"
+  echo "  DNS  apex A        -> ${apex_a:-(none — certificate provisioning needs this; see HANDOFF §5)}"
   local pj; pj=$(pages_json)
   echo "  GitHub Pages custom domain: $(echo "$pj" | python3 -c 'import json,sys;d=json.load(sys.stdin);print(d.get("cname") or "(not set)")')"
   echo "  HTTPS enforced:             $(echo "$pj" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("https_enforced"))')"

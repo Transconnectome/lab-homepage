@@ -191,20 +191,58 @@ a one-off replay over `src/content/publications/`.
 
 ## 5. Open items
 
-**1. HTTPS certificate — the only thing blocking a clean launch.**
-State is stuck at `authorization_created`. GitHub's own domain health check
-reports the domain valid, HTTPS-eligible, no CAA error, and the build is served
-correctly over HTTP; so this is not a configuration problem. The most likely
-explanation is a Let's Encrypt failed-validation backoff accumulated while DNS
-still pointed at the previous owner's `snuconnectome.github.io`. **Do not keep
-re-triggering it** — that extends the backoff. Check with:
+**1. HTTPS certificate / SITE DOWN — re-diagnosed 2026-08-31; the section
+below supersedes the earlier backoff theory.**
 
-```bash
-./scripts/cutover.sh --status
-```
+The situation degraded after 2026-08-26: the site is now not served at all,
+over HTTP or HTTPS. Measured from a GitHub Actions runner (unrestricted
+egress; evidence in the `HTTPS Certificate Diagnosis` workflow runs on the
+`claude/https-certificate-issue-i80hbh` branch):
 
-If it has not resolved by itself, open a GitHub Support ticket; the domain
-configuration is already correct and you can say so with evidence.
+- `GET /repos/Transconnectome/lab-homepage` → `"private": true,
+  "has_pages": false`. **The repository was switched to private some time
+  after the last successful deploy (2026-08-26 13:21 UTC), and the GitHub
+  Pages site was unpublished.** Private-repo Pages requires a paid plan, so
+  on a free org plan flipping visibility kills the site outright.
+- `http://www.connectomelab.com/` → GitHub's 404 page (no Pages site claims
+  the domain any more); HTTPS serves the fallback `*.github.io` certificate.
+- `POST /repos/…/pages` from a workflow token → 403 "Resource not accessible
+  by integration": Pages cannot be re-enabled from CI; it takes a repo admin.
+
+**Recovery runbook (admin, ~5 minutes of clicking):**
+
+1. Make the repo public again — Settings → General → Danger Zone → Change
+   visibility (or upgrade the org plan if it must stay private).
+2. Settings → Pages → Source: **GitHub Actions**.
+3. Same page → Custom domain: `www.connectomelab.com` → Save. This re-starts
+   certificate provisioning.
+4. Re-run the `Deploy to GitHub Pages` workflow on `main` (or push anything).
+5. Once the certificate is issued, tick **Enforce HTTPS**.
+
+**Why the certificate never issued even while the site was up (2026-08-21 →
+08-26):** the apex `connectomelab.com` has **no DNS records at all** — no A,
+no AAAA, no CNAME (verified against 8.8.8.8 on 2026-08-31). For a `www`
+custom domain GitHub provisions the Let's Encrypt certificate for the www
+*and* the apex (the health-check API's `alt_domain`), so a dead apex leaves
+the order stuck at `authorization_created` indefinitely. The earlier theory
+above — LE failed-validation backoff — does not hold: LE's failed-validation
+window is an hour, not days. Fix at Namecheap (Advanced DNS,
+connectomelab.com):
+
+- Add four A records, host `@`: `185.199.108.153`, `185.199.109.153`,
+  `185.199.110.153`, `185.199.111.153` (optionally AAAA
+  `2606:50c0:8000::153` … `8003::153`). This also makes the bare domain
+  reach the site at all — today it is dead air.
+- Recommended while there: `www` currently uses hardcoded A records; switch
+  it to a single CNAME → `transconnectome.github.io` (GitHub's documented
+  setup for subdomains, and it tracks any future IP changes).
+
+The org-verification TXT record
+(`_github-pages-challenge-transconnectome.connectomelab.com`) is in place
+and correct — leave it.
+
+Status can be checked with `./scripts/cutover.sh --status`, or by
+re-running the `HTTPS Certificate Diagnosis` workflow.
 
 **1b. Korean is still missing for member education, interests and passions.**
 Affiliations and alumni positions now render in Korean through
