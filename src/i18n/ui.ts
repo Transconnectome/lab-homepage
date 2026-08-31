@@ -123,8 +123,8 @@ export const ui = {
     'ideas.firstExperiment': 'A first experiment',
     'ideas.howFails': 'How this fails',
     'ideas.ctaDesc':
-      'Did one of these spark something — or strike you as obviously wrong? Either reaction is a great opening line for joining the lab.',
-    'ideas.cta': 'Join the conversation',
+      'Interested in one of these ideas, or want to explore it with us? Get in touch — we welcome inquiries from prospective graduate students, postdocs, and undergraduate interns.',
+    'ideas.cta': 'Get in touch',
     'ideas.empty': 'No ideas yet',
     'ideas.emptyDesc': "The weekly generator hasn't produced its first batch.",
 
@@ -280,8 +280,8 @@ export const ui = {
     'ideas.firstExperiment': '첫 실험 제안',
     'ideas.howFails': '실패 시나리오',
     'ideas.ctaDesc':
-      '이 중 하나가 마음을 움직였나요 — 아니면 명백히 틀렸다고 느꼈나요? 어느 쪽이든 연구실 합류의 훌륭한 첫마디가 됩니다.',
-    'ideas.cta': '대화에 참여하기',
+      '이 아이디어들에 관심이 있거나 함께 발전시켜 보고 싶다면 연락 주세요. 대학원생, 박사후연구원, 학부 인턴 지원 문의를 언제든 환영합니다.',
+    'ideas.cta': '문의하기',
     'ideas.empty': '아직 아이디어가 없습니다',
     'ideas.emptyDesc': '주간 생성기가 아직 첫 결과를 만들지 않았습니다.',
 
