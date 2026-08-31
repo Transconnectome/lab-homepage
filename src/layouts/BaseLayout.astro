@@ -28,6 +28,8 @@ const {
 const here = new URL(Astro.request.url).pathname;
 const altPath = altLangPath(here, lang);
 const canonical = new URL(here, Astro.site).toString();
+// Social crawlers reject a root-relative og:image, so resolve it against `site`.
+const ogImageUrl = new URL(ogImage, Astro.site).toString();
 const altHref = new URL(altPath, Astro.site).toString();
 const koHref = lang === 'ko' ? canonical : altHref;
 const enHref = lang === 'en' ? canonical : altHref;
@@ -56,14 +58,16 @@ const enHref = lang === 'en' ? canonical : altHref;
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="SNU Connectome Laboratory" />
+    <meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={ogImage} />
+    <meta property="twitter:image" content={ogImageUrl} />
 
     <!-- Fonts: Hahmlet (display serif, KR+Latin), IBM Plex Mono (captions/data).
          Only the weights actually used are requested. Korean webfonts ship one
@@ -96,7 +100,7 @@ const enHref = lang === 'en' ? canonical : altHref;
     </main>
 
     <!-- Floating lab guide (curated FAQ, not a live AI) -->
-    <AskLabAI client:idle />
+    <AskLabAI client:idle lang={lang} />
 
     <Footer lang={lang} />
   </body>

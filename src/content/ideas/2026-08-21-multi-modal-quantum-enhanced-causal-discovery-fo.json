@@ -7,7 +7,7 @@
   "rationale": "The lab already predicts mental-health trajectories from multimodal data; QML's strength in high-dimensional, nonlinear settings suits causal inference that integrates polygenic scores and connectomes.",
   "labThreads": [
     "Computational Psychiatry & Multi-Modal Genetics",
-    "Quantum Machine Learning (QML) for High-Dimensional Brain Data",
+    "Quantum Machine Learning for Neuroimaging and Time-Series",
     "The Neuro-X Project: Towards Large Brain Models"
   ],
   "externalInspiration": [

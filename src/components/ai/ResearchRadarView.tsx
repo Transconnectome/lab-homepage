@@ -158,7 +158,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="chip-accent">{TOPIC_LABELS[lang][trend.topic] ?? trend.topic}</span>
                   {trend.badge && (
-                    <span className="chip">
+                    <span className="chip" lang="en">
                       <Sparkles className="w-3 h-3 mr-1 text-lab-700" aria-hidden="true" />
                       {trend.badge}
                     </span>
@@ -174,7 +174,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
                   rel="noreferrer"
                   className="hover:text-lab-700 transition-colors inline-flex items-start gap-1.5"
                 >
-                  <span>{trend.title}</span>
+                  <span lang={lang === 'ko' ? 'en' : undefined}>{trend.title}</span>
                   <ExternalLink className="w-4 h-4 text-ink-faint shrink-0 mt-1" aria-hidden="true" />
                 </a>
               </h3>
@@ -195,7 +195,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
                         : L.summary}
                   </span>
                 </div>
-                <ul className="space-y-1.5">
+                <ul className="space-y-1.5" lang={lang === 'ko' ? 'en' : undefined}>
                   {trend.summaryPoints.map((point, pIdx) => (
                     <li key={pIdx} className="text-sm text-ink-soft flex items-start gap-2 leading-relaxed">
                       <span className="text-lab-700 font-bold mt-0.5">•</span>
@@ -207,18 +207,18 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
 
               <p className="text-sm text-ink-soft mb-3 leading-relaxed">
                 <strong className="text-ink">{L.significance}</strong>
-                {trend.significance}
+                <span lang={lang === 'ko' ? 'en' : undefined}>{trend.significance}</span>
               </p>
 
               <div className="p-3 rounded-xl bg-lab-50 border border-lab-600/20 text-sm text-lab-900 leading-relaxed mb-4">
                 <strong>{L.whyUs}</strong>
-                {trend.labRelevance}
+                <span lang={lang === 'ko' ? 'en' : undefined}>{trend.labRelevance}</span>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-line">
               {trend.modality.map((m, mIdx) => (
-                <span key={mIdx} className="chip">#{m}</span>
+                <span key={mIdx} className="chip" lang="en">#{m}</span>
               ))}
             </div>
           </article>

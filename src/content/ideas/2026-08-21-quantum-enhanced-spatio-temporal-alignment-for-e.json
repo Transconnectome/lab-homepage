@@ -7,7 +7,7 @@
   "rationale": "Recent EEG foundation models (STEAM, EEG-PRISM) demand robust spatio-temporal alignment and interpretability — a natural fit for a lab strong in both QML and state-space models.",
   "labThreads": [
     "fMRI & EEG Foundation Models",
-    "Quantum Machine Learning (QML) for High-Dimensional Brain Data",
+    "Quantum Machine Learning for Neuroimaging and Time-Series",
     "EEG Reconstruction & Interactive Media"
   ],
   "externalInspiration": [

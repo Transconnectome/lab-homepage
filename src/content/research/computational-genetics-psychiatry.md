@@ -8,7 +8,7 @@ order: 3
 keyHighlights:
   - "Published in Nature Communications (2025) & Molecular Psychiatry (2025)"
   - "Polygenic architecture of brain structure, function, and adolescent psychopathologies (ABCD cohort)"
-  - "White matter integrity diffusion modeling for youth depression & suicide risk prediction (medRxiv / OHBM)"
+  - "White matter integrity diffusion modeling for youth depression prediction (Communications Medicine, 2026)"
   - "Multigenerational transmission of psychiatric vulnerability mediated by polygenic scores"
 ---
 
@@ -22,5 +22,5 @@ Psychiatric conditions such as major depressive disorder, anxiety, and neurodeve
    - Eunji Lee, Bogyeom Kim, Jiook Cha et al. demonstrated how distributed polygenic risk scores manifest in macro-scale cortical morphology, functional connectome reconfigurations, and behavioral phenotypes across thousands of children in the ABCD Study.
 2. **Multigenerational Polygenic Mediation (*Molecular Psychiatry, 2025*)**:
    - Investigated how parental and ancestral psychiatric histories transmit neurobiological vulnerability to offspring through specific polygenic risk profiles and altered white matter microstructure.
-3. **White-Matter Informed Deep Learning for Youth Depression (*medRxiv / OHBM 2025*)**:
-   - Jungyoon Min, Jiook Cha et al. built diffusion MRI-informed graph neural networks that integrate microstructural white matter integrity with genome-wide PRS to accurately forecast onset of depressive episodes in high-risk youth.
+3. **White-Matter Informed Deep Learning for Youth Depression (*Communications Medicine, 2026*)**:
+   - Jungyoun Janice Min, Yoonjung Yoonie Joo, Jiook Cha et al. built diffusion MRI-informed deep learning that integrates microstructural white matter measures with genome-wide PRS, improving prediction of depression in adolescents.

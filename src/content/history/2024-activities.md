@@ -1,7 +1,7 @@
 ---
 period: "2024"
 year: 2024
-title: "Global Expansions & High-Impact Papers"
+title: "Research Stays Abroad"
 category: "internship"
 order: 2
 ---

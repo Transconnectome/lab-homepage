@@ -1,7 +1,7 @@
 ---
 period: "2024"
 year: 2024
-title: "글로벌 확장과 주요 논문 성과"
+title: "해외 연구 파견의 해"
 category: "internship"
 order: 2
 lang: "ko"

@@ -1,13 +1,27 @@
 {
   "title": "DIVER-0: A Fully Channel Equivariant EEG Foundation Model",
-  "authors": ["Dongyeop Han", "Ahhyun Lee", "Taeyang Lee", "Sebin Lee", "Jiook Cha"],
+  "authors": [
+    "Dong Yeop Han",
+    "Ahhyun Lee",
+    "Taeyang Lee",
+    "Sebin Lee",
+    "Jiook Cha"
+  ],
   "venue": "ICML 2025 Workshop on Generative Biology (Spotlight)",
   "year": 2025,
   "month": "July",
-  "tags": ["AI & Foundation Models", "Neuroimaging"],
+  "tags": [
+    "AI & Foundation Models",
+    "Neuroimaging"
+  ],
   "featured": true,
   "spotlight": "ICML 2025 Workshop Spotlight",
   "abstract": "We introduce DIVER-0, a novel channel-equivariant foundation model for electroencephalography (EEG). By enforcing strict spatial permutation and continuous coordinate equivariance, DIVER-0 natively handles heterogeneous montage configurations without requiring spatial interpolation or channel re-referencing.",
-  "labMembers": ["Dongyeop Han", "Ahhyun Lee", "Sebin Lee", "Jiook Cha"],
+  "labMembers": [
+    "Dong Yeop Han",
+    "Ahhyun Lee",
+    "Sebin Lee",
+    "Jiook Cha"
+  ],
   "kind": "workshop"
 }

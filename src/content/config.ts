@@ -32,7 +32,7 @@ const researchCollection = defineCollection({
     title: z.string(),
     titleKo: z.string(),
     tagline: z.string(),
-    category: z.enum(['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science']),
+    category: z.enum(['foundation-models', 'connectomics', 'genetics', 'qml', 'affective-neuro']),
     heroImage: z.string().nullable().optional(),
     featured: z.boolean().default(false),
     order: z.number().default(99),
@@ -149,7 +149,7 @@ const ideasCollection = defineCollection({
     // affective-development). Kept in sync with CATEGORIES in
     // scripts/generate_research_ideas.py and the labels in IdeasFilter.tsx.
     category: z.enum([
-      'foundation-models', 'connectomics', 'genetics', 'qml', 'art-science',
+      'foundation-models', 'connectomics', 'genetics', 'qml', 'affective-neuro',
       'agentic-ai', 'affective-development',
     ]),
     hypothesis: z.string(),

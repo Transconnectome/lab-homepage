@@ -102,28 +102,32 @@ export const RESEARCH_AXES: ResearchAxis[] = [
   },
   {
     id: 'quantum-machine-learning',
-    name: 'Quantum Machine Learning for Brain Data',
-    nameKo: '뇌데이터를 위한 양자 머신러닝',
+    name: 'Quantum Machine Learning for Neuroimaging and Time-Series',
+    nameKo: '뉴로이미징과 시계열을 위한 양자 머신러닝',
     axis: 'Quantum ML',
     axisKo: '양자 ML',
     position: [1.2, -0.1, -0.4],
     color: '#fbbf24',
     description:
-      'Parameterized quantum circuits and quantum kernels for connectome graphs whose dimensionality overwhelms classical computation.',
+      'Quantum circuits that train at scale, fit real fMRI and EEG, and run on today’s noisy hardware — much of it with Brookhaven National Laboratory.',
     descriptionKo:
-      '고전 컴퓨팅을 압도하는 초고차원 커넥톰 그래프를 위한 매개변수화 양자 회로와 양자 커널 연구입니다.',
+      '규모에서 학습되고 실제 fMRI·EEG에 맞으며 오늘의 노이즈 있는 하드웨어에서 도는 양자 회로 — 상당수는 브룩헤이븐 국립연구소와 함께 합니다.',
     brainFocus:
-      'The connectome as a graph: 86 billion neurons and ~100 trillion connections — high-order network interactions beyond classical reach.',
+      'Long 4D fMRI runs and long EEG montages — the high-dimensional, long-sequence regime where classical attention gets expensive.',
     brainFocusKo:
-      '그래프로서의 커넥톰 — 860억 뉴런과 약 100조 연결. 고전적 접근을 넘어서는 고차 네트워크 상호작용을 다룹니다.',
+      '긴 4D fMRI 스캔과 긴 EEG 몽타주 — 고전적 어텐션이 비싸지는 고차원·장시퀀스 영역입니다.',
     highlights: [
       {
-        label: 'Quantum graph neural networks for anatomical & functional brain graphs',
-        labelKo: '해부학적·기능적 뇌 그래프를 위한 양자 그래프 신경망(QGNN)',
+        label: 'Quantum Time-series Transformer on ABCD and UK Biobank resting-state fMRI (IEEE QCE 2025)',
+        labelKo: 'ABCD·UK Biobank 휴지기 fMRI에 적용한 양자 시계열 트랜스포머 (IEEE QCE 2025)',
       },
       {
-        label: 'Quantum kernel estimation with polynomial speedup',
-        labelKo: '다항 가속을 노리는 양자 커널 추정',
+        label: 'Multi-chip ensemble circuits that mitigate barren plateaus (arXiv:2505.08782)',
+        labelKo: '배런 플래토를 완화하는 멀티칩 앙상블 회로 (arXiv:2505.08782)',
+      },
+      {
+        label: 'Ten-class MNIST end-to-end on a 127-qubit IBM Eagle processor (arXiv:2607.17705)',
+        labelKo: '127큐비트 IBM Eagle에서 엔드투엔드로 실행한 10클래스 MNIST (arXiv:2607.17705)',
       },
       {
         label: 'Active research internship program (Quantum Computing & AI)',
@@ -140,13 +144,13 @@ export const RESEARCH_AXES: ResearchAxis[] = [
     position: [-0.6, -0.7, -1.2],
     color: '#c084fc',
     description:
-      'How affect is organized in brain and behavior — from awe as an ambivalent affect to EEG-based memory reconstruction and interactive media, treating brain science as a cultural and humanistic inquiry, in Da Vinci’s spirit.',
+      'Awe, being moved, and remembered feeling — the mixed, temporally extended affects that a single valence scale loses.',
     descriptionKo:
-      '정서가 뇌와 행동에서 조직되는 방식 — 양가적 정서로서의 경외(awe)부터 EEG 기반 기억 재구성과 인터랙티브 미디어까지, 다빈치의 정신을 따라 뇌과학을 문화적·인문학적 탐구로 확장합니다.',
+      '경외, 뭉클함, 되살아나는 감정 — 정서가 척도 하나로는 놓쳐 버리는, 뒤섞이고 시간에 걸쳐 펼쳐지는 정서들을 다룹니다.',
     brainFocus:
-      'Cortical representations of ambivalent affect, and real-time affective EEG signals decoded live to drive generative audio-visual systems.',
+      'Cortical and EEG responses to naturalistic stimuli — film, music, and live interaction rather than isolated images.',
     brainFocusKo:
-      '양가적 정서의 대뇌 피질 표상, 그리고 실시간으로 해독되어 생성형 시청각 시스템을 구동하는 정서 EEG 신호.',
+      '자연주의적 자극에 대한 피질·EEG 반응 — 고립된 이미지가 아니라 영화, 음악, 실시간 상호작용입니다.',
     highlights: [
       {
         label:
@@ -155,12 +159,16 @@ export const RESEARCH_AXES: ResearchAxis[] = [
           '경외(awe)가 행동과 대뇌 피질 모두에서 양가적 정서임을 규명 — 이진우 외, Communications Psychology (2025)',
       },
       {
-        label: 'OB/Scene Focus Exhibition 2025: “Connectome: Reconstruction of Memory”',
-        labelKo: 'OB/Scene 포커스 전시 2025: 〈커넥톰: 기억의 재구성〉',
+        label: 'Affect-contextualized memory reconstructed via EEG-guided audiovisual generation',
+        labelKo: 'EEG로 유도한 오디오·비주얼 생성으로 재구성한 정서 맥락의 기억',
       },
       {
-        label: 'Art & technology commissions bridging consciousness and aesthetics',
-        labelKo: '의식과 미학을 잇는 예술·기술 협업 커미션',
+        label: 'Generative models of aesthetic style: AesFA (AAAI 2024), music style transfer (ICIP 2026)',
+        labelKo: '미적 스타일의 생성 모형: AesFA (AAAI 2024), 음악 스타일 전이 (ICIP 2026)',
+      },
+      {
+        label: 'OB/Scene Focus 2025: “Connectome: Reconstruction of Memory”',
+        labelKo: 'OB/Scene 포커스 2025: 〈커넥톰: 기억의 재구성〉',
       },
     ],
   },

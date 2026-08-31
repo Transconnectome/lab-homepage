@@ -87,10 +87,24 @@ NAME_ALIASES = {
     "yoonjung y. joo": "Yoonjung Yoonie Joo",
     "eun se you": "Allison Eun Se You",
     "allison eun se you": "Allison Eun Se You",
-    "jungyoung janice min": "Jungyoung Janice Min",
-    "jungyoun janice min": "Jungyoung Janice Min",
-    "jungyoon min": "Jungyoung Janice Min",
+    # Aliases resolve to the spelling on the member's own profile, because
+    # canonical_author() rewrites the displayed author list to that value.
+    "jungyoun janice min": "Jungyoon Min",
+    "jungyoung janice min": "Jungyoon Min",
+    "min jungyoun janice": "Jungyoon Min",
+    "danny dongyeop han": "Dong Yeop Han",
     "jinwoo lee": "Jinwoo Yi",
+}
+
+# Collaborators who are not lab members and whose indexed metadata carries the
+# wrong person's name. OpenAlex resolves the "Tseng" on the lab's quantum papers
+# to two different people (a Ford control-systems researcher and a BU
+# neuroscientist); the actual co-author on all of them is Huan-Hsin Tseng at
+# Brookhaven National Laboratory, as printed on arXiv:2505.08782,
+# arXiv:2509.00711 and the QCNC/QCE proceedings. Keyed by name_key().
+COAUTHOR_CANONICAL = {
+    "herictseng": "Huan-Hsin Tseng",
+    "huaantseng": "Huan-Hsin Tseng",
 }
 
 # OpenAlex work types that are never archive publications.
@@ -165,6 +179,19 @@ def norm(s):
     return re.sub(r"[^a-z0-9]+", "", (s or "").lower())
 
 
+def name_key(name):
+    """Fold a person name to a comparison key.
+
+    Indexed metadata spells the same person several ways: "Hee‐Hwan Wang"
+    (non-breaking hyphen) vs "Heehwan Wang", "Eun-Ji Lee" vs "Eunji Lee",
+    "Soo Young Kim" vs "Sooyoung Kim". Those differ only in separators, so the
+    key drops every separator rather than enumerating each spelling. Anything
+    that adds or removes a *name* (e.g. "Danny Dongyeop Han") is a judgement
+    call and stays in NAME_ALIASES.
+    """
+    return re.sub(r"[^a-z]", "", name.lower())
+
+
 def load_member_allowlist():
     """Names of current + former lab members, from the members collection."""
     allow = {}
@@ -175,30 +202,41 @@ def load_member_allowlist():
             continue
         name = d.get("name")
         if name:
-            allow[name.lower()] = name
+            allow[name_key(name)] = name
     for alias, canonical in NAME_ALIASES.items():
-        allow[alias] = canonical
+        allow[name_key(alias)] = canonical
     return allow
 
 
-def _allow_key(name):
-    return name.lower().replace("‐", "-").replace("‑", "-")
-
-
 def canonical_author(name, allowlist):
-    """Indexed romanization -> the spelling the member's profile uses.
+    """Normalise one author string as it will be displayed.
 
-    Applied to the whole author list, not just the matched members, so a
-    record never carries two spellings of one person: the frontend bolds an
-    author by testing membership in labMembers, which is string equality.
+    Three things go wrong in indexed metadata, in this order:
+
+    1. Some deposits carry "Surname, Given Names" while the rest of the same
+       author list is "Given Names Surname"; rendered together they read as
+       a typo.
+    2. A non-member collaborator can be resolved to the wrong person entirely
+       (see COAUTHOR_CANONICAL).
+    3. A member appears under a romanization their profile does not use. This
+       is applied to the whole author list, not just matched members, so a
+       record never carries two spellings of one person: the frontend bolds an
+       author by testing membership in labMembers, which is string equality.
     """
-    return allowlist.get(_allow_key(name), name)
+    if name.count(",") == 1:
+        last, first = (x.strip() for x in name.split(","))
+        if last and first:
+            name = f"{first} {last}"
+    key = name_key(name)
+    if key in COAUTHOR_CANONICAL:
+        return COAUTHOR_CANONICAL[key]
+    return allowlist.get(key, name)
 
 
 def match_lab_members(authors, allowlist):
     out = []
     for a in authors:
-        if _allow_key(a) in allowlist and a not in out:
+        if name_key(a) in allowlist and a not in out:
             out.append(a)
     return out
 

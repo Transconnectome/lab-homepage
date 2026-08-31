@@ -3,12 +3,12 @@
   "titleKo": "양자 강화 프로토타입 기반 EEG 디코딩 일반화",
   "date": "2026-08-24",
   "category": "qml",
-  "hypothesis": "EEG-PRIME의 프로토타입 정렬 학습에 양자 특징 매핑(quantum feature mapping)을 통합하면, 다양한 데이터셋과 피험자 간의 EEG 디코딩 모델 일반화 성능을 향상시킬 수 있다.",
+  "hypothesis": "Adding quantum feature mapping to EEG-PRIME's prototype-aligned learning should improve how well EEG decoding models generalize across datasets and across subjects.",
   "hypothesisKo": "EEG-PRIME의 프로토타입 학습에 양자 특징 매핑을 통합하면 EEG 디코딩 모델의 데이터셋/피험자 간 일반화 성능이 향상될 것이다.",
-  "rationale": "EEG-PRIME은 일반화 문제를 해결하며, 우리 연구실의 QML 전문성은 양자 우위를 통해 프로토타입의 표현력을 극대화할 수 있다. 이는 고차원 EEG 데이터 처리에서 QML의 실질적 이점을 보여줄 기회이다.",
+  "rationale": "EEG-PRIME attacks the generalization problem, and the lab's QML expertise could push prototype expressivity further. It is a chance to show a practical benefit of QML on high-dimensional EEG data.",
   "rationaleKo": "EEG-PRIME은 일반화 문제를 다루며, 우리 연구실의 QML 전문성으로 프로토타입 표현력을 극대화할 수 있다. QML의 실질적 이점을 보여줄 기회이다.",
   "labThreads": [
-    "양자 머신러닝(QML) 기반 초고차원 뇌데이터 연산 프레임워크",
+    "뉴로이미징과 시계열을 위한 양자 머신러닝(QML)",
     "fMRI·EEG 파운데이션 모델",
     "Q-DIVER: Integrated Quantum Transfer Learning"
   ],
@@ -16,9 +16,9 @@
     "EEG-PRIME: Prototype-Aligned Representation Learning with Multi-Level Conditioning for EEG Decoding",
     "Hybrid Quantum Temporal Convolutional Networks"
   ],
-  "firstExperiment": "공개 EEG 데이터셋(예: BCIC IV 2a)을 사용하여 EEG-PRIME 프레임워크에 양자 특징 맵을 적용한 'Q-ProtoEEG' 모델을 구축하고, 기존 EEG-PRIME 및 비-양자 모델과 교차 데이터셋/피험자 분류 정확도를 비교 평가한다.",
+  "firstExperiment": "Build a 'Q-ProtoEEG' model that applies quantum feature maps within the EEG-PRIME framework on a public EEG dataset (e.g. BCIC IV 2a), and compare cross-dataset and cross-subject classification accuracy against EEG-PRIME and non-quantum baselines.",
   "firstExperimentKo": "공개 EEG 데이터셋으로 양자 특징 맵을 적용한 Q-ProtoEEG 모델을 구축하고, 기존 EEG-PRIME 및 비-양자 모델과 교차 데이터셋/피험자 분류 정확도를 비교 평가한다.",
-  "risks": "양자 특징 매핑이 충분한 이점을 제공하지 못하거나, 현재 양자 하드웨어의 노이즈가 성능 향상을 저해할 수 있다.",
+  "risks": "Quantum feature mapping may not deliver enough benefit, or noise in current quantum hardware may cancel out any gain.",
   "risksKo": "양자 특징 매핑의 이점이 부족하거나 양자 하드웨어 노이즈가 성능 향상을 저해할 수 있다.",
   "generatedBy": "llm:google/gemini-2.5-flash"
 }

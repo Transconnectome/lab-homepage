@@ -6,4 +6,4 @@ category: "conference"
 image: "/assets/news/2026-08-connectome-lab-in-new-york.png"
 ---
 
-Members of the lab traveled to New York in early August for an international conference, where graduate student Ahhyun Lee presented a poster. The team's posters drew the warm interest of a fellow researcher, and the group returned home with plenty of good memories.
+Members of the lab traveled to New York in early August for an international conference, where graduate student Ahhyun Lee presented a poster.

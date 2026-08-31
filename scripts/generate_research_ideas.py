@@ -46,7 +46,7 @@ MAX_NEW_IDEAS = 3
 # Must mirror the `category` enum on ideasCollection in src/content/config.ts
 # and the labels in src/components/ideas/IdeasFilter.tsx.
 CATEGORIES = (
-    "foundation-models", "connectomics", "genetics", "qml", "art-science",
+    "foundation-models", "connectomics", "genetics", "qml", "affective-neuro",
     "agentic-ai", "affective-development",
 )
 
@@ -79,6 +79,19 @@ LENGTH_CAPS = {
     "hypothesis": 350, "rationale": 350, "firstExperiment": 400, "risks": 250,
 }
 BODY_FIELDS = list(LENGTH_CAPS.keys())
+
+# The prompt asks for Korean first and an English twin second, and the model
+# sometimes answers Korean twice — which published Korean prose on /en/ideas.
+# A field is treated as Korean when Hangul makes up a real share of it, so an
+# English sentence carrying a Korean proper noun still passes.
+HANGUL_RE = re.compile(r"[\uac00-\ud7a3]")
+
+
+def hangul_ratio(text):
+    text = (text or "").strip()
+    if not text:
+        return 0.0
+    return len(HANGUL_RE.findall(text)) / len(text)
 
 
 TITLE_STOPWORDS = {"for", "of", "and", "the", "with", "a", "to", "in", "on",
@@ -230,6 +243,18 @@ def validate_idea(d):
         if len(d[k]) > cap:
             print(f"[!] over length cap ({k}: {len(d[k])} > {cap}): {d.get('title','')[:50]}")
             return False
+    # English body fields must actually be English, and Korean ones Korean.
+    # Titles are excluded: a Korean title can legitimately be almost all Latin
+    # when it is a model name ("NeuroMamba", "Q-DIVER").
+    for k in BODY_FIELDS:
+        ko_field = k.endswith("Ko")
+        ratio = hangul_ratio(d[k])
+        if not ko_field and ratio > 0.15:
+            print(f"[!] English field is Korean ({k}): {d.get('title','')[:50]}")
+            return False
+        if ko_field and ratio < 0.05:
+            print(f"[!] Korean field has no Korean ({k}): {d.get('title','')[:50]}")
+            return False
     return True
 
 
@@ -237,7 +262,7 @@ def build_prompt(context, category_mix=""):
     return f"""You are a research strategist working with the Seoul National University Connectome Lab
 (PI: Jiook Cha; brain foundation models for fMRI and EEG, connectomics, multimodal genetics &
 computational psychiatry, agentic AI for brain research, affective & developmental
-neuroscience, quantum ML, art-science). Based on the context below, propose exactly {MAX_NEW_IDEAS}
+neuroscience, quantum ML, affective neuroscience). Based on the context below, propose exactly {MAX_NEW_IDEAS}
 NEW research ideas that connect recent external advances to the lab's existing threads.
 
 Rules:
@@ -256,10 +281,10 @@ Rules:
   as-is (e.g. foundation model, polygenic score, state-space). Then give equally concise
   English twins of each field.
 - Assign exactly one "category" per idea from this fixed list:
-  ['foundation-models', 'connectomics', 'genetics', 'qml', 'art-science', 'agentic-ai', 'affective-development']
+  ['foundation-models', 'connectomics', 'genetics', 'qml', 'affective-neuro', 'agentic-ai', 'affective-development']
   (foundation-models = brain/EEG/fMRI representation learning; connectomics = structural/functional
   connectome analysis; genetics = multi-modal genetics & computational psychiatry; qml = quantum
-  machine learning; art-science = art/music/aesthetic experience; agentic-ai = autonomous/tool-using
+  machine learning; affective-neuro = awe, affect, memory, music/aesthetic experience; agentic-ai = autonomous/tool-using
   AI agents APPLIED TO brain research — analysis pipelines, hypothesis generation, literature-scale
   reasoning over neuroimaging, NOT pure agent methodology with no neuro application;
   affective-development = affective and developmental human neuroscience, e.g. emotion processing,

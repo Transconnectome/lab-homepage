@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, ExternalLink, Heart, Github, BookOpen, GraduationCap } from 'lucide-react';
+import { affiliationLabel } from '../../i18n/ui';
 
 interface Member {
   name: string;
@@ -117,7 +118,9 @@ export default function MemberGrid({ members, lang = 'en' }: Props) {
                   {lang === 'ko' && member.roleKo ? member.roleKo : member.role}
                 </p>
                 {member.affiliations.length > 0 && (
-                  <p className="text-sm text-ink-faint mt-0.5">{member.affiliations[0]}</p>
+                  <p className="text-sm text-ink-faint mt-0.5">
+                    {affiliationLabel(lang, member.affiliations[0])}
+                  </p>
                 )}
               </div>
 
@@ -125,7 +128,7 @@ export default function MemberGrid({ members, lang = 'en' }: Props) {
               {member.education.length > 0 && (
                 <div className="flex items-start gap-2 text-sm text-ink-soft">
                   <GraduationCap className="w-4 h-4 text-lab-700 shrink-0 mt-0.5" aria-hidden="true" />
-                  <div className="space-y-0.5">
+                  <div className="space-y-0.5" lang={lang === 'ko' ? 'en' : undefined}>
                     {member.education.map((edu, i) => (
                       <p key={i} className="leading-snug">{edu}</p>
                     ))}
@@ -135,9 +138,9 @@ export default function MemberGrid({ members, lang = 'en' }: Props) {
 
               {/* Research interests */}
               {member.researchInterests.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1.5" lang={lang === 'ko' ? 'en' : undefined}>
                   {member.researchInterests.map((interest, i) => (
-                    <span key={i} className="chip">{interest}</span>
+                    <span key={i} className="chip" lang="en">{interest}</span>
                   ))}
                 </div>
               )}
@@ -146,7 +149,9 @@ export default function MemberGrid({ members, lang = 'en' }: Props) {
               {member.passions.length > 0 && (
                 <div className="flex items-start gap-2 text-sm text-ink-faint">
                   <Heart className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" aria-hidden="true" />
-                  <p className="italic leading-snug">{member.passions.join(' · ')}</p>
+                  <p className="italic leading-snug" lang={lang === 'ko' ? 'en' : undefined}>
+                    {member.passions.join(' · ')}
+                  </p>
                 </div>
               )}
 

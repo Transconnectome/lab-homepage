@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrainViewer from '../3d/BrainViewer';
 import FeaturedProjects from '../projects/FeaturedProjects.astro';
 import { getCollection } from 'astro:content';
-import { useTranslations, localePath, type Lang } from '../../i18n/ui';
+import { useTranslations, localePath, affiliationLabel, type Lang } from '../../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -113,7 +113,9 @@ const CATEGORY_LABELS: Record<string, Record<string, string>> = {
               item.data.title
             )}
           </h3>
-          {item.data.titleKo && <p class="text-sm text-ink-faint">{item.data.titleKo}</p>}
+          {item.data.titleKo && (
+            <p class="text-sm text-ink-faint" lang={lang === 'ko' ? 'en' : 'ko'}>{item.data.titleKo}</p>
+          )}
         </article>
       ))}
     </div>
@@ -169,8 +171,8 @@ const CATEGORY_LABELS: Record<string, Record<string, string>> = {
         <article class="card card-hover p-6 flex flex-col justify-between gap-4">
           <div class="space-y-2.5">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="chip-accent">{pub.data.year}</span>
-              {pub.data.spotlight && <span class="chip">{pub.data.spotlight}</span>}
+              <span class="chip-accent" lang="en">{pub.data.year}</span>
+              {pub.data.spotlight && <span class="chip" lang="en">{pub.data.spotlight}</span>}
             </div>
             <h3 class="font-semibold text-ink leading-snug">
               {pub.data.url ? (
@@ -200,7 +202,7 @@ const CATEGORY_LABELS: Record<string, Record<string, string>> = {
         {alumni.map((m) => (
           <span class="chip text-sm py-1.5 px-3.5">
             <span class="font-semibold text-ink mr-1.5">{lang === 'ko' && m.data.nameKo ? m.data.nameKo : m.data.name}</span>
-            <span class="text-ink-faint">→ {m.data.affiliations[0]}</span>
+            <span class="text-ink-faint">→ {affiliationLabel(lang, m.data.affiliations[0])}</span>
           </span>
         ))}
       </div>

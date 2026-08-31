@@ -6,7 +6,7 @@
   "hypothesis": "By integrating redundancy-aware token pooling and low-frequency bias correction with EEG foundation models, we can develop energy-efficient and locally deployable models capable of real-time, low-latency reconstruction of affect-contextualized memories or creative states for interactive neuro-art applications.",
   "rationale": "The lab has a strong commitment to the convergence of neuroscience and art, with projects like 'EEG Reconstruction & Interactive Media' and 'Revisiting Your Memory'. However, current foundation models can be computationally intensive, limiting real-time interaction. Recent external work on ZIPBrain and understanding/correcting low-frequency bias directly addresses the need for faster, more deployable, and robust EEG foundation models. This synergy can enable truly interactive and responsive neuro-art experiences that are both scientifically grounded and artistically innovative.",
   "labThreads": [
-    "Art & Neuroscience: EEG Reconstruction & Interactive Media",
+    "Affective Neuroscience: Awe, Memory, and Aesthetic Experience",
     "fMRI & EEG Foundation Models",
     "Revisiting Your Memory: Reconstruction of Affect-Contextualized Memory via EEG-guided Audiovisual Generation"
   ],
@@ -17,5 +17,9 @@
   ],
   "firstExperiment": "Integrate the ZIPBrain redundancy-aware token pooling module into an existing EEG-guided audiovisual generation pipeline (e.g., the one from 'Revisiting Your Memory'). Additionally, implement a low-frequency bias correction method (as suggested by the 'Understanding and Correcting Low-Frequency Bias' paper) within the EEG encoder. Evaluate the model's performance in terms of generation quality (e.g., FID score for generated images/audio), latency, and computational resource usage on a low-power edge device, comparing it against the original, unoptimized pipeline for reconstructing target affective states from EEG.",
   "risks": "Reducing model complexity for deployability might compromise the richness and nuance of the reconstructed artistic output. The real-time generation of complex, high-quality multimodal art from potentially noisy EEG signals is still a significant technical challenge. Ensuring a seamless, low-latency user experience requires robust hardware-software co-optimization. The artistic relevance and subjective quality of 'AI-generated art' can be contentious.",
-  "generatedBy": "llm:google/gemini-2.5-flash"
+  "generatedBy": "llm:google/gemini-2.5-flash",
+  "hypothesisKo": "중복 인지 토큰 풀링과 저주파 편향 보정을 EEG 파운데이션 모델에 결합하면, 정서 맥락의 기억이나 창작 상태를 실시간·저지연으로 재구성하는 에너지 효율적 로컬 배포 모델을 만들 수 있다.",
+  "rationaleKo": "연구실은 EEG 기반 기억 재구성과 인터랙티브 미디어 작업을 이어 왔지만, 지금의 파운데이션 모델은 연산 부담이 커 실시간 상호작용이 어렵다. ZIPBrain의 토큰 풀링과 저주파 편향 보정 연구가 바로 그 지점을 겨냥한다.",
+  "firstExperimentKo": "ZIPBrain의 중복 인지 토큰 풀링을 기존 EEG 기반 오디오·비주얼 생성 파이프라인에 넣고 인코더에 저주파 편향 보정을 적용한 뒤, 저전력 엣지 장치에서 생성 품질·지연·자원 사용량을 원래 파이프라인과 비교한다.",
+  "risksKo": "경량화가 생성 결과의 결을 깎아낼 수 있고, 잡음 섞인 EEG에서 고품질 멀티모달 생성을 실시간으로 해내는 일 자체가 여전히 어려운 과제다."
 }

@@ -37,7 +37,7 @@ export const ui = {
     'home.newsTitle': 'Latest news',
     'home.allNews': 'All news →',
     'home.researchEyebrow': 'Research',
-    'home.researchTitle': 'From foundation models to art exhibitions',
+    'home.researchTitle': 'From foundation models to the neuroscience of awe',
     'home.researchDesc': 'Different instruments, one question: how do neural connections become a mind?',
     'home.readMore': 'Read more →',
     'home.pubsEyebrow': 'Selected work',
@@ -53,14 +53,16 @@ export const ui = {
     'home.emailPi': 'Email the PI',
     'home.projectsEyebrow': 'Open source',
     'home.projectsTitle': 'Featured projects',
+    'home.projectsDesc': 'The four lab repositories with the most recent activity.',
     'home.allProjects': 'All code on GitHub →',
     'home.projectPaper': 'Paper',
+    'home.projectUpdated': 'last push',
 
     // Research page
     'research.eyebrow': 'Research',
     'research.title': 'How do neural connections become a mind?',
     'research.desc':
-      'We combine representation learning, population genetics, high-performance computing — and occasionally an art gallery — to study the functional anatomy of human connectomes.',
+      'We combine representation learning, population genetics, high-performance computing, and affective science — landing occasionally in an art gallery — to study how human connectomes give rise to cognition and feeling.',
     'research.keyDirections': 'Key directions',
 
     // People page
@@ -146,7 +148,7 @@ export const ui = {
     'join.internTitle': 'Research internships',
     'join.internDesc':
       'We recruit undergraduate research interns on a rolling basis. Recent interns have worked on quantum machine learning (QML), EEG foundation models, and imaging-genetics projects. Prior knowledge of quantum mechanics or neuroscience is not required — we value motivation to learn fast and critical thinking. Openings are announced on department boards and in lab news.',
-    'join.applyEyebrow': 'How to apply',
+    'join.applyEyebrow': 'Applications',
     'join.applyTitle': 'How to apply',
     'join.materialsTitle': 'What to send',
     'join.material1': 'Curriculum Vitae — education, research experience, projects, technical skills',
@@ -193,7 +195,7 @@ export const ui = {
     'home.newsTitle': '최근 소식',
     'home.allNews': '전체 소식 →',
     'home.researchEyebrow': '연구',
-    'home.researchTitle': '파운데이션 모델부터 예술 전시까지',
+    'home.researchTitle': '파운데이션 모델부터 경외의 신경과학까지',
     'home.researchDesc': '갈래는 달라도 질문은 하나: 신경 연결은 어떻게 마음이 되는가?',
     'home.readMore': '자세히 보기 →',
     'home.pubsEyebrow': '대표 성과',
@@ -209,14 +211,16 @@ export const ui = {
     'home.emailPi': '교수님께 이메일',
     'home.projectsEyebrow': '오픈 소스',
     'home.projectsTitle': '주요 프로젝트',
+    'home.projectsDesc': '가장 최근에 작업이 이뤄진 연구실 저장소 네 곳입니다.',
     'home.allProjects': 'GitHub에서 전체 코드 →',
     'home.projectPaper': '논문',
+    'home.projectUpdated': '최근 작업',
 
     // Research page
     'research.eyebrow': '연구',
     'research.title': '신경 연결은 어떻게 마음이 되는가?',
     'research.desc':
-      '표현 학습과 집단 유전학, 고성능 컴퓨팅을 결합해 인간 커넥톰의 기능적 해부학을 연구합니다. 때로는 미술관도 실험실이 됩니다.',
+      '표현 학습과 집단 유전학, 고성능 컴퓨팅, 그리고 정서과학을 결합해 인간 커넥톰이 어떻게 인지와 감정이 되는지를 연구합니다. 때로는 미술관도 실험실이 됩니다.',
     'research.keyDirections': '핵심 방향',
 
     // People page
@@ -299,7 +303,7 @@ export const ui = {
     'join.internTitle': '연구 인턴십',
     'join.internDesc':
       '학부 연구 인턴은 수시로 모집합니다. 최근에는 양자 머신러닝(QML), EEG 파운데이션 모델, 뇌영상-유전체 융합 프로젝트에서 인턴들이 활동해 왔습니다. 양자역학이나 신경과학 사전 지식은 필수가 아닙니다 — 빠르게 배우려는 동기와 비판적 사고를 더 중요하게 봅니다. 모집 공고는 학과 게시판과 연구실 소식으로 안내됩니다.',
-    'join.applyEyebrow': '지원 방법',
+    'join.applyEyebrow': '모집 안내',
     'join.applyTitle': '지원 방법',
     'join.materialsTitle': '준비 서류',
     'join.material1': 'Curriculum Vitae — 학력, 연구 경험, 프로젝트, 기술 스택',
@@ -311,6 +315,43 @@ export const ui = {
       '아래 이메일로 서류를 보내주시면 검토 후 인터뷰 일정을 안내해 드립니다. 국제 지원자도 언제나 환영합니다 — 영어로 지원하셔도 됩니다.',
   },
 } as const;
+
+/**
+ * Korean for the affiliation and position strings on member records.
+ *
+ * The members collection stores one English string per person (for alumni it
+ * doubles as their current position), so the Korean team page and the
+ * homepage alumni strip were rendering the whole line in English. The set of
+ * distinct strings is small and repeats across members, so a lookup keeps the
+ * content files single-source and still gives Korean readers Korean.
+ * Unmapped strings fall through unchanged rather than being dropped.
+ */
+const AFFILIATION_KO: Record<string, string> = {
+  // Current members — SNU departments and programs
+  'Department of Brain and Cognitive Sciences, SNU': '서울대학교 뇌인지과학과',
+  'Interdisciplinary Program in Artificial Intelligence (IPAI), SNU': '서울대학교 협동과정 인공지능전공(IPAI)',
+  'Department of Psychology, SNU': '서울대학교 심리학과',
+  'Department of Psychology, Seoul National University': '서울대학교 심리학과',
+  'Connectome Lab, Seoul National University': '서울대학교 커넥톰 연구실',
+  'Brookhaven National Laboratory (BNL) Visiting Researcher': '브룩헤이븐 국립연구소(BNL) 방문연구원',
+  // Alumni — where they are now
+  'Assistant Professor, SAIHST, Sungkyunkwan University': '성균관대학교 삼성융합의과학원(SAIHST) 조교수',
+  'Researcher, Brookhaven National Laboratory': '브룩헤이븐 국립연구소 연구원',
+  'Researcher, Pestilli Lab, UT Austin': '텍사스대학교 오스틴 Pestilli Lab 연구원',
+  'Graduate Researcher, MIT EECS': 'MIT 전기공학·컴퓨터과학부(EECS) 대학원 연구원',
+  'PhD Student, Psychology, UC San Diego': 'UC 샌디에이고 심리학 박사과정',
+  'PhD Student, Neuroscience, University of Southern California': '서던캘리포니아대학교(USC) 신경과학 박사과정',
+  'PhD Student, Computer Science, Michigan State University': '미시간주립대학교 컴퓨터과학과 박사과정',
+  'PhD Student, Computer Science, Rutgers University': '럿거스대학교 컴퓨터과학과 박사과정',
+  'PhD Student, Brain and Cognitive Sciences, SNU': '서울대학교 뇌인지과학과 박사과정',
+  'Psychiatry Resident, Columbia University': '컬럼비아대학교 정신과 전공의',
+  'BS — Research Assistant, Columbia University': '컬럼비아대학교 연구조원 (학사 졸업)',
+  'Scientist, Samsung Biologics': '삼성바이오로직스 연구원',
+};
+
+export function affiliationLabel(lang: Lang, text: string): string {
+  return lang === 'ko' ? (AFFILIATION_KO[text] ?? text) : text;
+}
 
 export type UIKey = keyof (typeof ui)['en'];
 

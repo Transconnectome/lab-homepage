@@ -6,8 +6,8 @@ category: "foundation-models"
 featured: true
 order: 2
 keyHighlights:
-  - "NeuroMamba: First State-Space Foundation Model for 4D functional MRI (NeurIPS 2025 Spotlight)"
-  - "DIVER-0: Fully Channel-Equivariant EEG Foundation Model (ICML 2025 GenBio Spotlight)"
+  - "NeuroMamba: First State-Space Foundation Model for 4D functional MRI (NeurIPS 2025 Brain & Body Workshop, Spotlight)"
+  - "DIVER-0: Fully Channel-Equivariant EEG Foundation Model (ICML 2025 GenBio Workshop, Spotlight)"
   - "SwiFT & SwiFT IO: Scalable 4D Swin Transformer architecture for resting-state and task fMRI"
   - "Frequency-Specific Multi-Band Attention for long-range spatial brain dynamics"
 ---

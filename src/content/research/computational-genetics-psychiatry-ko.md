@@ -8,7 +8,7 @@ order: 3
 keyHighlights:
   - "Nature Communications (2025) 및 Molecular Psychiatry (2025) 게재"
   - "뇌 구조·기능과 청소년기 정신병리의 다유전자 구조 (ABCD 코호트)"
-  - "청소년 우울증 및 자살 위험 예측을 위한 백질 무결성 확산 모델링 (medRxiv / OHBM)"
+  - "청소년 우울증 예측을 위한 백질 미세구조 확산 모델링 (Communications Medicine, 2026)"
   - "다유전자 점수가 매개하는 정신의학적 취약성의 다세대 전이"
 lang: "ko"
 baseSlug: "computational-genetics-psychiatry"
@@ -24,5 +24,5 @@ baseSlug: "computational-genetics-psychiatry"
    - 이은지·김보겸 학생과 차지욱 교수 등은 ABCD 연구의 수천 명 아동을 대상으로, 전장유전체에 분포된 다유전자 위험 점수(PRS)가 거시 수준의 대뇌피질 형태, 기능적 커넥톰 재구성, 행동 표현형으로 어떻게 발현되는지를 밝혔다.
 2. **다세대 다유전자 매개 효과 (*Molecular Psychiatry, 2025*)**:
    - 부모와 조상 세대의 정신질환 병력이 특정 다유전자 위험 프로파일과 백질 미세구조의 변화를 거쳐 자녀에게 신경생물학적 취약성으로 이어지는 기제를 규명했다.
-3. **청소년 우울증 예측을 위한 백질 기반 딥러닝 (*medRxiv / OHBM 2025*)**:
-   - 민정윤 학생과 차지욱 교수 등은 백질 미세구조 무결성과 전장유전체 PRS를 결합한 확산 MRI 기반 그래프 신경망으로 고위험 청소년의 우울 삽화 발병을 정확히 예측했다.
+3. **청소년 우울증 예측을 위한 백질 기반 딥러닝 (*Communications Medicine, 2026*)**:
+   - 민정윤 졸업생과 주윤정 교수, 차지욱 교수 등은 백질 미세구조 지표와 전장유전체 PRS를 결합한 확산 MRI 기반 딥러닝으로 청소년 우울증 예측 성능을 끌어올렸다.

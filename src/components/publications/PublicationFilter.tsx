@@ -305,11 +305,11 @@ export default function PublicationFilter({ publications, lang = 'en' }: Props) 
             >
               <div className="space-y-2.5 flex-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip-accent">{pub.year}</span>
+                  <span className="chip-accent" lang="en">{pub.year}</span>
                   <span className="chip">{kindLabel(pub.kind)}</span>
-                  {pub.spotlight && <span className="chip">✨ {pub.spotlight}</span>}
+                  {pub.spotlight && <span className="chip" lang="en">✨ {pub.spotlight}</span>}
                   {pub.tags.map((tag) => (
-                    <span key={tag} className="chip">#{tag}</span>
+                    <span key={tag} className="chip" lang="en">#{tag}</span>
                   ))}
                 </div>
 
