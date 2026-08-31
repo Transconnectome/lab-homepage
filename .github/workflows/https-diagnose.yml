@@ -50,15 +50,42 @@ jobs:
           curl -s -o /dev/null -w 'http://connectomelab.com/ -> %{http_code} redirect=%{redirect_url}\n' \
             --max-time 20 http://connectomelab.com/ || true
 
+      - name: Repository visibility and plan context
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== GET /repos/${{ github.repository }} (visibility) ==="
+          curl -s -H "Authorization: Bearer $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               "https://api.github.com/repos/${{ github.repository }}" \
+            | python3 -c "import json,sys; d=json.load(sys.stdin); print(json.dumps({k: d.get(k) for k in ('full_name','private','visibility','has_pages','default_branch','homepage')}, indent=2))"
+
       - name: Pages API — site and certificate state
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "=== GET /repos/${{ github.repository }}/pages ==="
-          curl -s -H "Authorization: Bearer $GH_TOKEN" \
+          curl -s -w '\nHTTP %{http_code}\n' \
+               -H "Authorization: Bearer $GH_TOKEN" \
                -H "Accept: application/vnd.github+json" \
-               "https://api.github.com/repos/${{ github.repository }}/pages" \
-            | python3 -m json.tool || true
+               "https://api.github.com/repos/${{ github.repository }}/pages"
+
+      - name: Attempt to re-create the Pages site (captures GitHub's exact refusal if blocked)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== POST /repos/${{ github.repository }}/pages (build_type=workflow) ==="
+          curl -s -w '\nHTTP %{http_code}\n' -X POST \
+               -H "Authorization: Bearer $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               -d '{"build_type":"workflow"}' \
+               "https://api.github.com/repos/${{ github.repository }}/pages"
+          echo
+          echo "=== GET /pages after the attempt ==="
+          curl -s -w '\nHTTP %{http_code}\n' \
+               -H "Authorization: Bearer $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               "https://api.github.com/repos/${{ github.repository }}/pages"
 
       - name: Pages API — domain health check (domain AND alt_domain)
         env:
