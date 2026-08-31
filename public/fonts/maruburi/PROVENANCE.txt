@@ -1,0 +1,9 @@
+MaruBuri SemiBold — provenance
+font source : https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-SemiBold.woff2
+font sha256 : 7aef4862fa3219b0a7deb6746e27116a38c4069f4424eb51edf103b29795f5c2
+font bytes  : 466108
+modification: NONE — redistributed byte-for-byte; Hangul-only scoping is done
+              by the CSS @font-face unicode-range, not by editing the font
+ofl_confirmed_at_fetch: False
+note        : if subsetting is ever wanted, re-check the licence first — OFL
+              Reserved Font Names forbid keeping the name on modified fonts
