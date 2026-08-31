@@ -1,0 +1,23 @@
+{
+  "title": "Frequency-Domain Interpretability for EEG Foundation Models in Affective States",
+  "titleKo": "정서 상태 EEG 파운데이션 모델의 주파수 영역 해석 가능성",
+  "date": "2026-08-31",
+  "category": "affective-neuro",
+  "hypothesis": "Applying physiologically-grounded interpretability methods to EEG foundation models will reveal specific frequency-domain signatures predictive of distinct affective states (e.g., awe vs. fear), advancing our understanding of emotional processing.",
+  "hypothesisKo": "EEG 파운데이션 모델에 생리학 기반 해석 가능성 방법을 적용하면 특정 정서 상태(예: 경외감 대 공포)를 예측하는 고유한 주파수 영역 특징을 밝혀 감정 처리 이해를 증진할 수 있다.",
+  "rationale": "The lab actively researches affective neuroscience, including awe. Interpretable EEG foundation models can bridge the gap between complex model predictions and physiologically meaningful insights into emotions.",
+  "rationaleKo": "연구실은 경외감을 포함한 정서 신경과학을 활발히 연구하고 있다. 해석 가능한 EEG 파운데이션 모델은 복잡한 모델 예측과 감정에 대한 생리학적으로 의미 있는 통찰력 사이의 간극을 메울 수 있다.",
+  "labThreads": [
+    "Affective Neuroscience: Awe, Memory, and Aesthetic Experience",
+    "fMRI & EEG Foundation Models"
+  ],
+  "externalInspiration": [
+    "EEG-PRISM: Physiologically-Grounded Interpretability of Predictions by EEG Foundation Models",
+    "Understanding and Correcting Low-Frequency Bias in EEG Foundation Model"
+  ],
+  "firstExperiment": "Train an EEG foundation model on an affective EEG dataset (e.g., emotions induced by music/videos). Apply EEG-PRISM to convert time-channel attribution scores into frequency-domain power changes, then correlate these changes with self-reported affective state ratings (valence/arousal) using statistical measures.",
+  "firstExperimentKo": "정서 EEG 데이터셋(예: 음악/비디오로 유발된 감정)으로 EEG 파운데이션 모델을 훈련한다. EEG-PRISM을 적용하여 시간-채널 귀인 점수를 주파수 영역 전력 변화로 변환한 다음, 이러한 변화를 통계적 측정값을 사용하여 자가 보고된 정서 상태 평가(가치/각성)와 상관시킨다.",
+  "risks": "The quality of attribution maps can be noisy, and directly linking specific frequency changes to discrete emotional states might be oversimplified or lack specificity.",
+  "risksKo": "귀인 맵의 품질이 잡음이 많을 수 있으며, 특정 주파수 변화를 개별적인 정서 상태와 직접 연결하는 것이 과도하게 단순화되거나 특이성이 부족할 수 있다.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}

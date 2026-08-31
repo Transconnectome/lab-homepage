@@ -1,0 +1,22 @@
+{
+  "title": "Neuro-Agentic Hypothesis Generation for Personalized Connectomics",
+  "titleKo": "개인화된 커넥토믹스를 위한 뉴로 에이전트 가설 생성",
+  "date": "2026-08-31",
+  "category": "agentic-ai",
+  "hypothesis": "An agentic AI system, leveraging multimodal neuroimaging and genetics, can autonomously generate novel, testable hypotheses about individual differences in brain connectomics and their relation to psychiatric traits, outperforming human experts in novelty and precision.",
+  "hypothesisKo": "멀티모달 신경영상 및 유전체 데이터를 활용하는 에이전트 AI 시스템은 뇌 커넥토믹스의 개인차와 정신과적 특성 간의 관계에 대한 새롭고 검증 가능한 가설을 자율적으로 생성할 수 있으며, 이는 참신성과 정밀도 면에서 인간 전문가를 능가한다.",
+  "rationale": "The lab already works with multimodal genetics and connectomics. Agentic AI can now integrate vast, complex datasets to identify subtle, non-obvious patterns, accelerating hypothesis generation for personalized medicine.",
+  "rationaleKo": "연구실은 이미 멀티모달 유전체학 및 커넥토믹스 작업을 하고 있다. 에이전트 AI는 방대하고 복잡한 데이터셋을 통합하여 미묘하고 명확하지 않은 패턴을 식별하고 개인 맞춤 의학을 위한 가설 생성을 가속화할 수 있다.",
+  "labThreads": [
+    "Computational Psychiatry & Multi-Modal Genetics",
+    "The Neuro-X Project: Towards Large Brain Models"
+  ],
+  "externalInspiration": [
+    "Mind the Gap: Aligning the Brain with Language Models Requires a Nonlinear and Multimodal Approach"
+  ],
+  "firstExperiment": "Train an agentic AI with access to structural and functional connectome data (e.g., from ENIGMA-OCD or ABCD), polygenic scores, and clinical phenotypes. Evaluate its generated hypotheses against expert-curated ones using a panel of neuroscientists for novelty and plausibility metrics.",
+  "firstExperimentKo": "구조적 및 기능적 커넥톰 데이터(예: ENIGMA-OCD 또는 ABCD), 다유전자 점수, 임상 표현형에 접근할 수 있는 에이전트 AI를 훈련한다. 신경과학자 패널을 사용하여 생성된 가설의 참신성과 타당성 지표를 전문가가 선별한 가설과 비교하여 평가한다.",
+  "risks": "The main risk is that the generated hypotheses might be trivial or scientifically uninteresting, requiring significant human curation to make them useful.",
+  "risksKo": "주요 위험은 생성된 가설이 중요하지 않거나 과학적으로 흥미롭지 않을 수 있으며, 유용하게 만들기 위해 상당한 인간의 큐레이션이 필요하다는 것이다.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}
