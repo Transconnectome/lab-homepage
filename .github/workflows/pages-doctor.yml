@@ -27,6 +27,8 @@ on:
     paths:
       - '.github/pages-doctor-mode'
       - '.github/workflows/pages-doctor.yml'
+      - 'scripts/fetch_maruburi.py'
+      - 'scripts/verify-live-fonts.mjs'
   workflow_dispatch:
     inputs:
       mode:
