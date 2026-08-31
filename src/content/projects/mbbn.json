@@ -5,7 +5,7 @@
   "blurbKo": "주파수 대역별 multi-band attention으로 fMRI 뇌 동역학을 시공간 학습하는 모델.",
   "network": "ecn",
   "publicationSlug": "spatiotemporal-learning-of-brain-dynamic-2025",
-  "highlight": null,
+  "highlight": "Communications Biology 2026",
   "featured": false,
   "order": 11,
   "generatedBy": "llm:claude-fable-5",
