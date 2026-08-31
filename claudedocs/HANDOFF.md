@@ -191,8 +191,20 @@ a one-off replay over `src/content/publications/`.
 
 ## 5. Open items
 
-**1. HTTPS certificate / SITE DOWN — re-diagnosed 2026-08-31; the section
-below supersedes the earlier backoff theory.**
+**1. HTTPS certificate / SITE DOWN — RESOLVED 2026-08-31 ~00:55 UTC.**
+Verified from a runner: `https://www.connectomelab.com` serves the Astro
+build over a valid Let's Encrypt certificate (`CN=www.connectomelab.com`,
+expires 2026-11-28, "SSL certificate verify ok"). Recovery sequence: the
+admin made the repo public and re-enabled Pages with the custom domain
+(certificate issued within minutes once the www-only order could run), and
+the PR #7 merge to main triggered the deploy that repopulated the site.
+Two residuals remain: **Enforce HTTPS** is still unchecked (Settings →
+Pages) so plain HTTP serves 200 instead of redirecting, and the apex still
+has no DNS records (bare `connectomelab.com` is unreachable; the Pages
+settings banner shows NotServedByPagesError for it). The full history and
+the superseded theories are kept below for the record.
+
+**Original 2026-08-31 diagnosis (superseded the backoff theory):**
 
 The situation degraded after 2026-08-26: the site is now not served at all,
 over HTTP or HTTPS. Measured from a GitHub Actions runner (unrestricted
