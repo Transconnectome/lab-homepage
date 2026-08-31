@@ -58,6 +58,23 @@ jobs:
           curl -s -o /dev/null -w 'http://connectomelab.com/ -> %{http_code} redirect=%{redirect_url}\n' \
             --max-time 20 http://connectomelab.com/ || true
 
+      - name: Live copy check — publications page
+        run: |
+          body=$(curl -sfm 15 "https://www.connectomelab.com/publications/" 2>/dev/null || true)
+          [[ "$body" == *"물어 온 연구의 기록"* ]] \
+            && echo "KO: new one-sentence description IS live" \
+            || echo "KO: new description NOT visible yet"
+          [[ "$body" == *"피어리뷰 논문"* ]] \
+            && echo "KO: old count heading STILL live" \
+            || echo "KO: old count heading gone"
+          [[ "$body" == *'"Neuroimaging"'* ]] \
+            && echo "KO: Neuroimaging chip STILL present" \
+            || echo "KO: no Neuroimaging filter chip"
+          en=$(curl -sfm 15 "https://www.connectomelab.com/en/publications/" 2>/dev/null || true)
+          [[ "$en" == *"woven from genomics"* ]] \
+            && echo "EN: new description IS live" \
+            || echo "EN: new description NOT visible yet"
+
       - name: Pages API — site and certificate state
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
