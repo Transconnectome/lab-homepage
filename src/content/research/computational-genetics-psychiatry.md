@@ -12,11 +12,11 @@ keyHighlights:
   - "Multigenerational transmission of psychiatric vulnerability mediated by polygenic scores"
 ---
 
-## Unraveling Complex Gene-Brain-Behavior Dynamics
+## Mapping Gene–Brain–Behavior Dynamics
 
 Psychiatric conditions such as major depressive disorder, anxiety, and neurodevelopmental conditions arise from intricate interplays between polygenic risk architectures and environmental stressors across developmental timepoints.
 
-### High-Impact Discoveries
+### Key Findings
 
 1. **[Polygenic Architecture in Children](https://doi.org/10.1038/s41467-025-63312-6) (*Nature Communications, 2025*)**:
    - Eunji Lee, Bogyeom Kim, Jiook Cha et al. demonstrated how distributed polygenic risk scores manifest in macro-scale cortical morphology, functional connectome reconfigurations, and behavioral phenotypes across thousands of children in the ABCD Study.
