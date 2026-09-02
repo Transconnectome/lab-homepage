@@ -1,0 +1,28 @@
+{
+  "name": "Anna Jung",
+  "nameKo": "정안나",
+  "role": "Undergraduate Research Intern",
+  "roleKo": "학부 인턴",
+  "category": "undergrad",
+  "email": "annajung227@snu.ac.kr",
+  "affiliations": [
+    "Seoul National University"
+  ],
+  "education": [
+    "BA in English Language and Literature, Business Administration, SNU"
+  ],
+  "researchInterests": [
+    "Evaluating Quantum Utility in User Application Cases",
+    "Entrepreneurship with Brain Foundation Model"
+  ],
+  "passions": [
+    "Acting",
+    "Street Dance",
+    "Becoming an Influencer"
+  ],
+  "links": {
+    "website": "https://www.linkedin.com/in/anna-jung-43507b24a/"
+  },
+  "order": 20,
+  "avatar": "/assets/members/anna-jung.jpg"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Taeyang Lee",
+  "nameKo": "이태양",
+  "role": "Research Intern",
+  "roleKo": "인턴",
+  "category": "undergrad",
+  "email": "rlaxodid5539@snu.ac.kr",
+  "affiliations": [
+    "Seoul National University"
+  ],
+  "education": [
+    "BS in Phychology, Seoul National University"
+  ],
+  "researchInterests": [
+    "Emotion",
+    "Continuous Modeling for Brain Signal"
+  ],
+  "passions": [
+    "Workout",
+    "Film"
+  ],
+  "links": {
+    "github": "https://github.com/taeyanglee01"
+  },
+  "order": 22,
+  "avatar": "/assets/members/taeyang-lee.jpg"
+}
