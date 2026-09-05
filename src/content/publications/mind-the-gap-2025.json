@@ -2,7 +2,9 @@
   "title": "Mind the Gap: Aligning the Brain with Language Models Requires a Nonlinear and Multimodal Approach",
   "authors": [
     "Dong Yeop Han",
-    "Jiook Cha"
+    "Yunju Cho",
+    "Jiook Cha",
+    "Jay-Yoon Lee"
   ],
   "venue": "arXiv preprint arXiv:2502.12771",
   "year": 2025,
@@ -14,7 +16,7 @@
     "Neuroscience"
   ],
   "featured": false,
-  "abstract": "Investigating representational alignment between high-dimensional neural activity and Large Language Models, revealing that standard linear regression encodings severely underestimate brain-language congruence compared to nonlinear multimodal mappings.",
+  "abstract": "Self-supervised language and audio models effectively predict brain responses to speech. However, traditional prediction models rely on linear mappings from unimodal features, despite the complex integration of auditory signals with linguistic and semantic information across widespread brain networks during speech comprehension. Here, we introduce a nonlinear, multimodal prediction model that combines audio and linguistic features from pre-trained models (e.g., LLAMA, Whisper). Our approach achieves a 17.2% and 17.9% improvement in prediction performance (unnormalized and normalized correlation) over traditional unimodal linear models, as well as a 7.7% and 14.4% improvement, respectively, over prior state-of-the-art models. These improvements represent a major step towards future robust in-silico testing and improved decoding performance. They also reveal how auditory and semantic information are fused in motor, somatosensory, and higher-level semantic regions, aligning with existing neurolinguistic theories. Overall, our work highlights the often neglected potential of nonlinear and multimodal approaches to brain modeling, paving the way for future studies to embrace these strategies in naturalistic neurolinguistics research.",
   "labMembers": [
     "Dong Yeop Han",
     "Jiook Cha"

@@ -2,8 +2,9 @@
   "title": "NeuroMamba: A State-Space Foundation Model for Functional MRI",
   "authors": [
     "Jubin Choi",
-    "Jungwoo Seo",
-    "Dong Yeop Han",
+    "David Keetae Park",
+    "Junbeom Kwon",
+    "Shinjae Yoo",
     "Jiook Cha"
   ],
   "venue": "NeurIPS 2025 Workshop on Foundation Models for the Brain and Body (Spotlight)",
@@ -16,12 +17,13 @@
   ],
   "featured": true,
   "spotlight": "NeurIPS 2025 Workshop Spotlight",
-  "abstract": "Functional MRI yields high-dimensional 4D spatiotemporal brain recordings that are computationally intractable for quadratic self-attention transformers at scale. We present NeuroMamba, the first selective state-space foundation model architecture for 4D fMRI sequences, enabling linear computational scaling with respect to scan duration and superior transferability across diverse cognitive decoding benchmarks.",
+  "abstract": "Foundation models for whole-brain fMRI analysis are dominated by two competing paradigms: Region-of-Interest (ROI) approaches that discard fine-grained spatial information, and hierarchical models with Transformer or Mamba backbones that retain it. However, the rigid, grid-based architecture of hierarchical models imposes critical limitations. They are forced to process vast, uninformative non-brain background regions (up to 60% of the data), creating significant computational inefficiency, and struggle with inter-subject anatomical variation. To overcome these challenges, we introduce NeuroMamba, a foundation model that enables direct sequence modeling of 4D whole-brain fMRI. NeuroMamba leverages Mamba backbone trained with an autoregressive objective given small spatiotemporal patches. Our approach facilitates the adaptive removal of nuisance background signals—a core inefficiency bottleneck for prior grid-based methods. To address anatomical variability, the model incorporates explicit frequency-based positional encodings, enhancing robustness across subjects. While direct sequence modeling is computationally demanding, the linear-time efficiency of Mamba, coupled with adaptive background suppression, makes whole-brain pre-training tractable. We demonstrate the first successful autoregressive pre-training on full-resolution fMRI, achieving state-of-the-art accuracy for sex classification and establishing a scalable paradigm for neuroimaging analysis.",
   "labMembers": [
     "Jubin Choi",
-    "Jungwoo Seo",
-    "Dong Yeop Han",
+    "David Keetae Park",
+    "Junbeom Kwon",
     "Jiook Cha"
   ],
-  "kind": "workshop"
+  "kind": "workshop",
+  "codeUrl": "https://github.com/Transconnectome/NeuroMamba"
 }

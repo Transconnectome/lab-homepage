@@ -4,7 +4,7 @@ titleKo: "Affective Neuroscience: Awe, Memory, and Aesthetic Experience"
 tagline: "말로 옮기기 가장 어려운 감정들 — 경외, 뭉클함, 되살아나는 기억 — 을 측정하고, 모형화하고, 때로는 무대에 올린다."
 category: "affective-neuro"
 featured: false
-order: 5
+order: 4
 keyHighlights:
   - "경외(awe)는 순수한 긍정 정서가 아니라 양가적 정서다 — 행동과 피질 반응 모두에서 (Communications Psychology, 2025)"
   - "EEG로 유도한 오디오·비주얼 생성으로 정서 맥락이 입혀진 기억을 재구성 (ACM Multimedia 워크숍, 2025)"
@@ -15,7 +15,7 @@ lang: "ko"
 baseSlug: "art-and-neuroscience"
 ---
 
-## 정서의 어려운 쪽 끝
+## 측정하기 가장 어려운 감정들
 
 정서 신경과학의 상당 부분은 실험 통제를 위해 고른 자극 위에서 돌아간다. 정지 이미지,
 맥락에서 떼어 낸 얼굴, 정서가 척도 위의 형용사 하나. 그런데 사람들이 실제로 중요하게
@@ -23,7 +23,7 @@ baseSlug: "art-and-neuroscience"
 다시 떠올릴 때 기억에 입혀지는 특유의 색조 — 이것들은 뒤섞여 있고, 시간에 걸쳐
 펼쳐지며, 맥락에 묶여 있다.
 
-이 축은 정서를 그 어려운 쪽 끝에서 다룬다. 방법은 셋이다. 하나의 척도로 눌러지지 않는
+이 축은 정서 가운데서도 측정하기 가장 어려운 쪽을 다룬다. 방법은 셋이다. 하나의 척도로 눌러지지 않는
 감정을 측정하는 것, 그 감정을 불러오는 매체 자체를 모형화하는 것, 그리고 때로는
 그 장치 전체를 관객이 있는 방에 놓아 보는 것.
 
@@ -56,7 +56,7 @@ baseSlug: "art-and-neuroscience"
 - **Repurposing Image Diffusion Models for Training-Free Music Style Transfer on
   Mel-Spectrograms** — 왕희환, 권준우, 김수영, 서정우, Shinjae Yoo, Yuewei Lin,
   차지욱 ([IEEE ICIP 2026](https://doi.org/10.1109/icip61757.2026.11630156)).
-  이미지 확산 모델을 멜 스펙트로그램에 겨누는 것만으로, 추가 학습 없이 음악
+  이미지 확산 모델을 멜 스펙트로그램에 적용하는 것만으로, 추가 학습 없이 음악
   스타일을 옮긴다.
 - 이것들은 곁가지가 아니다. 스타일의 생성 모형은 곧 '자극이 듣는 이와 보는 이에게
   무엇을 하는가'에 대한 작업가설이고, 정서 실험이 조작해야 하는 것이 정확히 그것이다.

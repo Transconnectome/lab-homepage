@@ -4,7 +4,7 @@ titleKo: "정서 신경과학: 경외, 기억, 그리고 미적 경험"
 tagline: "The feelings that are hardest to put into words — awe, being moved, remembering — measured, modeled, and occasionally staged."
 category: "affective-neuro"
 featured: false
-order: 5
+order: 4
 keyHighlights:
   - "Awe is an ambivalent affect, not a purely positive one — in behavior and in cortex (Communications Psychology, 2025)"
   - "Reconstructing affect-contextualized memory from EEG through guided audiovisual generation (ACM Multimedia workshop, 2025)"

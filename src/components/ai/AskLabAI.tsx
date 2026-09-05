@@ -23,20 +23,20 @@ type FaqKey = 'neuromamba' | 'diver0' | 'neurox' | 'qml' | 'admission' | 'cultur
 
 const PRESET_KNOWLEDGE: Record<Lang, Record<FaqKey, string>> = {
   ko: {
-    neuromamba: `**NeuroMamba**는 커넥톰 연구실이 개발한 **4D fMRI용 상태 공간 기반 파운데이션 모델**입니다 (NeurIPS 2025 Brain & Body 워크숍 Spotlight).
+    neuromamba: `**NeuroMamba**는 커넥톰 연구실이 개발한 **4D fMRI용 상태공간 파운데이션 모델**입니다 (NeurIPS 2025 Brain & Body 워크숍 Spotlight).
 
-- **핵심 특징**: 트랜스포머의 O(N²) 계산 복잡도를 선형 O(N)으로 줄여, 수천 타임스텝의 긴 4D 뇌영상 전체를 효율적으로 모델링합니다.
-- **의의**: 대규모 fMRI 코호트에서 뇌 역동성을 사전학습하여 인지 기능 디코딩과 정신질환 예측에 활용됩니다.`,
+- **핵심 특징**: 트랜스포머 어텐션 대신 선택적 상태공간 모델(Mamba)을 써서 계산량이 입력 길이에 비례하게 하고, 뇌 바깥의 배경 토큰을 미리 걷어내 계산량을 거의 절반으로 줄였습니다.
+- **결과**: UK Biobank·ABCD·HCP의 5만 명 넘는 전뇌 fMRI로 사전학습했고, HCP 성별 분류에서 SwiFT 논문이 보고한 정확도를 더 적은 파라미터로 넘어섰습니다. 다만 데이터 분할이 달라 직접 비교는 아닙니다. 다음 목표는 평가 과제를 인지 점수와 임상 진단 예측으로 넓히는 것입니다.`,
 
     diver0: `**DIVER-0**는 커넥톰 연구실이 제안한 **완전 채널 등변(Channel-Equivariant) EEG 파운데이션 모델**입니다 (ICML 2025 GenBio 워크숍 Spotlight).
 
-- **문제 해결**: 병원·연구소마다 다른 EEG 전극 배치(8~256채널)로 인한 데이터 불일치 문제를 해결합니다.
-- **기술**: 전극 위치를 연속 3D 좌표 포인트 클라우드로 취급하여 기하 대칭성을 보존하며 zero-shot 전이를 달성합니다.`,
+- **문제**: 병원과 연구소마다 EEG 전극의 수와 배치가 달라, 한 데이터셋으로 학습한 모델을 다른 데이터셋에 그대로 쓰기 어렵습니다.
+- **기술**: 채널 순열과 시간 이동에 대한 등변성(equivariance)을 아키텍처 안에 넣어, 사전학습 때 보지 못한 전극 배치에도 그대로 적용됩니다. 사전학습 데이터의 10%만으로도 경쟁력 있는 성능을 냈습니다.`,
 
-    neurox: `**Neuro-X 프로젝트**는 차지욱 교수 연구팀이 주도하는 **대규모 뇌 파운데이션 모델(Large Brain Model)** 연구 이니셔티브입니다.
+    neurox: `**Neuro-X 프로젝트**는 커넥톰 연구실의 **뇌 파운데이션 모델** 프로그램입니다.
 
-- **비전**: LLM이 언어를 학습하듯, 대규모 다중모달 뇌 데이터(fMRI, EEG, dMRI, 유전체)를 사전학습하여 마음과 행동의 신경 원리를 탐구합니다.
-- **이론적 토대**: György Buzsáki의 'Inside-Out' 프레임워크를 기반으로 뇌의 능동적 예측과 시공간 역동성을 모델링합니다.`,
+- **출발 가정**: LLM이 방대한 텍스트에서 언어의 구조를 익히듯, 대규모 뇌 데이터(fMRI, EEG, 확산 MRI)로 사전학습한 모델이 뇌 활동의 구조를 익힐 수 있다는 것입니다. 지금까지 fMRI 모델(SwiFT·NeuroMamba)과 EEG 모델(DIVER-0)을 만들었고, 이를 하나의 대규모 뇌 모델(Large Brain Model, LBM)로 모아 가는 것이 목표입니다.
+- **이론적 토대**: György Buzsáki의 인사이드아웃(inside-out) 관점을 따라, 뇌를 스스로 행동 계획을 만들고 그 결과에서 배우는 예측 기계로 보고 신호 자체의 시공간 구조를 학습하게 합니다.`,
 
     qml: `커넥톰 연구실은 **양자 머신러닝(QML)**을 뇌·시계열 데이터에 접목하는 연구를 브룩헤이븐 국립연구소와 함께 진행하고 있습니다.
 
@@ -65,18 +65,18 @@ const PRESET_KNOWLEDGE: Record<Lang, Record<FaqKey, string>> = {
   en: {
     neuromamba: `**NeuroMamba** is the lab's **state-space foundation model for 4D fMRI** (Spotlight at the NeurIPS 2025 Brain & Body workshop).
 
-- **What it does**: replaces the transformer's O(N²) attention cost with linear O(N) scaling, so a full 4D scan of thousands of timesteps can be modeled end to end.
-- **Why it matters**: pretraining brain dynamics on large fMRI cohorts, then transferring to cognitive decoding and psychiatric prediction.`,
+- **What it does**: replaces the transformer's attention with a selective state-space model (Mamba), so compute grows in proportion to input length rather than its square, and discards non-brain background tokens before training, which cuts the cost almost in half.
+- **Results**: pretrained on whole-brain fMRI from more than 50,000 people in UK Biobank, ABCD and HCP; after fine-tuning, a 3.1M-parameter model scored higher on HCP sex classification than the published SwiFT result (4.6M parameters), though on a different train/test split. Cognitive scores and clinical diagnoses are the next targets.`,
 
     diver0: `**DIVER-0** is the lab's **fully channel-equivariant EEG foundation model** (Spotlight at the ICML 2025 GenBio workshop).
 
-- **The problem**: every clinic and lab uses a different electrode montage (8–256 channels), so EEG datasets do not line up.
-- **The approach**: treat electrode positions as a continuous 3D point cloud, preserving geometric symmetry and giving zero-shot transfer across montages.`,
+- **The problem**: every clinic and lab uses a different number and layout of electrodes, so EEG datasets do not line up.
+- **The approach**: build equivariance to channel permutation and to shifts in time into the architecture, so the model adapts to electrode layouts it never saw in pretraining. It reached competitive performance with only a tenth of the pretraining data.`,
 
-    neurox: `**The Neuro-X Project** is the lab's initiative toward a **Large Brain Model**.
+    neurox: `**The Neuro-X Project** is the lab's **brain foundation model** program.
 
-- **The vision**: the way an LLM learns language, pretrain on large-scale multimodal brain data (fMRI, EEG, dMRI, genomics) to study the neural principles of mind and behaviour.
-- **The theory**: built on György Buzsáki's 'inside-out' framework, modeling the brain as an active predictor with its own spatiotemporal dynamics.`,
+- **The premise**: as an LLM learns the structure of language from a large body of text, a model pretrained on large brain datasets (fMRI, EEG, diffusion MRI) should be able to learn the structure of brain activity. So far the lab has built fMRI models (SwiFT, NeuroMamba) and an EEG model (DIVER-0); the goal is to gather them into one Large Brain Model (LBM).
+- **The theory**: György Buzsáki's inside-out view, which treats the brain as a prediction machine that generates its own action plans and learns from their consequences, so the models learn the spatiotemporal structure of the signal itself.`,
 
     qml: `The lab works on **quantum machine learning (QML)** for brain and time-series data, much of it with **Brookhaven National Laboratory**.
 

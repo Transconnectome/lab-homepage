@@ -32,9 +32,9 @@ export interface AxisLink {
 
 export const RESEARCH_AXES: ResearchAxis[] = [
   {
-    // Neuro-X (LBM vision) and the fMRI/EEG foundation models are one research
-    // program — SwiFT/NeuroMamba/DIVER-0 are the building blocks of the LBM —
-    // so they share a single node here.
+    // Neuro-X is one research program: SwiFT/NeuroMamba/DIVER-0 are the models
+    // built so far, and the Large Brain Model is where the program is heading.
+    // The research page carries it as a single entry for the same reason.
     id: 'neuro-x',
     name: 'Neuro-X: Brain Foundation Models (LBM)',
     nameKo: '뇌 파운데이션 모델 (Neuro-X · LBM)',
@@ -43,21 +43,21 @@ export const RESEARCH_AXES: ResearchAxis[] = [
     position: [0, 0.8, 0.0],
     color: '#38bdf8',
     description:
-      'One program, from architecture to moonshot: deep-learning models designed from neuroscience first principles for 4D brain signals — SwiFT, NeuroMamba, DIVER-0 — scaling toward a unified Large Brain Model that decodes the neural syntax of the mind.',
+      'Deep-learning models built for 4D fMRI (SwiFT, NeuroMamba) and for EEG recorded with any electrode layout (DIVER-0), pretrained on large cohorts. Where the program is heading: a single Large Brain Model that learns several modalities together.',
     descriptionKo:
-      '아키텍처에서 문샷까지 하나의 연구 프로그램입니다. 신경과학 제1원리에서 출발해 4D 뇌 신호에 맞게 설계한 모델들(SwiFT·NeuroMamba·DIVER-0)을, 마음의 신경 구문(neural syntax)을 해독하는 통합 대규모 뇌 모델(LBM)로 확장합니다.',
+      '4D fMRI 모델(SwiFT·NeuroMamba)과 전극 배치에 묶이지 않는 EEG 모델(DIVER-0)을 대규모 코호트로 사전학습해 왔습니다. 이 프로그램의 도달점은 여러 모달리티를 함께 학습하는 하나의 대규모 뇌 모델(LBM)입니다.',
     brainFocus:
       'Whole-brain 4D dynamics — resting-state and task fMRI, EEG rhythms at millisecond resolution across arbitrary electrode montages, and diffusion MRI — framed by Buzsáki’s “inside-out” view of the brain as a prediction engine.',
     brainFocusKo:
       '전뇌 4D 동역학 — 휴지기·과제 fMRI, 임의 전극 배치의 밀리초 해상도 EEG 리듬, 확산 MRI. 뇌를 예측 기계로 보는 Buzsáki의 inside-out 관점이 이론적 틀입니다.',
     highlights: [
       {
-        label: 'NeuroMamba: state-space foundation model for 4D fMRI (NeurIPS 2025 Spotlight)',
-        labelKo: 'NeuroMamba: 4D fMRI 상태공간 파운데이션 모델 (NeurIPS 2025 Spotlight)',
+        label: 'NeuroMamba: state-space foundation model for 4D fMRI (NeurIPS 2025 Brain & Body workshop, Spotlight)',
+        labelKo: 'NeuroMamba: 4D fMRI 상태공간 파운데이션 모델 (NeurIPS 2025 Brain & Body 워크숍, Spotlight)',
       },
       {
-        label: 'DIVER-0: channel-equivariant EEG foundation model (ICML 2025 GenBio Spotlight)',
-        labelKo: 'DIVER-0: 채널 등변 EEG 파운데이션 모델 (ICML 2025 GenBio Spotlight)',
+        label: 'DIVER-0: channel-equivariant EEG foundation model (ICML 2025 GenBio workshop, Spotlight)',
+        labelKo: 'DIVER-0: 채널 등변 EEG 파운데이션 모델 (ICML 2025 GenBio 워크숍, Spotlight)',
       },
       {
         label: 'SwiFT: 4D Swin Transformers for fMRI (NeurIPS 2023)',

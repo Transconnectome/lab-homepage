@@ -4,7 +4,7 @@ titleKo: "뉴로이미징과 시계열을 위한 양자 머신러닝(QML)"
 tagline: "Circuits that actually train, fit real brain signals, and run on today's noisy hardware."
 category: "qml"
 featured: true
-order: 4
+order: 3
 keyHighlights:
   - "Quantum Time-series Transformer: polylogarithmic-complexity attention applied to resting-state fMRI from ABCD and UK Biobank (IEEE QCE 2025)"
   - "Multi-chip ensemble circuits that mitigate barren plateaus and reduce quantum error bias and variance at the same time (arXiv:2505.08782)"

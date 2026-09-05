@@ -17,7 +17,7 @@ the handful of non-obvious traps that cost real time to find.
 | Hosting | GitHub Pages, deployed by `.github/workflows/deploy.yml` on every push to `main` |
 | Domain | `www.connectomelab.com` → CNAME → `transconnectome.github.io` |
 | Languages | **Korean is the default, at the root.** English is under `/en/`. |
-| Content | 33 members · 102 publications (76 peer-reviewed) · 10 news · 5 research areas · 3 history entries · 12 radar items · 9 AI ideas |
+| Content | 33 members · 102 publications (76 peer-reviewed) · 10 news · 4 research areas · 3 history entries · 12 radar items · 9 AI ideas |
 | Automation | Weekly arXiv radar + publication sync + AI ideas; news-from-issue on demand |
 
 **One thing is not finished:** the HTTPS certificate. See §5.

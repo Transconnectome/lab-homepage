@@ -4,10 +4,15 @@
     "Dong Yeop Han",
     "Ahhyun Lee",
     "Taeyang Lee",
+    "Yonghyeon Gwon",
     "Sebin Lee",
+    "Seong Jin Lee",
+    "David Keetae Park",
+    "Shinjae Yoo",
+    "Chun Kee Chung",
     "Jiook Cha"
   ],
-  "venue": "ICML 2025 Workshop on Generative Biology (Spotlight)",
+  "venue": "ICML 2025 Workshop on Generative AI and Biology (Spotlight)",
   "year": 2025,
   "month": "July",
   "tags": [
@@ -16,12 +21,15 @@
   ],
   "featured": true,
   "spotlight": "ICML 2025 Workshop Spotlight",
-  "abstract": "We introduce DIVER-0, a novel channel-equivariant foundation model for electroencephalography (EEG). By enforcing strict spatial permutation and continuous coordinate equivariance, DIVER-0 natively handles heterogeneous montage configurations without requiring spatial interpolation or channel re-referencing.",
+  "abstract": "Electroencephalography (EEG) is a non-invasive technique widely used in brain-computer interfaces and clinical applications, yet existing EEG foundation models face limitations in modeling spatio-temporal brain dynamics and lack channel permutation equivariance, preventing robust generalization across diverse electrode configurations. To address these challenges, we propose DIVER-0, a novel EEG foundation model that demonstrates how full spatio-temporal attention—rather than segregated spatial or temporal processing—achieves superior performance when properly designed with Rotary Position Embedding (RoPE) for temporal relationships and binary attention biases for channel differentiation. We also introduce Sliding Temporal Conditional Positional Encoding (STCPE), which improves upon existing conditional positional encoding approaches by maintaining both temporal translation equivariance and channel permutation equivariance, enabling robust adaptation to arbitrary electrode configurations unseen during pretraining. Experimental results demonstrate that DIVER-0 achieves competitive performance with only 10% of pretraining data while maintaining consistent results across all channel permutation conditions, validating its effectiveness for cross-dataset generalization and establishing key design principles for handling the inherent heterogeneity of neural recording setups.",
   "labMembers": [
     "Dong Yeop Han",
     "Ahhyun Lee",
+    "Taeyang Lee",
     "Sebin Lee",
+    "David Keetae Park",
     "Jiook Cha"
   ],
-  "kind": "workshop"
+  "kind": "workshop",
+  "url": "https://arxiv.org/abs/2507.14141"
 }
