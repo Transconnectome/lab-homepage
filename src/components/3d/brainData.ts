@@ -43,13 +43,13 @@ export const RESEARCH_AXES: ResearchAxis[] = [
     position: [0, 0.8, 0.0],
     color: '#38bdf8',
     description:
-      'Deep-learning models built for 4D fMRI (SwiFT, NeuroMamba) and for EEG recorded with any electrode layout (DIVER-0), pretrained on large cohorts. Where the program is heading: a single Large Brain Model that learns several modalities together.',
+      'Deep-learning models built for 4D fMRI (SwiFT, NeuroMamba) and channel-order-robust EEG (DIVER-0), pretrained on large cohorts. The Neuro-X project aims to develop a scalable, multimodal Large Brain Model.',
     descriptionKo:
-      '4D fMRI 모델(SwiFT·NeuroMamba)과 전극 배치에 묶이지 않는 EEG 모델(DIVER-0)을 대규모 코호트로 사전학습해 왔습니다. 이 프로그램의 도달점은 여러 모달리티를 함께 학습하는 하나의 대규모 뇌 모델(LBM)입니다.',
+      '4D fMRI 모델(SwiFT·NeuroMamba)과 채널 순서에 강건하도록 설계한 EEG 모델(DIVER-0)을 대규모 코호트로 사전학습해 왔습니다. Neuro-X의 목표는 확장 가능한 멀티모달 대규모 뇌 모델(LBM)입니다.',
     brainFocus:
-      'Whole-brain 4D dynamics — resting-state and task fMRI, EEG rhythms at millisecond resolution across arbitrary electrode montages, and diffusion MRI — framed by Buzsáki’s “inside-out” view of the brain as a prediction engine.',
+      'Whole-brain 4D dynamics — resting-state and task fMRI, millisecond-resolution EEG recorded with heterogeneous electrode configurations, and proposed extensions to other modalities — framed by Buzsáki’s “inside-out” view of the brain as a prediction engine.',
     brainFocusKo:
-      '전뇌 4D 동역학 — 휴지기·과제 fMRI, 임의 전극 배치의 밀리초 해상도 EEG 리듬, 확산 MRI. 뇌를 예측 기계로 보는 Buzsáki의 inside-out 관점이 이론적 틀입니다.',
+      '전뇌 4D 동역학 — 휴지기·과제 fMRI, 서로 다른 전극 구성으로 기록한 밀리초 해상도 EEG, 그리고 다른 모달리티로의 제안된 확장. 뇌를 예측 기계로 보는 Buzsáki의 inside-out 관점이 이론적 틀입니다.',
     highlights: [
       {
         label: 'NeuroMamba: state-space foundation model for 4D fMRI (NeurIPS 2025 Brain & Body workshop, Spotlight)',
@@ -78,25 +78,25 @@ export const RESEARCH_AXES: ResearchAxis[] = [
     position: [-1.3, 0.4, 0.2],
     color: '#f43f5e',
     description:
-      'Bridging polygenic risk, white-matter tractography and environmental adversity to predict mental-health trajectories in youth.',
+      'Across complementary studies, testing what polygenic scores add to brain-imaging maps, family history, and limited youth mental-health prediction.',
     descriptionKo:
-      '다유전자 위험과 백질 신경로, 환경적 역경을 연결해 청소년 정신건강 궤적을 예측합니다.',
+      '서로 다른 연구에서 다유전자 점수가 뇌영상 관계 지도, 가족력, 제한적인 청소년 정신건강 예측에 무엇을 더하는지 시험합니다.',
     brainFocus:
-      'Developing brains in large cohorts (ABCD): white-matter integrity, subcortical structure, and their genetic architecture across generations.',
+      'Children and adolescents in large cohorts (ABCD): multimodal brain measures, family history, polygenic scores, and prediction tested at distinct levels of evidence.',
     brainFocusKo:
-      '대규모 코호트(ABCD)의 발달 중인 뇌 — 백질 완결성, 피질하 구조, 그리고 세대를 잇는 유전적 구조.',
+      '대규모 코호트(ABCD)의 아동·청소년 — 다중 뇌영상 지표, 가족력, 다유전자 점수, 그리고 서로 다른 증거 수준에서 시험한 예측.',
     highlights: [
       {
         label: 'Polygenic architecture of the developing brain (Nat Comms 2025)',
         labelKo: '발달하는 뇌의 다유전자 구조 (Nat Comms 2025)',
       },
       {
-        label: 'Multigenerational transmission of psychiatric vulnerability (Mol Psychiatry 2025)',
-        labelKo: '정신질환 취약성의 다세대 전달 (Mol Psychiatry 2025)',
+        label: 'Statistical mediation of a family-history association (Mol Psychiatry 2025)',
+        labelKo: '가족력 연관에 대한 통계적 매개 추정 (Mol Psychiatry 2025)',
       },
       {
-        label: 'Adolescent depression & suicide risk prediction',
-        labelKo: '청소년 우울·자살 위험 예측',
+        label: 'Initial youth depression and suicidality prediction tests',
+        labelKo: '청소년 우울·자살성 예측의 초기 시험',
       },
     ],
   },
@@ -109,9 +109,9 @@ export const RESEARCH_AXES: ResearchAxis[] = [
     position: [1.2, -0.1, -0.4],
     color: '#fbbf24',
     description:
-      'Quantum circuits that train at scale, fit real fMRI and EEG, and run on today’s noisy hardware — much of it with Brookhaven National Laboratory.',
+      'Quantum circuits tested for trainability, parameter efficiency, fMRI and EEG fit, and noisy-hardware feasibility. Several cited studies include Brookhaven National Laboratory coauthors.',
     descriptionKo:
-      '규모에서 학습되고 실제 fMRI·EEG에 맞으며 오늘의 노이즈 있는 하드웨어에서 도는 양자 회로 — 상당수는 브룩헤이븐 국립연구소와 함께 합니다.',
+      '학습 가능성, 파라미터 효율, fMRI·EEG 적합성, 노이즈 하드웨어 실행 가능성을 시험합니다. 인용된 여러 연구에는 브룩헤이븐 국립연구소 소속 공동저자가 참여했습니다.',
     brainFocus:
       'Long 4D fMRI runs and long EEG montages — the high-dimensional, long-sequence regime where classical attention gets expensive.',
     brainFocusKo:
@@ -126,12 +126,12 @@ export const RESEARCH_AXES: ResearchAxis[] = [
         labelKo: '배런 플래토를 완화하는 멀티칩 앙상블 회로 (arXiv:2505.08782)',
       },
       {
-        label: 'Ten-class MNIST end-to-end on a 127-qubit IBM Eagle processor (arXiv:2607.17705)',
-        labelKo: '127큐비트 IBM Eagle에서 엔드투엔드로 실행한 10클래스 MNIST (arXiv:2607.17705)',
+        label: 'A 12-qubit MNIST classifier deployed on a 127-qubit IBM Eagle device (arXiv:2607.17705)',
+        labelKo: '12큐비트 MNIST 분류기를 127큐비트 IBM Eagle 장치에 배포 (arXiv:2607.17705)',
       },
       {
-        label: 'Active research internship program (Quantum Computing & AI)',
-        labelKo: '양자컴퓨팅·AI 연구 인턴십 프로그램 운영',
+        label: 'Q-DIVER: ~50× smaller task head, but ~2.9× fewer total trainable parameters (arXiv:2603.28122)',
+        labelKo: 'Q-DIVER: 과제 헤드는 약 50배, 전체 학습 파라미터는 약 2.9배 감소 (arXiv:2603.28122)',
       },
     ],
   },

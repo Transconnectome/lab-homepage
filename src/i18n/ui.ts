@@ -62,8 +62,10 @@ export const ui = {
     'research.eyebrow': 'Research',
     'research.title': 'How do neural connections become a mind?',
     'research.desc':
-      'We combine representation learning, population genetics, high-performance computing, and affective science — landing occasionally in an art gallery — to study how human connectomes give rise to cognition and feeling.',
-    'research.keyDirections': 'Key directions',
+      'We ask how brain signals can be represented without erasing their spatial and temporal structure, how genetic and contextual variation relates to development, and where models of cognition, affect, and mental health stop generalizing. Each area below separates results, limits, and proposed directions.',
+    'research.overview': 'Four questions at a glance',
+    'research.overviewDesc': 'Choose an area to jump to its evidence, methods, and current limits.',
+    'research.keyDirections': 'Evidence and limits',
 
     // People page
     'people.eyebrow': 'People',
@@ -183,7 +185,7 @@ export const ui = {
 
     // Home
     'home.eyebrow': '서울대학교 · 커넥톰 연구실',
-    'home.mottoCredit': '— 레오나르도 다빈치. 모든 것은 서로 연결되어 있다.',
+    'home.mottoCredit': '— 레오나르도 다빈치. 커넥톰 연구실의 출발점이 된 믿음입니다.',
     'home.heroDesc':
       '뇌의 연결이 어떻게 마음을 만들어내는지 연구합니다. 인지와 정서, 발달, 그리고 정신건강의 회복탄력성까지가 그 대상입니다. 뇌 파운데이션 모델과 멀티모달 유전체학, 양자 머신러닝이 우리의 도구이며, ‘잘 보는 것’이야말로 과학적 능력이라 믿습니다.',
     'home.exploreCta': '연구 살펴보기',
@@ -220,8 +222,10 @@ export const ui = {
     'research.eyebrow': '연구',
     'research.title': '신경 연결은 어떻게 마음이 되는가?',
     'research.desc':
-      '표현 학습과 집단 유전학, 고성능 컴퓨팅, 그리고 정서과학을 결합해 인간 커넥톰이 어떻게 인지와 감정이 되는지를 연구합니다. 때로는 미술관도 실험실이 됩니다.',
-    'research.keyDirections': '핵심 방향',
+      '뇌 신호의 공간·시간 구조를 지우지 않고 어떻게 표상할지, 유전·맥락의 차이가 발달과 어떻게 연관되는지, 인지·정서·정신건강 모형의 일반화가 어디에서 멈추는지 묻습니다. 아래 네 분야는 결과·한계·제안된 방향을 구분해 설명합니다.',
+    'research.overview': '한눈에 보는 네 가지 질문',
+    'research.overviewDesc': '분야를 선택하면 근거·방법·현재 한계로 바로 이동합니다.',
+    'research.keyDirections': '근거와 한계',
 
     // People page
     'people.eyebrow': '구성원',
