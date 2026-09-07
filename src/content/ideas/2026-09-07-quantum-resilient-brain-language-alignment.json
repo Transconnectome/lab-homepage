@@ -1,0 +1,24 @@
+{
+  "title": "Quantum-Resilient Brain-Language Alignment",
+  "titleKo": "양자 저항성 뇌-언어 정렬",
+  "date": "2026-09-07",
+  "category": "qml",
+  "hypothesis": "Applying Discretization-Aware Fine-Tuning (DAFT) to brain activity representations before quantum encoding will improve the robustness and accuracy of brain-language alignment on noisy quantum hardware.",
+  "hypothesisKo": "양자 인코딩 전 뇌 활동 표현에 Discretization-Aware Fine-Tuning (DAFT)을 적용하면 노이즈가 많은 양자 하드웨어에서 뇌-언어 정렬의 견고성과 정확성이 향상될 것이다.",
+  "rationale": "The lab's work in QML for neuroimaging and brain-LLM alignment faces challenges with quantum noise. DAFT offers a method to create quantum-robust representations, directly addressing a critical bottleneck in QML applicability to complex neuroimaging data.",
+  "rationaleKo": "뇌 이미징을 위한 양자 ML 및 뇌-LLM 정렬에 대한 연구는 양자 노이즈로 인한 어려움을 겪고 있다. DAFT는 양자-강건한 표현을 생성하는 방법을 제공하며, 복잡한 신경 영상 데이터에 대한 QML 적용 가능성의 중요한 병목 현상을 직접 해결한다.",
+  "labThreads": [
+    "Quantum Time-Series Transformer",
+    "Mind the Gap",
+    "Hybrid Quantum Temporal Convolutional Networks"
+  ],
+  "externalInspiration": [
+    "Discretization-Aware Fine-Tuning for Quantum Machine Learning with Chemical Foundation Models",
+    "Mind the Gap: Aligning the Brain with Language Models Requires a Nonlinear and Multimodal Approach"
+  ],
+  "firstExperiment": "We will pre-process fMRI latent embeddings with DAFT, then train a Quantum Time-Series Transformer to align these robust representations with semantic embeddings from LLMs, evaluating alignment accuracy on quantum simulators.",
+  "firstExperimentKo": "fMRI 잠재 임베딩을 DAFT로 전처리한 다음, 양자 시계열 트랜스포머를 훈련하여 이 견고한 표현을 LLM의 의미론적 임베딩과 정렬하고, 양자 시뮬레이터에서 정렬 정확도를 평가할 것이다.",
+  "risks": "DAFT's efficacy might not generalize well from chemical foundation models to the distinct characteristics of brain activity representations, or the computational overhead for fine-tuning could be prohibitive.",
+  "risksKo": "DAFT의 효능이 화학 파운데이션 모델에서 뇌 활동 표현의 독특한 특성으로 잘 일반화되지 않을 수 있거나, 미세 조정을 위한 계산 오버헤드가 너무 클 수 있다.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}

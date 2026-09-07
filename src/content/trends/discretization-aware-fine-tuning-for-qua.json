@@ -1,0 +1,24 @@
+{
+  "title": "Discretization-Aware Fine-Tuning for Quantum Machine Learning with Chemical Foundation Models",
+  "authors": [
+    "Shunji Matsuura",
+    "Sonika Johri"
+  ],
+  "publishedDate": "2026-09-02",
+  "source": "arXiv (2026-09)",
+  "topic": "Quantum ML",
+  "url": "https://arxiv.org/abs/2609.03220v1",
+  "summaryPoints": [
+    "Quantum Machine Learning (QML) faces challenges in encoding high-dimensional classical data into limited quantum registers, leading to 'cross-class collisions' where distinct data points become indistinguishable.",
+    "The paper introduces Discretization-Aware Fine-Tuning (DAFT), a method that optimizes pre-trained chemical foundation models to produce representations that are robust to quantization by minimizing collision probability.",
+    "DAFT significantly improves QML performance on molecular property prediction, reducing collision counts and enabling quantum models to outperform classical baselines when trained on identical discretized inputs at higher qubit counts."
+  ],
+  "significance": "This work demonstrates a crucial method for bridging the gap between continuous classical data and discrete quantum encoding, which is essential for unlocking the potential of QML in information-constrained environments.",
+  "labRelevance": "While the paper focuses on chemical foundation models, its exploration of 'quantum machine learning for high-dimensional brain data' as a radar bucket topic suggests a potential for adapting DAFT-like strategies to improve the encoding of neuroimaging or electrophysiological data into quantum systems.",
+  "modality": [
+    "Quantum"
+  ],
+  "badge": "Emerging Paper",
+  "generatedBy": "llm:google/gemini-2.5-flash",
+  "labRelevanceScore": 0.5
+}

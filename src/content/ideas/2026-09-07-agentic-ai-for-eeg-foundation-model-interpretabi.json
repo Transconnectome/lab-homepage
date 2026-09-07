@@ -1,0 +1,23 @@
+{
+  "title": "Agentic AI for EEG Foundation Model Interpretability",
+  "titleKo": "EEG 파운데이션 모델 해석 가능성을 위한 에이전트 AI",
+  "date": "2026-09-07",
+  "category": "agentic-ai",
+  "hypothesis": "An agentic AI system, leveraging EEG-PRISM's physiological mapping capabilities, can autonomously explore and generate hypotheses about the neurophysiological underpinnings of EEG foundation model predictions.",
+  "hypothesisKo": "EEG-PRISM의 생리적 매핑 기능을 활용하는 에이전트 AI 시스템은 EEG 파운데이션 모델 예측의 신경생리적 기반에 대한 가설을 자율적으로 탐색하고 생성할 수 있다.",
+  "rationale": "Interpreting complex EEG foundation models is challenging. Combining agentic AI with physiologically-grounded interpretability methods like EEG-PRISM offers a novel path to automated hypothesis generation in brain research.",
+  "rationaleKo": "복잡한 EEG 파운데이션 모델을 해석하는 것은 어렵다. 에이전트 AI와 EEG-PRISM과 같은 생리적 기반의 해석 가능성 방법을 결합하면 뇌 연구에서 자동화된 가설 생성에 대한 새로운 길을 열 수 있다.",
+  "labThreads": [
+    "NeuroMamba",
+    "SpatioTemporal Learning of Brain Dynamics",
+    "Can Natural Image Autoencoders Compactly Tokenize fMRI"
+  ],
+  "externalInspiration": [
+    "EEG-PRISM: Physiologically-Grounded Interpretability of Predictions by EEG Foundation Models"
+  ],
+  "firstExperiment": "An agent will use EEG-PRISM to map attribution scores from a pre-trained EEG foundation model (e.g., NeuroMamba adapted for EEG) to source/frequency domains, identifying salient patterns and proposing neurophysiological hypotheses for specific task predictions, evaluated by expert review.",
+  "firstExperimentKo": "에이전트가 EEG-PRISM을 사용하여 사전 훈련된 EEG 파운데이션 모델(예: EEG에 맞춰진 NeuroMamba)의 기여도 점수를 소스/주파수 도메인으로 매핑하고, 주요 패턴을 식별하며, 특정 작업 예측에 대한 신경생리학적 가설을 제안하고, 전문가 검토를 통해 평가한다.",
+  "risks": "The agent's ability to generate truly novel and biologically plausible hypotheses might be limited by the explicit knowledge embedded in its prompts or the quality of EEG-PRISM's physiological mapping.",
+  "risksKo": "에이전트가 진정으로 새롭고 생물학적으로 타당한 가설을 생성하는 능력은 프롬프트에 내재된 명시적 지식이나 EEG-PRISM의 생리적 매핑 품질에 의해 제한될 수 있다.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}
