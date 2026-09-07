@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Sparkles, ExternalLink, Brain } from 'lucide-react';
+import { Search, Sparkles, ExternalLink, Brain, ChevronDown } from 'lucide-react';
 
 interface TrendItem {
   title: string;
@@ -28,6 +28,8 @@ const LABELS: Record<'en' | 'ko', Record<string, string>> = {
     llmSummary: 'LLM summary',
     excerpt: 'Abstract excerpt',
     summary: 'Summary',
+    showDetails: 'Show paper summary and relevance',
+    hideDetails: 'Hide paper summary and relevance',
     significance: 'Significance: ',
     whyUs: 'Why it matters to us: ',
     noMatch: 'No matching radar entries',
@@ -39,6 +41,8 @@ const LABELS: Record<'en' | 'ko', Record<string, string>> = {
     llmSummary: 'LLM 요약',
     excerpt: '초록 발췌',
     summary: '요약',
+    showDetails: '논문 요약과 연구실 관련성 보기',
+    hideDetails: '논문 요약과 연구실 관련성 접기',
     significance: '의의: ',
     whyUs: '우리 연구실과의 연결: ',
     noMatch: '조건에 맞는 항목이 없습니다',
@@ -151,8 +155,8 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
 
       {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {filteredTrends.map((trend, idx) => (
-          <article key={idx} className="card card-hover p-6 flex flex-col justify-between">
+        {filteredTrends.map((trend) => (
+          <article key={trend.url} className="card card-hover p-6 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between gap-2 mb-3">
                 <div className="flex flex-wrap items-center gap-2">
@@ -183,37 +187,49 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
                 {trend.source} · {trend.authors.join(', ')}
               </p>
 
-              {/* Summary — honestly labeled by how it was produced */}
-              <div className="mb-4 p-3.5 rounded-xl bg-paper border border-line">
-                <div className="text-xs font-semibold uppercase tracking-wider text-lab-700 mb-2 flex items-center gap-1.5">
-                  <Brain className="w-3.5 h-3.5" aria-hidden="true" />
-                  <span>
-                    {trend.generatedBy && trend.generatedBy.startsWith('llm')
-                      ? L.llmSummary
-                      : trend.generatedBy === 'extractive-fallback'
-                        ? L.excerpt
-                        : L.summary}
+              <details className="group mb-4 rounded-xl border border-line bg-paper">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold text-lab-700 transition-colors hover:bg-lab-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lab-600 focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
+                  <span className="flex items-center gap-2">
+                    <Brain className="w-4 h-4" aria-hidden="true" />
+                    <span className="group-open:hidden">{L.showDetails}</span>
+                    <span className="hidden group-open:inline">{L.hideDetails}</span>
                   </span>
+                  <ChevronDown className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" aria-hidden="true" />
+                </summary>
+
+                <div className="space-y-4 border-t border-line px-3.5 py-4">
+                  {/* Summary — honestly labeled by how it was produced */}
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-lab-700 mb-2 flex items-center gap-1.5">
+                      <span>
+                        {trend.generatedBy && trend.generatedBy.startsWith('llm')
+                          ? L.llmSummary
+                          : trend.generatedBy === 'extractive-fallback'
+                            ? L.excerpt
+                            : L.summary}
+                      </span>
+                    </div>
+                    <ul className="space-y-1.5" lang={lang === 'ko' ? 'en' : undefined}>
+                      {trend.summaryPoints.map((point, pIdx) => (
+                        <li key={pIdx} className="text-sm text-ink-soft flex items-start gap-2 leading-relaxed">
+                          <span className="text-lab-700 font-bold mt-0.5">•</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <p className="text-sm text-ink-soft leading-relaxed">
+                    <strong className="text-ink">{L.significance}</strong>
+                    <span lang={lang === 'ko' ? 'en' : undefined}>{trend.significance}</span>
+                  </p>
+
+                  <div className="p-3 rounded-xl bg-lab-50 border border-lab-600/20 text-sm text-lab-900 leading-relaxed">
+                    <strong>{L.whyUs}</strong>
+                    <span lang={lang === 'ko' ? 'en' : undefined}>{trend.labRelevance}</span>
+                  </div>
                 </div>
-                <ul className="space-y-1.5" lang={lang === 'ko' ? 'en' : undefined}>
-                  {trend.summaryPoints.map((point, pIdx) => (
-                    <li key={pIdx} className="text-sm text-ink-soft flex items-start gap-2 leading-relaxed">
-                      <span className="text-lab-700 font-bold mt-0.5">•</span>
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <p className="text-sm text-ink-soft mb-3 leading-relaxed">
-                <strong className="text-ink">{L.significance}</strong>
-                <span lang={lang === 'ko' ? 'en' : undefined}>{trend.significance}</span>
-              </p>
-
-              <div className="p-3 rounded-xl bg-lab-50 border border-lab-600/20 text-sm text-lab-900 leading-relaxed mb-4">
-                <strong>{L.whyUs}</strong>
-                <span lang={lang === 'ko' ? 'en' : undefined}>{trend.labRelevance}</span>
-              </div>
+              </details>
             </div>
 
             <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-line">

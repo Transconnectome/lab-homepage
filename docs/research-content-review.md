@@ -133,3 +133,13 @@
 - 외부 링크: 세 Nature DOI, 세 arXiv, 전시 공식 페이지는 HTTP 200; 세 IEEE DOI는 IEEE Explore로 정상 연결되어 HTTP 202를 반환했다.
 - `git diff --check`: 통과.
 - 범위 밖 기술 부채: `npm audit --omit=dev`는 Astro/esbuild/sharp 계열 4건(낮음 2, 높음 2)을 보고했고 자동 수정은 Astro 7의 breaking upgrade를 요구한다. 이번 콘텐츠 개편에서는 의존성을 변경하지 않았다.
+
+## 10. 홈페이지 피드백 후속 반영 (2026-09-07)
+
+- **뉴욕 학회 명칭**: [CCN 2026 공식 페이지](https://2026.ccneuro.org/)에서 제9회 Cognitive Computational Neuroscience 학회가 2026년 8월 3–6일 뉴욕대학교에서 열렸음을 확인했다. [공식 포스터 프로그램](https://2026.ccneuro.org/poster/?id=KObmJ1CFVx)에 이아현 학생의 `NeuroBabyLM` 발표가 8월 4일 세션 A의 A25로 등록되어 있어, 기존의 모호한 “뉴욕 국제 학회”를 학회명·발표자·발표명·프로그램 번호로 교정했다. 다른 구성원의 참석 여부는 확인되지 않아 복수형 표현을 쓰지 않았다.
+- **MBBN 출판 소식**: [Communications Biology 출판본](https://doi.org/10.1038/s42003-026-10011-7)은 배상윤·권준범·유신재·차지욱의 논문을 2026년 5월 8일 출판한 것으로 기록한다. 뉴스에서는 배상윤 학생 주도 연구와 MBBN의 설계·평가 범위만 소개하고, 임상적 유용성이나 기제 규명으로 확대하지 않았다.
+- **워크숍 표기**: NeuroMamba와 DIVER-0의 논문·프로젝트·연구 소개에는 이미 워크숍이 명시되어 있었다. 구성원 카드의 축약된 `NeurIPS 2025 Spotlight Author`, `ICML GenBio Spotlight Author`만 각각 해당 워크숍 Spotlight로 풀어 써 메인트랙과 구분했다.
+- **구성원 정보**: 사용자가 최주빈 학생의 학위 전공을 직접 확인했고, [서울대학교 사범대학 공개 기록](https://teacher.snu.ac.kr/bbs_sun/files/notice/notice_202112060851200.pdf)에서 생물교육과 소속을 교차 확인해 `BS in Biology Education, Seoul National University`로 수정했다. 부전공과 현재 대학원 소속은 자료 간 불일치가 있어 추정해 바꾸지 않았다. 이아현 학생은 [2026년 5월 갱신된 공개 프로필](https://yahyunee.github.io/)에서 확인되는 석박사통합과정, Princeton 방문연구, 최신 연구 관심과 링크만 반영했다. 다른 구성원의 현재 상태는 근거 없이 추정하지 않았다.
+- **AI 아이디어 페이지**: AI가 공개 논문과 Radar를 바탕으로 생성하며 연구실 승인 아이디어가 아니라는 기존 설명을 유지했다. 사용자의 명시적 판단에 따라 공개 시차나 숨김 기능은 추가하지 않았다.
+- **구현 검증**: `npm run build`로 16개 정적 페이지를 경고 없이 생성했다. ARM64용 Chromium에서 한국어·영어의 홈·소식·구성원·Radar·AI 아이디어를 데스크톱(1440×1000)과 모바일(390×844)로 확인했으며, 모든 경로가 HTTP 200이고 가로 넘침과 콘솔 오류가 없었다. Radar 요약은 최초에 모두 닫혀 있었고 키보드 `Enter`로 열기, `Space`로 닫기, 열림·닫힘 레이블 전환을 확인했다.
+- **남은 기술 부채**: `npm audit --omit=dev`는 앞선 검토와 동일하게 Astro·esbuild·sharp 계열 4건(낮음 2, 높음 2)을 보고한다. 현재 사이트는 정적 빌드이며 이번 변경에서 해당 패키지나 사용자 입력 경로를 추가하지 않았다. 자동 수정은 Astro 7로의 breaking upgrade를 요구하므로 별도 의존성 마이그레이션으로 남겼다.

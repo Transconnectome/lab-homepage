@@ -1,6 +1,6 @@
 # Handoff — SNU Connectome Lab homepage
 
-Last updated 2026-08-26. Repo: `Transconnectome/lab-homepage`. Live at
+Last updated 2026-09-07. Repo: `Transconnectome/lab-homepage`. Live at
 <https://www.connectomelab.com>.
 
 This is the operating manual for whoever picks the site up next. It covers what
@@ -17,10 +17,11 @@ the handful of non-obvious traps that cost real time to find.
 | Hosting | GitHub Pages, deployed by `.github/workflows/deploy.yml` on every push to `main` |
 | Domain | `www.connectomelab.com` → CNAME → `transconnectome.github.io` |
 | Languages | **Korean is the default, at the root.** English is under `/en/`. |
-| Content | 33 members · 102 publications (76 peer-reviewed) · 10 news · 4 research areas · 3 history entries · 12 radar items · 9 AI ideas |
+| Content | 36 members · 103 publications (61 journal · 13 conference · 3 workshop · 26 preprint) · 11 bilingual news items · 4 research areas · 3 bilingual history entries · 13 radar items · 17 AI ideas |
 | Automation | Weekly arXiv radar + publication sync + AI ideas; news-from-issue on demand |
 
-**One thing is not finished:** the HTTPS certificate. See §5.
+**Operational residual:** `www` serves a valid certificate with HTTPS enforcement,
+but the bare `connectomelab.com` apex still has no DNS records. See §5.
 
 ### Run it locally
 
@@ -198,11 +199,10 @@ expires 2026-11-28, "SSL certificate verify ok"). Recovery sequence: the
 admin made the repo public and re-enabled Pages with the custom domain
 (certificate issued within minutes once the www-only order could run), and
 the PR #7 merge to main triggered the deploy that repopulated the site.
-Two residuals remain: **Enforce HTTPS** is still unchecked (Settings →
-Pages) so plain HTTP serves 200 instead of redirecting, and the apex still
-has no DNS records (bare `connectomelab.com` is unreachable; the Pages
-settings banner shows NotServedByPagesError for it). The full history and
-the superseded theories are kept below for the record.
+**Enforce HTTPS is now enabled**: the Pages API reports `https_enforced: true`,
+and plain HTTP redirects to HTTPS with status 301. One DNS residual remains:
+the apex still has no records, so bare `connectomelab.com` is unreachable.
+The full history and the superseded theories are kept below for the record.
 
 **Original 2026-08-31 diagnosis (superseded the backoff theory):**
 

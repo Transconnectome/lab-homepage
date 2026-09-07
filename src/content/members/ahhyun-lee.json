@@ -1,21 +1,27 @@
 {
   "name": "Ahhyun Lee",
   "nameKo": "이아현",
-  "role": "Graduate Student",
-  "roleKo": "대학원생",
+  "role": "Integrated MS-PhD / Graduate Student",
+  "roleKo": "석박사통합과정 (뇌인지과학과)",
   "category": "phd",
   "email": "ahhyun724@snu.ac.kr",
   "avatar": "/assets/members/ahhyun-lee.jpg",
   "affiliations": [
-    "Department of Brain and Cognitive Sciences, SNU"
+    "Department of Brain and Cognitive Sciences, SNU",
+    "Hasson Lab, Princeton University (Visiting Student Research Collaborator, Apr–Sep 2026)"
   ],
   "education": [
-    "BS in Life Sciences (Minor in Computer Science and Engineering), POSTECH"
+    "BS in Life Science (Minor in Computer Science and Engineering), POSTECH"
   ],
   "researchInterests": [
-    "Genomic & Neuroimaging Integration",
-    "EEG Foundation Models"
+    "Brain-Language Alignment",
+    "EEG & Intracranial EEG Foundation Models",
+    "Individual-Level Neural Decoding"
   ],
   "passions": [],
+  "links": {
+    "website": "https://yahyunee.github.io/",
+    "github": "https://github.com/yahyunee"
+  },
   "order": 17
 }
