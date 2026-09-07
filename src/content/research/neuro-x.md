@@ -7,10 +7,10 @@ featured: true
 order: 1
 keyHighlights:
   - "[NeuroMamba](https://jubilant-choi.notion.site/neuromamba-neurips2025): state-space foundation model that learns directly from whole-brain 4D fMRI (NeurIPS 2025 Brain & Body workshop, Spotlight)"
-  - "[DIVER-0](https://arxiv.org/abs/2507.14141): channel-equivariant EEG foundation model that works across electrode layouts (ICML 2025 GenBio workshop, Spotlight). Its successor [DIVER-1](https://doi.org/10.48550/arxiv.2512.19097) extends the idea to intracranial EEG"
+  - "[DIVER-0](https://arxiv.org/abs/2507.14141): channel-equivariant EEG model tested on two downstream datasets and under synthetic channel permutations (ICML 2025 GenBio workshop, Spotlight). Its successor [DIVER-1](https://doi.org/10.48550/arxiv.2512.19097) extends the idea to intracranial EEG"
   - "[SwiFT](https://doi.org/10.52202/075280-1820): Swin Transformer trained directly on raw 4D fMRI (NeurIPS 2023). Its successor [SwiFUN](https://doi.org/10.1162/imag_a_00440) predicts task activation from resting-state fMRI (Imaging Neuroscience 2025)"
   - "[MBBN](https://doi.org/10.1038/s42003-026-10011-7): frequency-band attention over fMRI dynamics that improves prediction of depression, ADHD and autism and finds band-specific signatures of ADHD and autism (Communications Biology 2026)"
-  - "Next: a multimodal Large Brain Model that learns fMRI, EEG, diffusion MRI and polygenic scores in one latent space"
+  - "[Neuro-X](https://www.alcf.anl.gov/science/projects/foundation-neuroscience-ai-model-neurox) aims to develop a scalable, multimodal Large Brain Model; specific cross-modal integrations remain proposed research directions"
 ---
 
 ## The goal
@@ -39,7 +39,9 @@ Its successor [SwiFUN](https://doi.org/10.1162/imag_a_00440) (Junbeom Kwon, Jung
 
 ### EEG: models that do not depend on the electrode layout
 
-[DIVER-0](https://arxiv.org/abs/2507.14141) (Dong Yeop Han, Ahhyun Lee, Taeyang Lee et al., Spotlight at the ICML 2025 GenBio workshop) builds equivariance to channel permutation and to shifts in time into the architecture: reorder the channels or slide the window and the output follows. That lets it adapt to electrode layouts it never saw in pretraining, so the differing layouts of clinics and labs can be handled by one model, and it reached competitive performance with only a tenth of the pretraining data.
+[DIVER-0](https://arxiv.org/abs/2507.14141) (Dong Yeop Han, Ahhyun Lee, Taeyang Lee et al., Spotlight at the ICML 2025 GenBio workshop) builds equivariance to channel permutation and to shifts in time into the architecture: reorder the channels or slide the window and the output follows. After TUEG pretraining, the model was tested on FACED and PhysioNet-MI, which use different electrode configurations. Synthetic permutation tests showed stable results, and with 10% of the pretraining data DIVER-0 outperformed a comparison model on FACED but not on PhysioNet-MI.
+
+That evidence supports robustness to channel ordering across these two downstream datasets; it does not yet establish reliable use with every unseen clinical montage or with missing electrodes. The authors also note a tradeoff: strict permutation equivariance can lose electrode-specific detail, so broader datasets and tasks remain necessary.
 
 [DIVER-1](https://doi.org/10.48550/arxiv.2512.19097) (Dong Yeop Han et al., 2025) carries the same principle to intracranial EEG. A model that assumes no fixed electrode layout was pretrained on 5,310 hours of ECoG and SEEG recordings and outperformed earlier intracranial EEG foundation models on cognitive decoding and seizure detection benchmarks. A scaling study up to 1.8 billion parameters found that collecting more recordings and training long enough raised performance more reliably than adding parameters.
 
@@ -47,6 +49,6 @@ Its successor [SwiFUN](https://doi.org/10.1162/imag_a_00440) (Junbeom Kwon, Jung
 
 Three directions remain open. The first is dynamic functional connectomics. Instead of fixing the relations between brain regions in a single correlation matrix, we want time-varying attention patterns that read out short-lived cognitive states, emotional transitions, and subtle neuropathological shifts.
 
-The second is a multimodal model that combines fMRI for its spatial resolution, EEG for its temporal resolution, diffusion MRI for the structural scaffold, and polygenic scores in one latent space. [Mind the Gap](https://doi.org/10.48550/arXiv.2502.12771) (Dong Yeop Han et al., 2025) predicted brain responses to speech from the representations of pretrained language and audio models and found that a nonlinear model combining the two predicts them better than a linear mapping from either alone. We take that result as a reason to expect the same when brain signals are combined with each other.
+The [official Neuro-X project description](https://www.alcf.anl.gov/science/projects/foundation-neuroscience-ai-model-neurox) frames the second direction broadly: a scalable, multimodal Large Brain Model. More specific combinations—such as testing whether fMRI, EEG, diffusion MRI, and polygenic scores can be learned in compatible representations—are proposed directions, not results already achieved. [Mind the Gap](https://doi.org/10.48550/arXiv.2502.12771) (Dong Yeop Han et al., 2025) offers one adjacent result: a nonlinear combination of language- and audio-model representations predicted brain responses to speech better than a linear mapping from either representation alone. Whether that principle transfers to combinations of brain modalities remains an open test.
 
-The third is representations that adapt to new tasks from little data. Cognitive state decoding, psychiatric risk stratification, and generative simulation of brain activity are the tests.
+The third is representations that adapt to new tasks from little data. Possible tests include cognitive-state decoding, psychiatric-risk stratification, and generative simulation of brain activity; they are evaluation targets rather than completed capabilities.

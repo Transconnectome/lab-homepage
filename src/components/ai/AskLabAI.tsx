@@ -31,17 +31,17 @@ const PRESET_KNOWLEDGE: Record<Lang, Record<FaqKey, string>> = {
     diver0: `**DIVER-0**는 커넥톰 연구실이 제안한 **완전 채널 등변(Channel-Equivariant) EEG 파운데이션 모델**입니다 (ICML 2025 GenBio 워크숍 Spotlight).
 
 - **문제**: 병원과 연구소마다 EEG 전극의 수와 배치가 달라, 한 데이터셋으로 학습한 모델을 다른 데이터셋에 그대로 쓰기 어렵습니다.
-- **기술**: 채널 순열과 시간 이동에 대한 등변성(equivariance)을 아키텍처 안에 넣어, 사전학습 때 보지 못한 전극 배치에도 그대로 적용됩니다. 사전학습 데이터의 10%만으로도 경쟁력 있는 성능을 냈습니다.`,
+- **기술과 현재 근거**: 채널 순열과 시간 이동에 대한 등변성(equivariance)을 아키텍처 안에 넣었습니다. 서로 다른 전극 구성을 쓰는 두 후속 데이터셋과 합성 채널 순열에서 시험했으며, 더 다양한 임상 배치와 전극 누락 상황은 추가 검증이 필요합니다.`,
 
     neurox: `**Neuro-X 프로젝트**는 커넥톰 연구실의 **뇌 파운데이션 모델** 프로그램입니다.
 
 - **출발 가정**: LLM이 방대한 텍스트에서 언어의 구조를 익히듯, 대규모 뇌 데이터(fMRI, EEG, 확산 MRI)로 사전학습한 모델이 뇌 활동의 구조를 익힐 수 있다는 것입니다. 지금까지 fMRI 모델(SwiFT·NeuroMamba)과 EEG 모델(DIVER-0)을 만들었고, 이를 하나의 대규모 뇌 모델(Large Brain Model, LBM)로 모아 가는 것이 목표입니다.
 - **이론적 토대**: György Buzsáki의 인사이드아웃(inside-out) 관점을 따라, 뇌를 스스로 행동 계획을 만들고 그 결과에서 배우는 예측 기계로 보고 신호 자체의 시공간 구조를 학습하게 합니다.`,
 
-    qml: `커넥톰 연구실은 **양자 머신러닝(QML)**을 뇌·시계열 데이터에 접목하는 연구를 브룩헤이븐 국립연구소와 함께 진행하고 있습니다.
+    qml: `커넥톰 연구실은 **양자 머신러닝(QML)**을 뇌·시계열 데이터에 접목해 연구합니다. 인용된 여러 연구에는 브룩헤이븐 국립연구소 소속 공동저자가 참여했습니다.
 
-- **연구 주제**: ABCD·UK Biobank 휴지기 fMRI에 적용한 양자 시계열 트랜스포머(IEEE QCE 2025), 배런 플래토를 완화하는 멀티칩 앙상블 회로, 사전학습 EEG 인코더 위의 양자 아키텍처 탐색(Q-DIVER), 127큐비트 IBM Eagle에서의 10클래스 MNIST 실행.
-- **인턴십**: 양자 컴퓨팅(Qiskit, PennyLane)과 뇌과학·AI에 열정이 있는 연구 인턴을 수시로 모집합니다. 양자역학 사전 지식은 필요하지 않습니다.`,
+- **연구 주제**: ABCD·UK Biobank 휴지기 fMRI에 적용한 양자 시계열 트랜스포머(IEEE QCE 2025), 배런 플래토를 완화하는 멀티칩 앙상블 회로, 사전학습 EEG 인코더 위의 양자 아키텍처 탐색(Q-DIVER), 그리고 12큐비트 MNIST 분류기를 127큐비트 IBM Eagle 장치에 배포한 가능성 연구. 현재 뇌 데이터의 양자 우위는 입증되지 않았습니다.
+- **지원 안내**: 현재 모집 여부와 공식 지원 경로는 함께하기 페이지의 최신 안내를 확인해 주세요.`,
 
     admission: `**커넥톰 연구실 대학원 및 인턴 지원 안내**:
 
@@ -71,17 +71,17 @@ const PRESET_KNOWLEDGE: Record<Lang, Record<FaqKey, string>> = {
     diver0: `**DIVER-0** is the lab's **fully channel-equivariant EEG foundation model** (Spotlight at the ICML 2025 GenBio workshop).
 
 - **The problem**: every clinic and lab uses a different number and layout of electrodes, so EEG datasets do not line up.
-- **The approach**: build equivariance to channel permutation and to shifts in time into the architecture, so the model adapts to electrode layouts it never saw in pretraining. It reached competitive performance with only a tenth of the pretraining data.`,
+- **The approach and current evidence**: build equivariance to channel permutation and to shifts in time into the architecture. It was tested on two downstream datasets with different electrode configurations and under synthetic channel permutations; broader clinical montages and missing-electrode settings still need validation.`,
 
     neurox: `**The Neuro-X Project** is the lab's **brain foundation model** program.
 
 - **The premise**: as an LLM learns the structure of language from a large body of text, a model pretrained on large brain datasets (fMRI, EEG, diffusion MRI) should be able to learn the structure of brain activity. So far the lab has built fMRI models (SwiFT, NeuroMamba) and an EEG model (DIVER-0); the goal is to gather them into one Large Brain Model (LBM).
 - **The theory**: György Buzsáki's inside-out view, which treats the brain as a prediction machine that generates its own action plans and learns from their consequences, so the models learn the spatiotemporal structure of the signal itself.`,
 
-    qml: `The lab works on **quantum machine learning (QML)** for brain and time-series data, much of it with **Brookhaven National Laboratory**.
+    qml: `The lab works on **quantum machine learning (QML)** for brain and time-series data. Several of the cited studies include coauthors from **Brookhaven National Laboratory**.
 
-- **Current threads**: a Quantum Time-series Transformer applied to ABCD and UK Biobank resting-state fMRI (IEEE QCE 2025); multi-chip ensemble circuits that mitigate barren plateaus; quantum architecture search on a pretrained EEG encoder (Q-DIVER); and ten-class MNIST run end-to-end on a 127-qubit IBM Eagle processor.
-- **Internships**: we recruit research interns interested in quantum computing (Qiskit, PennyLane) and brain AI year-round. No prior quantum background is required.`,
+- **Current threads**: a Quantum Time-series Transformer applied to ABCD and UK Biobank resting-state fMRI (IEEE QCE 2025); multi-chip ensemble circuits that mitigate barren plateaus; quantum architecture search on a pretrained EEG encoder (Q-DIVER); and a feasibility study that deployed a 12-qubit MNIST classifier on a 127-qubit IBM Eagle device. Quantum advantage on brain data has not been established.
+- **Applications**: see the Join page for the current recruitment status and official application route.`,
 
     admission: `**Applying to the lab — graduate study and internships**:
 

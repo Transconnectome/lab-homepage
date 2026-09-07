@@ -17,20 +17,52 @@ const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실'
 
 <BaseLayout lang={lang} title={pageTitle}>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-14">
-    <div class="max-w-2xl space-y-4">
+    <div class="max-w-3xl space-y-4">
       <p class="eyebrow">{t('research.eyebrow')}</p>
       <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('research.title')}</h1>
       <p class="text-lg text-ink-soft leading-relaxed">{t('research.desc')}</p>
     </div>
 
+    <nav aria-labelledby="research-overview-title" class="space-y-4">
+      <div class="space-y-1">
+        <h2 id="research-overview-title" class="font-display text-2xl font-semibold text-ink">
+          {t('research.overview')}
+        </h2>
+        <p class="text-sm text-ink-soft">{t('research.overviewDesc')}</p>
+      </div>
+      <ol class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {sortedResearch.map((item, index) => {
+          const anchor = item.data.baseSlug ?? item.slug;
+          return (
+            <li>
+              <a
+                href={`#${anchor}`}
+                class="group block h-full rounded-xl border border-line bg-white/70 p-5 transition hover:-translate-y-0.5 hover:border-lab-300 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lab-600 focus-visible:ring-offset-2"
+              >
+                <span class="eyebrow" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <span class="mt-2 block font-display text-lg font-semibold text-ink group-hover:text-lab-700">
+                  {item.data.title}
+                </span>
+                <span class="mt-2 block text-sm leading-relaxed text-ink-soft">{item.data.tagline}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+
     <div class="space-y-10">
       {sortedResearch.map(async (item) => {
         const { Content } = await item.render();
+        const anchor = item.data.baseSlug ?? item.slug;
         return (
-          <article id={item.data.baseSlug ?? item.slug} class="card p-8 sm:p-10 space-y-6 scroll-mt-24">
-            <header class="border-b border-line pb-5 space-y-1">
-              <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink">{item.data.title}</h2>
-              <p class="text-base text-lab-700" lang={lang === 'ko' ? 'en' : 'ko'}>{item.data.titleKo}</p>
+          <article id={anchor} aria-labelledby={`${anchor}-title`} class="card p-8 sm:p-10 space-y-6 scroll-mt-24">
+            <header class="border-b border-line pb-5 space-y-3">
+              <div class="space-y-1">
+                <h2 id={`${anchor}-title`} class="font-display text-2xl sm:text-3xl font-semibold text-ink">{item.data.title}</h2>
+                <p class="text-base text-lab-700" lang={lang === 'ko' ? 'en' : 'ko'}>{item.data.titleKo}</p>
+              </div>
+              <p class="max-w-3xl text-base sm:text-lg leading-relaxed text-ink-soft">{item.data.tagline}</p>
             </header>
 
             {item.data.keyHighlights.length > 0 && (
