@@ -14,16 +14,21 @@ Honesty rules:
   silently.
 
 Reads the issue payload from GITHUB_EVENT_PATH (standard Actions event file).
-Writes the two markdown files and prints their paths (used by the workflow).
+Writes two escaped Markdown drafts to .news-drafts, outside the published
+content tree. A maintainer reviews and copies them to src/content/news.
 """
 
 import json
+import html
+import datetime
 import os
 import re
 import sys
 import urllib.request
+import urllib.parse
+from pathlib import Path
 
-NEWS_DIR = os.path.join(os.path.dirname(__file__), "..", "src", "content", "news")
+NEWS_DIR = Path(__file__).resolve().parent.parent / ".news-drafts"
 LLM_MODEL = "google/gemini-2.5-flash"
 
 
@@ -98,7 +103,59 @@ Return STRICT JSON:
 
 
 def yaml_quote(s: str) -> str:
-    return '"' + s.replace('\\', '\\\\').replace('"', '\\"') + '"'
+    # JSON strings are valid YAML scalars, including escaped newlines.
+    return json.dumps(s, ensure_ascii=False)
+
+
+def safe_link(value: str) -> str:
+    if not value:
+        return ""
+    if any(char.isspace() or ord(char) < 32 for char in value):
+        raise ValueError("Link must not contain whitespace or control characters")
+    parsed = urllib.parse.urlsplit(value)
+    if parsed.scheme not in ("https", "http") or not parsed.hostname or parsed.username or parsed.password:
+        raise ValueError("Link must be an HTTP(S) URL without credentials")
+    return value
+
+
+def plain_markdown(value: str) -> str:
+    """Treat model output as text, never raw HTML or executable Markdown links."""
+    value = html.escape(value.strip(), quote=False)
+    return re.sub(r'([\\`*_{}\[\]()#+.!|>~\-])', r'\\\1', value)
+
+
+def render_drafts(fields: dict, story: dict, issue_number: int) -> dict[str, str]:
+    date = fields.get("date", "")
+    datetime.date.fromisoformat(date)
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date):
+        raise ValueError("Date must use YYYY-MM-DD")
+    if not isinstance(issue_number, int) or isinstance(issue_number, bool) or issue_number < 1:
+        raise ValueError("Missing valid issue number")
+    for key in ("titleEn", "titleKo", "bodyEn", "bodyKo"):
+        if not isinstance(story.get(key), str) or len(story[key].strip()) < 5:
+            raise ValueError(f"Missing story field: {key}")
+    if any("\n" in story[key] or "\r" in story[key] for key in ("titleEn", "titleKo")):
+        raise ValueError("Headlines must be single-line text")
+    category = fields.get("category", "general")
+    if category not in ("award", "paper", "conference", "event", "exhibition", "general"):
+        category = "general"
+    link = safe_link(fields.get("link", ""))
+    base = f"{date[:7]}-{slugify(story['titleEn'])}-issue-{issue_number}"
+    drafts = {}
+    for lang, title_key, other_key, body_key in (
+        ("en", "titleEn", "titleKo", "bodyEn"),
+        ("ko", "titleKo", "titleEn", "bodyKo"),
+    ):
+        metadata = {"lang": lang, "title": story[title_key].strip(),
+                    "titleKo": story[other_key].strip(), "date": date, "category": category}
+        if lang == "ko":
+            metadata["baseSlug"] = base
+        if link:
+            metadata["link"] = link
+        frontmatter = "\n".join(f"{key}: {yaml_quote(value)}" for key, value in metadata.items())
+        name = f"{base}{'-ko' if lang == 'ko' else ''}.md"
+        drafts[name] = f"---\n{frontmatter}\n---\n\n{plain_markdown(story[body_key])}\n"
+    return drafts
 
 
 def main() -> int:
@@ -119,47 +176,21 @@ def main() -> int:
         print("::error::Submission is missing the headline or details field.")
         return 1
 
-    date = fields.get("date", "")
-    if not re.match(r"^\d{4}-\d{2}-\d{2}$", date):
-        date = (issue.get("created_at") or "2026-01-01")[:10]
-    category = fields.get("category", "general")
-    if category not in ("award", "paper", "conference", "event", "exhibition", "general"):
-        category = "general"
-    link = fields.get("link", "")
-
-    story = call_llm(fields, api_key)
-
-    os.makedirs(NEWS_DIR, exist_ok=True)
-    base = f"{date[:7]}-{slugify(story['titleEn'])}"
-    en_path = os.path.join(NEWS_DIR, f"{base}.md")
-    ko_path = os.path.join(NEWS_DIR, f"{base}-ko.md")
-    if os.path.exists(en_path):
-        base = f"{base}-{issue.get('number', 'x')}"
-        en_path = os.path.join(NEWS_DIR, f"{base}.md")
-        ko_path = os.path.join(NEWS_DIR, f"{base}-ko.md")
-
-    link_line = f"link: {yaml_quote(link)}\n" if link else ""
-
-    with open(en_path, "w", encoding="utf-8") as f:
-        f.write(
-            f"---\ntitle: {yaml_quote(story['titleEn'])}\n"
-            f"titleKo: {yaml_quote(story['titleKo'])}\n"
-            f"date: \"{date}\"\ncategory: \"{category}\"\n{link_line}---\n"
-            f"{story['bodyEn'].strip()}\n"
-        )
-    with open(ko_path, "w", encoding="utf-8") as f:
-        f.write(
-            f"---\nlang: \"ko\"\nbaseSlug: \"{base}\"\n"
-            f"title: {yaml_quote(story['titleKo'])}\n"
-            f"titleKo: {yaml_quote(story['titleEn'])}\n"
-            f"date: \"{date}\"\ncategory: \"{category}\"\n{link_line}---\n"
-            f"{story['bodyKo'].strip()}\n"
-        )
-
-    print(f"created={base}")
-    with open(os.environ.get("GITHUB_OUTPUT", "/dev/null"), "a", encoding="utf-8") as f:
-        f.write(f"slug={base}\n")
-        f.write(f"title_en={story['titleEn']}\n")
+    try:
+        # Validate user fields before any paid generation call.
+        datetime.date.fromisoformat(fields.get("date", ""))
+        safe_link(fields.get("link", ""))
+        drafts = render_drafts(fields, call_llm(fields, api_key), issue.get("number"))
+        NEWS_DIR.mkdir(parents=True, exist_ok=True)
+        if any((NEWS_DIR / name).exists() for name in drafts):
+            raise ValueError("Draft already exists; preserve it and review before retrying")
+        for name, text in drafts.items():
+            with (NEWS_DIR / name).open("x", encoding="utf-8") as draft:
+                draft.write(text)
+        print(f"Created {len(drafts)} draft files for review. Nothing was published.")
+    except ValueError as error:
+        print(f"::error::{error}")
+        return 1
     return 0
 
 

@@ -24,8 +24,8 @@ the warmth; the cyan accent carries the lab's technical identity.
      (labeled as a sketch, not anatomical data). Nodes link to real lab projects.
 
 2. **📚 Publication Archive (auto-synced)**
-   - `scripts/sync_scholar.py` pulls the record (102 entries, 76 of them
-     peer-reviewed, 2008–present) from the OpenAlex API with cursor pagination.
+   - `scripts/sync_scholar.py` pulls publication records (2008–present)
+     from the OpenAlex API with cursor pagination.
      It classifies each entry as journal / conference / workshop / preprint,
      excludes conference-abstract supplements and errata, fuzzy-dedups
      preprint-vs-journal versions of the same paper, and highlights authors
@@ -72,7 +72,7 @@ the warmth; the cyan accent carries the lab's technical identity.
 
 ## Tech Stack
 
-- **Framework**: [Astro 5.x](https://astro.build/) (static site generation)
+- **Framework**: [Astro 7.x](https://astro.build/) (static site generation)
 - **UI**: React 18, [three.js](https://threejs.org/), [Tailwind CSS](https://tailwindcss.com/) (+ typography, animate), [Lucide](https://lucide.dev/)
 - **Content**: type-safe Astro content collections (Zod schemas) in `src/content/`
 - **Pipelines**: Python 3.11 (stdlib only) — OpenAlex API, arXiv API, OpenRouter/Gemini (optional)
@@ -83,7 +83,7 @@ the warmth; the cyan accent carries the lab's technical identity.
 ## Getting Started
 
 ### Prerequisites
-- Node.js `v18.20+`, `v20.3+`, or `v22+`
+- Node.js 22, version `22.12.0` or newer (see `.nvmrc`)
 - Python `3.10+` (for the sync scripts)
 
 ### Development
@@ -97,6 +97,8 @@ npm run dev        # http://localhost:4321
 ### Build & Preview
 ```bash
 npm run build
+npm test
+npm run test:site
 npm run preview
 ```
 
@@ -116,10 +118,15 @@ python3 scripts/update_research_radar.py
 ```
 
 ### Weekly automation
-`.github/workflows/research-radar.yml` runs both scripts every Monday, **validates
-the generated content with a full `npm run build`** before committing, and deploys
-the built site in the same workflow (a `GITHUB_TOKEN` push cannot trigger
-`deploy.yml`, so the deploy happens in-workflow).
+`.github/workflows/research-radar.yml` runs every Monday. It commits generated
+records locally, integrates current `main`, then tests and builds the final tree
+before pushing and deploying. All Pages writers share one concurrency group.
+A `GITHUB_TOKEN` push cannot trigger `deploy.yml`, so weekly sync deploys in-workflow.
+
+News issues produce downloadable bilingual drafts, not automatic publications.
+Review the Actions artifact and copy approved files to `src/content/news/` on
+`main`. No permanent bot branches are needed. `main` is the maintained branch;
+see `claudedocs/HANDOFF.md` for validation and publication instructions.
 
 ---
 
@@ -146,7 +153,9 @@ tracking, and the `:lang(ko)` overrides are documented with the reasons.
 
 1. Repository **Settings → Pages**: Source = **GitHub Actions**; Custom domain =
    `www.connectomelab.com` with **Enforce HTTPS**.
-2. DNS: `CNAME` record `www` → `transconnectome.github.io`.
+2. Current DNS: `www` uses GitHub Pages A/AAAA records. A CNAME to
+   `transconnectome.github.io` is the recommended subdomain configuration.
+   The bare apex domain has no records and is not reachable.
 
 The DNS cutover from the old Google Sites page is done and the site is live.
 `scripts/cutover.sh --status` reports the current DNS, custom-domain and

@@ -135,6 +135,16 @@ def test_recent_category_mix_summarises_the_window():
     check("none yet" in gen.recent_category_mix([]), "an empty history must not raise")
 
 
+def test_research_context_uses_one_language_twin():
+    context = gen.gather_lab_context()
+    area_block = context.split("LAB RESEARCH AREAS:\n", 1)[1].split(
+        "\n\nRECENT LAB PUBLICATIONS", 1)[0]
+    areas = [line for line in area_block.splitlines() if line.startswith("- ")]
+    check(len(areas) == 4, f"expected four canonical research areas, got {len(areas)}")
+    check(all(not any("가" <= char <= "힣" for char in line) for line in areas),
+          "the canonical idea context must be English-only")
+
+
 def make_idea(title, category, source):
     body = {k: "충분히 긴 한국어 본문입니다." if k.endswith("Ko") else "A long enough English body."
             for k in gen.BODY_FIELDS}
@@ -146,7 +156,8 @@ if __name__ == "__main__":
     for fn in (test_round_robin_caps_a_prolific_topic,
                test_redundancy_matches_the_real_history,
                test_one_idea_per_category_per_run,
-               test_recent_category_mix_summarises_the_window):
+               test_recent_category_mix_summarises_the_window,
+               test_research_context_uses_one_language_twin):
         fn()
     if FAILURES:
         print("\nFAILED:\n  " + "\n  ".join(FAILURES))

@@ -55,7 +55,7 @@ show_status() {
   apex_a=$(dig +short A "${DOMAIN#www.}" 2>/dev/null | paste -sd' ' - || true)
   echo "  DNS  $DOMAIN CNAME -> ${www_cname:-(none)}"
   echo "  DNS  $DOMAIN A     -> ${www_a:-(none)}"
-  echo "  DNS  apex A        -> ${apex_a:-(none — certificate provisioning needs this; see HANDOFF §5)}"
+  echo "  DNS  apex A        -> ${apex_a:-(none — bare domain is unreachable; www may still have valid HTTPS)}"
   local pj; pj=$(pages_json)
   echo "  GitHub Pages custom domain: $(echo "$pj" | python3 -c 'import json,sys;d=json.load(sys.stdin);print(d.get("cname") or "(not set)")')"
   echo "  HTTPS enforced:             $(echo "$pj" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("https_enforced"))')"

@@ -10,7 +10,7 @@ Bucket design (v2):
   old shape let the highest-volume phrase ("EEG foundation model") take every
   slot, so fMRI, genetics, and everything else starved.
 - A paper's `topic` is the bucket that surfaced it, not a guess from title
-  keywords. BUCKETS keys must mirror the `topic` enum in src/content/config.ts.
+  keywords. BUCKETS keys must mirror the `topic` enum in src/content.config.ts.
 - Broad buckets (Agentic AI, Quantum ML) over-fetch and are narrowed by two
   gates: a deterministic neuro-term gate on title+abstract, then the
   summarizer's own 0-1 lab-relevance score. Agentic AI is deliberately scoped

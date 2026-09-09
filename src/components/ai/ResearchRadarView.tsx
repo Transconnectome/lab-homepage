@@ -50,7 +50,7 @@ const LABELS: Record<'en' | 'ko', Record<string, string>> = {
   },
 };
 
-// Filter values are the raw `topic` enum from src/content/config.ts; the chips
+// Filter values are the raw `topic` enum from src/content.config.ts; the chips
 // show a compact label so the row stays readable at seven buckets.
 const TOPICS = [
   'All',

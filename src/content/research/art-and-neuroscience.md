@@ -10,7 +10,7 @@ keyHighlights:
   - "Nine-participant proof of concept: an EEG-derived three-state valence trajectory guided audiovisual generation from participant-provided essays, sketches, and melodies (ACM Multimedia workshop, 2025)"
   - "Generative models of aesthetic style: AesFA (AAAI 2024) and training-free music style transfer on mel-spectrograms (IEEE ICIP 2026)"
   - "Naturalistic stimuli — film, music, VR — as the experimental setting for real affective dynamics"
-  - "OB/Scene Focus (2025): an interactive brain-art installation and live EEG affect-decoding demonstration exploring AI-generated music and video"
+  - "OB/Scene Focus (2025): a public presentation of early EEG-and-AI experiments in expressing emotion and memory through music and video"
 ---
 
 ## The hard end of affect
@@ -86,8 +86,8 @@ the computational-psychiatry axis.
 In November 2025, **Seokjin Moon, Heehwan Wang, and Kyungjin Oh** presented
 *「Connectome: Reconstruction of Memory」* at [**OB/Scene Focus**](https://obscenefocus.com/artandtech_conecotm).
 The public program and the [lab's event record](https://www.connectomelab.com/en/news/)
-describe an interactive brain-art installation and live EEG affect-decoding
-demonstration exploring AI-generated music and video. They do not document the
+describe early experiments using EEG and AI to express emotion and memory
+through music and video. They do not document the
 exact headset, electrode density, or visitor-to-output pipeline, so those details
 are not asserted here.
 

@@ -4,7 +4,7 @@ titleKo: "Jubin Choi selected for a Spotlight at the NeurIPS 2025 Brain & Body W
 date: "2025-12-15"
 category: "conference"
 featured: true
-link: "https://jubilant-choi.notion.site/neuromamba-neurips2025"
+link: "https://neurips.cc/virtual/2025/132664"
 lang: "ko"
 baseSlug: "2025-12-neurips-neuromamba"
 ---

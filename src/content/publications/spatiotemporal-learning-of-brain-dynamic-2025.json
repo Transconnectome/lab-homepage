@@ -16,7 +16,7 @@
     "Psychiatry/Clinical Psychology"
   ],
   "featured": false,
-  "abstract": "Introduces Multi-Band Brain Net (MBBN), a transformer-based framework that decomposes fMRI signals into biologically grounded frequency bands, achieving state-of-the-art prediction of psychiatric and cognitive outcomes (major depressive disorder, ADHD, autism spectrum disorder) across 49,673 individuals from UK Biobank, ABCD, and ABIDE.",
+  "abstract": "MBBN models fMRI BOLD dynamics across distinct statistical scaling regimes and evaluates predictive representations in UK Biobank, ABCD, and ABIDE. Performance varies by task and cohort; the reported prediction and model-attribution results do not establish causal mechanisms or clinical diagnostic validity.",
   "labMembers": [
     "Sangyoon Bae",
     "Junbeom Kwon",

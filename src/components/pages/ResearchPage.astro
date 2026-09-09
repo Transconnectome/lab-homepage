@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { useTranslations, type Lang } from '../../i18n/ui';
 import { renderInlineLinks } from '../../utils/inlineLinks';
 
@@ -32,7 +32,7 @@ const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실'
       </div>
       <ol class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {sortedResearch.map((item, index) => {
-          const anchor = item.data.baseSlug ?? item.slug;
+          const anchor = item.data.baseSlug ?? item.id;
           return (
             <li>
               <a
@@ -53,8 +53,8 @@ const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실'
 
     <div class="space-y-10">
       {sortedResearch.map(async (item) => {
-        const { Content } = await item.render();
-        const anchor = item.data.baseSlug ?? item.slug;
+        const { Content } = await render(item);
+        const anchor = item.data.baseSlug ?? item.id;
         return (
           <article id={anchor} aria-labelledby={`${anchor}-title`} class="card p-8 sm:p-10 space-y-6 scroll-mt-24">
             <header class="border-b border-line pb-5 space-y-3">

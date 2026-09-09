@@ -179,20 +179,20 @@ export const AXIS_LINKS: AxisLink[] = [
     a: 'neuro-x',
     b: 'computational-genetics-psychiatry',
     reason:
-      'Shared large cohorts (e.g., ABCD): foundation-model features and polygenic scores meet in a joint multi-modal latent space for psychiatric risk prediction.',
+      'Open question: can brain foundation-model representations add predictive information beyond polygenic scores in shared cohorts such as ABCD?',
     reasonKo:
-      '대규모 코호트(ABCD 등)를 공유 — 파운데이션 모델의 특징과 다유전자 점수가 멀티모달 잠재공간에서 만나 정신질환 위험 예측에 쓰입니다.',
+      '열린 질문: ABCD 같은 공통 코호트에서 뇌 파운데이션 모델의 표상이 다유전자 점수에 더해 예측 정보를 제공할 수 있을까요?',
   },
   {
     a: 'computational-genetics-psychiatry',
     b: 'quantum-machine-learning',
-    reason: 'Quantum kernels tackle the high-dimensional gene–connectome graphs.',
-    reasonKo: '양자 커널로 초고차원 유전자-커넥톰 그래프를 다룹니다.',
+    reason: 'Possible connection, not a demonstrated result: testing quantum models on high-dimensional genetic and brain features would require matched classical baselines.',
+    reasonKo: '아직 입증되지 않은 연결 가능성입니다. 고차원 유전·뇌 특징에 양자 모형을 적용하려면 동등한 고전 모형과의 비교가 필요합니다.',
   },
   {
     a: 'neuro-x',
     b: 'art-and-neuroscience',
-    reason: 'Real-time EEG decoding powers the interactive installations.',
-    reasonKo: '실시간 EEG 디코딩이 인터랙티브 설치 작품을 구동합니다.',
+    reason: 'EEG research and the art program share questions about representing emotion over time. The public presentation is not a validation of a foundation-model decoder.',
+    reasonKo: 'EEG 연구와 예술 프로그램은 시간에 따라 변하는 정서를 어떻게 표현할지 묻습니다. 공개 발표가 파운데이션 모델 디코더의 타당성을 검증한 것은 아닙니다.',
   },
 ];

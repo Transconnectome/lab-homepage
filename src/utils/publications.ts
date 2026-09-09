@@ -46,7 +46,7 @@ const CS_AI_VENUE_PATTERNS: RegExp[] = [
 
 /**
  * Topic tags that stand in for the venue name when the venue is opaque.
- * Drawn from PUBLICATION_TAGS in src/content/config.ts — the architecture-level
+ * Drawn from PUBLICATION_TAGS in src/content.config.ts — the architecture-level
  * tags this set used to list (Mamba, Geometric Deep Learning, NLP, …) were folded
  * into 'AI & Foundation Models', which every one of those papers now carries.
  */

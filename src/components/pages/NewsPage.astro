@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { useTranslations, type Lang } from '../../i18n/ui';
 
 interface Props {
@@ -29,7 +29,7 @@ const pageTitle = lang === 'ko' ? '소식 | 서울대학교 커넥톰 연구실'
 
     <div class="space-y-5">
       {sortedNews.map(async (item) => {
-        const { Content } = await item.render();
+        const { Content } = await render(item);
         return (
           <article class="card card-hover p-7 space-y-3">
             {item.data.image && (

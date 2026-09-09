@@ -2,7 +2,6 @@ name: Auto-Sync Research Trends & Publications
 
 on:
   schedule:
-    # Every Monday 00:00 UTC (09:00 KST)
     - cron: '0 0 * * 1'
   workflow_dispatch:
 
@@ -12,86 +11,74 @@ permissions:
   id-token: write
 
 concurrency:
-  group: research-radar
+  group: pages
   cancel-in-progress: false
 
 jobs:
   sync:
-    name: Sync, validate, commit, deploy
-    # Guard: never run the scheduled sync on forks
+    name: Sync and deploy validated main
     if: github.repository == 'Transconnectome/lab-homepage'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
-
-      # Guard the generators before they touch content: both suites are offline
-      # and take under a second.
-      - name: Test radar & idea pipeline logic
+      - name: Test generators
         run: |
-          python scripts/test_radar_buckets.py
-          python scripts/test_ideas_pipeline.py
-
-      - name: Run Scholar Sync
-        run: python scripts/sync_scholar.py
-
-      - name: Run SOTA Research Radar Sync
+          python3 scripts/test_radar_buckets.py
+          python3 scripts/test_ideas_pipeline.py
+      - name: Sync publications
+        run: python3 scripts/sync_scholar.py
+      - name: Scan research radar
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        run: python scripts/update_research_radar.py
-
-      - name: Generate AI Research Ideas
+        run: python3 scripts/update_research_radar.py
+      - name: Generate labeled AI ideas
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        run: python scripts/generate_research_ideas.py
-
-      - name: Refresh project repo metadata
+        run: python3 scripts/generate_research_ideas.py
+      - name: Refresh project metadata
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/sync_project_metadata.py
-
-      # Validation gate: never commit generated content that breaks the build.
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build (validates generated content against Zod schemas)
-        run: npm run build
-
-      - name: Commit & push changes
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/sync_project_metadata.py
+      - name: Commit generated records and integrate latest main locally
         id: commit
         run: |
-          git config --global user.name 'Connectome Lab Bot'
-          git config --global user.email 'bot@connectomelab.com'
-          git add src/content/
+          git config user.name 'Connectome Lab Bot'
+          git config user.email 'bot@connectomelab.com'
+          git add src/content/publications/ src/content/trends/ src/content/ideas/ src/content/projects/
           if git diff --staged --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No new publications or trends found."
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
           else
-            git commit -m "chore(radar): automated weekly research trends & publications update"
+            git commit -m 'chore(radar): refresh research trends and publications'
             git pull --rebase origin main
-            git push origin main
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
-
-      # A push made with GITHUB_TOKEN does not trigger deploy.yml, so deploy
-      # the freshly built site from this workflow when content changed.
-      - name: Upload GitHub Pages artifact
+      - uses: actions/setup-node@v6
         if: steps.commit.outputs.changed == 'true'
-        uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
-
-      - name: Deploy to GitHub Pages
+          node-version-file: .nvmrc
+          cache: npm
+      # Validate the final rebased tree. Push rejection stops deployment.
+      - name: Validate final tree
         if: steps.commit.outputs.changed == 'true'
-        uses: actions/deploy-pages@v4
+        run: |
+          npm ci
+          npm test
+          npm run build
+          npm run test:site
+          git push origin HEAD:main
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.commit.outputs.changed == 'true'
+        with:
+          path: ./dist
+      - uses: actions/deploy-pages@v4
+        if: steps.commit.outputs.changed == 'true'
+        id: deployment

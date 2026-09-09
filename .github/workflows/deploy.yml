@@ -1,18 +1,5 @@
 name: Deploy to GitHub Pages
 
-# NOTE (2026-08-21): push events briefly stopped triggering this workflow
-# for ~2h20m (14:02-16:22 UTC) after the repo moved to Transconnectome.
-# workflow_dispatch kept working the whole time, so Actions was not
-# disabled and this wasn't a billing/usage-limit issue. Three push
-# attempts during the window (two empty probe commits, one that edited
-# this file) all produced zero runs — the trigger was down for pushes
-# in general, not specifically for pushes that left the file unchanged.
-# Recovery lines up with what a commit message from that window
-# describes as toggling Actions off/on in repo Settings, but that was
-# never isolated from a possible GitHub-side self-heal, so treat it as
-# a lead, not a confirmed fix. If this recurs, check
-# `gh api repos/<owner>/<repo>/actions/runs?head_sha=<sha>` for 0 runs
-# (silent drop, no error) before assuming a config problem.
 on:
   push:
     branches: [main]
@@ -23,43 +10,41 @@ permissions:
   pages: write
   id-token: write
 
+# Shared with the weekly writer. Queued runs check out current main.
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
   build:
-    name: Build Astro Site
+    name: Test and build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
         with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build static site
-        run: npm run build
-
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v3
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v6
         with:
-          path: './dist'
-
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - run: npm run test:site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
   deploy:
-    name: Deploy Site
+    name: Deploy validated site
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
+      - uses: actions/deploy-pages@v4
         id: deployment
-        uses: actions/deploy-pages@v4

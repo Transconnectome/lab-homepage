@@ -1,11 +1,11 @@
 ---
-title: "옵/신 포커스(OB/Scene Focus)에서 EEG 기반 기억 재구성 아트&테크놀로지 전시 시연"
+title: "옵/신 포커스에서 EEG와 AI를 활용한 감정·기억 표현 실험 소개"
 titleKo: "Interactive EEG Art & Science Exhibition at OB/Scene Focus"
 date: "2025-11-20"
 category: "exhibition"
 featured: true
-link: "http://ob-scene.com/focus/programs/keonektom-gieokeui-jaeguseong"
+link: "https://obscenefocus.com/artandtech_conecotm"
 lang: "ko"
 baseSlug: "2025-11-obscene-art-exhibit"
 ---
-문석진, 왕희환, 오경진은 옵/신 포커스(OB/Scene Focus) 전시에서 인터랙티브 브레인 아트 설치 작품과 EEG 정서 디코딩을 실시간으로 시연하며, 신경 신호로 기억을 합성하는 과정을 관객에게 선보였다.
+2025년 11월 8일, 문석진·왕희환·오경진은 차지욱의 연구자문으로 옵/신 포커스(OB/Scene Focus)에서 **「기억의 재구성」**을 발표했다. EEG와 AI를 활용해 감정과 기억을 예술로 표현하는 실험의 초기 과정을 소개했다.

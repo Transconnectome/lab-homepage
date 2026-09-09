@@ -43,7 +43,7 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 IDEAS_DIR = os.path.join(ROOT, "src", "content", "ideas")
 OPENROUTER_MODEL = "google/gemini-2.5-flash"
 MAX_NEW_IDEAS = 3
-# Must mirror the `category` enum on ideasCollection in src/content/config.ts
+# Must mirror the `category` enum on ideasCollection in src/content.config.ts
 # and the labels in src/components/ideas/IdeasFilter.tsx.
 CATEGORIES = (
     "foundation-models", "connectomics", "genetics", "qml", "affective-neuro",
@@ -113,6 +113,10 @@ def gather_lab_context():
     areas = []
     for path in sorted(glob.glob(os.path.join(ROOT, "src", "content", "research", "*.md"))):
         text = open(path, encoding="utf-8").read()
+        lang = re.search(r'^lang:\s*["\']?(en|ko)["\']?\s*$', text, re.M)
+        # Feed one canonical description per area, not both language twins.
+        if lang and lang.group(1) == "ko":
+            continue
         title = re.search(r'^title:\s*"?(.+?)"?\s*$', text, re.M)
         tagline = re.search(r'^tagline:\s*"?(.+?)"?\s*$', text, re.M)
         if title:

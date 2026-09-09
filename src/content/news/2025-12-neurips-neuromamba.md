@@ -4,6 +4,6 @@ titleKo: "최주빈 학생, 2025 NeurIPS Foundation Models for Brain & Body 워�
 date: "2025-12-15"
 category: "conference"
 featured: true
-link: "https://jubilant-choi.notion.site/neuromamba-neurips2025"
+link: "https://neurips.cc/virtual/2025/132664"
 ---
-Jubin Choi was selected for a Spotlight Presentation at the 2025 NeurIPS Workshop on Foundation Models for the Brain and Body for the pioneering work **"NeuroMamba: A State-Space Foundation Model for Functional MRI"**. This model addresses linear-time temporal context scaling on 4D neuroimaging datasets.
+Jubin Choi was selected for a Spotlight Presentation at the 2025 NeurIPS Workshop on Foundation Models for the Brain and Body for **"NeuroMamba: A State-Space Foundation Model for Functional MRI"**. This model addresses linear-time temporal context scaling on 4D neuroimaging datasets.

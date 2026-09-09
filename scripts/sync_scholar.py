@@ -148,6 +148,9 @@ REPOSITORY_VENUES = {
 # Each pair is (fragment_in_one_normalized_title, fragment_in_the_other).
 # All were manually verified as preprint/journal versions of ONE paper.
 MANUAL_MERGE_FRAGMENTS = [
+    # Communications Biology 2026 <- arXiv:2503.23394 (MBBN retitle)
+    ("spatiotemporallearningofbraindynamicsfromfmriusingfrequencyspecificmultibandattention",
+     "learningbraindynamicsacrossdistinctscalingregimesrevealspsychiatricsignatures"),
     # JAMA Network Open 2022 <- Research Square 2020/2021 + medRxiv 2020
     ("associationofgenomewidepolygenicscoresformultiplepsychiatric",
      "genomewidepolygenicscoresformultiplepsychiatricandcommontraitsidentify"),
@@ -257,7 +260,7 @@ def clean_filename(title):
 # Canonical publication tags — one shared level of granularity (research domain).
 # Modalities (fMRI, EEG), architectures and sub-fields are folded into their domain so
 # the /publications filter never shows a chip matching a single paper.
-# Keep in sync with PUBLICATION_TAGS in src/content/config.ts.
+# Keep in sync with PUBLICATION_TAGS in src/content.config.ts.
 PUBLICATION_TAGS = [
     "AI & Foundation Models",
     "Genetics",

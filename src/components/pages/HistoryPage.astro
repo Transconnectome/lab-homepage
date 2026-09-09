@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { useTranslations, type Lang } from '../../i18n/ui';
 
 interface Props {
@@ -24,7 +24,7 @@ const pageTitle = lang === 'ko' ? '연혁 | 서울대학교 커넥톰 연구실'
 
     <div class="relative border-l-2 border-line ml-3 sm:ml-4 space-y-10 pl-8 sm:pl-10 py-2">
       {sortedHistory.map(async (item) => {
-        const { Content } = await item.render();
+        const { Content } = await render(item);
         return (
           <article class="relative">
             <span class="absolute -left-[41px] sm:-left-[49px] top-1.5 w-4 h-4 rounded-full bg-lab-700 border-4 border-paper" aria-hidden="true" />

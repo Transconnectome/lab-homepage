@@ -1,7 +1,13 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
+
+const httpUrl = z.string().url().refine((value) => /^https?:\/\//i.test(value), {
+  message: 'Only HTTP(S) links are allowed',
+});
 
 const membersCollection = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '*.json', base: './src/content/members' }),
   schema: z.object({
     name: z.string(),
     nameKo: z.string(),
@@ -25,7 +31,7 @@ const membersCollection = defineCollection({
 });
 
 const researchCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '*.md', base: './src/content/research' }),
   schema: z.object({
     lang: z.enum(['en', 'ko']).default('en'),
     baseSlug: z.string().nullable().optional(),
@@ -41,7 +47,7 @@ const researchCollection = defineCollection({
 });
 
 const newsCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '*.md', base: './src/content/news' }),
   schema: z.object({
     lang: z.enum(['en', 'ko']).default('en'),
     baseSlug: z.string().nullable().optional(),
@@ -50,7 +56,7 @@ const newsCollection = defineCollection({
     date: z.string(),
     category: z.enum(['award', 'paper', 'conference', 'event', 'exhibition', 'general']),
     featured: z.boolean().default(false),
-    link: z.string().nullable().optional(),
+    link: httpUrl.nullable().optional(),
     image: z.string().nullable().optional(),
   }),
 });
@@ -68,7 +74,7 @@ export const PUBLICATION_TAGS = [
 ] as const;
 
 const publicationsCollection = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '*.json', base: './src/content/publications' }),
   schema: z.object({
     title: z.string(),
     authors: z.array(z.string()),
@@ -92,7 +98,7 @@ const publicationsCollection = defineCollection({
 });
 
 const trendsCollection = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '*.json', base: './src/content/trends' }),
   schema: z.object({
     title: z.string(),
     authors: z.array(z.string()),
@@ -125,7 +131,7 @@ const trendsCollection = defineCollection({
 });
 
 const historyCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '*.md', base: './src/content/history' }),
   schema: z.object({
     lang: z.enum(['en', 'ko']).default('en'),
     baseSlug: z.string().nullable().optional(),
@@ -138,7 +144,7 @@ const historyCollection = defineCollection({
 });
 
 const ideasCollection = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '*.json', base: './src/content/ideas' }),
   schema: z.object({
     title: z.string(),
     titleKo: z.string().nullable().optional(),
@@ -168,7 +174,7 @@ const ideasCollection = defineCollection({
 });
 
 const projectsCollection = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '*.json', base: './src/content/projects' }),
   schema: z.object({
     // Curated fields — hand-maintained; scripts/sync_project_metadata.py never writes these.
     name: z.string(),

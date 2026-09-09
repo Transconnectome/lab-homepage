@@ -8,7 +8,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-// Display labels for the research-map hub ids (see the network enum in content/config.ts).
+// Display labels for the research-map hub ids (see the network enum in content.config.ts).
 const NETWORK_LABELS: Record<string, { en: string; ko: string }> = {
   dmn: { en: 'Default Mode', ko: '디폴트 모드' },
   ecn: { en: 'Executive Control', ko: '집행 제어' },

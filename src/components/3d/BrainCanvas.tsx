@@ -107,8 +107,8 @@ export default function BrainCanvas({ selectedId, hoveredId, onSelect, onHover, 
     const geometries: THREE.BufferGeometry[] = [particleGeometry];
     const materials: THREE.Material[] = [particleMaterial];
 
-    // Connecting curves drawn only for real methodological links between
-    // research axes (AXIS_LINKS) — the edges carry meaning, not decoration.
+    // Connections include shared questions and explicitly prospective links,
+    // not just demonstrated methodological results (see AXIS_LINKS).
     // Control points use deterministic per-tract offsets so the sketch looks
     // identical on every load.
     const axisById = new Map(RESEARCH_AXES.map((a) => [a.id, a]));

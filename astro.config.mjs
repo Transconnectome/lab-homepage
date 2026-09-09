@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 // Korean is the default language and lives at the root; English is at /en/.
@@ -17,6 +16,7 @@ const legacyKoreanRedirects = Object.fromEntries(
 export default defineConfig({
   site: 'https://www.connectomelab.com',
   base: '/',
+  compressHTML: true,
   i18n: {
     defaultLocale: 'ko',
     locales: ['ko', 'en'],
@@ -30,9 +30,6 @@ export default defineConfig({
   },
   integrations: [
     react(),
-    tailwind({
-      applyBaseStyles: false,
-    }),
     sitemap(),
   ],
 });

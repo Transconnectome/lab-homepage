@@ -135,7 +135,7 @@ const CATEGORY_LABELS: Record<string, Record<string, string>> = {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {sortedResearch.map((res) => (
           <a
-            href={`${localePath(lang, '/research')}#${res.data.baseSlug ?? res.slug}`}
+            href={`${localePath(lang, '/research')}#${res.data.baseSlug ?? res.id}`}
             class="card card-hover p-7 flex flex-col justify-between group"
           >
             <div class="space-y-3">

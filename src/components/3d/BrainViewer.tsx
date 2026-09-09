@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import BrainCanvas from './BrainCanvas';
 import { RESEARCH_AXES, AXIS_LINKS, type ResearchAxis } from './brainData';
+import { localePath } from '../../i18n/ui';
 
 type Lang = 'en' | 'ko';
 
@@ -42,8 +43,6 @@ const LABELS: Record<Lang, Record<string, string>> = {
     close: '선택 해제',
   },
 };
-
-const withLang = (lang: Lang, path: string) => (lang === 'ko' ? `/ko${path}` : path);
 
 const axisById = (id: string) => RESEARCH_AXES.find((a) => a.id === id) ?? null;
 
@@ -151,13 +150,13 @@ function InfoPanel({
 
       <div className="mt-4 flex gap-2">
         <a
-          href={withLang(lang, `/research#${hub.id}`)}
+          href={localePath(lang, `/research#${hub.id}`)}
           className="flex-1 text-center py-2 px-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-sm transition"
         >
           {L.explore}
         </a>
         <a
-          href={withLang(lang, '/publications')}
+          href={localePath(lang, '/publications')}
           className="py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition"
         >
           {L.pubs}

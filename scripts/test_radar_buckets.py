@@ -125,7 +125,7 @@ def test_relevance_gate():
 
 
 def test_buckets_mirror_config_enum():
-    cfg = open(os.path.join(ROOT, "src", "content", "config.ts"), encoding="utf-8").read()
+    cfg = open(os.path.join(ROOT, "src", "content.config.ts"), encoding="utf-8").read()
     block = cfg.split("topic: z.enum([")[1].split("]),")[0]
     enum_vals = {v.strip().strip("',") for v in block.strip().splitlines()}
     check(enum_vals == set(radar.BUCKETS),
