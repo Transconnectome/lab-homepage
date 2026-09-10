@@ -60,12 +60,12 @@ export const ui = {
 
     // Research page
     'research.eyebrow': 'Research',
-    'research.title': 'How do neural connections become a mind?',
+    'research.title': 'Research areas',
     'research.desc':
-      'We ask how brain signals can be represented without erasing their spatial and temporal structure, how genetic and contextual variation relates to development, and where models of cognition, affect, and mental health stop generalizing. Each area below separates results, limits, and proposed directions.',
-    'research.overview': 'Four questions at a glance',
-    'research.overviewDesc': 'Choose an area to jump to its evidence, methods, and current limits.',
-    'research.keyDirections': 'Evidence and limits',
+      'We study brain activity, cognitive development, and emotion using brain imaging, genetics, and computational models. Our work spans brain foundation models, computational psychiatry, quantum machine learning, and affective neuroscience.',
+    'research.overview': 'Our four research areas',
+    'research.overviewDesc': 'Select an area to read about our approach and selected studies.',
+    'research.keyDirections': 'Selected studies',
 
     // People page
     'people.eyebrow': 'People',
@@ -220,12 +220,12 @@ export const ui = {
 
     // Research page
     'research.eyebrow': '연구',
-    'research.title': '신경 연결은 어떻게 마음이 되는가?',
+    'research.title': '연구 분야',
     'research.desc':
-      '뇌 신호의 공간·시간 구조를 지우지 않고 어떻게 표상할지, 유전·맥락의 차이가 발달과 어떻게 연관되는지, 인지·정서·정신건강 모형의 일반화가 어디에서 멈추는지 묻습니다. 아래 네 분야는 결과·한계·제안된 방향을 구분해 설명합니다.',
-    'research.overview': '한눈에 보는 네 가지 질문',
-    'research.overviewDesc': '분야를 선택하면 근거·방법·현재 한계로 바로 이동합니다.',
-    'research.keyDirections': '근거와 한계',
+      '뇌영상과 유전 정보, 계산 모델을 활용해 뇌 활동과 인지 발달, 정서를 연구합니다. 뇌 파운데이션 모델, 계산정신의학, 양자 머신러닝, 정서 신경과학의 네 분야를 소개합니다.',
+    'research.overview': '네 가지 연구 분야',
+    'research.overviewDesc': '분야를 선택하면 연구 내용과 대표 논문을 볼 수 있습니다.',
+    'research.keyDirections': '대표 연구',
 
     // People page
     'people.eyebrow': '구성원',

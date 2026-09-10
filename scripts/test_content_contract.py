@@ -56,6 +56,34 @@ class ContentContract(unittest.TestCase):
             self.assertEqual(paper["kind"], "workshop", name)
             self.assertIn("workshop", paper["venue"].lower(), name)
 
+    def test_research_language_pairs_keep_the_same_sources(self):
+        for korean in (CONTENT / "research").glob("*-ko.md"):
+            english = korean.with_name(korean.name.replace("-ko.md", ".md"))
+            def sources(path):
+                return set(re.findall(r"\]\((https?://[^\s)]+)\)", path.read_text()))
+            self.assertTrue(sources(korean), korean)
+            self.assertEqual(sources(korean), sources(english), korean)
+
+    def test_research_editorial_corrections_remain_applied(self):
+        # These were explicit PI corrections, not merely alternate wording.
+        research = "\n".join(path.read_text() for path in (CONTENT / "research").glob("*.md"))
+        research_map = (ROOT / "src/components/3d/brainData.ts").read_text()
+        guide = (ROOT / "src/components/ai/AskLabAI.tsx").read_text()
+        for phrase in ("고각성 영화", "high-arousal film", "Social Cognitive and Affective Neuroscience",
+                       "obscenefocus.com", "OB/Scene", "옵/신", "전시장", "Leonardo da Vinci", "레오나르도"):
+            self.assertNotIn(phrase, research, phrase)
+        for phrase in ("OB/Scene", "옵/신"):
+            self.assertNotIn(phrase, research_map, phrase)
+        for phrase in ("하나의 대규모 뇌 모델", "one Large Brain Model",
+                       "endpoint a Large Brain Model", "converging on one"):
+            self.assertNotIn(phrase, research + research_map + guide, phrase)
+        for language, venue in (("-ko", "워크숍"), ("", "workshop")):
+            neuro = (CONTENT / "research" / f"neuro-x{language}.md").read_text()
+            for model in ("NeuroMamba", "DIVER-0"):
+                highlight = next(line for line in neuro.splitlines()
+                                 if line.startswith("  - ") and model in line)
+                self.assertIn(venue, highlight, model)
+
     def test_publication_links_use_http(self):
         for path in (CONTENT / "publications").glob("*.json"):
             data = json.loads(path.read_text())

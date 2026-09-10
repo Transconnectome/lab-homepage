@@ -35,8 +35,7 @@ const PRESET_KNOWLEDGE: Record<Lang, Record<FaqKey, string>> = {
 
     neurox: `**Neuro-X 프로젝트**는 커넥톰 연구실의 **뇌 파운데이션 모델** 프로그램입니다.
 
-- **출발 가정**: LLM이 방대한 텍스트에서 언어의 구조를 익히듯, 대규모 뇌 데이터(fMRI, EEG, 확산 MRI)로 사전학습한 모델이 뇌 활동의 구조를 익힐 수 있다는 것입니다. 지금까지 fMRI 모델(SwiFT·NeuroMamba)과 EEG 모델(DIVER-0)을 만들었고, 이를 하나의 대규모 뇌 모델(Large Brain Model, LBM)로 모아 가는 것이 목표입니다.
-- **이론적 토대**: György Buzsáki의 인사이드아웃(inside-out) 관점을 따라, 뇌를 스스로 행동 계획을 만들고 그 결과에서 배우는 예측 기계로 보고 신호 자체의 시공간 구조를 학습하게 합니다.`,
+fMRI 모델(SwiFT·NeuroMamba)과 EEG 모델(DIVER)처럼, 신호의 특성과 연구 목적에 맞는 다양한 모델을 개발합니다. 대규모 뇌 데이터에서 학습한 특징을 새로운 데이터와 과제에 활용하는 것이 목표이며, 여러 종류의 뇌 데이터를 함께 활용하는 방법도 연구합니다.`,
 
     qml: `커넥톰 연구실은 **양자 머신러닝(QML)**을 뇌·시계열 데이터에 접목해 연구합니다. 인용된 여러 연구에는 브룩헤이븐 국립연구소 소속 공동저자가 참여했습니다.
 
@@ -75,8 +74,7 @@ const PRESET_KNOWLEDGE: Record<Lang, Record<FaqKey, string>> = {
 
     neurox: `**The Neuro-X Project** is the lab's **brain foundation model** program.
 
-- **The premise**: as an LLM learns the structure of language from a large body of text, a model pretrained on large brain datasets (fMRI, EEG, diffusion MRI) should be able to learn the structure of brain activity. So far the lab has built fMRI models (SwiFT, NeuroMamba) and an EEG model (DIVER-0); the goal is to gather them into one Large Brain Model (LBM).
-- **The theory**: György Buzsáki's inside-out view, which treats the brain as a prediction machine that generates its own action plans and learns from their consequences, so the models learn the spatiotemporal structure of the signal itself.`,
+We develop a range of models suited to different signals and research goals, including fMRI models such as SwiFT and NeuroMamba, and EEG models such as DIVER. The aim is to use features learned from large brain datasets with new data and tasks. Combining information from different kinds of brain recordings is another research direction.`,
 
     qml: `The lab works on **quantum machine learning (QML)** for brain and time-series data. Several of the cited studies include coauthors from **Brookhaven National Laboratory**.
 
