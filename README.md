@@ -24,8 +24,8 @@ and AI Ideas remain public under footer **Lab notes** links. Their generated
 content and model attribution remain visible in the relevant entries.
 
 The homepage, news and social preview use an attributed excerpt of a published
-MBBN figure. Existing member images are portraits; generated news illustrations
-are labeled and collapsed. See [image sources and license](public/assets/site/README.md).
+MBBN figure. Existing member images are portraits. Decorative news illustrations are no longer
+displayed. See [image sources and license](public/assets/site/README.md).
 
 ## Features
 

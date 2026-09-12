@@ -1,11 +1,13 @@
 # HANDOFF — SNU Connectome Lab 홈페이지 (Transconnectome/lab-homepage)
 
-> 최종 갱신 **2026-09-12 17:40 KST**. 이 문서부터 읽고 시작할 것.
+> 최종 갱신 **2026-09-12 18:01 KST**. 이 문서부터 읽고 시작할 것.
 > 정본 = `main` · `/home/juke/git/lab-homepage`. 작업 시 현재 상태는 `git status --short --branch`로 확인한다.
 > 읽기 순서: 이 파일 → `claudedocs/design-audit-ai-look_2026-09-11.md` → `docs/research-content-review.md`.
 > 공식 홈페이지: https://www.connectomelab.com/ · 영어: https://www.connectomelab.com/en/.
 
 ## 0. 현재 상태 ★
+
+- 후속 사용자 지시(2026-09-12): “관련 삽화 보기 모두 삭제”. 한·영 소식 페이지의 해당 펼침 항목·그림·설명을 모두 제거했다. 기존 실제 MBBN 논문 그림은 유지한다. 빌드·사이트 계약 및 1440×1000/390×844 양 언어 브라우저 검사 통과. 이 후속 변경의 커밋·배포 결과는 Git과 Actions에서 확인한다.
 
 **PR #14 머지, A–E 개선안 구현·검증, 공식 홈페이지 배포와 운영 사이트 확인을 완료했다.**
 
@@ -49,7 +51,7 @@
 | B | 한·영 소개·제목·지원·문화 문구를 구체적으로 정리. 확인되지 않은 현재 모집·인터뷰·정기 지원 보장 제거 | `src/i18n/ui.ts`, JoinFaq, BaseLayout |
 | C | 홈 소개+그림 / 소식 3개+주요 논문 3편 / 구성원 초상 10명+지원. 지도와 프로젝트는 연구 페이지로 이관 | HomePage, ResearchPage, FeaturedProjects |
 | D | 연구 4개 세로 목차, 연도별 서지 목록, 네이티브 필터. 본문·저자·초록·출처 보존 | PublicationFilter, MemberGrid, IdeasFilter, ResearchRadarView |
-| E | 실제 MBBN 논문 그림 A–C 발췌·출처·라이선스, 기존 초상. 1200×630 공유 이미지·메타데이터. 뉴스 삽화는 접힌 항목에 명시 | `public/assets/site/`, `src/data/siteMedia.ts`, `scripts/og-homepage.html` |
+| E | 실제 MBBN 논문 그림 A–C 발췌·출처·라이선스, 기존 초상. 1200×630 공유 이미지·메타데이터. 사용자 지시로 관련 삽화 보기 및 장식 삽화 표시 제거 | `public/assets/site/`, `src/data/siteMedia.ts`, `scripts/og-homepage.html` |
 
 문서 정본:
 - `docs/research-content-review.md` §13: 이번 문구·그림의 근거와 해석 범위. 기존 연구 Markdown을 새로 전면 심사했다는 주장은 하지 않는다.

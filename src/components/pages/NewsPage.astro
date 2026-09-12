@@ -40,13 +40,6 @@ const pageTitle = lang === 'ko' ? '소식 | 서울대학교 커넥톰 연구실'
                 <a href={siteMedia.hero.source} class="block aspect-square overflow-hidden bg-white"><img src={siteMedia.hero.src} alt={siteMedia.hero.alt[lang]} width="1234" height="2495" loading="lazy" class="w-full h-auto" /></a>
                 <figcaption class="text-xs text-ink-faint">{siteMedia.hero.credit}, Fig. 2A–C ({lang === 'ko' ? '일부' : 'excerpt'}). <a href={siteMedia.hero.license} class="underline">CC BY 4.0</a></figcaption>
               </figure>}
-              {item.data.image && !isMbbn && <details class="text-sm text-ink-faint">
-                <summary class="cursor-pointer text-link">{lang === 'ko' ? '관련 삽화 보기' : 'View accompanying illustration'}</summary>
-                <figure class="max-w-xl mt-4 space-y-2">
-                  <img src={item.data.image} alt={lang === 'ko' ? `${item.data.title} 관련 삽화` : `Illustration accompanying ${item.data.title}`} width="1280" height="720" loading="lazy" class="w-full h-auto" />
-                  <figcaption class="text-xs">{lang === 'ko' ? '소식 내용을 설명하는 삽화입니다. 현장 사진이나 측정 결과가 아닙니다.' : 'An illustration of this news item, not an event photograph or measurement.'}</figcaption>
-                </figure>
-              </details>}
             </div>
           </article>
         );
