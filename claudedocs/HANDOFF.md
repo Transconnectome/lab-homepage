@@ -1,8 +1,8 @@
 # HANDOFF — SNU Connectome Lab 홈페이지 (Transconnectome/lab-homepage)
 
-> 최종 갱신 **2026-09-12 16:55 KST**. 이 문서부터 읽고 시작할 것.
+> 최종 갱신 **2026-09-12 16:58 KST**. 이 문서부터 읽고 시작할 것.
 > 🔴 정본 = `main` · `/home/juke/git/lab-homepage`. 워크트리는 하나뿐 (`git worktree list` 로 확인).
-> 읽기 순서: 이 파일 → PR #14 진단 문서 `claudedocs/design-audit-ai-look_2026-09-11.md` (main 에는 아직 없음, PR 브랜치에만 있음) → `docs/research-content-review.md` (연구 콘텐츠 출처 결정 정본).
+> 읽기 순서: 이 파일 → PR #14 진단 문서 `claudedocs/design-audit-ai-look_2026-09-11.md` (PR #14 머지 완료, main에서 바로 읽을 수 있음) → `docs/research-content-review.md` (연구 콘텐츠 출처 결정 정본).
 > 라이브: https://www.connectomelab.com/ (GitHub Pages, HTTPS 강제).
 
 ## 0. 한 줄 상태 ★
@@ -10,10 +10,10 @@
 **PR #14 진단의 A단계를 구현·검증하고 main에 push했다. B~E단계는 PI의 방향 결정과 소재를 기다린다.**
 
 - 구현 커밋: `315ec2c` — 전역 챗 버블 제거, FAQ 합류 페이지 이관, 홈 모델명 칩·장식 이모지·BibTeX 컨페티 제거, 레이더/아이디어 푸터 이관.
-- `git ls-remote origin refs/heads/main`과 로컬 HEAD가 `315ec2c6c1cc66a1864ac28607f44f323b00a1de`로 일치(2026-09-12 16:52 KST). 이 인계 갱신은 그 뒤의 문서 커밋이다.
+- PR #14 머지 후 `git fetch origin`과 `git merge --ff-only origin/main`으로 로컬 main을 `2c74021`까지 동기화했다(2026-09-12 16:57 KST). 이 인계 갱신은 그 뒤의 문서 커밋이다.
 - `npm ci`, `npm test`, `npm run build`, `npm run test:site` 통과. 1440×1000 / 390×844 한·영 브라우저 검증과 스크린샷 육안 검수 완료(§3).
 - 구현 자동 배포: [Actions 34681840345](https://github.com/Transconnectome/lab-homepage/actions/runs/34681840345) **성공**, 2026-09-12 16:53 KST 완료. 배포 작업의 `headSha`는 `315ec2c`다. 라이브 `/`, `/en/`, `/join`, `/en/join`, `/ideas`, `/en/ideas`의 HTTPS 200·주 메뉴·FAQ·출처도 직접 확인했다.
-- PR #14는 **OPEN**. 문서만 추가하는 PR이며 check 성공. 이번 세션에서 머지 여부를 질문했지만 답변을 받지 않아 머지하지 않았다. 구현은 PR 머지와 독립적으로 완료했다.
+- PR #14는 **MERGED**. 사용자의 “머지해라” 승인에 따라 2026-09-12 16:57 KST 머지했다. 머지 커밋 `2c7402196bf8da9f3518b7b863efbcfc1caf9f33`, 변경은 진단 문서 한 파일뿐이다. A단계 구현 코드는 그대로 보존했다.
 - 진단 §6의 PI 결정 질문 다섯 개를 전달했으며 아직 답변·이미지·소개문을 받지 않았다. B~E 구현 미착수.
 
 ## 1. 사실 표
@@ -22,7 +22,7 @@
 |---|---|---|
 | 저장소 | Transconnectome/lab-homepage (public) | `git remote -v` |
 | 라이브 도메인 | www.connectomelab.com · DNS = GitHub Pages A 레코드 4개, CNAME 없음, apex 미설정 | `./scripts/cutover.sh --status` 2026-09-12 |
-| 열린 PR | #14 (2026-09-12 16:52 KST `gh pr list --state open`) | GitHub |
+| 열린 PR | 없음 (2026-09-12 16:58 KST `gh pr list --state open`) | GitHub |
 | 원격 브랜치 | `main`, `claude/homepage-ai-design-refresh-wnqf3e`, `claude/homepage-korean-font-check-dz4neo` | `git fetch origin` 후 `git branch -r`, 2026-09-12 16:52 KST |
 | 스택 | Node 22 (>=22.12), Python 3.10+, Astro 7, React 18, Tailwind 3 (PostCSS) | package.json |
 | 구성원 사진 | `public/assets/members/` 32파일 | `ls | wc -l` 2026-09-12 |
@@ -41,7 +41,7 @@
 | 파일 | 내용 | 상태 |
 |---|---|---|
 | `claudedocs/HANDOFF.md` | 이 문서 | 정본 · 2026-09-12 |
-| `claudedocs/design-audit-ai-look_2026-09-11.md` | "AI가 만든 티" 진단 + A~E 단계 + 결정 질문 5개 | 정본(방향) · PR #14 브랜치 fe6fdc1 · main 에는 아직 없음 |
+| `claudedocs/design-audit-ai-look_2026-09-11.md` | "AI가 만든 티" 진단 + A~E 단계 + 결정 질문 5개 | 정본(방향) · PR #14 머지 완료 · main의 `2c74021`에 포함 |
 | `docs/research-content-review.md` | 연구 콘텐츠 과학적 출처·리뷰 이력 | 정본 · 2026-09-10 갱신 |
 | `claudedocs/homepage_evaluation_and_plan_2026-08-21.md` | 8/21 초기 평가·계획 | 🔴 stale — 9/9 통합·연구 페이지 개편 이전 기준. 이력 참고용 |
 | `src/i18n/ui.ts` | 전 UI 문구(영/한) | 정본 · B단계 재작성 대상. 실측 2026-09-12: `rg -o '—'` 32건, `rg -o '→'` 10건 |
@@ -69,8 +69,8 @@
 
 ## 4. 🔴 지금 막혀 있는 것 · 결정 대기 ★
 
-### ① PR #14 머지 여부 — 사람(사용자)
-문서 1개 추가뿐이라 머지 위험 없음. 머지하면 진단 문서가 main 에 들어와 다음 세션이 `git show` 없이 읽을 수 있다. 머지 안 해도 `git show origin/claude/homepage-ai-design-refresh-wnqf3e:claudedocs/design-audit-ai-look_2026-09-11.md` 로 읽힌다.
+### ① PR #14 — 머지 완료
+사용자 승인 후 머지했다. 이제 `claudedocs/design-audit-ai-look_2026-09-11.md`를 main에서 바로 읽는다. B~E단계의 PI 결정은 별도로 남아 있다.
 
 ### ② 구현 방향 결정 질문 5개 — 사람(PI)
 진단 문서 §6: (1) 첫 방문자 한 사람은 누구인가 (2) 이 연구실만의 이미지 한 장은 무엇인가 (3) 레이더·아이디어는 대외용인가 내부 도구인가 (4) PI 가 200자 소개를 직접 쓸 수 있는가 (5) 브로셔인가 날짜 찍힌 게시판인가.
@@ -83,7 +83,7 @@
 ## 5. 다음 단계 ★
 
 1. `git status --short --branch`, `git log --oneline -5`, `gh run list --workflow deploy.yml --limit 3`로 현재 상태부터 확인한다. **A단계 재구현은 필요 없다.**
-2. PR #14 머지 답변이 오면 문서 범위를 다시 확인하고 머지한다. 답변 전에는 열린 상태를 유지한다. 문서는 아직 PR 브랜치의 `git show`로 읽는다.
+2. PR #14는 이미 머지됐다. `claudedocs/design-audit-ai-look_2026-09-11.md`의 §6과 아래 PI 결정부터 이어간다.
 3. 사용자에게 이미 전달한 PI 결정 다섯 개의 답을 받는다: **첫 방문자 우선 대상 / 대표 실제 이미지 / 레이더·아이디어의 대외·내부 용도 / PI의 약 200자 소개문 / 소개 중심 브로셔 대 최신 소식 중심 게시판**. 이번 세션에는 답변이 없었다.
 4. **B단계**: PI 소개문을 받은 뒤 `src/i18n/ui.ts`와 페이지 헤더를 재작성한다. 진단 문서 §4-3 표는 초안이며, 인원·연도·모집 상태는 확인 전 사실처럼 추가하지 않는다.
 5. **C/D/E**: 홈 세 막 재구성·카드/필터 단순화·사진 배치는 PI 결정 후 진행한다. 기존 팔레트·타이포·언어 라우팅·구성원 자산·연구 지도·접근성은 보존한다.
