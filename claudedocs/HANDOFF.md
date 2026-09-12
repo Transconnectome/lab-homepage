@@ -1,93 +1,112 @@
 # HANDOFF — SNU Connectome Lab 홈페이지 (Transconnectome/lab-homepage)
 
-> 최종 갱신 **2026-09-12 16:58 KST**. 이 문서부터 읽고 시작할 것.
-> 🔴 정본 = `main` · `/home/juke/git/lab-homepage`. 워크트리는 하나뿐 (`git worktree list` 로 확인).
-> 읽기 순서: 이 파일 → PR #14 진단 문서 `claudedocs/design-audit-ai-look_2026-09-11.md` (PR #14 머지 완료, main에서 바로 읽을 수 있음) → `docs/research-content-review.md` (연구 콘텐츠 출처 결정 정본).
-> 라이브: https://www.connectomelab.com/ (GitHub Pages, HTTPS 강제).
+> 최종 갱신 **2026-09-12 17:40 KST**. 이 문서부터 읽고 시작할 것.
+> 정본 = `main` · `/home/juke/git/lab-homepage`. 작업 시 현재 상태는 `git status --short --branch`로 확인한다.
+> 읽기 순서: 이 파일 → `claudedocs/design-audit-ai-look_2026-09-11.md` → `docs/research-content-review.md`.
+> 공식 홈페이지: https://www.connectomelab.com/ · 영어: https://www.connectomelab.com/en/.
 
-## 0. 한 줄 상태 ★
+## 0. 현재 상태 ★
 
-**PR #14 진단의 A단계를 구현·검증하고 main에 push했다. B~E단계는 PI의 방향 결정과 소재를 기다린다.**
+**PR #14 머지, A–E 개선안 구현·검증, 공식 홈페이지 배포와 운영 사이트 확인을 완료했다.**
 
-- 구현 커밋: `315ec2c` — 전역 챗 버블 제거, FAQ 합류 페이지 이관, 홈 모델명 칩·장식 이모지·BibTeX 컨페티 제거, 레이더/아이디어 푸터 이관.
-- PR #14 머지 후 `git fetch origin`과 `git merge --ff-only origin/main`으로 로컬 main을 `2c74021`까지 동기화했다(2026-09-12 16:57 KST). 이 인계 갱신은 그 뒤의 문서 커밋이다.
-- `npm ci`, `npm test`, `npm run build`, `npm run test:site` 통과. 1440×1000 / 390×844 한·영 브라우저 검증과 스크린샷 육안 검수 완료(§3).
-- 구현 자동 배포: [Actions 34681840345](https://github.com/Transconnectome/lab-homepage/actions/runs/34681840345) **성공**, 2026-09-12 16:53 KST 완료. 배포 작업의 `headSha`는 `315ec2c`다. 라이브 `/`, `/en/`, `/join`, `/en/join`, `/ideas`, `/en/ideas`의 HTTPS 200·주 메뉴·FAQ·출처도 직접 확인했다.
-- PR #14는 **MERGED**. 사용자의 “머지해라” 승인에 따라 2026-09-12 16:57 KST 머지했다. 머지 커밋 `2c7402196bf8da9f3518b7b863efbcfc1caf9f33`, 변경은 진단 문서 한 파일뿐이다. A단계 구현 코드는 그대로 보존했다.
-- 진단 §6의 PI 결정 질문 다섯 개를 전달했으며 아직 답변·이미지·소개문을 받지 않았다. B~E 구현 미착수.
+- A 구현: `315ec2c`. 전역 챗 버블을 합류 FAQ로 이관하고 홈 모델명 칩·장식 이모지·BibTeX 컨페티를 제거했다. 레이더·아이디어는 푸터로 옮겼다.
+- PR #14: **MERGED**, `2c7402196bf8da9f3518b7b863efbcfc1caf9f33`, 2026-09-12 16:57 KST. 진단 문서만 포함한 PR이며 main에서 바로 읽을 수 있다.
+- B–E 구현: `ca2533f93b9368b7487f9787f2065eb867d3817d`. 홈 세 구획, 한·영 문구, 연구 목차와 지도 이관, 연도별 논문, 필터 단순화, 실제 연구 그림과 공유 이미지.
+- `npm ci`, `npm test`, `npm run build`, `npm run test:site` 통과. 최종 소스 수정 후 테스트·빌드·사이트 계약을 다시 통과했다. 브라우저 32개 경우와 사진·폰트 보충 검사 통과(§3).
+- 구현 배포 [Actions 34683679902](https://github.com/Transconnectome/lab-homepage/actions/runs/34683679902) 성공, 2026-09-12 17:36 KST 완료. 공식 사이트 전체 경로와 이미지·주요 동작 확인 완료(§4).
 
-## 1. 사실 표
+## 1. 실측 사실
 
-| 항목 | 값 | 출처 |
+| 항목 | 확인 결과 | 확인 방법 |
 |---|---|---|
-| 저장소 | Transconnectome/lab-homepage (public) | `git remote -v` |
-| 라이브 도메인 | www.connectomelab.com · DNS = GitHub Pages A 레코드 4개, CNAME 없음, apex 미설정 | `./scripts/cutover.sh --status` 2026-09-12 |
-| 열린 PR | 없음 (2026-09-12 16:58 KST `gh pr list --state open`) | GitHub |
-| 원격 브랜치 | `main`, `claude/homepage-ai-design-refresh-wnqf3e`, `claude/homepage-korean-font-check-dz4neo` | `git fetch origin` 후 `git branch -r`, 2026-09-12 16:52 KST |
-| 스택 | Node 22 (>=22.12), Python 3.10+, Astro 7, React 18, Tailwind 3 (PostCSS) | package.json |
-| 구성원 사진 | `public/assets/members/` 32파일 | `ls | wc -l` 2026-09-12 |
+| 저장소 | public · Transconnectome/lab-homepage | Git remote / GitHub |
+| 공식 Pages 등록 | `www.connectomelab.com`, workflow 배포, HTTPS 강제 | `gh api repos/Transconnectome/lab-homepage/pages` 2026-09-12 17:35 KST |
+| 도메인 | www는 기존 GitHub Pages 등록 유지. apex는 DNS 미설정이므로 공유 이미지·메타데이터에 www 사용 | 기존 `scripts/cutover.sh --status` 실측 및 Pages API |
+| 기준 브랜치 | main 직접 push, force push 금지 | 사용자 승인·원격 규칙 |
+| 스택 | Node >=22.12, Astro 7, React 18, Tailwind 3, Python 3.10+ | package.json / .nvmrc |
+| 기존 멤버 자산 | 원본 파일 보존, 홈에 현재 구성원 초상 10개 표시 | 컬렉션 선택 + 브라우저 로딩 확인 |
 
-## 2. 사용자 지시·결정 (축자)
+## 2. 이번 사용자 결정과 구현 판단 ★
 
-- **2026-09-12** 사용자: "https://github.com/Transconnectome/lab-homepage/pull/14 이거 작업해. 오빠 그 플러그 이용하고 병렬 서버에이전트 최대한 많이 이용해서 빠르게 작업해 봐" → 직후 "Git commit push and hand off doc generate" 로 중단. 이것은 직전 세션의 미착수 기록이다. **이번 재개 세션에서는 A단계 구현·검증·main push를 명시적으로 지시받아 완료했다.**
-- **2026-09-10** 사용자 확인: 이 저장소는 main 에 직접 push 하는 것이 관행 (feature 브랜치 원칙보다 우선).
-- **2026-09-09** 통합 결정: 유지 브랜치는 main 하나. 대안 분할형 연구 페이지 설계는 채택하지 않음. 연구 구조는 4개 이중언어 영역(Neuro-X 에 fMRI·EEG 파운데이션 모델 포함).
-- **2026-08-22** 확정: 한국어가 루트(`/`), 영어는 `/en/`, 옛 `/ko/*` 는 리다이렉트로 유지. 모토 "Everything Connects to Everything Else"(양쪽 언어 모두 영문).
-- **2026-08-21** 확정: PI 직함 **부교수**. Lab Guide 는 정적 FAQ 이지 온라인 모델이 아님. AI Ideas 는 "기계 생성 · 연구실 비보증" 표기 유지.
-- 진단 문서 §3 "유지할 것"(2026-09-11 작성, 사용자 반박 없음): 종이색+잉크+청록 팔레트, 마루부리/Hahmlet/프리텐다드/Plex Mono 타이포와 `:lang(ko)` 규칙, 언어 라우팅, 구성원 사진·passions, 3D 연구 지도(위치만 낮춤), 접근성 작업.
+2026-09-12 사용자: **“나와 있는 모든 작업을 다 완성하고 최종적으로 검증해서 새 홈페이지 등록하고 배포까지 완료해 줘”**.
+이 지시로 A만 끝내고 기다리던 범위를 B–E와 운영 배포까지 넓혔다. 앞선 다섯 질문에 별도
+답을 받았다고 기록하지 않는다. 사용자에게 다음 가정을 알리고 구현했다.
 
-## 3. 산출물 지도 · 인벤토리 ★
+1. 우선 방문자는 예비 지원자와 연구자다. 연구실 소개·근황·사람·지원 경로를 바로 읽게 한다.
+2. 실제 단체·현장 사진은 확보하지 못해 공개 논문의 진짜 연구 그림과 기존 구성원 초상을 사용한다.
+3. 레이더·아이디어는 푸터에서 접근하는 공개 실험실 노트로 유지한다. 기계 생성·미검토·비보증 안내는 남긴다.
+4. 소개문은 검토한 기존 연구 범위에 근거한 기관 소개다. PI가 직접 썼다고 표시하지 않는다.
+5. 소개와 날짜가 있는 소식을 결합한다. 실제 기사 날짜와 서지 연도만 사용한다.
 
-| 파일 | 내용 | 상태 |
+기존 확정 사항: 한국어 `/`, 영어 `/en/`, 옛 `/ko/*` 리다이렉트; 영문 모토 유지; PI 직함 부교수;
+네 개 연구축과 언어별 앵커; 종이색·잉크·청록 팔레트와 한국어 타이포; 연구 지도의 개념도 표시.
+
+## 3. 산출물과 검증 ★
+
+| 단계 | 최종 결과 | 주요 파일 |
 |---|---|---|
-| `claudedocs/HANDOFF.md` | 이 문서 | 정본 · 2026-09-12 |
-| `claudedocs/design-audit-ai-look_2026-09-11.md` | "AI가 만든 티" 진단 + A~E 단계 + 결정 질문 5개 | 정본(방향) · PR #14 머지 완료 · main의 `2c74021`에 포함 |
-| `docs/research-content-review.md` | 연구 콘텐츠 과학적 출처·리뷰 이력 | 정본 · 2026-09-10 갱신 |
-| `claudedocs/homepage_evaluation_and_plan_2026-08-21.md` | 8/21 초기 평가·계획 | 🔴 stale — 9/9 통합·연구 페이지 개편 이전 기준. 이력 참고용 |
-| `src/i18n/ui.ts` | 전 UI 문구(영/한) | 정본 · B단계 재작성 대상. 실측 2026-09-12: `rg -o '—'` 32건, `rg -o '→'` 10건 |
-| `src/components/common/JoinFaq.astro` + `src/components/pages/JoinPage.astro` | 한·영 FAQ, native details/summary | A단계 이관 완료. AskLabAI 삭제, BaseLayout의 전역 island 제거 |
-| `src/components/pages/` | 언어 인식 공유 페이지 컴포넌트(얇은 라우트 래퍼가 호출) | 정본 · C/D단계 대상 |
-| `scripts/cutover.sh` | DNS·HTTPS 상태 점검 | 정본 · `--status` 만 쓸 것 |
-| `scripts/sync_scholar.py` | OpenAlex 동기화(v3, kind 분류, 멤버 allowlist) | 정본 |
-| `/home/juke/.claude/projects/-home-juke-git/memory/lab_homepage_redesign_project.md` | Claude 자동 메모리 | 2026-09-12 "남은 일" 갱신됨 |
-| `dist/` | A단계 빌드 출력(2026-09-12 16:47 KST) | gitignore · 변경 후에는 재빌드 |
+| A | 챗 버블 제거·정적 FAQ, 모델 칩·컨페티 제거, 보조 메뉴 푸터 이관 | JoinFaq, Navbar, Footer, PublicationFilter |
+| B | 한·영 소개·제목·지원·문화 문구를 구체적으로 정리. 확인되지 않은 현재 모집·인터뷰·정기 지원 보장 제거 | `src/i18n/ui.ts`, JoinFaq, BaseLayout |
+| C | 홈 소개+그림 / 소식 3개+주요 논문 3편 / 구성원 초상 10명+지원. 지도와 프로젝트는 연구 페이지로 이관 | HomePage, ResearchPage, FeaturedProjects |
+| D | 연구 4개 세로 목차, 연도별 서지 목록, 네이티브 필터. 본문·저자·초록·출처 보존 | PublicationFilter, MemberGrid, IdeasFilter, ResearchRadarView |
+| E | 실제 MBBN 논문 그림 A–C 발췌·출처·라이선스, 기존 초상. 1200×630 공유 이미지·메타데이터. 뉴스 삽화는 접힌 항목에 명시 | `public/assets/site/`, `src/data/siteMedia.ts`, `scripts/og-homepage.html` |
 
-### A단계 구현과 검증 (2026-09-12)
+문서 정본:
+- `docs/research-content-review.md` §13: 이번 문구·그림의 근거와 해석 범위. 기존 연구 Markdown을 새로 전면 심사했다는 주장은 하지 않는다.
+- `public/assets/site/README.md`: 논문·원본 PNG·CC BY 4.0·패널 발췌·해시·공유 이미지 재현 절차.
+- `README.md`: 최종 화면 구조, 언어·빌드·자동화·등록 도메인 안내.
 
-- `JoinFaq.astro`: 기존 일곱 FAQ의 양쪽 언어 답변을 옮겼다. `219d42d:src/components/ai/AskLabAI.tsx`의 답변과 대조하여 장식 이모지 외에는 일치함을 확인했다. 과학적 주장을 새로 검증하거나 재작성한 작업은 아니다. 최초 진입 시 모두 접혀 있고, Enter/Space로 열린다. Astro가 본문을 이스케이프하며 클라이언트 JS가 필요 없다.
-- `Navbar.astro` / `Footer.astro`: 주 메뉴는 연구·논문·구성원·소식, 별도 합류 링크. 레이더와 아이디어는 푸터의 **실험실 노트 / Lab notes**에 있다. 한·영 경로와 현재 페이지 표시를 보존했다.
-- `FeaturedProjects.astro`: 홈의 로봇·모델명 칩을 없앴다. 작은 “AI가 생성한 요약”을 펼치면 정확한 모델명을 확인한다. **모델명은 기본 화면에서 숨겨졌으며 HTML·데이터에서 삭제된 것은 아니다.**
-- `IdeasFilter.tsx`: 정확한 생성 모델은 카드 하단 작은 회색 글씨로 이관, 이미지 생성 출처의 이모지 제거. 기존 기계 생성·연구실 비보증 안내는 유지했다.
-- `PublicationFilter.tsx`: 컨페티와 Spotlight 장식 이모지 제거. BibTeX 내용과 복사됨 피드백은 유지했다. `package.json`·잠금 파일에서 `canvas-confetti` 및 타입 패키지도 제거했다.
-- `src/i18n/ui.ts`는 한 에이전트만 편집했다. FAQ·홈·메뉴는 파일 소유자를 나눠 병렬 구현했고, 다른 담당자가 FAQ/홈/의존성 변경을 독립 리뷰하여 **Proceed**로 판정했다.
-- 실행: `npm ci` → `npm test` → `npm run build` → `npm run test:site` 모두 성공. 설치 감사 결과 취약점 0. 빌드 계약은 한·영 정식 페이지, 레거시 리다이렉트, 메타데이터, 내부 링크·앵커·로컬 에셋을 통과했다.
-- 브라우저: 로컬 프로덕션 preview를 1440×1000 / 390×844로 검사했다. `/`, `/research`, `/publications`, `/team`, `/news`, `/radar`, `/ideas`, `/join`과 영어 대응 경로를 모두 확인했다. 한·영 × 두 크기 × 여덟 경로 = 32개 화면, 가로 넘침 없음, pageerror 없음.
-- 상호작용: 실제 언어 전환·연구 지도 링크, 모바일 메뉴, 구성원 필터, 논문 검색·게재유형, **실제 클립보드의 BibTeX**와 컨페티 canvas 없음, FAQ·레이더·모델 출처의 Enter/Space, FAQ 전체 확장 후 모바일 넘침 없음까지 확인했다.
-- 스크린샷은 별도 에이전트와 메인 에이전트가 육안 확인했다. A단계 회귀로 볼 잘림·겹침을 찾지 못했다. 기존 한글 레이더의 영어 본문·구성원 영어 학력은 이번 범위에서 유지했다.
-- 로컬 검수 증거: `/tmp/lab-homepage-phase-a-review/`의 PNG와 `report.json`; 재현 스크립트 `/tmp/lab-homepage-phase-a-browser.py`, `/tmp/lab-homepage-phase-a-attribution.py`. **임시·로컬 자료이며 Git에 포함하지 않았다.** `report.json`은 `python3 -c 'import json; r=json.load(open("/tmp/lab-homepage-phase-a-review/report.json")); print(len(r["pages"]), len(r["interactions"]), r["errors"])'`로 재집계할 수 있다.
-- 구현 커밋에는 위 코드·README·기존 콘텐츠 테스트의 FAQ 경로 수정만 포함했다. 세션 시작 시 사용자 미커밋 변경은 없었다. 타 브랜치를 수정·삭제하지 않았다.
+### 자동 검사
 
-## 4. 🔴 지금 막혀 있는 것 · 결정 대기 ★
+- 순서: `npm ci && npm test && npm run build && npm run test:site`. 설치 취약점 0, 모든 테스트 통과.
+- 최종 소스 수정 후 `npm test && npm run build && npm run test:site` 재실행 성공(2026-09-12 17:31 KST). 사이트 계약은 한·영 16페이지·옛 리다이렉트·메타데이터·내부 링크·앵커·로컬 에셋을 검사한다.
+- 연구·구성원·논문 컬렉션 데이터와 3D 연구 의미 데이터는 변경하지 않았다. 뉴스 다섯 파일은 `**` 강조 위치만 바꿔 파싱 표식 노출을 고쳤다.
+- 서브에이전트는 파일 단위로 소유권을 분리했다. `src/i18n/ui.ts`는 한 담당자만 편집했다.
 
-### ① PR #14 — 머지 완료
-사용자 승인 후 머지했다. 이제 `claudedocs/design-audit-ai-look_2026-09-11.md`를 main에서 바로 읽는다. B~E단계의 PI 결정은 별도로 남아 있다.
+### 실제 브라우저 검사
 
-### ② 구현 방향 결정 질문 5개 — 사람(PI)
-진단 문서 §6: (1) 첫 방문자 한 사람은 누구인가 (2) 이 연구실만의 이미지 한 장은 무엇인가 (3) 레이더·아이디어는 대외용인가 내부 도구인가 (4) PI 가 200자 소개를 직접 쓸 수 있는가 (5) 브로셔인가 날짜 찍힌 게시판인가.
-**A단계는 완료**했다. 이후 단계로 범위를 넓히지 않았다.
-**결정이 필요한 것**: B(문구 전면 재작성, PI 소개문 필요), C(홈 3막 재구성, 카드→목록), D(필터 UI 단순화), E(사진).
+Chromium 프로덕션 preview에서 1440×1000 / 390×844, 한·영 각각 홈·연구·논문·구성원·소식·레이더·아이디어·합류를 검사했다.
+`report.json` 기준 **32개 화면·32개 상호작용 묶음 통과, pageerror 0, 가로 넘침 0**.
 
-### ③ 사진 자료(E단계) — 사람
-단체사진(홍천 리트릿), EEG 아트 전시, 실제 연구 그림. 사용자가 주기 전까지 회색 박스 자리를 두지 말고 사진 없는 레이아웃으로 만든다(문서 §4-5).
+- 홈 3구획·소식/논문 3개씩·초상 링크·실제 언어 전환·모바일 메뉴 Enter/Space.
+- 연구 목차 4개·분야별 앵커·연구 지도의 활성화 후 키보드 선택과 해당 연구 이동·프로젝트 생성 출처 펼침.
+- 논문 검색·연도·주제·유형, `?type=` 진입/새로고침, 프리프린트 포함/제외.
+- 실제 클립보드에서 저널 `@article`, 학회 `@inproceedings`, 프리프린트 `@unpublished` 확인. 권한 실패를 주입해 “복사 실패” 안내도 검증. 컨페티 canvas 없음.
+- 구성원 카테고리 선택과 전체 복귀, 레이더 검색·주제·요약 Enter/Space, 아이디어 필터와 본문 앞 미검토 안내.
+- 합류 FAQ 7개 기본 접힘·키보드 조작·전체 확장 후 가로 넘침 없음.
+- 사진 보충 검사: 양 언어·두 화면에서 초상 10개의 `complete && naturalWidth > 0` 확인 후 다시 캡처.
+- CDP `CSS.getPlatformFontsForNode`: 한글 제목의 실제 MaruBuri 렌더 확인. 뉴스 양 언어에서 노출된 `**` 0. 공유 이미지 HTML 재현 성공.
 
-## 5. 다음 단계 ★
+독립 검토 지적을 반영했다: 행사 설명 범위 축소, 부정확한 논문 월 정렬 제거, 그림 A–C 전체가 보이는 프레임,
+뉴스 강조 표식 수정. 다른 담당자가 데스크톱과 모바일 캡처를 실제로 보고 배포를 막는 겹침·잘림을 찾지 못했다.
 
-1. `git status --short --branch`, `git log --oneline -5`, `gh run list --workflow deploy.yml --limit 3`로 현재 상태부터 확인한다. **A단계 재구현은 필요 없다.**
-2. PR #14는 이미 머지됐다. `claudedocs/design-audit-ai-look_2026-09-11.md`의 §6과 아래 PI 결정부터 이어간다.
-3. 사용자에게 이미 전달한 PI 결정 다섯 개의 답을 받는다: **첫 방문자 우선 대상 / 대표 실제 이미지 / 레이더·아이디어의 대외·내부 용도 / PI의 약 200자 소개문 / 소개 중심 브로셔 대 최신 소식 중심 게시판**. 이번 세션에는 답변이 없었다.
-4. **B단계**: PI 소개문을 받은 뒤 `src/i18n/ui.ts`와 페이지 헤더를 재작성한다. 진단 문서 §4-3 표는 초안이며, 인원·연도·모집 상태는 확인 전 사실처럼 추가하지 않는다.
-5. **C/D/E**: 홈 세 막 재구성·카드/필터 단순화·사진 배치는 PI 결정 후 진행한다. 기존 팔레트·타이포·언어 라우팅·구성원 자산·연구 지도·접근성은 보존한다.
-6. 잔여 콘텐츠 결정(2026-09-09 이월): 구성원 신분·소속 날짜를 연구실 명부와 대조 · 한국어 구성원 학력/관심/passions와 레이더 본문 번역 공급 · 유전체/멀티오믹스 축 공식 명칭과 현재 모집 여부 확인 · Communications Medicine 조기공개 논문의 Version of Record 재확인.
+로컬 증거(임시 파일, Git에는 넣지 않음):
+- `/tmp/lab-homepage-final-review/report.json`, `assets-report.json`, 각 페이지 PNG. 초상은 `*-home-people-loaded.png`, 전체 홈은 `*-home-full-loaded.png`를 본다.
+- 재현: `/tmp/lab-homepage-final-browser.py`, `/tmp/lab-homepage-final-assets.py`.
+- 집계: `python3 -c 'import json; r=json.load(open("/tmp/lab-homepage-final-review/report.json")); print(len(r["pages"]), len(r["interactions"]), r["errors"])'`.
+- 이전 A단계 검수는 `/tmp/lab-homepage-phase-a-review/`와 Git의 과거 HANDOFF에 남아 있다.
+
+## 4. 배포 실측 ★
+
+구현 push: `ca2533f93b9368b7487f9787f2065eb867d3817d` → `origin/main`.
+사용자 승인 범위에서 기존 GitHub Pages workflow를 이용했다. 새 도메인 구매나 DNS 변경은 하지 않았다.
+
+- [Actions 34683679902](https://github.com/Transconnectome/lab-homepage/actions/runs/34683679902): `headSha=ca2533f93b9368b7487f9787f2065eb867d3817d`, **success**, 2026-09-12 17:36:34 KST 배포 완료.
+- CI에서도 `npm ci → npm test → npm run build → npm run test:site`를 모두 통과한 산출물을 배포했다.
+- 운영 `/`, `/research`, `/publications`, `/team`, `/news`, `/radar`, `/ideas`, `/join` 및 영어 대응 경로: **16개 HTTPS 200**, 공식 canonical·새 OG·주 메뉴·푸터 확인.
+- 실제 연구 그림과 새 OG 파일의 운영 SHA-256이 커밋한 로컬 파일과 일치한다.
+- 운영 브라우저 두 크기·두 언어: 홈 3구획, 초상 10개 로딩, 실제 언어 전환, 논문 `?type=journal` 진입, FAQ 7개 확인. 가로 넘침·pageerror 없음.
+- 운영 증거: `/tmp/lab-homepage-live-review/report.json`, `*-home-full.png`; 재현 `/tmp/lab-homepage-live-check.py`. 임시 로컬 파일이다.
+- 이 HANDOFF는 구현 배포 이후 결과를 기록한 문서 커밋이다. 문서 커밋 자체의 SHA와 후속 workflow 상태는 `git log`와 `gh run list`로 확인한다.
+
+## 5. 이후 운영
+
+A–E 디자인 개편의 구현은 끝났다. 새 세션에서 재구현하거나 PR #14를 다시 머지하지 않는다.
+현재 상태와 배포는 `git status --short --branch`, `git log --oneline -5`, `gh run list --workflow deploy.yml --limit 3`으로 확인한다.
+
+연구실 명부·현재 모집·현재 소속의 변경은 운영자가 확인한 새 자료가 생길 때 갱신한다. 실제 단체·작업 현장
+사진을 받으면 출처를 확인하고 현재 연구 그림을 대체할 수 있다. 구성원 한국어 학력/관심/passions와 레이더
+본문은 원본 공급 언어를 유지한다. 공식 연구축 명칭과 과학적 결론을 디자인 작업에서 임의 변경하지 않는다.
 
 ## 6. 함정 (실측된 것만) ★
 
@@ -102,6 +121,10 @@
 - 뉴스 링크는 HTTP(S)만, 생성 본문은 plain text 로 이스케이프.
 
 ### 도구
+- 홈페이지 논문 `month`는 영문 월 이름과 미기재가 섞인다. `Number(month)`로 최신순을 만들지 않는다. 홈은 연도 내림차순·제목순으로 세 편을 선정하고 주요 논문으로 표시한다.
+- 뉴스의 `**“제목”**가`, `**학회(CCN 2026)**에서`는 CommonMark에서 별표가 노출될 수 있다. 따옴표·괄호는 강조 밖에 두고 빌드된 본문을 확인한다.
+- `loading="lazy"` 사진은 스크롤 직후 캡처하면 빈 자리로 찍힌다. `complete && naturalWidth > 0`을 기다린 뒤 육안 확인한다. CSS 숨김으로 오진하지 않는다.
+- preview를 대상으로 브라우저 검사하는 동안 `dist/`를 재빌드하면 일시적인 404가 생긴다. 최종 빌드가 끝난 고정 트리로 검사한다.
 - ⚠️ **같은 파일 병렬 편집 = 조용한 데이터 손실**. 병렬 스트림이 같은 설정 파일을 동시에 Edit 하면 한쪽이 사라지고 검증 단계에서만 드러남. 파일 단위로 소유자를 나눌 것.
 - `GITHUB_TOKEN` push 는 deploy.yml 을 트리거하지 않는다. 그래서 research-radar.yml 은 자체 워크플로 안에서 빌드 검증 후 직접 배포한다.
 - push 가 Actions run 을 만들지 않는 증상(2026-08-22 겪음): 워크플로 disable/enable 로는 안 풀림. **저장소 Actions permissions 를 enabled=false→true 로 토글**하면 즉시 복구.
@@ -143,7 +166,7 @@ main 룰셋: 삭제·non-fast-forward 차단. secret scanning·push protection·
 
 Pages 쓰기 워크플로는 concurrency group `pages` 공유. 생성기는 OPENROUTER_API_KEY 가 있을 때만 LLM 사용(뉴스는 필수, 레이더는 초록 발췌로 폴백, 아이디어는 미생성).
 
-**브라우저 검수**: 레이아웃·런타임 변경 후 1440×1000 / 390×844. 언어 전환, 연구 지도 링크, 구성원·논문 필터·BibTeX 실제 복사, 합류 FAQ, 홈 모델 출처 펼침, 레이더 요약의 키보드 Enter/Space.
+**브라우저 검수**: 레이아웃·런타임 변경 후 1440×1000 / 390×844. 언어 전환, 연구 지도 링크, 구성원·논문 필터·BibTeX 실제 복사, 합류 FAQ, 연구 페이지의 프로젝트 모델 출처 펼침, 레이더 요약의 키보드 Enter/Space.
 
 ## 8. 관련 메모리
 
