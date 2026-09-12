@@ -19,33 +19,35 @@ const pageTitle = lang === 'ko' ? 'AI 아이디어 랩 | 서울대학교 커넥�
 ---
 
 <BaseLayout lang={lang} title={pageTitle}>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
-    <div class="max-w-2xl space-y-4">
-      <p class="eyebrow">{t('ideas.eyebrow')}</p>
-      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('ideas.title')}</h1>
-      <p class="text-lg text-ink-soft leading-relaxed measure">{t('ideas.desc')}</p>
-      <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-900 leading-relaxed">
-        <strong>{t('ideas.honestyTitle')}</strong> {t('ideas.honestyBody')}
-      </div>
-    </div>
+  <div class="section-shell py-12 sm:py-16">
+    <div class="max-w-4xl space-y-10">
+      <header class="max-w-3xl space-y-4">
+        <p class="eyebrow">{t('ideas.eyebrow')}</p>
+        <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">{t('ideas.title')}</h1>
+        <p class="text-lg text-ink-soft leading-relaxed">{t('ideas.desc')}</p>
+        <p class="text-sm text-ink-soft leading-relaxed">
+          {t('ideas.introNote')}
+          <a href="#ideas-provenance" class="text-link ml-1">{t('ideas.provenanceLink')}</a>
+        </p>
+      </header>
 
-    <IdeasFilter ideas={sortedIdeas} lang={lang} client:visible />
+      {sortedIdeas.length > 0 ? (
+        <IdeasFilter ideas={sortedIdeas} lang={lang} client:visible />
+      ) : (
+        <div class="border-t border-line py-10 space-y-2">
+          <h2 class="text-lg font-semibold text-ink">{t('ideas.empty')}</h2>
+          <p class="text-sm text-ink-soft">{t('ideas.emptyDesc')}</p>
+        </div>
+      )}
 
-    {sortedIdeas.length === 0 && (
-      <div class="text-center py-16 card">
-        <h2 class="text-lg font-semibold text-ink mb-1">{t('ideas.empty')}</h2>
-        <p class="text-sm text-ink-soft">{t('ideas.emptyDesc')}</p>
-      </div>
-    )}
-
-    <div class="card p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-      <p class="text-base text-ink-soft leading-relaxed max-w-lg">{t('ideas.ctaDesc')}</p>
-      <a
-        href={localePath(lang, '/join')}
-        class="px-6 py-3 rounded-lg bg-lab-700 hover:bg-lab-800 text-white font-semibold text-base transition-colors shrink-0"
-      >
-        {t('ideas.cta')}
-      </a>
+      <aside id="ideas-provenance" aria-labelledby="ideas-provenance-title" class="border-t border-line pt-6 space-y-3 max-w-3xl">
+        <h2 id="ideas-provenance-title" class="text-sm font-semibold text-ink">{t('ideas.provenanceTitle')}</h2>
+        <p class="text-sm text-ink-soft leading-relaxed">{t('ideas.honestyBody')}</p>
+        <p class="text-sm text-ink-soft leading-relaxed">
+          {t('ideas.ctaDesc')}
+          <a href={localePath(lang, '/join')} class="text-link ml-1">{t('ideas.cta')}</a>
+        </p>
+      </aside>
     </div>
   </div>
 </BaseLayout>

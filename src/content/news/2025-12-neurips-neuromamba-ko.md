@@ -8,4 +8,4 @@ link: "https://neurips.cc/virtual/2025/132664"
 lang: "ko"
 baseSlug: "2025-12-neurips-neuromamba"
 ---
-최주빈 학생이 연구 **"NeuroMamba: A State-Space Foundation Model for Functional MRI"**로 2025 NeurIPS Workshop on Foundation Models for the Brain and Body에서 Spotlight 발표에 선정되었다. NeuroMamba는 4D 뉴로이미징 데이터의 시간적 문맥을 선형 시간(linear-time)으로 확장해 다룬다.
+최주빈 학생이 연구 "**NeuroMamba: A State-Space Foundation Model for Functional MRI**"로 2025 NeurIPS Workshop on Foundation Models for the Brain and Body에서 Spotlight 발표에 선정되었다. NeuroMamba는 4D 뉴로이미징 데이터의 시간적 문맥을 선형 시간(linear-time)으로 확장해 다룬다.

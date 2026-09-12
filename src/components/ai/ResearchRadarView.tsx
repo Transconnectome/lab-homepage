@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Sparkles, ExternalLink, Brain, ChevronDown } from 'lucide-react';
+import { useTranslations } from '../../i18n/ui';
 
 interface TrendItem {
   title: string;
@@ -21,37 +21,6 @@ interface Props {
   lang?: 'en' | 'ko';
 }
 
-const LABELS: Record<'en' | 'ko', Record<string, string>> = {
-  en: {
-    search: 'Search papers, modalities, topics...',
-    entries: 'entries · updated weekly from arXiv',
-    llmSummary: 'LLM summary',
-    excerpt: 'Abstract excerpt',
-    summary: 'Summary',
-    showDetails: 'Show paper summary and relevance',
-    hideDetails: 'Hide paper summary and relevance',
-    significance: 'Significance: ',
-    whyUs: 'Why it matters to us: ',
-    noMatch: 'No matching radar entries',
-    noMatchDesc: 'Try a different keyword or topic filter.',
-  },
-  ko: {
-    search: '논문·모달리티·주제 검색...',
-    entries: '건 · arXiv에서 매주 갱신',
-    llmSummary: 'LLM 요약',
-    excerpt: '초록 발췌',
-    summary: '요약',
-    showDetails: '논문 요약과 연구실 관련성 보기',
-    hideDetails: '논문 요약과 연구실 관련성 접기',
-    significance: '의의: ',
-    whyUs: '우리 연구실과의 연결: ',
-    noMatch: '조건에 맞는 항목이 없습니다',
-    noMatchDesc: '다른 검색어나 주제 필터를 시도해 보세요.',
-  },
-};
-
-// Filter values are the raw `topic` enum from src/content.config.ts; the chips
-// show a compact label so the row stays readable at seven buckets.
 const TOPICS = [
   'All',
   'Brain Foundation Models (fMRI)',
@@ -86,166 +55,92 @@ const TOPIC_LABELS: Record<'en' | 'ko', Record<string, string>> = {
   },
 };
 
+const HANGUL = /[\uac00-\ud7a3]/;
+const itemLang = (text: string) => (HANGUL.test(text) ? 'ko' : 'en');
+
 export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
-  const L = LABELS[lang];
+  const t = useTranslations(lang);
   const [selectedTopic, setSelectedTopic] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const filteredTrends = useMemo(() => {
-    return trends.filter((item) => {
-      const matchTopic = selectedTopic === 'All' || item.topic === selectedTopic;
-      const query = searchQuery.toLowerCase();
-      const matchSearch =
-        item.title.toLowerCase().includes(query) ||
-        item.significance.toLowerCase().includes(query) ||
-        item.labRelevance.toLowerCase().includes(query) ||
-        item.modality.some((m) => m.toLowerCase().includes(query)) ||
-        item.authors.some((a) => a.toLowerCase().includes(query));
-      return matchTopic && matchSearch;
-    });
-  }, [trends, selectedTopic, searchQuery]);
+  const filteredTrends = useMemo(() => trends.filter((item) => {
+    const matchTopic = selectedTopic === 'All' || item.topic === selectedTopic;
+    const query = searchQuery.trim().toLowerCase();
+    const matchSearch = [item.title, item.significance, item.labRelevance, item.topic,
+      TOPIC_LABELS[lang][item.topic] ?? '', ...item.modality, ...item.authors]
+      .some((value) => value.toLowerCase().includes(query));
+    return matchTopic && matchSearch;
+  }), [trends, selectedTopic, searchQuery, lang]);
 
   return (
-    <div className="space-y-8">
-      {/* Controls */}
-      <div className="card p-5 sm:p-6 space-y-4">
-        <div className="flex flex-col md:flex-row gap-4 justify-between md:items-center">
-          <div className="relative w-full md:w-96">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-faint" aria-hidden="true" />
-            <label htmlFor="radar-search" className="sr-only">Search radar entries</label>
-            <input
-              id="radar-search"
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={L.search}
-              className="w-full bg-paper border border-line rounded-lg pl-10 pr-9 py-2.5 text-sm text-ink placeholder-ink-faint focus:border-lab-600 transition-colors"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-ink-faint hover:text-ink px-1.5 py-0.5 rounded bg-white border border-line"
-                aria-label="Clear search"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-          <span className="mono-meta text-xs text-ink-faint shrink-0">
-            {filteredTrends.length}{lang === 'ko' ? '' : ' '}{L.entries}
-          </span>
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-5">
+        <div className="space-y-2">
+          <label htmlFor="radar-search" className="block text-sm font-semibold text-ink">{t('radar.searchLabel')}</label>
+          <input id="radar-search" type="search" className="form-field" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder={t('radar.searchPlaceholder')} />
         </div>
-
-        <div className="flex flex-wrap gap-2 pt-3 border-t border-line">
-          {TOPICS.map((topic) => (
-            <button
-              key={topic}
-              onClick={() => setSelectedTopic(topic)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                selectedTopic === topic
-                  ? 'bg-lab-700 text-white'
-                  : 'bg-paper text-ink-soft hover:text-ink border border-line'
-              }`}
-            >
-              {TOPIC_LABELS[lang][topic] ?? topic}
-            </button>
-          ))}
+        <div className="space-y-2">
+          <label htmlFor="radar-topic" className="block text-sm font-semibold text-ink">{t('filters.topic')}</label>
+          <select id="radar-topic" className="form-field" value={selectedTopic} onChange={(event) => setSelectedTopic(event.target.value)}>
+            {TOPICS.map((topic) => <option key={topic} value={topic}>{topic === 'All' ? t('filters.allTopics') : TOPIC_LABELS[lang][topic] ?? topic}</option>)}
+          </select>
         </div>
       </div>
+      <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
+        <p role="status" aria-live="polite" className="text-ink-soft">{t('filters.results')}: {filteredTrends.length}</p>
+        {searchQuery && <button type="button" className="text-link" onClick={() => setSearchQuery('')}>{t('radar.clearSearch')}</button>}
+      </div>
 
-      {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div>
         {filteredTrends.map((trend) => (
-          <article key={trend.url} className="card card-hover p-6 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between gap-2 mb-3">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip-accent">{TOPIC_LABELS[lang][trend.topic] ?? trend.topic}</span>
-                  {trend.badge && (
-                    <span className="chip" lang="en">
-                      <Sparkles className="w-3 h-3 mr-1 text-lab-700" aria-hidden="true" />
-                      {trend.badge}
-                    </span>
-                  )}
-                </div>
-                <span className="font-mono text-xs text-ink-faint shrink-0">{trend.publishedDate}</span>
+          <article key={trend.url} className="border-t border-line py-7 sm:py-8 space-y-4">
+            <header className="space-y-3">
+              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs text-ink-faint">
+                <time dateTime={trend.publishedDate} className="font-mono" lang="en">{trend.publishedDate}</time>
+                <span>{TOPIC_LABELS[lang][trend.topic] ?? trend.topic}</span>
+                {trend.badge && <span lang={itemLang(trend.badge)}>{trend.badge}</span>}
               </div>
+              <h2 className="font-display text-xl sm:text-2xl font-semibold text-ink leading-snug">
+                <a href={trend.url} target="_blank" rel="noreferrer" className="hover:underline underline-offset-4 hover:text-lab-800" lang={itemLang(trend.title)}>{trend.title}</a>
+              </h2>
+              <p className="text-sm text-ink-soft leading-relaxed" lang={itemLang(trend.authors.join(', '))}>{trend.source} · {trend.authors.join(', ')}</p>
+            </header>
 
-              <h3 className="text-base sm:text-lg font-semibold text-ink leading-snug mb-2">
-                <a
-                  href={trend.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-lab-700 transition-colors inline-flex items-start gap-1.5"
-                >
-                  <span lang={lang === 'ko' ? 'en' : undefined}>{trend.title}</span>
-                  <ExternalLink className="w-4 h-4 text-ink-faint shrink-0 mt-1" aria-hidden="true" />
-                </a>
-              </h3>
-
-              <p className="font-mono text-xs text-ink-faint mb-4">
-                {trend.source} · {trend.authors.join(', ')}
-              </p>
-
-              <details className="group mb-4 rounded-xl border border-line bg-paper">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold text-lab-700 transition-colors hover:bg-lab-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lab-600 focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
-                  <span className="flex items-center gap-2">
-                    <Brain className="w-4 h-4" aria-hidden="true" />
-                    <span className="group-open:hidden">{L.showDetails}</span>
-                    <span className="hidden group-open:inline">{L.hideDetails}</span>
-                  </span>
-                  <ChevronDown className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" aria-hidden="true" />
-                </summary>
-
-                <div className="space-y-4 border-t border-line px-3.5 py-4">
-                  {/* Summary — honestly labeled by how it was produced */}
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-lab-700 mb-2 flex items-center gap-1.5">
-                      <span>
-                        {trend.generatedBy && trend.generatedBy.startsWith('llm')
-                          ? L.llmSummary
-                          : trend.generatedBy === 'extractive-fallback'
-                            ? L.excerpt
-                            : L.summary}
-                      </span>
-                    </div>
-                    <ul className="space-y-1.5" lang={lang === 'ko' ? 'en' : undefined}>
-                      {trend.summaryPoints.map((point, pIdx) => (
-                        <li key={pIdx} className="text-sm text-ink-soft flex items-start gap-2 leading-relaxed">
-                          <span className="text-lab-700 font-bold mt-0.5">•</span>
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <p className="text-sm text-ink-soft leading-relaxed">
-                    <strong className="text-ink">{L.significance}</strong>
-                    <span lang={lang === 'ko' ? 'en' : undefined}>{trend.significance}</span>
-                  </p>
-
-                  <div className="p-3 rounded-xl bg-lab-50 border border-lab-600/20 text-sm text-lab-900 leading-relaxed">
-                    <strong>{L.whyUs}</strong>
-                    <span lang={lang === 'ko' ? 'en' : undefined}>{trend.labRelevance}</span>
-                  </div>
-                </div>
-              </details>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-line">
-              {trend.modality.map((m, mIdx) => (
-                <span key={mIdx} className="chip" lang="en">#{m}</span>
-              ))}
-            </div>
+            <details className="group">
+              <summary className="cursor-pointer py-3 text-sm font-semibold text-lab-800">
+                <span className="group-open:hidden">{t('radar.showDetails')}</span>
+                <span className="hidden group-open:inline">{t('radar.hideDetails')}</span>
+              </summary>
+              <div className="space-y-5 pt-2 pb-4 max-w-3xl">
+                <section className="space-y-2">
+                  <h3 className="text-sm font-semibold text-ink">
+                    {trend.generatedBy?.startsWith('llm') ? t('radar.llmSummary') : trend.generatedBy === 'extractive-fallback' ? t('radar.excerpt') : t('radar.summary')}
+                  </h3>
+                  <ul className="list-disc pl-5 space-y-2 text-sm text-ink-soft leading-relaxed">
+                    {trend.summaryPoints.map((point, index) => <li key={index} lang={itemLang(point)}>{point}</li>)}
+                  </ul>
+                </section>
+                <section className="space-y-2">
+                  <h3 className="text-sm font-semibold text-ink">{t('radar.significance')}</h3>
+                  <p className="text-sm text-ink-soft leading-relaxed" lang={itemLang(trend.significance)}>{trend.significance}</p>
+                </section>
+                <section className="space-y-2">
+                  <h3 className="text-sm font-semibold text-ink">{t('radar.labRelevance')}</h3>
+                  <p className="text-sm text-ink-soft leading-relaxed" lang={itemLang(trend.labRelevance)}>{trend.labRelevance}</p>
+                </section>
+              </div>
+            </details>
+            <footer className="space-y-2 text-xs text-ink-faint">
+              <p lang="en">{trend.modality.join(' · ')}</p>
+              <p className="break-words">{t('radar.provenance')}: <span lang={trend.generatedBy ? 'en' : lang}>{trend.generatedBy || t('radar.unknownSource')}</span></p>
+            </footer>
           </article>
         ))}
       </div>
-
       {filteredTrends.length === 0 && (
-        <div className="text-center py-16 card">
-          <Brain className="w-10 h-10 text-ink-faint mx-auto mb-3" aria-hidden="true" />
-          <h3 className="text-lg font-semibold text-ink mb-1">{L.noMatch}</h3>
-          <p className="text-sm text-ink-soft">{L.noMatchDesc}</p>
+        <div className="border-t border-line py-10 space-y-2">
+          <h2 className="text-lg font-semibold text-ink">{t('radar.noMatch')}</h2>
+          <p className="text-sm text-ink-soft">{t('radar.noMatchDesc')}</p>
         </div>
       )}
     </div>

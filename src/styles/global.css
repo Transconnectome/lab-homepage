@@ -48,7 +48,6 @@
     font-family: 'Pretendard Variable', Pretendard, 'Noto Sans KR', system-ui, -apple-system, sans-serif;
     font-size: 1rem;
     line-height: 1.7;
-    overflow-x: hidden;
 
     /* Korean line breaking. keep-all stops mid-어절 breaks ("만들어/내는지");
        break-word is the escape hatch so unbreakable tokens (DOIs, arXiv ids,
@@ -79,6 +78,15 @@
   ::selection {
     background-color: #cffafe;
     color: #164e63;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
   }
 
   /* Visible keyboard focus everywhere */
@@ -136,10 +144,21 @@
 }
 
 @layer components {
+  .section-shell {
+    @apply max-w-6xl mx-auto px-5 sm:px-8 lg:px-10;
+  }
+
+  .text-link {
+    @apply font-semibold text-lab-800 underline underline-offset-4 decoration-lab-700/40 hover:decoration-lab-800;
+  }
+
+  .form-field {
+    @apply w-full rounded-none border border-line bg-transparent px-3 py-2 text-sm text-ink;
+  }
   /* Eyebrow: the small label above a section heading.
      Latin sets it as a spaced, uppercase mono label. */
   .eyebrow {
-    @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-lab-800;
+    @apply font-sans text-xs font-semibold uppercase tracking-[0.12em] text-lab-800;
   }
 
   /* Hangul has no letter case, so `uppercase` is inert on it, and 0.18em
@@ -155,7 +174,7 @@
 
   /* Same label, on the dark projection band. */
   .eyebrow-dark {
-    @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-cyan-400;
+    @apply font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cyan-400;
   }
 
   .eyebrow-dark:lang(ko) {
@@ -176,18 +195,14 @@
     @apply rounded-2xl border border-line bg-white;
   }
 
-  .card-hover {
-    @apply transition-all duration-200 hover:-translate-y-0.5 hover:border-lab-600/40 hover:shadow-[0_8px_30px_-12px_rgba(28,25,23,0.15)];
-  }
-
   /* Quiet chip. Chips mix scripts (English enum values next to Korean labels),
      so they rely on the mono stack's Hangul fall-through rather than a rule. */
   .chip {
-    @apply inline-flex items-center rounded-full border border-line bg-paper px-2.5 py-0.5 font-mono text-xs text-ink-soft;
+    @apply inline-flex items-center font-sans text-xs text-ink-soft;
   }
 
   .chip-accent {
-    @apply inline-flex items-center rounded-full border border-lab-600/30 bg-lab-50 px-2.5 py-0.5 font-mono text-xs text-lab-800;
+    @apply inline-flex items-center font-sans text-xs font-semibold text-lab-800;
   }
 
   /* Chips are not always Latin data: they also carry news categories, radar
@@ -207,7 +222,7 @@
      Pretendard, the interword spaces keep Plex Mono's wide monospace advance,
      which reads as broken spacing in Korean — so Korean opts out of mono here. */
   .mono-meta {
-    @apply font-mono;
+    @apply font-sans;
   }
 
   .mono-meta:lang(ko) {

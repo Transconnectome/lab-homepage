@@ -18,9 +18,9 @@ const {
     ? '서울대학교 커넥톰 연구실 | SNU Connectome Laboratory'
     : 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실',
   description = lang === 'ko'
-    ? '서울대학교 커넥톰 연구실(PI 차지욱). 뇌의 연결이 어떻게 마음을 만들어내는지 연구합니다 — 뇌 파운데이션 모델(Neuro-X, NeuroMamba, DIVER-0), 멀티모달 유전체학, 계산정신의학, 양자 머신러닝.'
-    : 'Seoul National University Connectome Lab (PI: Jiook Cha). We study how the brain\'s connections give rise to mind — with brain foundation models (Neuro-X, NeuroMamba, DIVER-0), multimodal genetics, computational psychiatry, and quantum machine learning.',
-  ogImage = '/assets/og-image.jpg',
+    ? '서울대학교 심리학과 커넥톰 연구실. 뇌영상·유전정보·계산모형으로 인지와 정서, 정신건강을 연구합니다. 연구 분야, 논문, 구성원과 지원 안내를 소개합니다.'
+    : 'The Connectome Lab in SNU’s Department of Psychology studies cognition, emotion and mental health with brain imaging, genetic data and computational models. Research, publications, people and application information.',
+  ogImage = '/assets/site/og-homepage.png',
 } = Astro.props;
 
 // Korean is the default locale at the root; English lives under /en/.
@@ -49,21 +49,26 @@ const enHref = lang === 'en' ? canonical : altHref;
     <link rel="alternate" hreflang="ko" href={koHref} />
     <link rel="alternate" hreflang="en" href={enHref} />
     <link rel="alternate" hreflang="x-default" href={koHref} />
-    <meta name="keywords" content="Connectome Lab, Jiook Cha, 차지욱, Seoul National University, SNU, Large Brain Model, Neuro-X, NeuroMamba, DIVER-0, SwiFT, fMRI, EEG, Quantum Machine Learning, Polygenic Risk Score, ABCD Study" />
+    <meta name="keywords" content="Connectome Lab, Jiook Cha, 차지욱, Seoul National University, SNU, Brain Foundation Models, Neuro-X, NeuroMamba, DIVER-0, SwiFT, fMRI, EEG, Quantum Machine Learning, Polygenic Risk Score, ABCD Study" />
     <meta name="author" content="Jiook Cha, SNU Connectome Lab" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={lang === 'ko' ? '서울대학교 커넥톰 연구실. MBBN 논문 그림 2A–C의 ADHD 관련 뇌 연결 분석.' : 'SNU Connectome Lab with an excerpt of ADHD-related brain connectivity analysis from MBBN, Fig. 2A–C.'} />
+    {ogImage === '/assets/site/og-homepage.png' && <>
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+    </>}
     <meta property="og:site_name" content="SNU Connectome Laboratory" />
     <meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:url" content={canonical} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImageUrl} />

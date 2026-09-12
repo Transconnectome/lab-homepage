@@ -1,5 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Search, Code, ExternalLink, Copy, Check, BookOpen } from 'lucide-react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { isCsAiConference } from '../../utils/publications';
 
 interface PublicationItem {
@@ -33,48 +32,64 @@ const MAX_VISIBLE_AUTHORS = 12;
 
 const LABELS: Record<'en' | 'ko', Record<string, string>> = {
   en: {
-    search: 'Search title, author, venue...',
+    searchLabel: 'Search publications',
+    search: 'Title, author, venue or abstract',
     year: 'Year',
     allYears: 'All years',
+    topic: 'Topic',
+    allTopics: 'All topics',
     includePreprints: 'Include preprints',
     paper: 'Paper',
     code: 'Code',
+    abstract: 'Abstract',
+    copyBibtex: 'Copy BibTeX',
     copied: 'Copied',
+    copyFailed: 'Could not copy. Check clipboard access and try again.',
     noMatch: 'No publications matched',
     noMatchDesc: 'Clear the filters or try a different search term.',
     etAl: 'authors',
+    showAuthors: 'All authors',
+    results: 'publications',
     kindJournal: 'Journal',
     kindConference: 'Conference',
     kindWorkshop: 'Workshop',
     kindPreprint: 'Preprint',
-    venueType: 'Venue',
-    typeAll: 'All',
+    venueType: 'Publication type',
+    typeAll: 'All types',
     typeJournal: 'Journals',
     typeCsAi: 'CS/AI conferences',
-    preprintsNA: 'Preprints are neither journal nor conference papers',
+    preprintsNA: 'Preprints are available under “All types”.',
     csAiNote:
-      'Conference and workshop papers at computing venues — NeurIPS, ICML, AAAI, ICASSP, ICIP, MICCAI, IEEE quantum computing, and the like.',
+      'Conference and workshop papers at computing venues, including NeurIPS, ICML, AAAI, ICASSP, ICIP, MICCAI and IEEE quantum computing.',
   },
   ko: {
-    search: '제목·저자·게재지 검색...',
+    searchLabel: '논문 검색',
+    search: '제목, 저자, 게재지 또는 초록',
     year: '연도',
     allYears: '전체 연도',
+    topic: '주제',
+    allTopics: '전체 주제',
     includePreprints: '프리프린트 포함',
     paper: '논문',
     code: '코드',
+    abstract: '초록',
+    copyBibtex: 'BibTeX 복사',
     copied: '복사됨',
+    copyFailed: '복사하지 못했습니다. 클립보드 접근을 확인한 뒤 다시 시도해 주세요.',
     noMatch: '조건에 맞는 논문이 없습니다',
     noMatchDesc: '필터를 해제하거나 다른 검색어를 시도해 보세요.',
     etAl: '명의 저자',
+    showAuthors: '전체 저자',
+    results: '편',
     kindJournal: '저널',
     kindConference: '학회',
     kindWorkshop: '워크숍',
     kindPreprint: '프리프린트',
     venueType: '게재 유형',
-    typeAll: '전체',
+    typeAll: '전체 유형',
     typeJournal: '저널 논문',
     typeCsAi: 'CS/AI 학회 논문',
-    preprintsNA: '프리프린트는 저널·학회 논문에 포함되지 않습니다',
+    preprintsNA: '프리프린트는 ‘전체 유형’에서 볼 수 있습니다.',
     csAiNote:
       'NeurIPS, ICML, AAAI, ICASSP, ICIP, MICCAI, IEEE 양자컴퓨팅 등 컴퓨터·AI 분야 학회와 워크숍에 게재된 논문입니다.',
   },
@@ -87,310 +102,254 @@ function bibtexKey(pub: PublicationItem): string {
   return `${family.toLowerCase().replace(/[^a-z]/g, '')}${pub.year}${word}`;
 }
 
+function bibtexEntry(pub: PublicationItem): string {
+  const kind = pub.kind ?? 'journal';
+  const conference = kind === 'conference' || kind === 'workshop';
+  const entryType = conference ? 'inproceedings' : kind === 'preprint' ? 'unpublished' : 'article';
+  const fields = [
+    `title={${pub.title}}`,
+    `author={${pub.authors.join(' and ')}}`,
+    kind === 'preprint' ? 'note={Preprint}' : `${conference ? 'booktitle' : 'journal'}={${pub.venue}}`,
+    `year={${pub.year}}`,
+    ...(pub.doi ? [`doi={${pub.doi}}`] : []),
+    ...(pub.url ? [`url={${pub.url}}`] : []),
+  ];
+  return `@${entryType}{${bibtexKey(pub)},\n  ${fields.join(',\n  ')}\n}`;
+}
+
+const publicationId = (pub: PublicationItem) => pub.doi || pub.url || `${pub.year}:${pub.title}`;
+const CONTROL_CLASS = 'form-field min-w-0 py-2.5 focus:border-lab-700';
+
 export default function PublicationFilter({ publications, lang = 'en' }: Props) {
   const L = LABELS[lang];
-  const [selectedTag, setSelectedTag] = useState<string>('All');
-  const [selectedYear, setSelectedYear] = useState<string>('All');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [includePreprints, setIncludePreprints] = useState<boolean>(false);
+  const [selectedTag, setSelectedTag] = useState('All');
+  const [selectedYear, setSelectedYear] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [copyFeedback, setCopyFeedback] = useState<{ id: string; status: 'copied' | 'error' } | null>(null);
+  const [includePreprints, setIncludePreprints] = useState(false);
   const [venueType, setVenueType] = useState<VenueType>('all');
-  const urlSynced = React.useRef(false);
+  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const copyAttempt = useRef(0);
 
-  // ?type=cs-ai / ?type=journal opens the page straight into that view. Read
-  // after mount rather than during render, so the hydrated markup matches SSR.
+  // Read after mount so the initial hydrated markup matches the static page.
+  // A direct ?type= link is not rewritten while that initial state is loading.
   useEffect(() => {
-    const param = new URLSearchParams(window.location.search).get('type');
-    if (param === 'cs-ai' || param === 'journal') setVenueType(param);
-    urlSynced.current = true;
+    const readVenueType = () => {
+      const param = new URLSearchParams(window.location.search).get('type');
+      setVenueType(param === 'cs-ai' || param === 'journal' ? param : 'all');
+      setSelectedTag('All');
+      setSelectedYear('All');
+    };
+    readVenueType();
+    window.addEventListener('popstate', readVenueType);
+    return () => window.removeEventListener('popstate', readVenueType);
   }, []);
 
-  // Keep the URL in step with the view, so a filtered list can be linked.
-  useEffect(() => {
-    if (!urlSynced.current) return;
-    const url = new URL(window.location.href);
-    if (venueType === 'all') url.searchParams.delete('type');
-    else url.searchParams.set('type', venueType);
-    window.history.replaceState({}, '', url);
-  }, [venueType]);
+  useEffect(() => () => {
+    if (copyTimer.current) clearTimeout(copyTimer.current);
+    copyAttempt.current += 1;
+  }, []);
 
   const selectVenueType = (next: VenueType) => {
     setVenueType(next);
-    // Tag/year options differ per view; a stale pick would show an empty list.
     setSelectedTag('All');
     setSelectedYear('All');
+    const url = new URL(window.location.href);
+    if (next === 'all') url.searchParams.delete('type');
+    else url.searchParams.set('type', next);
+    window.history.replaceState({}, '', url);
   };
 
-  // Peer-reviewed by default; preprints shown only when explicitly toggled on,
-  // and never in the journal or CS/AI conference views.
+  // Preprints remain opt-in, and are never included in either published view.
   const basePublications = useMemo(
-    () =>
-      publications.filter((p) => {
-        if (venueType === 'cs-ai') return isCsAiConference(p);
-        if (venueType === 'journal') return (p.kind ?? 'journal') === 'journal';
-        return includePreprints || (p.kind ?? 'journal') !== 'preprint';
-      }),
+    () => publications.filter((p) => {
+      if (venueType === 'cs-ai') return isCsAiConference(p);
+      if (venueType === 'journal') return (p.kind ?? 'journal') === 'journal';
+      return includePreprints || (p.kind ?? 'journal') !== 'preprint';
+    }),
     [publications, includePreprints, venueType]
   );
 
-  const venueTypeCounts = useMemo(
-    () => ({
-      all: publications.filter((p) => (p.kind ?? 'journal') !== 'preprint').length,
-      journal: publications.filter((p) => (p.kind ?? 'journal') === 'journal').length,
-      'cs-ai': publications.filter(isCsAiConference).length,
-    }),
-    [publications]
+  const allTags = useMemo(
+    () => ['All', ...Array.from(new Set(basePublications.flatMap((p) => p.tags))).sort()],
+    [basePublications]
+  );
+  const allYears = useMemo(
+    () => ['All', ...Array.from(new Set(basePublications.map((p) => String(p.year))))
+      .sort((a, b) => Number(b) - Number(a))],
+    [basePublications]
   );
 
-  const VENUE_TYPES: { value: VenueType; label: string }[] = [
-    { value: 'all', label: L.typeAll },
-    { value: 'journal', label: L.typeJournal },
-    { value: 'cs-ai', label: L.typeCsAi },
-  ];
-
-  const allTags = useMemo(() => {
-    const set = new Set<string>();
-    basePublications.forEach((p) => p.tags.forEach((t) => set.add(t)));
-    return ['All', ...Array.from(set).sort()];
-  }, [basePublications]);
-
-  const allYears = useMemo(() => {
-    const years = Array.from(new Set(basePublications.map((p) => p.year.toString()))).sort(
-      (a, b) => Number(b) - Number(a)
-    );
-    return ['All', ...years];
-  }, [basePublications]);
+  // Removing preprints can also remove the selected topic or year.
+  useEffect(() => {
+    if (!allTags.includes(selectedTag)) setSelectedTag('All');
+    if (!allYears.includes(selectedYear)) setSelectedYear('All');
+  }, [allTags, allYears, selectedTag, selectedYear]);
 
   const filteredPublications = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
     return basePublications.filter((pub) => {
       const matchTag = selectedTag === 'All' || pub.tags.includes(selectedTag);
-      const matchYear = selectedYear === 'All' || pub.year.toString() === selectedYear;
-      const query = searchQuery.toLowerCase();
-      const matchSearch =
-        pub.title.toLowerCase().includes(query) ||
-        pub.venue.toLowerCase().includes(query) ||
-        pub.authors.some((a) => a.toLowerCase().includes(query)) ||
-        (pub.abstract && pub.abstract.toLowerCase().includes(query));
+      const matchYear = selectedYear === 'All' || String(pub.year) === selectedYear;
+      const matchSearch = !query || [pub.title, pub.venue, ...pub.authors, pub.abstract ?? '']
+        .some((text) => text.toLowerCase().includes(query));
       return matchTag && matchYear && matchSearch;
     });
   }, [basePublications, selectedTag, selectedYear, searchQuery]);
 
-  const kindLabel = (k?: string) =>
-    k === 'conference' ? L.kindConference : k === 'workshop' ? L.kindWorkshop : k === 'preprint' ? L.kindPreprint : L.kindJournal;
+  const publicationsByYear = useMemo(() => {
+    const groups = new Map<number, PublicationItem[]>();
+    filteredPublications.forEach((pub) => {
+      const entries = groups.get(pub.year) ?? [];
+      entries.push(pub);
+      groups.set(pub.year, entries);
+    });
+    return Array.from(groups.entries()).sort(([a], [b]) => b - a);
+  }, [filteredPublications]);
 
-  const copyBibtex = (pub: PublicationItem) => {
-    const bibtex = `@article{${bibtexKey(pub)},\n  title={${pub.title}},\n  author={${pub.authors.join(' and ')}},\n  journal={${pub.venue}},\n  year={${pub.year}},${pub.doi ? `\n  doi={${pub.doi}},` : ''}\n  url={${pub.url || ''}}\n}`;
-    navigator.clipboard.writeText(bibtex);
-    setCopiedId(pub.title);
-    setTimeout(() => setCopiedId(null), 2500);
+  const kindLabel = (kind?: string) => kind === 'conference' ? L.kindConference
+    : kind === 'workshop' ? L.kindWorkshop : kind === 'preprint' ? L.kindPreprint : L.kindJournal;
+
+  const copyBibtex = async (pub: PublicationItem) => {
+    const attempt = ++copyAttempt.current;
+    if (copyTimer.current) clearTimeout(copyTimer.current);
+    setCopyFeedback(null);
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(bibtexEntry(pub));
+      if (attempt !== copyAttempt.current) return;
+      setCopyFeedback({ id: publicationId(pub), status: 'copied' });
+      copyTimer.current = setTimeout(() => setCopyFeedback(null), 2500);
+    } catch {
+      if (attempt === copyAttempt.current) setCopyFeedback({ id: publicationId(pub), status: 'error' });
+    }
   };
 
+  const authorNames = (pub: PublicationItem, authors: string[]) => authors.map((author, index) => (
+    <React.Fragment key={`${author}-${index}`}>
+      <span className={pub.labMembers.includes(author) ? 'font-medium text-ink' : undefined}>{author}</span>
+      {index < authors.length - 1 ? ', ' : ''}
+    </React.Fragment>
+  ));
+
   return (
-    <div className="space-y-8">
-      {/* Controls */}
-      <div className="card p-5 sm:p-6 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-          <span className="font-mono text-xs text-ink-faint shrink-0">{L.venueType}</span>
-          <div className="flex flex-wrap gap-2" role="group" aria-label={L.venueType}>
-            {VENUE_TYPES.map((type) => (
-              <button
-                key={type.value}
-                onClick={() => selectVenueType(type.value)}
-                aria-pressed={venueType === type.value}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors border ${
-                  venueType === type.value
-                    ? 'bg-lab-700 text-white border-lab-700'
-                    : 'bg-paper text-ink-soft hover:text-ink border-line'
-                }`}
-              >
-                {type.label}
-                <span className={`ml-1.5 font-mono ${venueType === type.value ? 'text-white/70' : 'text-ink-faint'}`}>
-                  {venueTypeCounts[type.value]}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {venueType === 'cs-ai' && (
-          <p className="text-xs text-ink-soft leading-relaxed">{L.csAiNote}</p>
-        )}
-
-        <div className="flex flex-col md:flex-row gap-4 justify-between md:items-center border-t border-line pt-4">
-          <div className="relative w-full md:w-96">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-faint" aria-hidden="true" />
-            <label htmlFor="pub-search" className="sr-only">Search publications</label>
+    <div className="space-y-12">
+      <div className="border-y border-line py-6 space-y-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,0.7fr)_minmax(0,1.1fr)]">
+          <div className="min-w-0 space-y-2">
+            <label htmlFor="pub-search" className="block text-sm font-medium text-ink">{L.searchLabel}</label>
             <input
               id="pub-search"
-              type="text"
+              type="search"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(event) => setSearchQuery(event.target.value)}
               placeholder={L.search}
-              className="w-full bg-paper border border-line rounded-lg pl-10 pr-9 py-2.5 text-sm text-ink placeholder-ink-faint focus:border-lab-600 transition-colors"
+              className={CONTROL_CLASS}
             />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-ink-faint hover:text-ink px-1.5 py-0.5 rounded bg-white border border-line"
-                aria-label="Clear search"
-              >
-                ✕
-              </button>
-            )}
           </div>
-
-          <div className="flex items-center gap-3 flex-wrap">
-            <label htmlFor="pub-year" className="font-mono text-xs text-ink-faint">{L.year}</label>
-            <select
-              id="pub-year"
-              value={selectedYear}
-              onChange={(e) => setSelectedYear(e.target.value)}
-              className="bg-paper border border-line rounded-lg px-3 py-2 text-sm text-ink focus:border-lab-600"
-            >
-              {allYears.map((year) => (
-                <option key={year} value={year}>{year === 'All' ? L.allYears : year}</option>
-              ))}
+          <div className="min-w-0 space-y-2">
+            <label htmlFor="pub-type" className="block text-sm font-medium text-ink">{L.venueType}</label>
+            <select id="pub-type" value={venueType} onChange={(event) => selectVenueType(event.target.value as VenueType)} className={CONTROL_CLASS}>
+              <option value="all">{L.typeAll}</option>
+              <option value="journal">{L.typeJournal}</option>
+              <option value="cs-ai">{L.typeCsAi}</option>
             </select>
-            <label
-              title={venueType === 'all' ? undefined : L.preprintsNA}
-              className={`flex items-center gap-1.5 text-xs select-none ${
-                venueType === 'all' ? 'text-ink-soft cursor-pointer' : 'text-ink-faint cursor-not-allowed'
-              }`}
-            >
+          </div>
+          <div className="min-w-0 space-y-2">
+            <label htmlFor="pub-year" className="block text-sm font-medium text-ink">{L.year}</label>
+            <select id="pub-year" value={selectedYear} onChange={(event) => setSelectedYear(event.target.value)} className={CONTROL_CLASS}>
+              {allYears.map((year) => <option key={year} value={year}>{year === 'All' ? L.allYears : year}</option>)}
+            </select>
+          </div>
+          <div className="min-w-0 space-y-2">
+            <label htmlFor="pub-topic" className="block text-sm font-medium text-ink">{L.topic}</label>
+            <select id="pub-topic" value={selectedTag} onChange={(event) => setSelectedTag(event.target.value)} className={CONTROL_CLASS}>
+              {allTags.map((tag) => <option key={tag} value={tag}>{tag === 'All' ? L.allTopics : tag}</option>)}
+            </select>
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 text-sm">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <label htmlFor="pub-preprints" className={`inline-flex items-center gap-2 ${venueType === 'all' ? 'text-ink-soft cursor-pointer' : 'text-ink-faint'}`}>
               <input
+                id="pub-preprints"
                 type="checkbox"
                 checked={includePreprints && venueType === 'all'}
                 disabled={venueType !== 'all'}
-                onChange={(e) => setIncludePreprints(e.target.checked)}
-                className="rounded border-line accent-[#0E7490] disabled:opacity-50"
+                aria-describedby={venueType === 'all' ? undefined : 'pub-preprint-note'}
+                onChange={(event) => setIncludePreprints(event.target.checked)}
+                className="border-line accent-[#0E7490] disabled:opacity-50"
               />
               {L.includePreprints}
             </label>
-            <span className="font-mono text-xs text-ink-faint">
-              {filteredPublications.length} / {basePublications.length}
-            </span>
+            {venueType !== 'all' && <p id="pub-preprint-note" className="text-xs text-ink-faint">{L.preprintsNA}</p>}
           </div>
+          <p className="text-ink-faint" role="status">{filteredPublications.length} {L.results}</p>
         </div>
-
-        <div className="flex flex-wrap gap-2 pt-3 border-t border-line">
-          {allTags.map((tag) => (
-            <button
-              key={tag}
-              onClick={() => setSelectedTag(tag)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                selectedTag === tag
-                  ? 'bg-lab-700 text-white'
-                  : 'bg-paper text-ink-soft hover:text-ink border border-line'
-              }`}
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
+        {venueType === 'cs-ai' && <p className="text-sm text-ink-soft leading-relaxed">{L.csAiNote}</p>}
       </div>
 
-      {/* List */}
-      <div className="space-y-4">
-        {filteredPublications.map((pub, idx) => {
-          const visibleAuthors = pub.authors.slice(0, MAX_VISIBLE_AUTHORS);
-          const hiddenCount = pub.authors.length - visibleAuthors.length;
-          return (
-            <article
-              key={`${pub.title}-${idx}`}
-              className="card card-hover p-6 flex flex-col md:flex-row gap-5 justify-between items-start"
-            >
-              <div className="space-y-2.5 flex-1 min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip-accent" lang="en">{pub.year}</span>
-                  <span className="chip">{kindLabel(pub.kind)}</span>
-                  {pub.spotlight && <span className="chip" lang="en">{pub.spotlight}</span>}
-                  {pub.tags.map((tag) => (
-                    <span key={tag} className="chip" lang="en">#{tag}</span>
-                  ))}
-                </div>
-
-                <h3 className="text-base sm:text-lg font-semibold text-ink leading-snug">
-                  {pub.url ? (
-                    <a href={pub.url} target="_blank" rel="noreferrer" className="hover:text-lab-700 transition-colors">
-                      {pub.title}
-                    </a>
-                  ) : (
-                    pub.title
-                  )}
-                </h3>
-
-                <p className="text-sm text-ink-soft leading-relaxed">
-                  {visibleAuthors.map((author, aIdx) => {
-                    const isLabMember = pub.labMembers.includes(author);
-                    return (
-                      <span key={aIdx}>
-                        <span className={isLabMember ? 'font-semibold text-lab-800' : ''}>{author}</span>
-                        {aIdx < visibleAuthors.length - 1 ? ', ' : ''}
-                      </span>
-                    );
-                  })}
-                  {hiddenCount > 0 && (
-                    <span className="text-ink-faint"> … et al. ({pub.authors.length} {L.etAl})</span>
-                  )}
-                </p>
-
-                <p className="font-mono text-xs text-ink-faint italic">{pub.venue}</p>
-
-                {pub.abstract && (
-                  <p className="text-sm text-ink-soft leading-relaxed pt-1">{pub.abstract}</p>
-                )}
-              </div>
-
-              {/* Actions */}
-              <div className="flex flex-row md:flex-col gap-2 shrink-0 w-full md:w-auto justify-end">
-                {pub.url && (
-                  <a
-                    href={pub.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-3.5 py-2 rounded-lg bg-paper hover:bg-lab-50 text-ink-soft hover:text-lab-800 text-sm flex items-center justify-center gap-1.5 border border-line transition-colors"
-                  >
-                    <BookOpen className="w-4 h-4 text-lab-700" aria-hidden="true" />
-                    <span>{L.paper}</span>
-                  </a>
-                )}
-                {pub.codeUrl && (
-                  <a
-                    href={pub.codeUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-3.5 py-2 rounded-lg bg-paper hover:bg-lab-50 text-ink-soft hover:text-lab-800 text-sm flex items-center justify-center gap-1.5 border border-line transition-colors"
-                  >
-                    <Code className="w-4 h-4 text-lab-700" aria-hidden="true" />
-                    <span>{L.code}</span>
-                  </a>
-                )}
-                <button
-                  onClick={() => copyBibtex(pub)}
-                  className="px-3.5 py-2 rounded-lg bg-paper hover:bg-lab-50 text-ink-soft hover:text-lab-800 text-sm flex items-center justify-center gap-1.5 border border-line transition-colors"
-                >
-                  {copiedId === pub.title ? (
-                    <>
-                      <Check className="w-4 h-4 text-emerald-600" aria-hidden="true" />
-                      <span className="text-emerald-700 font-semibold">{L.copied}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4" aria-hidden="true" />
-                      <span>BibTeX</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </article>
-          );
-        })}
+      <div className="space-y-14">
+        {publicationsByYear.map(([year, entries]) => (
+          <section key={year} aria-labelledby={`publications-year-${year}`} className="grid gap-5 sm:grid-cols-[5rem_minmax(0,1fr)] sm:gap-8">
+            <h2 id={`publications-year-${year}`} className="font-display text-2xl font-semibold text-ink scroll-mt-24">{year}</h2>
+            <ol className="min-w-0 border-t border-line divide-y divide-line">
+              {entries.map((pub) => {
+                const id = publicationId(pub);
+                const visibleAuthors = pub.authors.slice(0, MAX_VISIBLE_AUTHORS);
+                const doiUrl = pub.doi ? (/^https?:\/\//i.test(pub.doi) ? pub.doi : `https://doi.org/${pub.doi}`) : null;
+                const feedback = copyFeedback?.id === id ? copyFeedback.status : null;
+                return (
+                  <li key={id} className="py-6">
+                    <article className="space-y-2.5" data-publication-kind={pub.kind ?? 'journal'}>
+                      <p className="text-sm text-ink-soft leading-relaxed" lang="en">
+                        {authorNames(pub, visibleAuthors)}
+                        {pub.authors.length > MAX_VISIBLE_AUTHORS && <span> … et al.</span>}
+                      </p>
+                      <h3 className="text-base sm:text-lg font-semibold text-ink leading-snug" lang="en">
+                        {pub.url ? <a href={pub.url} target="_blank" rel="noreferrer" className="hover:underline underline-offset-4">{pub.title}</a> : pub.title}
+                      </h3>
+                      <p className="text-sm text-ink-soft leading-relaxed">
+                        <cite className="italic" lang="en">{pub.venue}</cite>. <span lang="en">{pub.year}</span>
+                        <span className="text-ink-faint"> · {kindLabel(pub.kind)}</span>
+                        {pub.spotlight && <span className="text-ink-faint" lang="en"> · {pub.spotlight}</span>}
+                      </p>
+                      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm pt-1">
+                        {doiUrl && <a href={doiUrl} target="_blank" rel="noreferrer" className="text-link">DOI</a>}
+                        {pub.url && <a href={pub.url} target="_blank" rel="noreferrer" className="text-link">{L.paper}</a>}
+                        {pub.pdfUrl && <a href={pub.pdfUrl} target="_blank" rel="noreferrer" className="text-link">PDF</a>}
+                        {pub.codeUrl && <a href={pub.codeUrl} target="_blank" rel="noreferrer" className="text-link">{L.code}</a>}
+                        <button type="button" onClick={() => void copyBibtex(pub)} className="text-link" aria-label={`${L.copyBibtex}: ${pub.title}`} data-bibtex-copy>
+                          BibTeX
+                        </button>
+                        <span role="status" className="text-xs text-ink-soft">
+                          {feedback === 'copied' ? L.copied : feedback === 'error' ? L.copyFailed : ''}
+                        </span>
+                      </div>
+                      {pub.authors.length > MAX_VISIBLE_AUTHORS && (
+                        <details className="text-sm text-ink-soft pt-1">
+                          <summary className="cursor-pointer text-link">{L.showAuthors} ({pub.authors.length} {L.etAl})</summary>
+                          <p className="pt-3 leading-relaxed" lang="en">{authorNames(pub, pub.authors)}</p>
+                        </details>
+                      )}
+                      {pub.abstract && (
+                        <details className="text-sm text-ink-soft pt-1" data-publication-abstract>
+                          <summary className="cursor-pointer text-link">{L.abstract}</summary>
+                          <p className="pt-3 leading-relaxed" lang="en">{pub.abstract}</p>
+                        </details>
+                      )}
+                    </article>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        ))}
       </div>
 
       {filteredPublications.length === 0 && (
-        <div className="text-center py-16 card">
-          <BookOpen className="w-10 h-10 text-ink-faint mx-auto mb-3" aria-hidden="true" />
-          <h3 className="text-lg font-semibold text-ink mb-1">{L.noMatch}</h3>
+        <div className="border-t border-line py-8">
+          <h2 className="text-lg font-semibold text-ink mb-2">{L.noMatch}</h2>
           <p className="text-sm text-ink-soft">{L.noMatchDesc}</p>
         </div>
       )}

@@ -11,19 +11,29 @@ Official website of the **Connectome Laboratory** at **Seoul National University
 
 ## Design
 
-Warm, editorial, people-first — a "bright museum with one dark projection room":
-the site runs on a paper-toned light theme (Hahmlet serif display / Pretendard body /
-IBM Plex Mono captions), with a single deep-ink band hosting the interactive 3D
-connectome sketch. Member photos, alumni destinations, and lab-life stories carry
-the warmth; the cyan accent carries the lab's technical identity.
+The homepage has three sections: a short lab introduction with an attributed
+research figure, dated news alongside selected publications, and a strip of
+member portraits with application information. The paper, ink and teal palette
+uses MaruBuri for Korean display text, Hahmlet for English display text,
+Pretendard for body text and IBM Plex Mono for dates.
+
+The research page holds four numbered research areas, the illustrative 3D
+connectome sketch and the project list. Publications are grouped by year;
+publications, people and lab notes use labeled native filters. Research Radar
+and AI Ideas remain public under footer **Lab notes** links. Their generated
+content and model attribution remain visible in the relevant entries.
+
+The homepage, news and social preview use an attributed excerpt of a published
+MBBN figure. Existing member images are portraits; generated news illustrations
+are labeled and collapsed. See [image sources and license](public/assets/site/README.md).
 
 ## Features
 
-1. **🧠 Interactive Connectome Sketch (three.js)**
+1. ** Interactive Connectome Sketch (three.js)**
    - An illustrative 3D visualization of the brain networks the lab studies
-     (labeled as a sketch, not anatomical data). Nodes link to real lab projects.
+     (labeled as a sketch, not anatomical data). Research-axis controls link to the corresponding research sections.
 
-2. **📚 Publication Archive (auto-synced)**
+2. ** Publication Archive (auto-synced)**
    - `scripts/sync_scholar.py` pulls publication records (2008–present)
      from the OpenAlex API with cursor pagination.
      It classifies each entry as journal / conference / workshop / preprint,
@@ -31,7 +41,7 @@ the warmth; the cyan accent carries the lab's technical identity.
      preprint-vs-journal versions of the same paper, and highlights authors
      from a member allowlist rather than by surname.
 
-3. **⚡ Research Radar (weekly arXiv scan)**
+3. ** Research Radar (weekly arXiv scan)**
    - `scripts/update_research_radar.py` sweeps arXiv weekly across seven topic
      buckets, each with its own query and quota: brain foundation models for fMRI
      and for EEG (kept apart so neither starves the other), gene & brain, affective
@@ -46,7 +56,7 @@ the warmth; the cyan accent carries the lab's technical identity.
    - `RADAR_DRY_RUN=1` prints each bucket's query URL and candidate counts without
      writing; `ARXIV_CACHE=<file>` replays a saved feed offline.
 
-4. **💡 AI Idea Lab (`/ideas`)**
+4. ** AI Idea Lab (`/ideas`)**
    - `scripts/generate_research_ideas.py` feeds the lab's research areas, recent
      publications, and radar trends to Gemini, which proposes weekly research
      hypotheses (hypothesis / rationale / first experiment / risks).
@@ -56,14 +66,14 @@ the warmth; the cyan accent carries the lab's technical identity.
      already been mined for that category — the failure mode that once produced
      three foundation-models ideas from a single paper.
    - Published unedited with a fixed "AI-generated, not lab-endorsed" disclaimer
-     and the exact model id on every card. No LLM key → nothing is generated
+     and the exact model id on every entry. No LLM key → nothing is generated
      (no fake fallback, by design).
 
 5. **Frequently asked questions**
    - The Join page collects seven questions about research, admissions, and lab
      culture in a bilingual, accessible FAQ. Answers are static and hand-written.
 
-6. **👥 People-first content**
+6. ** People-first content**
    - Member profiles with photos, education, research interests, and passions;
      alumni tracked with their current positions; news and history archives.
 

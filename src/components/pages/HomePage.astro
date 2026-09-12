@@ -1,238 +1,114 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BrainViewer from '../3d/BrainViewer';
-import FeaturedProjects from '../projects/FeaturedProjects.astro';
 import { getCollection } from 'astro:content';
-import { useTranslations, localePath, affiliationLabel, type Lang } from '../../i18n/ui';
+import { useTranslations, localePath, type Lang } from '../../i18n/ui';
+import { siteMedia } from '../../data/siteMedia';
 
-interface Props {
-  lang: Lang;
-}
+interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
-const allNews = (await getCollection('news')).filter((n) => (n.data.lang ?? 'en') === lang);
-const sortedNews = allNews.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
-
-const allPublications = await getCollection('publications');
-const featuredPubs = allPublications
-  .filter((p) => p.data.featured)
-  .sort((a, b) => b.data.year - a.data.year)
-  .slice(0, 4);
-
-const allResearch = (await getCollection('research')).filter((r) => (r.data.lang ?? 'en') === lang);
-const sortedResearch = allResearch.sort((a, b) => a.data.order - b.data.order);
-
-const alumni = (await getCollection('members'))
-  .filter((m) => m.data.category === 'alumni' && m.data.affiliations.length > 0)
-  .sort((a, b) => a.data.order - b.data.order);
-
-const pageTitle =
-  lang === 'ko'
-    ? '서울대학교 커넥톰 연구실 | SNU Connectome Laboratory'
-    : 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실';
-
-// Category chips must not leak the raw enum ('conference', 'award') onto the
-// Korean page — same mapping the News page uses.
-const CATEGORY_LABELS: Record<string, Record<string, string>> = {
-  en: { award: 'Award', paper: 'Paper', conference: 'Conference', event: 'Event', exhibition: 'Exhibition', general: 'News' },
-  ko: { award: '수상', paper: '논문', conference: '학회', event: '행사', exhibition: '전시', general: '소식' },
-};
+const news = (await getCollection('news'))
+  .filter((item) => item.data.lang === lang)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date)).slice(0, 3);
+// Select three published papers from the latest recorded years. Month metadata
+// is incomplete, so this is a selection rather than an exact publication timeline.
+const publications = (await getCollection('publications'))
+  .filter((item) => item.data.kind !== 'preprint')
+  .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title))
+  .slice(0, 3);
+const members = (await getCollection('members'))
+  .filter((item) => item.data.category !== 'alumni' && item.data.avatar)
+  .sort((a, b) => a.data.order - b.data.order).slice(0, 10);
+const memberAnchor = (name: string) => `member-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+const pageTitle = lang === 'ko' ? '서울대학교 커넥톰 연구실 | SNU Connectome Laboratory' : 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실';
 ---
 
 <BaseLayout lang={lang} title={pageTitle}>
-  <!-- Hero: the da Vinci motto as the lab's thesis -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 sm:pt-28 sm:pb-20">
-    <div class="max-w-3xl space-y-8">
-      <p class="eyebrow">{t('home.eyebrow')}</p>
-
-      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-ink leading-[1.15] tracking-tight">
-        Everything Connects to<br />
-        <span class="italic text-lab-700">Everything Else</span>
-      </h1>
-
-      <p class="text-sm text-ink-faint">{t('home.mottoCredit')}</p>
-
-      <p class="text-lg text-ink-soft leading-relaxed max-w-2xl">{t('home.heroDesc')}</p>
-
-      <div class="flex flex-wrap items-center gap-3 pt-2">
-        <a
-          href={localePath(lang, '/research')}
-          class="px-6 py-3 rounded-lg bg-lab-700 hover:bg-lab-800 text-white font-semibold text-base transition-colors"
-        >
-          {t('home.exploreCta')}
-        </a>
-        <a
-          href={localePath(lang, '/team')}
-          class="px-6 py-3 rounded-lg border border-line bg-white hover:border-lab-600/50 text-ink font-semibold text-base transition-colors"
-        >
-          {t('home.peopleCta')}
-        </a>
+  <section id="introduction" class="section-shell pt-14 pb-16 sm:pt-20 sm:pb-24" aria-labelledby="home-title">
+    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-center">
+      <div class="space-y-6 min-w-0">
+        <p class="eyebrow">{t('home.eyebrow')}</p>
+        <h1 id="home-title" lang="en" class="font-display text-[2.5rem] sm:text-5xl xl:text-[3.5rem] font-semibold leading-[1.16] text-ink">
+          Everything Connects to <span class="italic text-lab-700">Everything Else</span>
+        </h1>
+        <p class="text-sm text-ink-faint" lang="en">{t('home.mottoCredit')}</p>
+        <p class="text-base sm:text-lg text-ink-soft leading-relaxed">{t('home.heroDesc')}</p>
+        <a href={localePath(lang, '/research')} class="text-link inline-block">{t('home.exploreCta')}</a>
       </div>
+      <figure class="space-y-3 min-w-0">
+        <a href={siteMedia.hero.source} target="_blank" rel="noreferrer" class="block aspect-square overflow-hidden bg-white" aria-label={siteMedia.hero.alt[lang]}>
+        <img src={siteMedia.hero.src} alt={siteMedia.hero.alt[lang]} width={siteMedia.hero.width} height={siteMedia.hero.height}
+          fetchpriority="high" class="w-full h-auto" />
+        </a>
+        <figcaption class="text-xs sm:text-sm text-ink-faint leading-relaxed">
+          {siteMedia.hero.caption[lang]}
+          <a href={siteMedia.hero.source} target="_blank" rel="noreferrer" class="underline underline-offset-4 ml-1">{siteMedia.hero.credit}</a>
+          · <a href={siteMedia.hero.license} class="underline underline-offset-4" lang="en">CC BY 4.0</a>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- The one dark "projection room": interactive connectome sketch -->
-  <section class="bg-deep border-y border-deep-line py-14 sm:py-16">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+  <section id="latest" class="border-y border-line bg-white/40" aria-labelledby="latest-title">
+    <div class="section-shell py-14 sm:py-20">
+      <div class="flex flex-wrap items-baseline justify-between gap-4 mb-10">
+        <h2 id="latest-title" class="font-display text-3xl sm:text-4xl font-semibold">{t('home.currentTitle')}</h2>
+        {news[0] && <p class="text-sm text-ink-faint">{t('home.updated')} <time class="font-mono ml-2" datetime={news[0].data.date}>{news[0].data.date}</time></p>}
+      </div>
+      <div class="grid md:grid-cols-[1.35fr_1fr] gap-12 lg:gap-20">
         <div>
-          <p class="eyebrow-dark">{t('home.mapEyebrow')}</p>
-          <h2 class="font-display text-2xl sm:text-3xl font-semibold text-white mt-2">{t('home.mapTitle')}</h2>
+          <div class="flex items-baseline justify-between gap-4 pb-4 border-b border-ink">
+            <h3 class="text-lg font-semibold">{t('home.newsHeading')}</h3>
+            <a href={localePath(lang, '/news')} class="text-link text-sm">{t('home.allNews')}</a>
+          </div>
+          <ul class="divide-y divide-line">
+            {news.map((item) => (
+              <li class="py-6 space-y-2">
+                <time datetime={item.data.date} class="font-mono text-xs text-ink-faint">{item.data.date}</time>
+                <a href={`${localePath(lang, '/news')}#news-${item.data.baseSlug ?? item.id}`} class="block font-display text-xl leading-snug font-semibold hover:text-lab-800">{item.data.title}</a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <p class="text-sm text-slate-400 max-w-md leading-relaxed">{t('home.mapDesc')}</p>
-      </div>
-      <BrainViewer client:visible lang={lang} />
-    </div>
-  </section>
-
-  <!-- Latest news -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="flex items-end justify-between gap-4 mb-8">
-      <div>
-        <p class="eyebrow">{t('home.newsEyebrow')}</p>
-        <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink mt-2">{t('home.newsTitle')}</h2>
-      </div>
-      <a href={localePath(lang, '/news')} class="text-sm font-semibold text-lab-700 hover:text-lab-800 transition-colors shrink-0">
-        {t('home.allNews')}
-      </a>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      {sortedNews.slice(0, 3).map((item) => (
-        <article class="card card-hover p-6 flex flex-col gap-3">
-          <div class="flex items-center gap-2">
-            <span class="chip">{CATEGORY_LABELS[lang][item.data.category] ?? item.data.category}</span>
-            <span class="font-mono text-xs text-ink-faint">{item.data.date}</span>
+        <div>
+          <div class="flex items-baseline justify-between gap-4 pb-4 border-b border-ink">
+            <h3 class="text-lg font-semibold">{t('home.publicationsHeading')}</h3>
+            <a href={localePath(lang, '/publications')} class="text-link text-sm">{t('home.allPubs')}</a>
           </div>
-          <h3 class="font-semibold text-ink leading-snug">
-            {item.data.link ? (
-              <a href={item.data.link} target="_blank" rel="noreferrer" class="hover:text-lab-700 transition-colors">
-                {item.data.title}
-              </a>
-            ) : (
-              item.data.title
-            )}
-          </h3>
-          {item.data.titleKo && (
-            <p class="text-sm text-ink-faint" lang={lang === 'ko' ? 'en' : 'ko'}>{item.data.titleKo}</p>
-          )}
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <FeaturedProjects lang={lang} />
-
-  <!-- Research pillars -->
-  <section class="bg-white border-y border-line py-16">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-      <div class="max-w-2xl">
-        <p class="eyebrow">{t('home.researchEyebrow')}</p>
-        <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink mt-2">{t('home.researchTitle')}</h2>
-        <p class="text-base text-ink-soft mt-3 leading-relaxed">{t('home.researchDesc')}</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {sortedResearch.map((res) => (
-          <a
-            href={`${localePath(lang, '/research')}#${res.data.baseSlug ?? res.id}`}
-            class="card card-hover p-7 flex flex-col justify-between group"
-          >
-            <div class="space-y-3">
-              <h3 class="font-display text-lg font-semibold text-ink group-hover:text-lab-700 transition-colors leading-snug">
-                {res.data.title}
-              </h3>
-              <p class="text-sm text-lab-700" lang={lang === 'ko' ? 'en' : 'ko'}>{res.data.titleKo}</p>
-              <p class="text-sm text-ink-soft leading-relaxed">{res.data.tagline}</p>
-            </div>
-            <div class="pt-5 mt-5 border-t border-line text-sm font-semibold text-lab-700 group-hover:translate-x-1 transition-transform">
-              {t('home.readMore')}
-            </div>
-          </a>
-        ))}
+          <ul class="divide-y divide-line">
+            {publications.map(({ data: pub }) => (
+              <li class="py-6 space-y-2">
+                <p class="text-xs text-ink-faint"><time datetime={String(pub.year)} class="font-mono">{pub.year}</time> · <span lang="en">{pub.venue}</span></p>
+                <a href={pub.url ?? (pub.doi ? `https://doi.org/${pub.doi}` : localePath(lang, '/publications'))} class="block font-semibold leading-relaxed hover:text-lab-800" lang="en">{pub.title}</a>
+                <p class="text-sm text-ink-faint" lang="en">{pub.authors.length > 3 ? `${pub.authors.slice(0, 3).join(', ')} et al.` : pub.authors.join(', ')}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Featured publications -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="flex items-end justify-between gap-4 mb-8">
-      <div>
-        <p class="eyebrow">{t('home.pubsEyebrow')}</p>
-        <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink mt-2">{t('home.pubsTitle')}</h2>
-      </div>
-      <a href={localePath(lang, '/publications')} class="text-sm font-semibold text-lab-700 hover:text-lab-800 transition-colors shrink-0">
-        {t('home.allPubs')}
-      </a>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-      {featuredPubs.map((pub) => (
-        <article class="card card-hover p-6 flex flex-col justify-between gap-4">
-          <div class="space-y-2.5">
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="chip-accent" lang="en">{pub.data.year}</span>
-              {pub.data.spotlight && <span class="chip" lang="en">{pub.data.spotlight}</span>}
-            </div>
-            <h3 class="font-semibold text-ink leading-snug">
-              {pub.data.url ? (
-                <a href={pub.data.url} target="_blank" rel="noreferrer" class="hover:text-lab-700 transition-colors">
-                  {pub.data.title}
-                </a>
-              ) : (
-                pub.data.title
-              )}
-            </h3>
-            <p class="text-sm text-ink-soft">{pub.data.authors.join(', ')}</p>
-            <p class="font-mono text-xs text-ink-faint italic">{pub.data.venue}</p>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <!-- Where our people go -->
-  <section class="bg-white border-y border-line py-16">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      <div class="max-w-2xl">
-        <p class="eyebrow">{t('home.alumniEyebrow')}</p>
-        <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink mt-2">{t('home.alumniTitle')}</h2>
-      </div>
-      <div class="flex flex-wrap gap-2.5">
-        {alumni.map((m) => (
-          <span class="chip text-sm py-1.5 px-3.5">
-            <span class="font-semibold text-ink mr-1.5">{lang === 'ko' && m.data.nameKo ? m.data.nameKo : m.data.name}</span>
-            <span class="text-ink-faint">→ {affiliationLabel(lang, m.data.affiliations[0])}</span>
-          </span>
-        ))}
-      </div>
-      <a href={localePath(lang, '/team')} class="inline-block text-sm font-semibold text-lab-700 hover:text-lab-800 transition-colors">
-        {t('home.alumniCta')}
-      </a>
-    </div>
-  </section>
-
-  <!-- Join CTA -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-    <div class="card p-10 sm:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+  <section id="people" class="section-shell py-14 sm:py-20" aria-labelledby="people-title">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
       <div class="space-y-3 max-w-xl">
-        <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink leading-snug">{t('home.joinTitle')}</h2>
-        <p class="text-base text-ink-soft leading-relaxed">{t('home.joinDesc')}</p>
+        <h2 id="people-title" class="font-display text-3xl sm:text-4xl font-semibold">{t('home.peopleTitle')}</h2>
+        <p class="text-base text-ink-soft">{t('home.peopleDesc')}</p>
       </div>
-      <div class="shrink-0 flex flex-col sm:flex-row gap-3">
-        <a
-          href={localePath(lang, '/join')}
-          class="px-6 py-3 rounded-lg bg-lab-700 hover:bg-lab-800 text-white font-semibold text-base text-center transition-colors"
-        >
-          {t('home.joinCta')}
-        </a>
-        <a
-          href="mailto:connectome@snu.ac.kr"
-          class="px-6 py-3 rounded-lg border border-line bg-white hover:border-lab-600/50 text-ink font-semibold text-base text-center transition-colors"
-        >
-          {t('home.emailPi')}
-        </a>
-      </div>
+      <a href={localePath(lang, '/team')} class="text-link shrink-0">{t('home.peopleCta')}</a>
     </div>
+    <ul class="grid grid-cols-5 lg:grid-cols-10 gap-2 sm:gap-4">
+      {members.map(({ data: member }) => (
+        <li class="min-w-0">
+          <a href={`${localePath(lang, '/team')}#${memberAnchor(member.name)}`} class="block group">
+            <img src={member.avatar!} alt={lang === 'ko' ? member.nameKo : member.name} width="240" height="300" loading="lazy" class="w-full aspect-[4/5] object-cover object-top" />
+            <span class="block text-xs text-ink-soft mt-2 group-hover:underline">{lang === 'ko' ? member.nameKo : member.name}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-10 pt-6 border-t border-line text-base text-ink-soft">
+      {t('home.joinDesc')} <a href={localePath(lang, '/join')} class="text-link ml-2">{t('home.joinCta')}</a>
+    </p>
   </section>
 </BaseLayout>

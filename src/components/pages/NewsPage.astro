@@ -1,65 +1,61 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
-import { useTranslations, type Lang } from '../../i18n/ui';
-
-interface Props {
-  lang: Lang;
-}
+import { useTranslations, localePath, type Lang } from '../../i18n/ui';
+import { siteMedia } from '../../data/siteMedia';
+interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
-const allNews = (await getCollection('news')).filter((n) => (n.data.lang ?? 'en') === lang);
-const sortedNews = allNews.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
-
-const CATEGORY_LABELS: Record<string, Record<string, string>> = {
-  en: { award: 'Award', paper: 'Paper', conference: 'Conference', event: 'Event', exhibition: 'Exhibition', general: 'News' },
+const sortedNews = (await getCollection('news')).filter((n) => n.data.lang === lang).sort((a, b) => b.data.date.localeCompare(a.data.date));
+const labels: Record<string, Record<string, string>> = {
+  en: { award: 'Award', paper: 'Publication', conference: 'Conference', event: 'Event', exhibition: 'Exhibition', general: 'News' },
   ko: { award: '수상', paper: '논문', conference: '학회', event: '행사', exhibition: '전시', general: '소식' },
 };
 const pageTitle = lang === 'ko' ? '소식 | 서울대학교 커넥톰 연구실' : 'News | SNU Connectome Laboratory';
 ---
-
 <BaseLayout lang={lang} title={pageTitle}>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
-    <div class="max-w-2xl space-y-4">
-      <p class="eyebrow">{t('news.eyebrow')}</p>
-      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('news.title')}</h1>
-      <p class="text-lg text-ink-soft leading-relaxed measure">{t('news.desc')}</p>
-    </div>
-
-    <div class="space-y-5">
+  <div class="section-shell py-14 sm:py-20">
+    <header class="flex flex-col md:flex-row md:items-baseline justify-between gap-6 pb-10">
+      <h1 class="font-display text-4xl sm:text-5xl font-semibold">{t('news.title')}</h1>
+      <p class="text-lg text-ink-soft max-w-xl">{t('news.desc')}</p>
+    </header>
+    <div class="border-t border-ink divide-y divide-line">
       {sortedNews.map(async (item) => {
         const { Content } = await render(item);
+        const slug = item.data.baseSlug ?? item.id;
+        const isMbbn = slug === '2026-05-mbbn-communications-biology';
         return (
-          <article class="card card-hover p-7 space-y-3">
-            {item.data.image && (
-              <img
-                src={item.data.image}
-                alt=""
-                loading="lazy"
-                class="w-full aspect-[16/9] object-cover rounded-lg"
-              />
-            )}
-            <div class="flex items-center gap-2.5">
-              <span class="chip-accent">{CATEGORY_LABELS[lang][item.data.category] ?? item.data.category}</span>
-              <span class="font-mono text-xs text-ink-faint">{item.data.date}</span>
+          <article id={`news-${slug}`} class="grid md:grid-cols-[10rem_minmax(0,1fr)] gap-4 md:gap-10 py-8 sm:py-10">
+            <div class="text-sm text-ink-faint space-y-2">
+              <time datetime={item.data.date} class="font-mono text-xs">{item.data.date}</time>
+              <p>{labels[lang][item.data.category]}</p>
             </div>
-            <h2 class="font-display text-xl font-semibold text-ink leading-snug">
-              {item.data.link ? (
-                <a href={item.data.link} target="_blank" rel="noreferrer" class="hover:text-lab-700 transition-colors">
-                  {item.data.title}
-                </a>
-              ) : (
-                item.data.title
-              )}
-            </h2>
-            {item.data.titleKo && <p class="text-sm text-ink-faint" lang={lang === 'ko' ? 'en' : 'ko'}>{item.data.titleKo}</p>}
-            <div class="prose prose-stone prose-sm measure prose-a:text-lab-700">
-              <Content />
+            <div class="space-y-4 min-w-0">
+              <h2 class="font-display text-xl sm:text-2xl font-semibold leading-snug max-w-3xl">
+                {item.data.link ? <a href={item.data.link} target="_blank" rel="noreferrer" class="hover:text-lab-800">{item.data.title}</a> : item.data.title}
+              </h2>
+              {item.data.titleKo && <p class="text-sm text-ink-faint" lang={lang === 'ko' ? 'en' : 'ko'}>{item.data.titleKo}</p>}
+              <div class="prose prose-stone prose-sm measure prose-a:text-lab-800"><Content /></div>
+              {isMbbn && <figure class="max-w-xl space-y-2">
+                <a href={siteMedia.hero.source} class="block aspect-square overflow-hidden bg-white"><img src={siteMedia.hero.src} alt={siteMedia.hero.alt[lang]} width="1234" height="2495" loading="lazy" class="w-full h-auto" /></a>
+                <figcaption class="text-xs text-ink-faint">{siteMedia.hero.credit}, Fig. 2A–C ({lang === 'ko' ? '일부' : 'excerpt'}). <a href={siteMedia.hero.license} class="underline">CC BY 4.0</a></figcaption>
+              </figure>}
+              {item.data.image && !isMbbn && <details class="text-sm text-ink-faint">
+                <summary class="cursor-pointer text-link">{lang === 'ko' ? '관련 삽화 보기' : 'View accompanying illustration'}</summary>
+                <figure class="max-w-xl mt-4 space-y-2">
+                  <img src={item.data.image} alt={lang === 'ko' ? `${item.data.title} 관련 삽화` : `Illustration accompanying ${item.data.title}`} width="1280" height="720" loading="lazy" class="w-full h-auto" />
+                  <figcaption class="text-xs">{lang === 'ko' ? '소식 내용을 설명하는 삽화입니다. 현장 사진이나 측정 결과가 아닙니다.' : 'An illustration of this news item, not an event photograph or measurement.'}</figcaption>
+                </figure>
+              </details>}
             </div>
           </article>
         );
       })}
     </div>
+    <aside class="border-t border-ink pt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+      <h2 class="font-semibold">{t('footer.notes')}</h2>
+      <a class="text-link" href={localePath(lang, '/radar')}>{t('footer.researchRadar')}</a>
+      <a class="text-link" href={localePath(lang, '/ideas')}>{t('footer.ideaLab')}</a>
+    </aside>
   </div>
 </BaseLayout>

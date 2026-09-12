@@ -1,90 +1,69 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrainViewer from '../3d/BrainViewer';
+import FeaturedProjects from '../projects/FeaturedProjects.astro';
 import { getCollection, render } from 'astro:content';
 import { useTranslations, type Lang } from '../../i18n/ui';
 import { renderInlineLinks } from '../../utils/inlineLinks';
-
-interface Props {
-  lang: Lang;
-}
+interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
-const allResearch = (await getCollection('research')).filter((r) => (r.data.lang ?? 'en') === lang);
-const sortedResearch = allResearch.sort((a, b) => a.data.order - b.data.order);
+const sortedResearch = (await getCollection('research')).filter((r) => r.data.lang === lang).sort((a, b) => a.data.order - b.data.order);
 const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실' : 'Research | SNU Connectome Laboratory';
 ---
-
 <BaseLayout lang={lang} title={pageTitle}>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-14">
-    <div class="max-w-3xl space-y-4">
-      <p class="eyebrow">{t('research.eyebrow')}</p>
-      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('research.title')}</h1>
-      <p class="text-lg text-ink-soft leading-relaxed">{t('research.desc')}</p>
-    </div>
-
-    <nav aria-labelledby="research-overview-title" class="space-y-4">
-      <div class="space-y-1">
-        <h2 id="research-overview-title" class="font-display text-2xl font-semibold text-ink">
-          {t('research.overview')}
-        </h2>
-        <p class="text-sm text-ink-soft">{t('research.overviewDesc')}</p>
-      </div>
-      <ol class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {sortedResearch.map((item, index) => {
-          const anchor = item.data.baseSlug ?? item.id;
-          return (
-            <li>
-              <a
-                href={`#${anchor}`}
-                class="group block h-full rounded-xl border border-line bg-white/70 p-5 transition hover:-translate-y-0.5 hover:border-lab-300 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lab-600 focus-visible:ring-offset-2"
-              >
-                <span class="eyebrow" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-                <span class="mt-2 block font-display text-lg font-semibold text-ink group-hover:text-lab-700">
-                  {item.data.title}
-                </span>
-                <span class="mt-2 block text-sm leading-relaxed text-ink-soft">{item.data.tagline}</span>
-              </a>
-            </li>
-          );
-        })}
+  <div class="section-shell py-14 sm:py-20 space-y-16">
+    <header class="grid md:grid-cols-[1fr_2fr] gap-6 items-baseline">
+      <h1 class="font-display text-4xl sm:text-5xl font-semibold">{t('research.title')}</h1>
+      <p class="text-lg text-ink-soft leading-relaxed max-w-2xl">{t('research.desc')}</p>
+    </header>
+    <nav aria-label={t('research.overview')}>
+      <ol class="border-t border-ink divide-y divide-line">
+        {sortedResearch.map((item, index) => (
+          <li>
+            <a href={`#${item.data.baseSlug ?? item.id}`} class="grid grid-cols-[2rem_1fr] md:grid-cols-[3rem_1fr_1.2fr] gap-4 sm:gap-8 py-6 items-start">
+              <span class="text-sm text-lab-800 pt-1" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <span class="font-display text-xl sm:text-2xl font-semibold">{item.data.title}</span>
+              <span class="col-start-2 md:col-start-auto text-sm sm:text-base text-ink-soft">{item.data.tagline}</span>
+            </a>
+          </li>
+        ))}
       </ol>
     </nav>
-
-    <div class="space-y-10">
-      {sortedResearch.map(async (item) => {
+    <section id="research-map" class="bg-deep p-5 sm:p-8 space-y-6" aria-labelledby="research-map-title">
+      <div class="flex flex-col md:flex-row justify-between gap-4">
+        <h2 id="research-map-title" class="font-display text-2xl text-white font-semibold">{t('research.mapTitle')}</h2>
+        <p class="text-sm text-slate-300 max-w-lg">{t('research.mapDesc')}</p>
+      </div>
+      <BrainViewer client:visible lang={lang} />
+    </section>
+    <div class="space-y-16">
+      {sortedResearch.map(async (item, index) => {
         const { Content } = await render(item);
         const anchor = item.data.baseSlug ?? item.id;
         return (
-          <article id={anchor} aria-labelledby={`${anchor}-title`} class="card p-8 sm:p-10 space-y-6 scroll-mt-24">
-            <header class="border-b border-line pb-5 space-y-3">
-              <div class="space-y-1">
-                <h2 id={`${anchor}-title`} class="font-display text-2xl sm:text-3xl font-semibold text-ink">{item.data.title}</h2>
-                <p class="text-base text-lab-700" lang={lang === 'ko' ? 'en' : 'ko'}>{item.data.titleKo}</p>
-              </div>
-              <p class="max-w-3xl text-base sm:text-lg leading-relaxed text-ink-soft">{item.data.tagline}</p>
+          <article id={anchor} aria-labelledby={`${anchor}-title`} class="border-t border-ink pt-8 grid lg:grid-cols-[15rem_minmax(0,1fr)] gap-8 lg:gap-12">
+            <header class="space-y-4 min-w-0">
+              <p class="text-sm text-lab-800" aria-hidden="true">{String(index + 1).padStart(2, '0')}</p>
+              <h2 id={`${anchor}-title`} class="font-display text-2xl font-semibold">{item.data.title}</h2>
+              <p class="text-sm text-ink-faint" lang={lang === 'ko' ? 'en' : 'ko'}>{item.data.titleKo}</p>
+              <p class="text-base text-ink-soft">{item.data.tagline}</p>
             </header>
-
-            {item.data.keyHighlights.length > 0 && (
-              <div class="p-5 rounded-xl bg-paper border border-line space-y-2">
-                <div class="eyebrow">{t('research.keyDirections')}</div>
-                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  {item.data.keyHighlights.map((hl: string) => (
-                    <li class="text-sm text-ink-soft flex items-start gap-2">
-                      <span class="text-lab-700 font-bold mt-0.5">·</span>
-                      <span set:html={renderInlineLinks(hl)} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            <div class="prose prose-stone measure prose-headings:font-display prose-headings:font-semibold prose-a:text-lab-700">
-              <Content />
+            <div class="min-w-0 space-y-8">
+              {item.data.keyHighlights.length > 0 && (
+                <aside class="border-l-2 border-lab-700 pl-5 space-y-3" aria-label={t('research.keyDirections')}>
+                  <h3 class="text-sm font-semibold text-lab-800">{t('research.keyDirections')}</h3>
+                  <ul class="space-y-2">
+                    {item.data.keyHighlights.map((highlight) => <li class="text-sm text-ink-soft" set:html={renderInlineLinks(highlight)} />)}
+                  </ul>
+                </aside>
+              )}
+              <div class="prose prose-stone measure prose-headings:font-display prose-headings:font-semibold prose-a:text-lab-800"><Content /></div>
             </div>
           </article>
         );
       })}
     </div>
+    <FeaturedProjects lang={lang} />
   </div>
 </BaseLayout>

@@ -7,4 +7,4 @@ featured: true
 lang: "ko"
 baseSlug: "2025-07-icml-diver0"
 ---
-한동엽, 이아현, 이태양, 이세빈 학생의 연구 **"DIVER-0: A Fully Channel Equivariant EEG Foundation Model"**이 ICML 2025 Workshop on Generative Biology & Healthcare에서 Spotlight 발표로 선정되었다.
+한동엽, 이아현, 이태양, 이세빈 학생의 연구 "**DIVER-0: A Fully Channel Equivariant EEG Foundation Model**"이 ICML 2025 Workshop on Generative Biology & Healthcare에서 Spotlight 발표로 선정되었다.

@@ -14,7 +14,7 @@ const labNotes = [
 ];
 ---
 
-<footer class="border-t border-line bg-white text-ink-soft text-sm py-14 mt-24">
+<footer class="border-t border-line bg-white text-ink-soft text-sm py-12 mt-8">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
       <!-- About & Leonardo quote -->
@@ -25,11 +25,6 @@ const labNotes = [
             {lang === 'ko' ? '서울대학교 커넥톰 연구실' : 'SNU Connectome Laboratory'}
           </span>
         </div>
-        <blockquote class="font-display text-ink-soft italic border-l-2 border-lab-600 pl-4 leading-relaxed">
-          “Study the science of art. Study the art of science. Develop your senses — especially learn how to see.
-          Realize that everything connects to everything else.”
-          <span class="block font-mono text-xs text-ink-faint mt-2 not-italic">— Leonardo da Vinci</span>
-        </blockquote>
         <p class="text-sm leading-relaxed" set:html={t('footer.affiliations')} />
       </div>
 
@@ -79,7 +74,7 @@ const labNotes = [
     </div>
 
     <!-- Bottom bar -->
-    <div class="pt-8 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-4 mono-meta text-xs text-ink-faint">
+    <div class="pt-8 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-faint">
       <div>© {currentYear} SNU Connectome Lab (PI: Jiook Cha)</div>
       <a href="#top" class="hover:text-ink transition-colors">{t('footer.backToTop')}</a>
     </div>

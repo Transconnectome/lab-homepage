@@ -18,18 +18,19 @@ const pageTitle = lang === 'ko' ? '리서치 레이더 | 서울대학교 커넥�
 ---
 
 <BaseLayout lang={lang} title={pageTitle}>
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
-    <div class="max-w-2xl space-y-4">
+  <div class="section-shell py-12 sm:py-16 space-y-10">
+    <header class="max-w-3xl space-y-4">
       <p class="eyebrow">{t('radar.eyebrow')}</p>
-      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('radar.title')}</h1>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">{t('radar.title')}</h1>
       <p class="text-lg text-ink-soft leading-relaxed">{t('radar.desc')}</p>
-      <p class="text-base text-ink-soft">
-        {t('radar.ideasHint')}
-        <a href={localePath(lang, '/ideas')} class="text-lab-700 hover:text-lab-800 underline font-semibold mx-1">{t('radar.ideasLink')}</a>
-        {t('radar.ideasHint2')}
-      </p>
-    </div>
+    </header>
 
     <ResearchRadarView trends={trendData} lang={lang} client:load />
+
+    <p class="border-t border-line pt-6 text-sm text-ink-soft leading-relaxed">
+      {t('radar.ideasHint')}
+      <a href={localePath(lang, '/ideas')} class="text-link mx-1">{t('radar.ideasLink')}</a>
+      {t('radar.ideasHint2')}
+    </p>
   </div>
 </BaseLayout>

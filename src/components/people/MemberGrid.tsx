@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Mail, ExternalLink, Heart, Github, BookOpen, GraduationCap } from 'lucide-react';
 import { affiliationLabel } from '../../i18n/ui';
 
 interface Member {
@@ -28,186 +27,139 @@ interface Props {
   lang?: 'en' | 'ko';
 }
 
-const TAB_LABELS: Record<'en' | 'ko', Record<string, string>> = {
+const CATEGORY_LABELS: Record<'en' | 'ko', Record<string, string>> = {
   en: { all: 'Everyone', pi: 'Principal Investigator', grad: 'Graduate Students', undergrad: 'Interns', staff: 'Staff', alumni: 'Alumni' },
   ko: { all: '전체', pi: '지도교수', grad: '대학원생', undergrad: '학부 인턴', staff: '스태프', alumni: '동문' },
 };
 
-const CATEGORY_TABS: { id: string; match: (c: Member['category']) => boolean }[] = [
+const LABELS = {
+  en: { category: 'Browse people', education: 'Education', research: 'Research interests', passions: 'Outside the lab', website: 'Website', email: 'Email', people: 'people' },
+  ko: { category: '구성원 구분', education: '학력', research: '연구 관심사', passions: '관심과 취미', website: '웹사이트', email: '이메일', people: '명' },
+};
+
+const CATEGORIES: { id: string; match: (category: Member['category']) => boolean }[] = [
   { id: 'all', match: () => true },
-  { id: 'pi', match: (c) => c === 'pi' },
-  { id: 'grad', match: (c) => c === 'phd' || c === 'ms' },
-  { id: 'undergrad', match: (c) => c === 'undergrad' },
-  { id: 'staff', match: (c) => c === 'staff' },
-  { id: 'alumni', match: (c) => c === 'alumni' },
+  { id: 'pi', match: (category) => category === 'pi' },
+  { id: 'grad', match: (category) => category === 'phd' || category === 'ms' },
+  { id: 'undergrad', match: (category) => category === 'undergrad' },
+  { id: 'staff', match: (category) => category === 'staff' },
+  { id: 'alumni', match: (category) => category === 'alumni' },
 ];
+
+// Shared by the profile article and links from the homepage's photo strip.
+export const memberAnchor = (name: string) => `member-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+const textLang = (text: string) => /[\uac00-\ud7a3]/.test(text) ? 'ko' : 'en';
 
 export default function MemberGrid({ members, lang = 'en' }: Props) {
   const [selected, setSelected] = useState('all');
-
-  // Only show tabs that actually have members
-  const tabs = CATEGORY_TABS.filter(
-    (tab) => tab.id === 'all' || members.some((m) => tab.match(m.category))
-  );
-  const activeTab = tabs.find((t) => t.id === selected) || tabs[0];
-  const filtered = members.filter((m) => activeTab.match(m.category));
+  const L = LABELS[lang];
+  const categories = CATEGORIES.filter((category) => category.id === 'all' || members.some((member) => category.match(member.category)));
+  const activeCategory = categories.find((category) => category.id === selected) ?? categories[0];
+  const filtered = members.filter((member) => activeCategory.match(member.category));
 
   return (
-    <div className="space-y-8">
-      {/* Category tabs */}
-      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Member categories">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            role="tab"
-            aria-selected={selected === tab.id}
-            onClick={() => setSelected(tab.id)}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-              selected === tab.id
-                ? 'bg-lab-700 text-white'
-                : 'bg-white text-ink-soft hover:text-ink border border-line hover:border-lab-600/40'
-            }`}
+    <div className="space-y-10">
+      <div className="border-y border-line py-5 flex flex-wrap items-end justify-between gap-4">
+        <div className="space-y-2 w-full sm:w-auto">
+          <label htmlFor="member-category" className="block text-sm font-medium text-ink">{L.category}</label>
+          <select
+            id="member-category"
+            value={selected}
+            onChange={(event) => setSelected(event.target.value)}
+            className="form-field sm:w-64 py-2.5 focus:border-lab-700"
           >
-            {TAB_LABELS[lang][tab.id]}
-          </button>
-        ))}
+            {categories.map((category) => <option key={category.id} value={category.id}>{CATEGORY_LABELS[lang][category.id]}</option>)}
+          </select>
+        </div>
+        <p role="status" className="text-sm text-ink-faint">{filtered.length} {L.people}</p>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {filtered.map((member) => (
-          <article
-            key={member.name}
-            className="card card-hover overflow-hidden flex flex-col"
-          >
-            {/* Photo */}
-            {member.avatar ? (
-              <div className="aspect-[4/3] w-full overflow-hidden bg-paper">
-                <img
-                  src={member.avatar}
-                  alt={`${member.name} (${member.nameKo})`}
-                  loading="lazy"
-                  className="w-full h-full object-cover object-[center_30%]"
-                />
-              </div>
-            ) : (
-              <div className="aspect-[4/3] w-full bg-paper flex items-center justify-center">
-                <span className="font-display text-4xl text-line select-none" aria-hidden="true">
-                  {member.name.split(' ').map((n) => n[0]).join('')}
-                </span>
-              </div>
-            )}
-
-            <div className="p-5 flex-1 flex flex-col gap-3.5">
-              {/* Name & role */}
-              <div>
-                <div className="flex items-baseline gap-2 flex-wrap">
-                  <h3
-                    className="font-display text-lg font-semibold text-ink leading-tight"
-                    lang={lang === 'ko' && member.nameKo ? 'ko' : 'en'}
-                  >
-                    {lang === 'ko' && member.nameKo ? member.nameKo : member.name}
-                  </h3>
-                  {/* The counterpart name is the other script, so it needs its own
-                      lang — both for the Korean type rules and for screen readers. */}
-                  <span className="text-sm text-ink-faint" lang={lang === 'ko' ? 'en' : 'ko'}>
-                    {lang === 'ko' ? member.name : member.nameKo}
-                  </span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+        {filtered.map((member) => {
+          const anchor = memberAnchor(member.name);
+          return (
+            <article key={member.name} id={anchor} aria-labelledby={`${anchor}-name`} className="min-w-0 border-t border-line pt-5 scroll-mt-24 flex flex-col gap-5">
+              {member.avatar && (
+                <div className="aspect-[4/3] w-full overflow-hidden">
+                  <img
+                    src={member.avatar}
+                    alt={member.nameKo ? `${member.name} (${member.nameKo})` : member.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-[center_30%]"
+                  />
                 </div>
-                <p className="text-sm font-semibold text-lab-700 mt-0.5">
-                  {lang === 'ko' && member.roleKo ? member.roleKo : member.role}
-                </p>
-                {member.affiliations.length > 0 && (
-                  <p className="text-sm text-ink-faint mt-0.5">
-                    {affiliationLabel(lang, member.affiliations[0])}
+              )}
+
+              <div className="space-y-1.5">
+                <h2 id={`${anchor}-name`} className="font-display text-xl font-semibold text-ink leading-snug" lang={lang === 'ko' && member.nameKo ? 'ko' : 'en'}>
+                  {lang === 'ko' && member.nameKo ? member.nameKo : member.name}
+                </h2>
+                {member.nameKo && (
+                  <p className="text-sm text-ink-faint" lang={lang === 'ko' ? 'en' : 'ko'}>
+                    {lang === 'ko' ? member.name : member.nameKo}
                   </p>
+                )}
+                <p className="text-sm font-medium text-ink-soft">{lang === 'ko' && member.roleKo ? member.roleKo : member.role}</p>
+                {member.affiliations.length > 0 && (
+                  <p className="text-sm text-ink-soft leading-relaxed">{member.affiliations.map((affiliation) => affiliationLabel(lang, affiliation)).join(' · ')}</p>
                 )}
               </div>
 
-              {/* Education */}
-              {member.education.length > 0 && (
-                <div className="flex items-start gap-2 text-sm text-ink-soft">
-                  <GraduationCap className="w-4 h-4 text-lab-700 shrink-0 mt-0.5" aria-hidden="true" />
-                  <div className="space-y-0.5" lang={lang === 'ko' ? 'en' : undefined}>
-                    {member.education.map((edu, i) => (
-                      <p key={i} className="leading-snug">{edu}</p>
-                    ))}
+              {(member.education.length > 0 || member.researchInterests.length > 0 || member.passions.length > 0) && (
+                <dl className="space-y-4 text-sm text-ink-soft">
+                  {member.education.length > 0 && (
+                    <div className="space-y-1">
+                      <dt className="text-xs font-medium text-ink-faint">{L.education}</dt>
+                      <dd className="space-y-1">
+                        {member.education.map((education, index) => <p key={index} className="leading-relaxed" lang={textLang(education)}>{education}</p>)}
+                      </dd>
+                    </div>
+                  )}
+                  {member.researchInterests.length > 0 && (
+                    <div className="space-y-1">
+                      <dt className="text-xs font-medium text-ink-faint">{L.research}</dt>
+                      <dd className="leading-relaxed">
+                        {member.researchInterests.map((interest, index) => (
+                          <React.Fragment key={index}>
+                            <span lang={textLang(interest)}>{interest}</span>{index < member.researchInterests.length - 1 ? ' · ' : ''}
+                          </React.Fragment>
+                        ))}
+                      </dd>
+                    </div>
+                  )}
+                  {member.passions.length > 0 && (
+                    <div className="space-y-1">
+                      <dt className="text-xs font-medium text-ink-faint">{L.passions}</dt>
+                      <dd className="leading-relaxed">
+                        {member.passions.map((passion, index) => (
+                          <React.Fragment key={index}>
+                            <span lang={textLang(passion)}>{passion}</span>{index < member.passions.length - 1 ? ' · ' : ''}
+                          </React.Fragment>
+                        ))}
+                      </dd>
+                    </div>
+                  )}
+                </dl>
+              )}
+
+              {(member.email || member.links?.scholar || member.links?.github || member.links?.linkedin || member.links?.website) && (
+                <div className="mt-auto pt-1 space-y-3 text-sm">
+                  {member.email && (
+                    <a href={`mailto:${member.email}`} className="text-link break-all" aria-label={`${L.email}: ${member.name}`}>
+                      {member.email}
+                    </a>
+                  )}
+                  <div className="flex flex-wrap gap-x-4 gap-y-2">
+                    {member.links?.scholar && <a href={member.links.scholar} target="_blank" rel="noreferrer" className="text-link">Google Scholar</a>}
+                    {member.links?.github && <a href={member.links.github} target="_blank" rel="noreferrer" className="text-link">GitHub</a>}
+                    {member.links?.linkedin && <a href={member.links.linkedin} target="_blank" rel="noreferrer" className="text-link">LinkedIn</a>}
+                    {member.links?.website && <a href={member.links.website} target="_blank" rel="noreferrer" className="text-link">{L.website}</a>}
                   </div>
                 </div>
               )}
-
-              {/* Research interests */}
-              {member.researchInterests.length > 0 && (
-                <div className="flex flex-wrap gap-1.5" lang={lang === 'ko' ? 'en' : undefined}>
-                  {member.researchInterests.map((interest, i) => (
-                    <span key={i} className="chip" lang="en">{interest}</span>
-                  ))}
-                </div>
-              )}
-
-              {/* Passions — the human side */}
-              {member.passions.length > 0 && (
-                <div className="flex items-start gap-2 text-sm text-ink-faint">
-                  <Heart className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" aria-hidden="true" />
-                  <p className="italic leading-snug" lang={lang === 'ko' ? 'en' : undefined}>
-                    {member.passions.join(' · ')}
-                  </p>
-                </div>
-              )}
-
-              {/* Contact & links */}
-              <div className="pt-3 mt-auto border-t border-line flex items-center justify-between gap-2 text-sm">
-                {member.email ? (
-                  <a
-                    href={`mailto:${member.email}`}
-                    className="flex items-center gap-1.5 text-ink-soft hover:text-lab-700 transition-colors font-mono text-xs truncate"
-                  >
-                    <Mail className="w-3.5 h-3.5 text-lab-700 shrink-0" aria-hidden="true" />
-                    <span className="truncate">{member.email}</span>
-                  </a>
-                ) : (
-                  <span aria-hidden="true" />
-                )}
-
-                <div className="flex items-center gap-1.5 shrink-0">
-                  {member.links?.scholar && (
-                    <a
-                      href={member.links.scholar}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="p-1.5 rounded-lg text-ink-faint hover:text-lab-700 hover:bg-paper transition-colors"
-                      title="Google Scholar"
-                    >
-                      <BookOpen className="w-4 h-4" />
-                    </a>
-                  )}
-                  {member.links?.github && (
-                    <a
-                      href={member.links.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="p-1.5 rounded-lg text-ink-faint hover:text-lab-700 hover:bg-paper transition-colors"
-                      title="GitHub"
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
-                  )}
-                  {member.links?.website && (
-                    <a
-                      href={member.links.website}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="p-1.5 rounded-lg text-ink-faint hover:text-lab-700 hover:bg-paper transition-colors"
-                      title="Website"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
     </div>
   );

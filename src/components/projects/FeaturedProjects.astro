@@ -38,11 +38,11 @@ const featuredProjects = (await getCollection('projects'))
 
 {
   featuredProjects.length > 0 && (
-    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="flex items-end justify-between gap-4 mb-8">
+    <section id="projects" class="border-t border-ink pt-10">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
         <div>
           <p class="eyebrow">{t('home.projectsEyebrow')}</p>
-          <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink mt-2">{t('home.projectsTitle')}</h2>
+          <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink mt-2">{t('research.projectsTitle')}</h2>
           <p class="text-sm text-ink-soft mt-2">{t('home.projectsDesc')}</p>
         </div>
         <a
@@ -55,9 +55,9 @@ const featuredProjects = (await getCollection('projects'))
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="divide-y divide-line">
         {featuredProjects.map((proj) => (
-          <article class="card card-hover p-6 flex flex-col justify-between gap-4">
+          <article class="py-7 grid md:grid-cols-[2fr_1fr] gap-6">
             <div class="space-y-2.5">
               <div class="flex flex-wrap items-center gap-2">
                 <span class="chip-accent">{NETWORK_LABELS[proj.network]?.[lang] ?? proj.network}</span>
@@ -82,7 +82,7 @@ const featuredProjects = (await getCollection('projects'))
                 </details>
               )}
             </div>
-            <div class="pt-4 border-t border-line flex items-center justify-between gap-3">
+            <div class="flex flex-col items-start md:items-end justify-between gap-4">
               {proj.pub?.data.url ? (
                 <a
                   href={proj.pub.data.url}
@@ -90,7 +90,7 @@ const featuredProjects = (await getCollection('projects'))
                   rel="noreferrer"
                   class="text-sm font-semibold text-lab-700 hover:text-lab-800 transition-colors"
                 >
-                  {t('home.projectPaper')} · {proj.pub.data.venue} →
+                  {t('home.projectPaper')} · {proj.pub.data.venue}
                 </a>
               ) : (
                 <span />

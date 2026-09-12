@@ -12,8 +12,8 @@ const pageTitle = lang === 'ko' ? '함께하기 | 서울대학교 커넥톰 연�
 ---
 
 <BaseLayout lang={lang} title={pageTitle}>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-14">
-    <div class="max-w-2xl space-y-4">
+  <div class="section-shell py-14 sm:py-20 space-y-14">
+    <div class="max-w-3xl space-y-4 border-b border-ink pb-10">
       <p class="eyebrow">{t('join.eyebrow')}</p>
       <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('join.title')}</h1>
       <p class="text-lg text-ink-soft leading-relaxed">{t('join.desc')}</p>
@@ -27,15 +27,15 @@ const pageTitle = lang === 'ko' ? '함께하기 | 서울대학교 커넥톰 연�
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div class="card p-7 space-y-3">
+        <div class="border-t border-line pt-5 space-y-3">
           <h3 class="font-semibold text-ink">{t('join.gsai')}</h3>
           <p class="text-sm text-ink-soft leading-relaxed">{t('join.gsaiDesc')}</p>
         </div>
-        <div class="card p-7 space-y-3">
+        <div class="border-t border-line pt-5 space-y-3">
           <h3 class="font-semibold text-ink">{t('join.bcs')}</h3>
           <p class="text-sm text-ink-soft leading-relaxed">{t('join.bcsDesc')}</p>
         </div>
-        <div class="card p-7 space-y-3">
+        <div class="border-t border-line pt-5 space-y-3">
           <h3 class="font-semibold text-ink">{t('join.psych')}</h3>
           <p class="text-sm text-ink-soft leading-relaxed">{t('join.psychDesc')}</p>
         </div>
@@ -43,7 +43,7 @@ const pageTitle = lang === 'ko' ? '함께하기 | 서울대학교 커넥톰 연�
     </section>
 
     <!-- Internships -->
-    <section class="card p-8 sm:p-10 space-y-4">
+    <section class="border-t border-ink pt-8 space-y-4">
       <div class="space-y-1">
         <p class="eyebrow">{t('join.internEyebrow')}</p>
         <h2 class="font-display text-2xl font-semibold text-ink">{t('join.internTitle')}</h2>
@@ -52,7 +52,7 @@ const pageTitle = lang === 'ko' ? '함께하기 | 서울대학교 커넥톰 연�
     </section>
 
     <!-- How to apply -->
-    <section class="card p-8 sm:p-10 space-y-6">
+    <section class="border-t border-ink pt-8 space-y-6">
       <div class="space-y-1">
         <p class="eyebrow">{t('join.applyEyebrow')}</p>
         <h2 class="font-display text-2xl font-semibold text-ink">{t('join.applyTitle')}</h2>

@@ -54,119 +54,66 @@ const CATEGORY_LABELS: Record<'en' | 'ko', Record<IdeaItem['category'], string>>
   },
 };
 
-const LABELS = {
-  en: {
-    allCategories: 'All topics',
-    archiveNote: 'Every idea generated stays archived here — nothing is ever removed, only added to.',
-    hypothesis: 'Hypothesis',
-    whyNow: 'Why now',
-    buildsOn: 'Builds on',
-    inspiration: 'Inspired by',
-    firstExperiment: 'First experiment',
-    howFails: 'How it could fail',
-    noMatch: 'No ideas in this topic yet',
-    noMatchDesc: 'Try a different topic — new ideas are added weekly.',
-  },
-  ko: {
-    allCategories: '전체 주제',
-    archiveNote: '생성된 아이디어는 모두 이곳에 그대로 보관됩니다 — 지워지지 않고 매주 쌓입니다.',
-    hypothesis: '가설',
-    whyNow: '왜 지금인가',
-    buildsOn: '연구실 기반',
-    inspiration: '외부 영감',
-    firstExperiment: '첫 실험',
-    howFails: '실패 가능성',
-    noMatch: '이 주제의 아이디어는 아직 없습니다',
-    noMatchDesc: '다른 주제를 선택해 보세요 — 매주 새 아이디어가 추가됩니다.',
-  },
-};
-
-// labThreads and externalInspiration are generated free text: on either tree an
-// item may come back in Korean or in English. Tag each one by its own content so
-// the :lang(ko) type rules land on Korean and skip Latin.
+// Generated free text can use either language on either page.
 const HANGUL = /[\uac00-\ud7a3]/;
-const itemLang = (s: string) => (HANGUL.test(s) ? 'ko' : 'en');
+const itemLang = (text: string) => (HANGUL.test(text) ? 'ko' : 'en');
 
 export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
   const t = useTranslations(lang);
-  const L = LABELS[lang];
   const CL = CATEGORY_LABELS[lang];
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-
   const pick = (en: string, ko?: string | null) => (lang === 'ko' && ko ? ko : en);
 
   const presentCategories = useMemo(
-    () => CATEGORY_ORDER.filter((c) => ideas.some((i) => i.category === c)),
+    () => CATEGORY_ORDER.filter((category) => ideas.some((idea) => idea.category === category)),
     [ideas]
   );
-
   const counts = useMemo(() => {
-    const m = new Map<string, number>();
-    ideas.forEach((i) => m.set(i.category, (m.get(i.category) ?? 0) + 1));
-    return m;
+    const result = new Map<string, number>();
+    ideas.forEach((idea) => result.set(idea.category, (result.get(idea.category) ?? 0) + 1));
+    return result;
   }, [ideas]);
-
   const filtered = useMemo(
-    () => (selectedCategory === 'All' ? ideas : ideas.filter((i) => i.category === selectedCategory)),
+    () => selectedCategory === 'All' ? ideas : ideas.filter((idea) => idea.category === selectedCategory),
     [ideas, selectedCategory]
   );
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-3">
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => setSelectedCategory('All')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-              selectedCategory === 'All'
-                ? 'bg-lab-700 text-white'
-                : 'bg-paper text-ink-soft hover:text-ink border border-line'
-            }`}
-          >
-            {L.allCategories} <span className="opacity-70">({ideas.length})</span>
-          </button>
-          {presentCategories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                selectedCategory === cat
-                  ? 'bg-lab-700 text-white'
-                  : 'bg-paper text-ink-soft hover:text-ink border border-line'
-              }`}
-            >
-              {CL[cat]} <span className="opacity-70">({counts.get(cat)})</span>
-            </button>
-          ))}
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-8">
+        <div className="w-full sm:max-w-sm space-y-2">
+          <label htmlFor="ideas-topic" className="block text-sm font-semibold text-ink">{t('filters.topic')}</label>
+          <select id="ideas-topic" className="form-field" value={selectedCategory} onChange={(event) => setSelectedCategory(event.target.value)}>
+            <option value="All">{t('filters.allTopics')} ({ideas.length})</option>
+            {presentCategories.map((category) => (
+              <option key={category} value={category}>{CL[category]} ({counts.get(category)})</option>
+            ))}
+          </select>
         </div>
-        <p className="font-mono text-xs text-ink-faint">{L.archiveNote}</p>
+        <p role="status" aria-live="polite" className="text-sm text-ink-soft sm:pb-2">
+          {t('filters.results')}: {filtered.length}
+        </p>
       </div>
 
-      <div className="space-y-6">
+      <div>
         {filtered.map((idea) => (
-          <article key={idea.slug} className="card p-7 sm:p-9 space-y-5">
-            <header className="space-y-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="chip-accent" lang="en">{idea.date}</span>
-                <span className="chip">{CL[idea.category]}</span>
+          <article id={`idea-${idea.slug}`} key={idea.slug} className="border-t border-line py-8 sm:py-10 space-y-6">
+            <header className="space-y-3">
+              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs text-ink-faint">
+                <time dateTime={idea.date} className="font-mono" lang="en">{idea.date}</time>
+                <span>{CL[idea.category]}</span>
               </div>
-              <h2 className="font-display text-xl sm:text-2xl font-semibold text-ink leading-snug">
-                {lang === 'ko' && idea.titleKo ? idea.titleKo : idea.title}
+              <h2 className="font-display text-xl sm:text-2xl font-semibold text-ink leading-snug" lang={itemLang(pick(idea.title, idea.titleKo))}>
+                {pick(idea.title, idea.titleKo)}
               </h2>
-              {/* The counterpart title is the other script and needs its own lang. */}
               {lang === 'ko'
-                ? <p className="text-sm text-ink-faint" lang="en">{idea.title}</p>
+                ? idea.titleKo && <p className="text-sm text-ink-faint" lang="en">{idea.title}</p>
                 : idea.titleKo && <p className="text-sm text-ink-faint" lang="ko">{idea.titleKo}</p>}
             </header>
 
             {idea.image && (
-              <figure className="space-y-1.5">
-                <img
-                  src={idea.image}
-                  alt={idea.titleKo ?? idea.title}
-                  className="rounded-xl border border-line w-full"
-                  loading="lazy"
-                />
+              <figure className="space-y-2">
+                <img src={idea.image} alt={pick(idea.title, idea.titleKo)} className="w-full" loading="lazy" />
                 {idea.imageGeneratedBy && (
                   <figcaption className="text-xs text-ink-faint">
                     {t('ideas.generatedImage')}: <span lang="en">{idea.imageGeneratedBy}</span>
@@ -175,64 +122,47 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
               </figure>
             )}
 
-            <div className="p-4 rounded-xl bg-paper border border-line">
-              <div className="eyebrow mb-1.5">{L.hypothesis}</div>
-              <p className="text-base text-ink leading-relaxed measure">{pick(idea.hypothesis, idea.hypothesisKo)}</p>
-            </div>
+            <section className="space-y-2">
+              <h3 className="text-sm font-semibold text-ink">{t('ideas.hypothesis')}</h3>
+              <p className="text-base text-ink leading-relaxed measure" lang={itemLang(pick(idea.hypothesis, idea.hypothesisKo))}>{pick(idea.hypothesis, idea.hypothesisKo)}</p>
+            </section>
+            <section className="space-y-2">
+              <h3 className="text-sm font-semibold text-ink">{t('ideas.whyNow')}</h3>
+              <p className="text-base text-ink-soft leading-relaxed measure" lang={itemLang(pick(idea.rationale, idea.rationaleKo))}>{pick(idea.rationale, idea.rationaleKo)}</p>
+            </section>
 
-            <div className="space-y-1.5">
-              <div className="eyebrow">{L.whyNow}</div>
-              <p className="text-base text-ink-soft leading-relaxed measure">{pick(idea.rationale, idea.rationaleKo)}</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="space-y-1.5">
-                <div className="eyebrow">{L.buildsOn}</div>
-                <ul className="space-y-1">
-                  {idea.labThreads.map((th) => (
-                    <li key={th} className="text-sm text-ink-soft flex items-start gap-2">
-                      <span className="text-lab-700 mt-0.5">·</span>
-                      <span lang={itemLang(th)}>{th}</span>
-                    </li>
-                  ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <section className="space-y-2">
+                <h3 className="text-sm font-semibold text-ink">{t('ideas.buildsOn')}</h3>
+                <ul className="list-disc pl-5 space-y-2 text-sm text-ink-soft leading-relaxed">
+                  {idea.labThreads.map((thread, index) => <li key={index} lang={itemLang(thread)}>{thread}</li>)}
                 </ul>
-              </div>
-              <div className="space-y-1.5">
-                <div className="eyebrow">{L.inspiration}</div>
-                <ul className="space-y-1">
-                  {idea.externalInspiration.map((th) => (
-                    <li key={th} className="text-sm text-ink-soft flex items-start gap-2">
-                      <span className="text-lab-700 mt-0.5">·</span>
-                      <span lang={itemLang(th)}>{th}</span>
-                    </li>
-                  ))}
+              </section>
+              <section className="space-y-2">
+                <h3 className="text-sm font-semibold text-ink">{t('ideas.inspiration')}</h3>
+                <ul className="list-disc pl-5 space-y-2 text-sm text-ink-soft leading-relaxed">
+                  {idea.externalInspiration.map((thread, index) => <li key={index} lang={itemLang(thread)}>{thread}</li>)}
                 </ul>
-              </div>
+              </section>
             </div>
-
-            <div className="space-y-1.5">
-              <div className="eyebrow">{L.firstExperiment}</div>
-              <p className="text-base text-ink-soft leading-relaxed measure">
-                {pick(idea.firstExperiment, idea.firstExperimentKo)}
-              </p>
-            </div>
-
-            <div className="pt-4 border-t border-line space-y-1.5">
-              <div className="eyebrow">{L.howFails}</div>
-              <p className="text-sm text-ink-faint leading-relaxed measure">{pick(idea.risks, idea.risksKo)}</p>
-            </div>
-
-            <footer className="text-xs text-ink-faint">
+            <section className="space-y-2">
+              <h3 className="text-sm font-semibold text-ink">{t('ideas.firstExperiment')}</h3>
+              <p className="text-base text-ink-soft leading-relaxed measure" lang={itemLang(pick(idea.firstExperiment, idea.firstExperimentKo))}>{pick(idea.firstExperiment, idea.firstExperimentKo)}</p>
+            </section>
+            <section className="space-y-2">
+              <h3 className="text-sm font-semibold text-ink">{t('ideas.howFails')}</h3>
+              <p className="text-sm text-ink-soft leading-relaxed measure" lang={itemLang(pick(idea.risks, idea.risksKo))}>{pick(idea.risks, idea.risksKo)}</p>
+            </section>
+            <footer className="text-xs text-ink-faint break-words">
               {t('ideas.generatedSummary')}: <span lang="en">{idea.generatedBy.replace('llm:', '')}</span>
             </footer>
           </article>
         ))}
       </div>
-
       {filtered.length === 0 && (
-        <div className="text-center py-16 card">
-          <h3 className="text-lg font-semibold text-ink mb-1">{L.noMatch}</h3>
-          <p className="text-sm text-ink-soft">{L.noMatchDesc}</p>
+        <div className="border-t border-line py-10 space-y-2">
+          <h2 className="text-lg font-semibold text-ink">{t('ideas.noMatch')}</h2>
+          <p className="text-sm text-ink-soft">{t('ideas.noMatchDesc')}</p>
         </div>
       )}
     </div>

@@ -44,8 +44,8 @@ const langHref = altLangPath(pathname, lang);
             aria-current={isActive ? 'page' : undefined}
             class={`px-3 py-2 rounded-lg text-sm transition-colors ${
               isActive
-                ? 'text-lab-800 bg-lab-50 font-semibold'
-                : 'text-ink-soft hover:text-ink hover:bg-white'
+                ? 'text-lab-800 underline underline-offset-4 font-semibold'
+                : 'text-ink-soft hover:text-ink'
             }`}
           >
             {item.label}
