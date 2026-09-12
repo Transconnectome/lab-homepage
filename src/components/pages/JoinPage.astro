@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import JoinFaq from '../common/JoinFaq.astro';
 import { useTranslations, type Lang } from '../../i18n/ui';
 
 interface Props {
@@ -79,5 +80,6 @@ const pageTitle = lang === 'ko' ? '함께하기 | 서울대학교 커넥톰 연�
         </div>
       </div>
     </section>
+    <JoinFaq lang={lang} />
   </div>
 </BaseLayout>

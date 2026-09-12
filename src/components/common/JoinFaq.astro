@@ -1,0 +1,129 @@
+---
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Relocated from the former floating lab guide. Keep the reviewed scientific
+// claims and their limits together when updating either language.
+type FaqKey = 'neuromamba' | 'diver0' | 'neurox' | 'qml' | 'admission' | 'culture' | 'pi';
+
+const FAQ_ANSWERS: Record<Lang, Record<FaqKey, string>> = {
+  ko: {
+    neuromamba: `**NeuroMamba**는 커넥톰 연구실이 개발한 **4D fMRI용 상태공간 파운데이션 모델**입니다 (NeurIPS 2025 Brain & Body 워크숍 Spotlight).
+
+- **핵심 특징**: 트랜스포머 어텐션 대신 선택적 상태공간 모델(Mamba)을 써서 계산량이 입력 길이에 비례하게 하고, 뇌 바깥의 배경 토큰을 미리 걷어내 계산량을 거의 절반으로 줄였습니다.
+- **결과**: UK Biobank·ABCD·HCP의 5만 명 넘는 전뇌 fMRI로 사전학습했고, HCP 성별 분류에서 SwiFT 논문이 보고한 정확도를 더 적은 파라미터로 넘어섰습니다. 다만 데이터 분할이 달라 직접 비교는 아닙니다. 다음 목표는 평가 과제를 인지 점수와 임상 진단 예측으로 넓히는 것입니다.`,
+
+    diver0: `**DIVER-0**는 커넥톰 연구실이 제안한 **완전 채널 등변(Channel-Equivariant) EEG 파운데이션 모델**입니다 (ICML 2025 GenBio 워크숍 Spotlight).
+
+- **문제**: 병원과 연구소마다 EEG 전극의 수와 배치가 달라, 한 데이터셋으로 학습한 모델을 다른 데이터셋에 그대로 쓰기 어렵습니다.
+- **기술과 현재 근거**: 채널 순열과 시간 이동에 대한 등변성(equivariance)을 아키텍처 안에 넣었습니다. 서로 다른 전극 구성을 쓰는 두 후속 데이터셋과 합성 채널 순열에서 시험했으며, 더 다양한 임상 배치와 전극 누락 상황은 추가 검증이 필요합니다.`,
+
+    neurox: `**Neuro-X 프로젝트**는 커넥톰 연구실의 **뇌 파운데이션 모델** 프로그램입니다.
+
+fMRI 모델(SwiFT·NeuroMamba)과 EEG 모델(DIVER)처럼, 신호의 특성과 연구 목적에 맞는 다양한 모델을 개발합니다. 대규모 뇌 데이터에서 학습한 특징을 새로운 데이터와 과제에 활용하는 것이 목표이며, 여러 종류의 뇌 데이터를 함께 활용하는 방법도 연구합니다.`,
+
+    qml: `커넥톰 연구실은 **양자 머신러닝(QML)**을 뇌·시계열 데이터에 접목해 연구합니다. 인용된 여러 연구에는 브룩헤이븐 국립연구소 소속 공동저자가 참여했습니다.
+
+- **연구 주제**: ABCD·UK Biobank 휴지기 fMRI에 적용한 양자 시계열 트랜스포머(IEEE QCE 2025), 배런 플래토를 완화하는 멀티칩 앙상블 회로, 사전학습 EEG 인코더 위의 양자 아키텍처 탐색(Q-DIVER), 그리고 12큐비트 MNIST 분류기를 127큐비트 IBM Eagle 장치에 배포한 가능성 연구. 현재 뇌 데이터의 양자 우위는 입증되지 않았습니다.
+- **지원 안내**: 현재 모집 여부와 공식 지원 경로는 함께하기 페이지의 최신 안내를 확인해 주세요.`,
+
+    admission: `**커넥톰 연구실 대학원 및 인턴 지원 안내**:
+
+- **소속 트랙**: ① 서울대학교 심리학과 ② 협동과정 인공지능전공(IPAI) ③ 뇌인지과학과(BCS)
+- **환영 배경**: 심리학, 인공지능, 컴퓨터공학, 통계학, 의학, 물리학, 생명과학 등 다양한 분야
+- **지원 방법**: CV, 성적증명서, 관심 연구 분야 소개(1-2단락)를 connectome@snu.ac.kr 로 보내주세요. 검토 후 인터뷰를 안내해 드립니다.`,
+
+    culture: `**커넥톰 연구실 문화**:
+
+- **연구 해커톤**: 강원도 홍천 등에서 정기적으로 진행하는 며칠간의 집중 해커톤 (연구 몰입 + 요리와 게임).
+- **해외 연수**: 캐나다 MILA, 미국 브룩헤이븐 국립연구소(BNL) 등에 학생 연구원을 파견합니다.
+- **예술과 삶**: EEG 아트 전시(옵/신 페스티벌), 음악, 커피, 그리고 교수님의 칵테일까지 — 창의성은 삶의 즐거움에서 나온다고 믿습니다.`,
+
+    pi: `**차지욱 교수 (Jiook Cha, PhD)**는 서울대학교 심리학과·인공지능협동과정·뇌인지과학과 부교수이자 커넥톰 연구실의 PI입니다.
+
+- 미국 컬럼비아 대학교 아동청소년정신의학과 조교수와 데이터사이언스 연구소(DSI) 멤버를 역임했습니다.
+- NIMH K01 커리어 개발상, NARSAD Young Investigator Award, 서울대 창의선도연구자 등을 수상했습니다.
+- 연구 분야: 뇌 파운데이션 모델(Neuro-X), 동적 커넥톰, 계산정신의학, 유전체-뇌영상 융합, 양자 머신러닝.`,
+  },
+
+  en: {
+    neuromamba: `**NeuroMamba** is the lab's **state-space foundation model for 4D fMRI** (Spotlight at the NeurIPS 2025 Brain & Body workshop).
+
+- **What it does**: replaces the transformer's attention with a selective state-space model (Mamba), so compute grows in proportion to input length rather than its square, and discards non-brain background tokens before training, which cuts the cost almost in half.
+- **Results**: pretrained on whole-brain fMRI from more than 50,000 people in UK Biobank, ABCD and HCP; after fine-tuning, a 3.1M-parameter model scored higher on HCP sex classification than the published SwiFT result (4.6M parameters), though on a different train/test split. Cognitive scores and clinical diagnoses are the next targets.`,
+
+    diver0: `**DIVER-0** is the lab's **fully channel-equivariant EEG foundation model** (Spotlight at the ICML 2025 GenBio workshop).
+
+- **The problem**: every clinic and lab uses a different number and layout of electrodes, so EEG datasets do not line up.
+- **The approach and current evidence**: build equivariance to channel permutation and to shifts in time into the architecture. It was tested on two downstream datasets with different electrode configurations and under synthetic channel permutations; broader clinical montages and missing-electrode settings still need validation.`,
+
+    neurox: `**The Neuro-X Project** is the lab's **brain foundation model** program.
+
+We develop a range of models suited to different signals and research goals, including fMRI models such as SwiFT and NeuroMamba, and EEG models such as DIVER. The aim is to use features learned from large brain datasets with new data and tasks. Combining information from different kinds of brain recordings is another research direction.`,
+
+    qml: `The lab works on **quantum machine learning (QML)** for brain and time-series data. Several of the cited studies include coauthors from **Brookhaven National Laboratory**.
+
+- **Current threads**: a Quantum Time-series Transformer applied to ABCD and UK Biobank resting-state fMRI (IEEE QCE 2025); multi-chip ensemble circuits that mitigate barren plateaus; quantum architecture search on a pretrained EEG encoder (Q-DIVER); and a feasibility study that deployed a 12-qubit MNIST classifier on a 127-qubit IBM Eagle device. Quantum advantage on brain data has not been established.
+- **Applications**: see the Join page for the current recruitment status and official application route.`,
+
+    admission: `**Applying to the lab — graduate study and internships**:
+
+- **Three tracks**: ① Department of Psychology, SNU ② Interdisciplinary Program in AI (IPAI) ③ Department of Brain & Cognitive Sciences (BCS)
+- **Backgrounds we welcome**: psychology, AI, computer science, statistics, medicine, physics, life sciences, and more
+- **How to apply**: send a CV, transcripts, and one or two paragraphs on the research that draws you to connectome@snu.ac.kr. We follow up with an interview. International applicants are welcome to apply in English.`,
+
+    culture: `**Life in the lab**:
+
+- **Research hackathons**: multi-day deep-dive sprints in Hongcheon, Gangwon-do — research by day, cooking and games by night.
+- **Fellowships abroad**: students spend funded research terms at MILA (Montreal) and Brookhaven National Laboratory (New York).
+- **Art and life**: EEG art at the OB/Scene festival, music, coffee, and the PI's cocktails — we think creativity grows out of the pleasures of life.`,
+
+    pi: `**Prof. Jiook Cha (차지욱, PhD)** is Associate Professor in the Department of Psychology, the Interdisciplinary Program in AI, and the Department of Brain & Cognitive Sciences at Seoul National University, and PI of the Connectome Lab.
+
+- Previously Assistant Professor of Child & Adolescent Psychiatry at Columbia University and a member of its Data Science Institute.
+- Awards include the NIMH K01 Career Development Award, a NARSAD Young Investigator Award, and SNU's Creative-Pioneering Researcher award.
+- Research: brain foundation models (Neuro-X), dynamic connectomics, computational psychiatry, imaging genetics, and quantum machine learning.`,
+  },
+};
+
+const topics: FaqKey[] = ['admission', 'culture', 'pi', 'neurox', 'neuromamba', 'diver0', 'qml'];
+
+// Only the existing bold markers and paragraph/list structure are interpreted.
+// Text remains escaped by Astro; the FAQ needs no client-side JavaScript.
+const inlineParts = (text: string) => text.split(/(\*\*[^*]+\*\*)/g);
+---
+
+<section id="faq" aria-labelledby="faq-title" class="space-y-6">
+  <h2 id="faq-title" class="font-display text-2xl font-semibold text-ink">{t('join.faqTitle')}</h2>
+  <div class="border-t border-line">
+    {topics.map((topic) => (
+      <details id={`faq-${topic}`} class="border-b border-line">
+        <summary class="cursor-pointer py-5 pr-3 font-semibold text-ink hover:text-lab-800 transition-colors">
+          {t(`join.faq.${topic}`)}
+        </summary>
+        <div class="space-y-4 pb-6 text-base text-ink-soft leading-relaxed measure">
+          {FAQ_ANSWERS[lang][topic].split('\n\n').map((block) => (
+            block.startsWith('- ') ? (
+              <ul class="list-disc space-y-3 pl-5">
+                {block.split('\n').map((line) => (
+                  <li>{inlineParts(line.replace(/^- /, '')).map((part) => (
+                    part.startsWith('**') && part.endsWith('**') ? <strong>{part.slice(2, -2)}</strong> : part
+                  ))}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>{inlineParts(block).map((part) => (
+                part.startsWith('**') && part.endsWith('**') ? <strong>{part.slice(2, -2)}</strong> : part
+              ))}</p>
+            )
+          ))}
+        </div>
+      </details>
+    ))}
+  </div>
+</section>

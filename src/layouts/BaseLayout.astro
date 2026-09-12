@@ -1,7 +1,6 @@
 ---
 import Navbar from '../components/common/Navbar.astro';
 import Footer from '../components/common/Footer.astro';
-import AskLabAI from '../components/ai/AskLabAI';
 import type { Lang } from '../i18n/ui';
 import { altLangPath } from '../i18n/ui';
 import '../styles/global.css';
@@ -98,9 +97,6 @@ const enHref = lang === 'en' ? canonical : altHref;
     <main id="main" class="flex-1">
       <slot />
     </main>
-
-    <!-- Floating lab guide (curated FAQ, not a live AI) -->
-    <AskLabAI client:idle lang={lang} />
 
     <Footer lang={lang} />
   </body>

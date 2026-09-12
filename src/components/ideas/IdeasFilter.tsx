@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useTranslations } from '../../i18n/ui';
 
 export interface IdeaItem {
   slug: string;
@@ -87,6 +88,7 @@ const HANGUL = /[\uac00-\ud7a3]/;
 const itemLang = (s: string) => (HANGUL.test(s) ? 'ko' : 'en');
 
 export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
+  const t = useTranslations(lang);
   const L = LABELS[lang];
   const CL = CATEGORY_LABELS[lang];
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
@@ -147,7 +149,6 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
               <div className="flex flex-wrap items-center gap-2">
                 <span className="chip-accent" lang="en">{idea.date}</span>
                 <span className="chip">{CL[idea.category]}</span>
-                <span className="chip" lang="en">🤖 {idea.generatedBy.replace('llm:', '')}</span>
               </div>
               <h2 className="font-display text-xl sm:text-2xl font-semibold text-ink leading-snug">
                 {lang === 'ko' && idea.titleKo ? idea.titleKo : idea.title}
@@ -167,8 +168,8 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
                   loading="lazy"
                 />
                 {idea.imageGeneratedBy && (
-                  <figcaption className="font-mono text-xs text-ink-faint">
-                    🤖 {idea.imageGeneratedBy}
+                  <figcaption className="text-xs text-ink-faint">
+                    {t('ideas.generatedImage')}: <span lang="en">{idea.imageGeneratedBy}</span>
                   </figcaption>
                 )}
               </figure>
@@ -220,6 +221,10 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
               <div className="eyebrow">{L.howFails}</div>
               <p className="text-sm text-ink-faint leading-relaxed measure">{pick(idea.risks, idea.risksKo)}</p>
             </div>
+
+            <footer className="text-xs text-ink-faint">
+              {t('ideas.generatedSummary')}: <span lang="en">{idea.generatedBy.replace('llm:', '')}</span>
+            </footer>
           </article>
         ))}
       </div>

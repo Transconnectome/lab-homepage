@@ -59,10 +59,9 @@ the warmth; the cyan accent carries the lab's technical identity.
      and the exact model id on every card. No LLM key → nothing is generated
      (no fake fallback, by design).
 
-5. **💬 Lab Guide (curated FAQ)**
-   - A floating guide answering common questions about research, admissions, and
-     lab culture from a hand-written FAQ. It is intentionally *not* presented as
-     a live AI — the site is fully static.
+5. **Frequently asked questions**
+   - The Join page collects seven questions about research, admissions, and lab
+     culture in a bilingual, accessible FAQ. Answers are static and hand-written.
 
 6. **👥 People-first content**
    - Member profiles with photos, education, research interests, and passions;

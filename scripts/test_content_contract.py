@@ -68,7 +68,7 @@ class ContentContract(unittest.TestCase):
         # These were explicit PI corrections, not merely alternate wording.
         research = "\n".join(path.read_text() for path in (CONTENT / "research").glob("*.md"))
         research_map = (ROOT / "src/components/3d/brainData.ts").read_text()
-        guide = (ROOT / "src/components/ai/AskLabAI.tsx").read_text()
+        guide = (ROOT / "src/components/common/JoinFaq.astro").read_text()
         for phrase in ("고각성 영화", "high-arousal film", "Social Cognitive and Affective Neuroscience",
                        "obscenefocus.com", "OB/Scene", "옵/신", "전시장", "Leonardo da Vinci", "레오나르도"):
             self.assertNotIn(phrase, research, phrase)

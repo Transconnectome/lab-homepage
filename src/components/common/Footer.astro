@@ -7,6 +7,11 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
+const currentPath = new URL(Astro.request.url).pathname.replace(/\/$/, '') || '/';
+const labNotes = [
+  { label: t('footer.researchRadar'), href: localePath(lang, '/radar') },
+  { label: t('footer.ideaLab'), href: localePath(lang, '/ideas') },
+];
 ---
 
 <footer class="border-t border-line bg-white text-ink-soft text-sm py-14 mt-24">
@@ -36,10 +41,24 @@ const currentYear = new Date().getFullYear();
           <li><a href={localePath(lang, '/publications')} class="hover:text-lab-700 transition-colors">{t('nav.publications')}</a></li>
           <li><a href={localePath(lang, '/team')} class="hover:text-lab-700 transition-colors">{t('nav.people')}</a></li>
           <li><a href={localePath(lang, '/news')} class="hover:text-lab-700 transition-colors">{t('nav.news')}</a></li>
-          <li><a href={localePath(lang, '/radar')} class="hover:text-lab-700 transition-colors">{t('footer.researchRadar')}</a></li>
-          <li><a href={localePath(lang, '/ideas')} class="hover:text-lab-700 transition-colors">{t('footer.ideaLab')}</a></li>
           <li><a href={localePath(lang, '/join')} class="text-lab-700 font-semibold hover:text-lab-800 transition-colors">{t('nav.join')}</a></li>
         </ul>
+        <nav class="pt-5 space-y-3" aria-labelledby="footer-notes-heading">
+          <h4 id="footer-notes-heading" class="eyebrow">{t('footer.notes')}</h4>
+          <ul class="space-y-2">
+            {labNotes.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={currentPath === item.href ? 'page' : undefined}
+                  class="hover:text-lab-700 transition-colors"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
 
       <!-- Contact -->

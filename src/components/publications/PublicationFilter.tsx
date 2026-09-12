@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Code, ExternalLink, Copy, Check, BookOpen } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { isCsAiConference } from '../../utils/publications';
 
 interface PublicationItem {
@@ -183,9 +182,6 @@ export default function PublicationFilter({ publications, lang = 'en' }: Props) 
     const bibtex = `@article{${bibtexKey(pub)},\n  title={${pub.title}},\n  author={${pub.authors.join(' and ')}},\n  journal={${pub.venue}},\n  year={${pub.year}},${pub.doi ? `\n  doi={${pub.doi}},` : ''}\n  url={${pub.url || ''}}\n}`;
     navigator.clipboard.writeText(bibtex);
     setCopiedId(pub.title);
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      confetti({ particleCount: 24, spread: 55, origin: { y: 0.85 }, colors: ['#0E7490', '#0891B2', '#164E63'] });
-    }
     setTimeout(() => setCopiedId(null), 2500);
   };
 
@@ -307,7 +303,7 @@ export default function PublicationFilter({ publications, lang = 'en' }: Props) 
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="chip-accent" lang="en">{pub.year}</span>
                   <span className="chip">{kindLabel(pub.kind)}</span>
-                  {pub.spotlight && <span className="chip" lang="en">✨ {pub.spotlight}</span>}
+                  {pub.spotlight && <span className="chip" lang="en">{pub.spotlight}</span>}
                   {pub.tags.map((tag) => (
                     <span key={tag} className="chip" lang="en">#{tag}</span>
                   ))}
