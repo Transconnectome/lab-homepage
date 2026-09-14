@@ -46,6 +46,9 @@ def target(path):
 def main():
     failures = []
     pages = {path: Page(path) for path in ROOT.rglob("*.html")}
+    for path in pages:
+        if b"\x00" in path.read_bytes():
+            failures.append(f"{path.relative_to(ROOT)}: generated HTML contains NUL bytes")
     checked = 0
     for lang in ("ko", "en"):
         for route in ROUTES:

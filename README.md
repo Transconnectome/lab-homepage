@@ -11,14 +11,19 @@ Official website of the **Connectome Laboratory** at **Seoul National University
 
 ## Design
 
-The homepage has three sections: a short lab introduction with an attributed
-research figure, dated news alongside selected publications, and a strip of
-member portraits with application information. The paper, ink and teal palette
+The homepage starts with the lab's mission in the visitor's language, alongside
+an attributed research figure. It then explains what studying connections means,
+links four concrete questions to the research page, introduces how researchers
+learn and work together, and closes with dated news and selected publications.
+The English motto remains a secondary element. The paper, ink and teal palette
 uses MaruBuri for Korean display text, Hahmlet for English display text,
 Pretendard for body text and IBM Plex Mono for dates.
 
-The research page holds four numbered research areas, the illustrative 3D
-connectome sketch and the project list. Publications are grouped by year;
+The research page combines four numbered questions with an accessible research
+map, a sourced cortical surface reference, and the project list. Each area's question and explanation
+precede its selected-paper summary. The People page includes Jiook Cha's research
+perspective; Join describes learning, reflection, and responsibility alongside
+application instructions. Publications are grouped by year;
 publications, people and lab notes use labeled native filters. Research Radar
 and AI Ideas remain public under footer **Lab notes** links. Their generated
 content and model attribution remain visible in the relevant entries.
@@ -29,9 +34,12 @@ displayed. See [image sources and license](public/assets/site/README.md).
 
 ## Features
 
-1. ** Interactive Connectome Sketch (three.js)**
-   - An illustrative 3D visualization of the brain networks the lab studies
-     (labeled as a sketch, not anatomical data). Research-axis controls link to the corresponding research sections.
+1. ** Research Map**
+   - Four question tabs reuse the reviewed research content. Native section links
+     remain available without JavaScript. Relationships distinguish implemented
+     combinations, shared interests and open questions. The static FreeSurfer
+     cortical surface is a reference image, with no research areas placed on it.
+     See [surface source and license](public/assets/research/README.md).
 
 2. ** Publication Archive (auto-synced)**
    - `scripts/sync_scholar.py` pulls publication records (2008–present)
@@ -70,7 +78,7 @@ displayed. See [image sources and license](public/assets/site/README.md).
      (no fake fallback, by design).
 
 5. **Frequently asked questions**
-   - The Join page collects seven questions about research, admissions, and lab
+   - The Join page collects nine questions about research, admissions, and lab
      culture in a bilingual, accessible FAQ. Answers are static and hand-written.
 
 6. ** People-first content**
@@ -110,6 +118,18 @@ npm test
 npm run test:site
 npm run preview
 ```
+
+The research map has a browser contract suite. With the built preview running
+on the default port, use `npm run test:research-map`. Install Python Playwright
+and its Chromium browser first (`python3 -m pip install playwright`, then
+`python3 -m playwright install chromium`). `RESEARCH_MAP_URL` selects another
+preview URL; `PLAYWRIGHT_CHROMIUM_EXECUTABLE` selects an existing Chromium binary.
+The 11 browser checks cover both languages, five screen widths, native links
+without JavaScript, keyboard selection, the static image without WebGL, visible
+research scope and FAQ source links. This is a separately invoked local suite;
+it is not included in `npm test` or CI. Content regression checks preserve known
+PI corrections but do not establish scientific meaning or philosophical depth.
+The source-based review and its limits are in [the content review](docs/research-content-review.md#17-연구-목적-복원과-trinity-재점검--2026-09-13).
 
 ---
 
@@ -153,6 +173,12 @@ each content entry (`*-ko.md` files carry `lang: "ko"`). Every page emits
 `hreflang` alternates with Korean as `x-default`. The site previously served
 Korean under `/ko/`, so those paths are kept alive as redirects declared in
 `astro.config.mjs`.
+
+Research entries keep a hand-reviewed `question` alongside `tagline`. The homepage
+question links and the research article introductions read the same field. Update
+both language entries together; keep the question within the evidence reviewed in
+`docs/research-content-review.md`. The research Markdown is not written by the
+publication, project, Radar, or Ideas pipelines.
 
 Korean typography is not simply Latin typography with different glyphs — see
 `src/styles/global.css`, where `word-break: keep-all`, negative display

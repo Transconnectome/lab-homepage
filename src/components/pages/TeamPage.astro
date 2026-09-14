@@ -21,8 +21,34 @@ const pageTitle = lang === 'ko' ? '구성원 | 서울대학교 커넥톰 연구�
       <p class="eyebrow">{t('people.eyebrow')}</p>
       <h1 class="font-display text-4xl sm:text-5xl font-semibold text-ink tracking-tight">{t('people.title')}</h1>
       <p class="text-lg text-ink-soft leading-relaxed">{t('people.desc')}</p>
+      <nav aria-label={t('people.title')} class="flex flex-wrap gap-x-6 gap-y-3 text-sm">
+        <a href="#pi-perspective" class="text-link">{t('people.piPerspectiveTitle')}</a>
+        <a href="#members" class="text-link">{t('home.peopleCta')}</a>
+      </nav>
     </div>
 
-    <MemberGrid members={memberData} lang={lang} client:load />
+    <section id="pi-perspective" aria-labelledby="pi-perspective-title" class="border-t border-ink pt-8 grid lg:grid-cols-[15rem_minmax(0,1fr)] gap-6 lg:gap-12">
+      <h2 id="pi-perspective-title" class="font-display text-2xl font-semibold">{t('people.piPerspectiveTitle')}</h2>
+      <div class="space-y-7 text-base text-ink-soft leading-relaxed measure">
+        <div class="space-y-3">
+          <h3 class="font-semibold text-ink">{t('people.piConnectionsTitle')}</h3>
+          <p>{t('people.piPerspective')}</p>
+          <a href="https://bcs.snu.ac.kr/sub3_1_b.php" class="text-link text-sm">{lang === 'ko' ? '서울대학교 교수 소개' : 'SNU faculty profile'}</a>
+        </div>
+        <div class="space-y-3">
+          <h3 class="font-semibold text-ink">{t('people.piModelsTitle')}</h3>
+          <p>{t('people.piModels')}</p>
+        </div>
+        <div class="space-y-3">
+          <h3 class="font-semibold text-ink">{t('people.piAiTitle')}</h3>
+          <p>{t('people.piAi')}</p>
+        </div>
+        <a href="https://ifs.snu.ac.kr/clusterfile/484/20260526%20AI%EA%B3%B5%EC%A1%B4%EC%82%AC%ED%9A%8C%20%EC%B4%88%EB%A1%9D%20%EB%AA%A8%EC%9D%8C.pdf#page=7" class="text-link text-sm">{t('people.piSource')}</a>
+      </div>
+    </section>
+
+    <div id="members">
+      <MemberGrid members={memberData} lang={lang} client:load />
+    </div>
   </div>
 </BaseLayout>

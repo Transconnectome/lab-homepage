@@ -36,8 +36,10 @@ const researchCollection = defineCollection({
     lang: z.enum(['en', 'ko']).default('en'),
     baseSlug: z.string().nullable().optional(),
     title: z.string(),
+    // Legacy name: this is the alternate-language title (English in *-ko.md).
     titleKo: z.string(),
     tagline: z.string(),
+    question: z.string(),
     category: z.enum(['foundation-models', 'connectomics', 'genetics', 'qml', 'affective-neuro']),
     heroImage: z.string().nullable().optional(),
     featured: z.boolean().default(false),

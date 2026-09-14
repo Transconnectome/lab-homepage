@@ -1,11 +1,93 @@
 # HANDOFF — SNU Connectome Lab 홈페이지 (Transconnectome/lab-homepage)
 
-> 최종 갱신 **2026-09-12 18:01 KST**. 이 문서부터 읽고 시작할 것.
+> 최종 갱신 **2026-09-14 KST**. 이 문서부터 읽고 시작할 것.
 > 정본 = `main` · `/home/juke/git/lab-homepage`. 작업 시 현재 상태는 `git status --short --branch`로 확인한다.
 > 읽기 순서: 이 파일 → `claudedocs/design-audit-ai-look_2026-09-11.md` → `docs/research-content-review.md`.
 > 공식 홈페이지: https://www.connectomelab.com/ · 영어: https://www.connectomelab.com/en/.
 
-## 0. 현재 상태 ★
+## 현재 인수인계 — 구현한 검토본과 미구현 제안을 구분
+
+- 작업 폴더: `/home/juke/.codex/worktrees/6b6d/lab-homepage`.
+- 브랜치와 푸시 대상: `codex/research-philosophy-handoff-20260914` →
+  `origin/codex/research-philosophy-handoff-20260914` (`Transconnectome/lab-homepage`).
+- 2026-09-14 사용자가 `handoff-push`를 명시 호출했다. 아래의 기존 완료 변경과 이 인수인계가
+  커밋·푸시 대상이다. **새 문안 제안의 구현, main 반영, PR 병합, 운영 배포는 포함하지 않는다.**
+  최종 커밋 SHA와 실제 원격 반영은 Git ref와 완료 응답에서 확인한다.
+- 기준 커밋은 `458ebbb`. fetch 시 `origin/main`에는 `77b42cc` 자동 갱신 한 개가 추가되어 있었다.
+  이 커밋은 `src/content/projects/emobrain.json`, `mbbn.json`의 갱신이며 현재 검토본에 합치지 않았다.
+  다음 통합 단계에서 원격 차이를 다시 확인한다. 관련 없는 로컬 staged 변경은 없었다.
+- 비공개 메일·Drive·Teams 원문, 철학 에이전트 DB·원칙 스냅샷·전체 평가 bundle은 저장소 밖에
+  유지한다. 아래 과거 배포 기록은 이번 검토본의 운영 반영 상태를 뜻하지 않는다.
+
+### 가장 최근 요청: 전체 문안 평가만 완료, 수정 제안은 미구현
+
+사용자: “전체 홈페이지의 롸이팅을 다른 세션에서 작업한 차지욱 교수 철학 에이전트를 활용해서
+평가 … 직접 고치지는 말고 … 설명부터”. 설치된 `cha-philosophy`와 두 읽기 전용 검토자를 통해
+한영 16페이지의 문안을 평가했다. 평가 전후 사이트 371개 파일 해시가 같았고 사이트 수정은 없었다.
+근거 지지 원칙을 교수 본인의 문장별 확인으로 취급하지 않았다. 논문 목록의 모든 원논문을
+이번에 새로 심사한 것은 아니다.
+
+**다음 구현은 제안에 대한 사용자 지시를 받은 뒤 시작한다.** 이어갈 수정 우선순위:
+
+1. 소식·레이더·AI 아이디어의 설명 불일치부터 수정한다. `src/content/news/2025-09-nature-comms-paper-ko.md`
+   및 영어 짝의 ‘유전 변이가 뇌에 미치는 영향 규명’은 검토된 연구 본문의 유전·뇌·행동·환경 관계와 맞춘다.
+2. `src/content/trends/diver0-eeg-trends.json`, `neuromamba-sota.json`의 일반화·SOTA·평가 대상 설명을
+   `JoinFaq.astro`와 `docs/research-content-review.md`의 원자료 검토 범위와 대조한다.
+3. `src/content/ideas/2026-08-21-quantum-enhanced-interpretable-eeg-foundation-mo.json`의 영문 배경에서
+   NeuroMamba를 EEG 모델로 소개하거나 양자 우위를 전제하는 문구를 점검한다.
+   `2026-09-07-polygenic-influence-on-affective-dynamics-in-ado.json`의 “we will”은 AI 제안의 주체와 맞춘다.
+   미검토 고지는 이미 있으므로 추가 경고보다 본문의 사실·표현을 바로잡는다. 자동 공개 정책 변경은 별도 제안이다.
+4. `HomePage.astro`, `ResearchPage.astro`, 연구 Markdown의 소개 반복을 줄이고 대표 사례에서
+   질문 → 방법 선택 → 실제 기여로 깊이를 더한다. 모든 연구를 네 수준의 완성된 통합 모델로 묶지 않는다.
+5. `TeamPage.astro`, `JoinPage.astro`는 기존 설명·예측, 큰 목표·학습·동료 도움 문단을 살린다.
+   기술 FAQ와 지원 안내의 배치를 정리하고, 구성원 개인 관심사·논문 원제목은 보존한다.
+6. 한영 의미를 함께 맞춘다. 아이디어의 `valence/arousal`을 ‘가치/각성’으로 옮긴 곳,
+   한국어 레이더의 영어 본문, 구성원 취미 항목에 섞인 연구 경력은 후순위 정리 대상이다.
+
+로컬 전용 상세 평가: `/home/juke/data/lab-homepage-editorial/2026-09-14/writing-evaluation/evaluation.md`.
+같은 폴더의 원문 입력·22개 단위 메모·46개 정확 인용·통합 검토는 Git에 포함하지 않는다.
+구조 감사 통과는 의미 정확성이나 교수 관점의 완전한 재현을 입증하지 않는다.
+
+### 인수인계 직전 검증 — 2026-09-14
+
+- `npm test`, `npm run build`(정식 한영 16페이지), `npm run test:site`, `npx tsc --noEmit`,
+  `git diff --check`를 다시 실행해 통과했다. HTML NUL 검사도 사이트 계약에 포함된다.
+- 핵심 소스 20개가 이전 최종 검증본과 동일함을 SHA256으로 확인했다. 아래의 연구 지도 브라우저
+  11개·한영 24화면 검사 결과는 재사용했고 이번 인수인계 단계에서 브라우저를 다시 실행하지 않았다.
+- 이번 추가 편집은 HANDOFF의 현재 상태·후속 작업, 검토 기록의 최신 상태 안내,
+  README의 FAQ 개수(현재 9개) 정정이다. 직전 평가의 문안 수정안을 사이트에 적용하지 않았다.
+- 새로운 작업자는 `git status --short --branch`, `git fetch origin`,
+  `git log --oneline HEAD..origin/main`으로 상태를 확인한다. 제안 구현 시 시작할 위치는 위 우선순위다.
+
+### 이전 단계: 연구 목적·지도 개편의 구현과 검증
+
+**후속 사용자 정정:** “유전만 보려는 것이 아니라 유전–뇌–행동–환경의 연결성이 핵심”.
+이전 대표 질문은 유전을 기준축으로 놓았고, 네 분야의 방법·한계가 연구 목적을 대신했다.
+이전 Proceed는 UI·표현 경계 검토 결과였으며 목적의 적절성을 입증하지 못했다.
+최신 근거·수정 전후·Trinity 검토와 한계는 `docs/research-content-review.md` §17을 따른다.
+
+- 홈·연구·교수 소개·합류·FAQ를 한영으로 다시 읽고, 인간 이해와 여러 수준의 연결을 중심에 뒀다.
+  근거 있는 이론/AI 병행·자율·학습·동료 도움·완성 책임은 유지했다.
+- 네 연구 질문과 Markdown 8개 도입을 함께 고쳤다. 유전 분야 제목과 질문은 유전·뇌·행동·환경을
+  명시하고, 가족 갈등·학교 참여·이웃 안전·지역 지표가 실제 분석됐음을 원문 부록과 대조했다.
+- FAQ에 발달·정신건강, 정서·기억 항목과 과학적 답변별 출처를 추가했다.
+  신경 측정이 없는 이미지·음악 생성 연구는 관련 계산 방법으로 명확히 구분했다.
+- `ResearchMap.tsx`의 실제 피질 표면 참고 그림과 기존 한영 `/research#분야ID` 경로는 유지했다.
+  모바일 선택지에도 연구 목적이 보인다. JS가 없으면 네 전체 본문으로 가는 일반 링크로 동작한다.
+- 공유 Trinity로 문안·구현·이전 검토 기록을 감사하고 재작성본을 재점검했다. Claude는 주간 사용
+  한도로 응답하지 못했으며 두 제공자의 검토·토론에도 일부 시간 제한이 있었다. 3자 합의를 주장하지 않는다.
+- TDD: 최초 내용 회귀 검사 2개와 FAQ 누락 검사의 실패를 먼저 확인했다. 최종 기존 테스트·콘텐츠 검사·
+  빌드(16페이지)·사이트 계약·TypeScript·지도 브라우저 11개 통과. 한영 24화면(320/390/1440px) 가로 넘침 0.
+  의미 검토와 자동 전달·UI 검사는 별개다. 브라우저 검사는 로컬 명령이며 CI 자동 연결은 하지 않았다.
+- 최종 구현 점검에서 React 18 스트리밍의 한글 경계 NUL 삽입을 재현했다. 공식 비스트리밍 옵션으로
+  고치고 24 HTML NUL 0, 지도 검사 11개, 한영 8개 페이지의 필터 동작과 오류 0을 확인했다.
+- 화면: `claudedocs/assets/philosophy-review-2026-09-13/`. 비공개 원문·검토 실행 기록은 공개 저장소 밖에 보관한다.
+- 임시 미리보기: Tailscale 주소 포트 4367. 현재 프로세스는 `npm exec astro -- preview status`로 확인한다.
+
+다음 작업에서는 이 worktree의 변경을 먼저 확인한다. 기존 승인 범위를 추정해 main에
+push하거나 다른 worktree의 변경을 정리하지 않는다.
+
+## 0. 이전 배포 상태 — A–E 개선안 ★
 
 - 후속 사용자 지시(2026-09-12): “관련 삽화 보기 모두 삭제”. 한·영 소식 페이지의 해당 펼침 항목·그림·설명을 모두 제거했다. 기존 실제 MBBN 논문 그림은 유지한다. 빌드·사이트 계약 및 1440×1000/390×844 양 언어 브라우저 검사 통과. 이 후속 변경의 커밋·배포 결과는 Git과 Actions에서 확인한다.
 

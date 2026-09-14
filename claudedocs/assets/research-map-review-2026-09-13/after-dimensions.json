@@ -1,0 +1,38 @@
+[
+  {
+    "lang": "ko",
+    "width": 1440,
+    "mapHeight": 950.5,
+    "questionOffset": 58.0
+  },
+  {
+    "lang": "en",
+    "width": 1440,
+    "mapHeight": 949.1875,
+    "questionOffset": 51
+  },
+  {
+    "lang": "ko",
+    "width": 390,
+    "mapHeight": 1536.5,
+    "questionOffset": 310
+  },
+  {
+    "lang": "en",
+    "width": 390,
+    "mapHeight": 1658.125,
+    "questionOffset": 321
+  },
+  {
+    "lang": "ko",
+    "width": 320,
+    "mapHeight": 1605.5,
+    "questionOffset": 310
+  },
+  {
+    "lang": "en",
+    "width": 320,
+    "mapHeight": 1848.625,
+    "questionOffset": 321.0
+  }
+]

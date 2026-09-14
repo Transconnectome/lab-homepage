@@ -1,41 +1,45 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BrainViewer from '../3d/BrainViewer';
+import ResearchMap from '../research/ResearchMap';
+import { mapLabels } from '../../data/researchMap';
 import FeaturedProjects from '../projects/FeaturedProjects.astro';
 import { getCollection, render } from 'astro:content';
-import { useTranslations, type Lang } from '../../i18n/ui';
+import { useTranslations, localePath, type Lang } from '../../i18n/ui';
 import { renderInlineLinks } from '../../utils/inlineLinks';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const sortedResearch = (await getCollection('research')).filter((r) => r.data.lang === lang).sort((a, b) => a.data.order - b.data.order);
+const mapAreas = sortedResearch.map((item) => {
+  const id = item.data.baseSlug ?? item.id;
+  const example = item.data.keyHighlights
+    .map((highlight) => highlight.match(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/))
+    .find(Boolean);
+  return {
+    id, label: mapLabels[id]?.[lang] ?? item.data.title,
+    question: item.data.question, summary: item.data.tagline,
+    approach: item.body?.trim().split(/\n\s*\n/)[0] ?? item.data.tagline,
+    href: localePath(lang, `/research#${id}`),
+    example: example ? { label: example[1], href: example[2] } : null,
+  };
+});
 const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실' : 'Research | SNU Connectome Laboratory';
 ---
 <BaseLayout lang={lang} title={pageTitle}>
   <div class="section-shell py-14 sm:py-20 space-y-16">
     <header class="grid md:grid-cols-[1fr_2fr] gap-6 items-baseline">
       <h1 class="font-display text-4xl sm:text-5xl font-semibold">{t('research.title')}</h1>
-      <p class="text-lg text-ink-soft leading-relaxed max-w-2xl">{t('research.desc')}</p>
-    </header>
-    <nav aria-label={t('research.overview')}>
-      <ol class="border-t border-ink divide-y divide-line">
-        {sortedResearch.map((item, index) => (
-          <li>
-            <a href={`#${item.data.baseSlug ?? item.id}`} class="grid grid-cols-[2rem_1fr] md:grid-cols-[3rem_1fr_1.2fr] gap-4 sm:gap-8 py-6 items-start">
-              <span class="text-sm text-lab-800 pt-1" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-              <span class="font-display text-xl sm:text-2xl font-semibold">{item.data.title}</span>
-              <span class="col-start-2 md:col-start-auto text-sm sm:text-base text-ink-soft">{item.data.tagline}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </nav>
-    <section id="research-map" class="bg-deep p-5 sm:p-8 space-y-6" aria-labelledby="research-map-title">
-      <div class="flex flex-col md:flex-row justify-between gap-4">
-        <h2 id="research-map-title" class="font-display text-2xl text-white font-semibold">{t('research.mapTitle')}</h2>
-        <p class="text-sm text-slate-300 max-w-lg">{t('research.mapDesc')}</p>
+      <div class="space-y-5 max-w-2xl">
+        <p class="text-lg text-ink-soft leading-relaxed">{t('research.desc')}</p>
+        <p class="text-base text-ink-soft leading-relaxed">{t('research.approach')}</p>
       </div>
-      <BrainViewer client:visible lang={lang} />
+    </header>
+    <section id="research-map" class="space-y-8" aria-labelledby="research-map-title">
+      <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
+        <h2 id="research-map-title" class="font-display text-2xl font-semibold">{t('research.mapTitle')}</h2>
+        <p class="text-sm text-ink-soft max-w-lg">{t('research.mapDesc')}</p>
+      </div>
+      <ResearchMap client:load lang={lang} areas={mapAreas} />
     </section>
     <div class="space-y-16">
       {sortedResearch.map(async (item, index) => {
@@ -47,9 +51,10 @@ const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실'
               <p class="text-sm text-lab-800" aria-hidden="true">{String(index + 1).padStart(2, '0')}</p>
               <h2 id={`${anchor}-title`} class="font-display text-2xl font-semibold">{item.data.title}</h2>
               <p class="text-sm text-ink-faint" lang={lang === 'ko' ? 'en' : 'ko'}>{item.data.titleKo}</p>
-              <p class="text-base text-ink-soft">{item.data.tagline}</p>
+              <p class="text-base font-medium text-lab-800">{item.data.question}</p>
             </header>
             <div class="min-w-0 space-y-8">
+              <div class="prose prose-stone measure prose-headings:font-display prose-headings:font-semibold prose-a:text-lab-800"><Content /></div>
               {item.data.keyHighlights.length > 0 && (
                 <aside class="border-l-2 border-lab-700 pl-5 space-y-3" aria-label={t('research.keyDirections')}>
                   <h3 class="text-sm font-semibold text-lab-800">{t('research.keyDirections')}</h3>
@@ -58,7 +63,6 @@ const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실'
                   </ul>
                 </aside>
               )}
-              <div class="prose prose-stone measure prose-headings:font-display prose-headings:font-semibold prose-a:text-lab-800"><Content /></div>
             </div>
           </article>
         );

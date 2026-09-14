@@ -67,7 +67,7 @@ class ContentContract(unittest.TestCase):
     def test_research_editorial_corrections_remain_applied(self):
         # These were explicit PI corrections, not merely alternate wording.
         research = "\n".join(path.read_text() for path in (CONTENT / "research").glob("*.md"))
-        research_map = (ROOT / "src/components/3d/brainData.ts").read_text()
+        research_map = (ROOT / "src/data/researchMap.ts").read_text()
         guide = (ROOT / "src/components/common/JoinFaq.astro").read_text()
         for phrase in ("고각성 영화", "high-arousal film", "Social Cognitive and Affective Neuroscience",
                        "obscenefocus.com", "OB/Scene", "옵/신", "전시장", "Leonardo da Vinci", "레오나르도"):
@@ -92,6 +92,28 @@ class ContentContract(unittest.TestCase):
                     parsed = urlsplit(data[key])
                     self.assertIn(parsed.scheme, ("https", "http"), (path, key))
                     self.assertTrue(parsed.netloc, (path, key))
+
+    def test_genetics_introduction_preserves_the_pi_scope_correction(self):
+        # A narrow regression guard for the explicit 2026-09-13 correction.
+        # These words do not prove philosophical depth; source review is separate.
+        for suffix, terms in (("-ko", ("유전", "뇌", "행동", "환경", "연결")),
+                              ("", ("gen", "brain", "behavio", "environment", "connect"))):
+            path = CONTENT / "research" / f"computational-genetics-psychiatry{suffix}.md"
+            introduction = path.read_text().split("---", 2)[2].strip().split("\n\n")[0]
+            for field, text in (("question", metadata(path)["question"]),
+                                ("opening", introduction)):
+                for term in terms:
+                    self.assertIn(term, text.lower(), (suffix, field, term))
+
+    def test_rejected_genetics_baseline_framing_is_not_reintroduced(self):
+        paths = list((CONTENT / "research").glob("*.md")) + [
+            ROOT / "src/i18n/ui.ts", ROOT / "src/data/researchMap.ts"]
+        for path in paths:
+            text = path.read_text().lower()
+            for phrase in ("유전적 소인만으로", "유전적 소인에 더해",
+                           "how much can genetic predisposition tell us",
+                           "add to genetic liability"):
+                self.assertNotIn(phrase, text, (path.name, phrase))
 
 
 if __name__ == "__main__":
