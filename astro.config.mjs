@@ -29,7 +29,9 @@ export default defineConfig({
     '/ko': '/',
   },
   integrations: [
-    react(),
+    // React 18's Node stream can emit NUL padding at multibyte chunk boundaries.
+    // This static site renders each island synchronously to preserve its text.
+    react({ experimentalDisableStreaming: true }),
     sitemap(),
   ],
 });

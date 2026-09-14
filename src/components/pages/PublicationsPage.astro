@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PublicationFilter from '../publications/PublicationFilter';
 import { getCollection } from 'astro:content';
-import { useTranslations, type Lang } from '../../i18n/ui';
+import { useTranslations, localePath, type Lang } from '../../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -20,6 +20,20 @@ const maxYear = years.length ? Math.max(...years) : 0;
 const heading =
   lang === 'ko' ? `연구 논문, ${minYear}–${maxYear}` : `Published research, ${minYear}–${maxYear}`;
 const pageTitle = lang === 'ko' ? '논문 | 서울대학교 커넥톰 연구실' : 'Publications | SNU Connectome Laboratory';
+const readings = [
+  { slug: 'neuro-x', label: 'SwiFUN',
+    ko: '쉬는 뇌의 활동에 과제 반응의 단서가 얼마나 담겨 있을까? 전체 지도 예측과 개인별 특이도를 따로 평가했습니다.',
+    en: 'What does resting brain activity reveal about task responses? The study evaluates overall map prediction and individual specificity separately.' },
+  { slug: 'computational-genetics-psychiatry', label: 'Joo et al., 2025',
+    ko: '아동의 유전·뇌·행동·환경은 어떤 관계를 맺을까? 서로 다른 수준의 관측이 함께 달라지는 패턴을 분석했습니다.',
+    en: 'How do genes, brain, behavior and environment relate in childhood? The study analyzes patterns of covariation across levels of observation.' },
+  { slug: 'art-and-neuroscience', label: lang === 'ko' ? '경외와 양가적 정서' : 'Awe and mixed emotions',
+    ko: '경외를 긍정적인 감정만으로 설명할 수 있을까? 긍정·부정이 함께 드는 경험과 EEG를 연결해 살펴봤습니다.',
+    en: 'Can awe be described by positive feelings alone? The study relates coexisting positive and negative feelings to EEG measurements.' },
+  { slug: 'quantum-machine-learning', label: 'Q-DIVER',
+    ko: '학습한 EEG 표현을 양자 회로로 다루면 무엇이 달라질까? 운동심상 분류를 대상으로 회로 구조를 시뮬레이션에서 평가했습니다.',
+    en: 'What changes when quantum circuits work with learned EEG representations? The study evaluates circuit designs for motor-imagery classification in simulation.' },
+];
 ---
 
 <BaseLayout lang={lang} title={pageTitle}>
@@ -40,6 +54,17 @@ const pageTitle = lang === 'ko' ? '논문 | 서울대학교 커넥톰 연구실'
       </p>
     </header>
 
+    <nav aria-labelledby="reading-paths-title" class="border-t border-line pt-6 space-y-5">
+      <h2 id="reading-paths-title" class="font-display text-xl font-semibold">{lang === 'ko' ? '연구 질문에서 시작하기' : 'Start with a research question'}</h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        {readings.map((reading) => (
+          <a href={localePath(lang, `/research#${reading.slug}`)} class="block space-y-2 group">
+            <span class="text-sm font-semibold text-lab-800 group-hover:underline">{reading.label} →</span>
+            <p class="text-sm text-ink-soft leading-relaxed">{lang === 'ko' ? reading.ko : reading.en}</p>
+          </a>
+        ))}
+      </div>
+    </nav>
     <PublicationFilter publications={pubData} lang={lang} client:load />
   </div>
 </BaseLayout>

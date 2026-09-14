@@ -11,6 +11,7 @@ interface Member {
   avatar?: string | null;
   affiliations: string[];
   education: string[];
+  researchExperience: string[];
   researchInterests: string[];
   passions: string[];
   links?: {
@@ -105,7 +106,7 @@ export default function MemberGrid({ members, lang = 'en' }: Props) {
                 )}
               </div>
 
-              {(member.education.length > 0 || member.researchInterests.length > 0 || member.passions.length > 0) && (
+              {(member.education.length > 0 || member.researchExperience.length > 0 || member.researchInterests.length > 0 || member.passions.length > 0) && (
                 <dl className="space-y-4 text-sm text-ink-soft">
                   {member.education.length > 0 && (
                     <div className="space-y-1">
@@ -124,6 +125,14 @@ export default function MemberGrid({ members, lang = 'en' }: Props) {
                             <span lang={textLang(interest)}>{interest}</span>{index < member.researchInterests.length - 1 ? ' · ' : ''}
                           </React.Fragment>
                         ))}
+                      </dd>
+                    </div>
+                  )}
+                  {member.researchExperience.length > 0 && (
+                    <div className="space-y-1">
+                      <dt className="text-xs font-medium text-ink-faint">{lang === 'ko' ? '연구 활동과 경력' : 'Research experience and activities'}</dt>
+                      <dd className="space-y-1">
+                        {member.researchExperience.map((experience, index) => <p key={index} className="leading-relaxed" lang={textLang(experience)}>{experience}</p>)}
                       </dd>
                     </div>
                   )}

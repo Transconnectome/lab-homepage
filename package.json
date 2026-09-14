@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "test": "python3 scripts/test_radar_buckets.py && python3 scripts/test_ideas_pipeline.py && python3 scripts/test_news_from_issue.py && python3 scripts/test_content_contract.py",
     "test:site": "python3 scripts/test_built_site.py",
+    "test:research-map": "python3 scripts/test_research_map.py",
     "astro": "astro"
   },
   "dependencies": {

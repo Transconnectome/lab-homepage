@@ -1,12 +1,12 @@
 {
   "title": "Quantum-Resilient Brain-Language Alignment",
-  "titleKo": "양자 저항성 뇌-언어 정렬",
+  "titleKo": "양자 잡음에 강한 뇌-언어 정렬",
   "date": "2026-09-07",
   "category": "qml",
   "hypothesis": "Applying Discretization-Aware Fine-Tuning (DAFT) to brain activity representations before quantum encoding will improve the robustness and accuracy of brain-language alignment on noisy quantum hardware.",
   "hypothesisKo": "양자 인코딩 전 뇌 활동 표현에 Discretization-Aware Fine-Tuning (DAFT)을 적용하면 노이즈가 많은 양자 하드웨어에서 뇌-언어 정렬의 견고성과 정확성이 향상될 것이다.",
-  "rationale": "The lab's work in QML for neuroimaging and brain-LLM alignment faces challenges with quantum noise. DAFT offers a method to create quantum-robust representations, directly addressing a critical bottleneck in QML applicability to complex neuroimaging data.",
-  "rationaleKo": "뇌 이미징을 위한 양자 ML 및 뇌-LLM 정렬에 대한 연구는 양자 노이즈로 인한 어려움을 겪고 있다. DAFT는 양자-강건한 표현을 생성하는 방법을 제공하며, 복잡한 신경 영상 데이터에 대한 QML 적용 가능성의 중요한 병목 현상을 직접 해결한다.",
+  "rationale": "DAFT addresses information loss when chemical-model representations are discretized for quantum encoding. Its relevance to brain data, and any robustness to hardware noise, are separate questions to test alongside the lab's QML and brain-language research.",
+  "rationaleKo": "DAFT는 화학 모델의 표현을 양자 인코딩용으로 이산화할 때의 정보 손실을 다룬다. 이를 뇌 데이터에 적용할 수 있는지, 하드웨어 잡음에도 강해지는지는 연구실의 양자 학습과 뇌-언어 연구를 연결해 각각 시험할 질문이다.",
   "labThreads": [
     "Quantum Time-Series Transformer",
     "Mind the Gap",
@@ -16,9 +16,14 @@
     "Discretization-Aware Fine-Tuning for Quantum Machine Learning with Chemical Foundation Models",
     "Mind the Gap: Aligning the Brain with Language Models Requires a Nonlinear and Multimodal Approach"
   ],
-  "firstExperiment": "We will pre-process fMRI latent embeddings with DAFT, then train a Quantum Time-Series Transformer to align these robust representations with semantic embeddings from LLMs, evaluating alignment accuracy on quantum simulators.",
-  "firstExperimentKo": "fMRI 잠재 임베딩을 DAFT로 전처리한 다음, 양자 시계열 트랜스포머를 훈련하여 이 견고한 표현을 LLM의 의미론적 임베딩과 정렬하고, 양자 시뮬레이터에서 정렬 정확도를 평가할 것이다.",
-  "risks": "DAFT's efficacy might not generalize well from chemical foundation models to the distinct characteristics of brain activity representations, or the computational overhead for fine-tuning could be prohibitive.",
-  "risksKo": "DAFT의 효능이 화학 파운데이션 모델에서 뇌 활동 표현의 독특한 특성으로 잘 일반화되지 않을 수 있거나, 미세 조정을 위한 계산 오버헤드가 너무 클 수 있다.",
-  "generatedBy": "llm:google/gemini-2.5-flash"
+  "firstExperiment": "Train a DAFT-inspired fMRI encoder and Quantum Time-Series Transformer to align brain and language embeddings. Compare matched baselines under both ideal and noisy quantum simulation to separate encoding effects from noise robustness.",
+  "firstExperimentKo": "DAFT에서 착안한 fMRI 인코더와 양자 시계열 트랜스포머로 뇌와 언어 임베딩을 정렬한다. 이상적 조건과 잡음을 넣은 양자 시뮬레이션에서 조건을 맞춘 기준 모델과 비교해 인코딩 효과와 잡음 내성을 구분한다.",
+  "risks": "Encoding gains may not transfer from chemical to brain representations or provide a benefit under hardware noise; fine-tuning may also be too costly.",
+  "risksKo": "화학 표현에서의 인코딩 개선이 뇌 표현으로 전이되지 않거나 하드웨어 잡음에서는 이점이 없을 수 있고, 미세 조정 비용도 클 수 있다.",
+  "generatedBy": "llm:google/gemini-2.5-flash",
+  "editorialNote": {
+    "date": "2026-09-14",
+    "note": "Separated discretization loss from hardware noise; revised the experiment to compare ideal and noisy simulation. The hypothesis remains unvalidated.",
+    "noteKo": "이산화 정보 손실과 하드웨어 잡음을 구분하고, 이상적 조건과 잡음 조건을 비교하는 실험 제안으로 고쳤습니다. 가설의 타당성은 검증되지 않았습니다."
+  }
 }

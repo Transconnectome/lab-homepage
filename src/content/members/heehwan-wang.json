@@ -21,9 +21,11 @@
   "passions": [
     "Fashion",
     "Sports & Music",
-    "Food & Beverage",
-    "MILA Fellow (2024-2025)"
+    "Food & Beverage"
   ],
   "order": 4,
-  "avatar": "/assets/members/heehwan-wang.jpg"
+  "avatar": "/assets/members/heehwan-wang.jpg",
+  "researchExperience": [
+    "MILA Fellow (2024-2025)"
+  ]
 }

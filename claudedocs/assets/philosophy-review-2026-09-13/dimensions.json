@@ -1,0 +1,194 @@
+[
+  {
+    "lang": "ko",
+    "width": 320,
+    "path": "home",
+    "scrollWidth": 320,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 320,
+    "path": "research",
+    "scrollWidth": 320,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 320,
+    "path": "team",
+    "scrollWidth": 320,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 320,
+    "path": "join",
+    "scrollWidth": 320,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 390,
+    "path": "home",
+    "scrollWidth": 390,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 390,
+    "path": "research",
+    "scrollWidth": 390,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 390,
+    "path": "team",
+    "scrollWidth": 390,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 390,
+    "path": "join",
+    "scrollWidth": 390,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 1440,
+    "path": "home",
+    "scrollWidth": 1440,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 1440,
+    "path": "research",
+    "scrollWidth": 1440,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 1440,
+    "path": "team",
+    "scrollWidth": 1440,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "ko",
+    "width": 1440,
+    "path": "join",
+    "scrollWidth": 1440,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 320,
+    "path": "home",
+    "scrollWidth": 320,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 320,
+    "path": "research",
+    "scrollWidth": 320,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 320,
+    "path": "team",
+    "scrollWidth": 320,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 320,
+    "path": "join",
+    "scrollWidth": 320,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 390,
+    "path": "home",
+    "scrollWidth": 390,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 390,
+    "path": "research",
+    "scrollWidth": 390,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 390,
+    "path": "team",
+    "scrollWidth": 390,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 390,
+    "path": "join",
+    "scrollWidth": 390,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 1440,
+    "path": "home",
+    "scrollWidth": 1440,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 1440,
+    "path": "research",
+    "scrollWidth": 1440,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 1440,
+    "path": "team",
+    "scrollWidth": 1440,
+    "h1": 1,
+    "overflow": []
+  },
+  {
+    "lang": "en",
+    "width": 1440,
+    "path": "join",
+    "scrollWidth": 1440,
+    "h1": 1,
+    "overflow": []
+  }
+]

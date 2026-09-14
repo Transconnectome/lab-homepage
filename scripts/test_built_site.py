@@ -3,6 +3,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+import json
 import sys
 
 ROOT = Path(__file__).resolve().parent.parent / "dist"
@@ -16,10 +17,16 @@ class Page(HTMLParser):
         self.path, self.ids, self.references, self.langs = path, set(), [], {}
         self.language, self.canonical, self.h1s = None, None, 0
         self.duplicates = []
+        self.corrections = 0
+        self.images = []
         self.feed(path.read_text())
 
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
+        if "data-editorial-note" in attrs:
+            self.corrections += 1
+        if tag == "img":
+            self.images.append(attrs.get("src"))
         if tag == "html":
             self.language = attrs.get("lang")
         if tag == "h1":
@@ -46,6 +53,9 @@ def target(path):
 def main():
     failures = []
     pages = {path: Page(path) for path in ROOT.rglob("*.html")}
+    for path in pages:
+        if b"\x00" in path.read_bytes():
+            failures.append(f"{path.relative_to(ROOT)}: generated HTML contains NUL bytes")
     checked = 0
     for lang in ("ko", "en"):
         for route in ROUTES:
@@ -56,6 +66,15 @@ def main():
                 continue
             page = pages[path]
             checked += 1
+            if route in ("radar", "ideas"):
+                collection = "trends" if route == "radar" else "ideas"
+                records = [json.loads(p.read_text()) for p in (ROOT.parent / "src/content" / collection).glob("*.json")]
+                expected = sum(bool(record.get("editorialNote")) for record in records)
+                if page.corrections != expected:
+                    failures.append(f"{url_path}: rendered {page.corrections} of {expected} correction notes")
+                for record in records:
+                    if record.get("imageHidden") and record.get("image") in page.images:
+                        failures.append(f"{url_path}: an image marked for omission is rendered")
             if page.language != lang or page.h1s != 1:
                 failures.append(f"{url_path}: language={page.language}, h1 count={page.h1s}")
             if (page.canonical or "").rstrip("/") != (SITE + url_path).rstrip("/"):

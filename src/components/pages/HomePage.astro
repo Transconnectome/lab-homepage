@@ -7,6 +7,9 @@ import { siteMedia } from '../../data/siteMedia';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const research = (await getCollection('research'))
+  .filter((item) => item.data.lang === lang)
+  .sort((a, b) => a.data.order - b.data.order);
 const news = (await getCollection('news'))
   .filter((item) => item.data.lang === lang)
   .sort((a, b) => b.data.date.localeCompare(a.data.date)).slice(0, 3);
@@ -23,19 +26,24 @@ const memberAnchor = (name: string) => `member-${name.toLowerCase().replace(/[^a
 const pageTitle = lang === 'ko' ? '서울대학교 커넥톰 연구실 | SNU Connectome Laboratory' : 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실';
 ---
 
-<BaseLayout lang={lang} title={pageTitle}>
+<BaseLayout lang={lang} title={pageTitle} description={t('home.metaDesc')}>
   <section id="introduction" class="section-shell pt-14 pb-16 sm:pt-20 sm:pb-24" aria-labelledby="home-title">
-    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-center">
-      <div class="space-y-6 min-w-0">
+    <div class="grid lg:grid-cols-[1.2fr_0.9fr] gap-12 lg:gap-16 items-center">
+      <div class="space-y-7 min-w-0">
         <p class="eyebrow">{t('home.eyebrow')}</p>
-        <h1 id="home-title" lang="en" class="font-display text-[2.5rem] sm:text-5xl xl:text-[3.5rem] font-semibold leading-[1.16] text-ink">
-          Everything Connects to <span class="italic text-lab-700">Everything Else</span>
+        <h1 id="home-title" class="font-display text-[2rem] sm:text-[2.75rem] xl:text-[3.125rem] font-semibold leading-[1.4] text-ink">
+          <span class="block">{t('home.missionLead')}</span>
+          <span class="block text-lab-700">{t('home.missionFocus')}</span>
         </h1>
-        <p class="text-sm text-ink-faint" lang="en">{t('home.mottoCredit')}</p>
         <p class="text-base sm:text-lg text-ink-soft leading-relaxed">{t('home.heroDesc')}</p>
-        <a href={localePath(lang, '/research')} class="text-link inline-block">{t('home.exploreCta')}</a>
+        <a href="#research-questions" class="text-link inline-block">{t('home.exploreCta')}</a>
+        <div class="pt-6 border-t border-line space-y-1" lang="en">
+          <p class="font-display text-sm sm:text-base text-ink-soft">Everything Connects to Everything Else.</p>
+          <p class="text-xs text-ink-faint">{t('home.mottoCredit')}</p>
+        </div>
       </div>
       <figure class="space-y-3 min-w-0">
+        <p class="eyebrow">{t('home.figureEyebrow')}</p>
         <a href={siteMedia.hero.source} target="_blank" rel="noreferrer" class="block aspect-square overflow-hidden bg-white" aria-label={siteMedia.hero.alt[lang]}>
         <img src={siteMedia.hero.src} alt={siteMedia.hero.alt[lang]} width={siteMedia.hero.width} height={siteMedia.hero.height}
           fetchpriority="high" class="w-full h-auto" />
@@ -45,8 +53,66 @@ const pageTitle = lang === 'ko' ? '서울대학교 커넥톰 연구실 | SNU Con
           <a href={siteMedia.hero.source} target="_blank" rel="noreferrer" class="underline underline-offset-4 ml-1">{siteMedia.hero.credit}</a>
           · <a href={siteMedia.hero.license} class="underline underline-offset-4" lang="en">CC BY 4.0</a>
         </figcaption>
+        <a href={`${localePath(lang, '/research')}#neuro-x`} class="text-link inline-block text-sm">{t('home.figureLink')}</a>
       </figure>
     </div>
+  </section>
+
+  <section id="inquiry" class="border-y border-line" aria-labelledby="inquiry-title">
+    <div class="section-shell py-14 sm:py-20 grid lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20">
+      <div class="space-y-8">
+        <div class="space-y-5">
+          <p class="eyebrow">{t('home.inquiryEyebrow')}</p>
+          <h2 id="inquiry-title" class="font-display text-3xl sm:text-4xl font-semibold">{t('home.inquiryTitle')}</h2>
+          <p class="text-base text-ink-soft leading-relaxed">{t('home.connectionDesc')}</p>
+        </div>
+        <div class="space-y-4">
+          <h3 class="font-display text-xl font-semibold">{t('home.approachTitle')}</h3>
+          <p class="text-base text-ink-soft leading-relaxed">{t('home.approachDesc')}</p>
+          <a href={`${localePath(lang, '/team')}#pi-perspective`} class="text-link inline-block text-sm">{t('home.piCta')}</a>
+        </div>
+      </div>
+      <nav id="research-questions" aria-labelledby="questions-title">
+        <h3 id="questions-title" class="eyebrow pb-5 border-b border-ink">{t('home.questionsTitle')}</h3>
+        <ol class="divide-y divide-line">
+          {research.map((item, index) => (
+            <li class="py-6 grid grid-cols-[1.5rem_minmax(0,1fr)] gap-4">
+              <span class="text-sm text-lab-800 pt-1" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <div class="space-y-3">
+                <a href={`${localePath(lang, '/research')}#${item.data.baseSlug ?? item.id}`} class="block font-display text-xl sm:text-[1.375rem] leading-snug font-semibold hover:text-lab-800">
+                  {item.data.question}
+                </a>
+                <p class="text-sm text-ink-soft leading-relaxed">{item.data.tagline}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id="people" class="section-shell py-14 sm:py-20" aria-labelledby="people-title">
+    <div class="grid md:grid-cols-[0.9fr_1.1fr] gap-6 md:gap-16 mb-10">
+      <h2 id="people-title" class="font-display text-3xl sm:text-4xl font-semibold">{t('home.peopleTitle')}</h2>
+      <div class="space-y-5">
+        <p class="text-base text-ink-soft leading-relaxed">{t('home.peopleDesc')}</p>
+        <p class="text-base text-ink-soft leading-relaxed">{t('home.peopleAi')}</p>
+        <a href={localePath(lang, '/team')} class="text-link inline-block">{t('home.peopleCta')}</a>
+      </div>
+    </div>
+    <ul class="grid grid-cols-5 lg:grid-cols-10 gap-2 sm:gap-4">
+      {members.map(({ data: member }) => (
+        <li class="min-w-0">
+          <a href={`${localePath(lang, '/team')}#${memberAnchor(member.name)}`} class="block group">
+            <img src={member.avatar!} alt={lang === 'ko' ? member.nameKo : member.name} width="240" height="300" loading="lazy" class="w-full aspect-[4/5] object-cover object-top" />
+            <span class="block text-xs text-ink-soft mt-2 group-hover:underline">{lang === 'ko' ? member.nameKo : member.name}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-10 pt-6 border-t border-line text-base text-ink-soft">
+      {t('home.joinDesc')} <a href={localePath(lang, '/join')} class="text-link ml-2">{t('home.joinCta')}</a>
+    </p>
   </section>
 
   <section id="latest" class="border-y border-line bg-white/40" aria-labelledby="latest-title">
@@ -89,26 +155,4 @@ const pageTitle = lang === 'ko' ? '서울대학교 커넥톰 연구실 | SNU Con
     </div>
   </section>
 
-  <section id="people" class="section-shell py-14 sm:py-20" aria-labelledby="people-title">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-      <div class="space-y-3 max-w-xl">
-        <h2 id="people-title" class="font-display text-3xl sm:text-4xl font-semibold">{t('home.peopleTitle')}</h2>
-        <p class="text-base text-ink-soft">{t('home.peopleDesc')}</p>
-      </div>
-      <a href={localePath(lang, '/team')} class="text-link shrink-0">{t('home.peopleCta')}</a>
-    </div>
-    <ul class="grid grid-cols-5 lg:grid-cols-10 gap-2 sm:gap-4">
-      {members.map(({ data: member }) => (
-        <li class="min-w-0">
-          <a href={`${localePath(lang, '/team')}#${memberAnchor(member.name)}`} class="block group">
-            <img src={member.avatar!} alt={lang === 'ko' ? member.nameKo : member.name} width="240" height="300" loading="lazy" class="w-full aspect-[4/5] object-cover object-top" />
-            <span class="block text-xs text-ink-soft mt-2 group-hover:underline">{lang === 'ko' ? member.nameKo : member.name}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-    <p class="mt-10 pt-6 border-t border-line text-base text-ink-soft">
-      {t('home.joinDesc')} <a href={localePath(lang, '/join')} class="text-link ml-2">{t('home.joinCta')}</a>
-    </p>
-  </section>
 </BaseLayout>

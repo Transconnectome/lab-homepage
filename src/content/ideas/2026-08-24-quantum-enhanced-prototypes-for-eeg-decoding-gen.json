@@ -5,8 +5,8 @@
   "category": "qml",
   "hypothesis": "Adding quantum feature mapping to EEG-PRIME's prototype-aligned learning should improve how well EEG decoding models generalize across datasets and across subjects.",
   "hypothesisKo": "EEG-PRIME의 프로토타입 학습에 양자 특징 매핑을 통합하면 EEG 디코딩 모델의 데이터셋/피험자 간 일반화 성능이 향상될 것이다.",
-  "rationale": "EEG-PRIME attacks the generalization problem, and the lab's QML expertise could push prototype expressivity further. It is a chance to show a practical benefit of QML on high-dimensional EEG data.",
-  "rationaleKo": "EEG-PRIME은 일반화 문제를 다루며, 우리 연구실의 QML 전문성으로 프로토타입 표현력을 극대화할 수 있다. QML의 실질적 이점을 보여줄 기회이다.",
+  "rationale": "EEG-PRIME motivates testing whether quantum feature maps change prototype expressivity and transfer performance. The lab’s QML work offers a starting point for comparison with classical models; an advantage is not established.",
+  "rationaleKo": "EEG-PRIME을 바탕으로 양자 특징 매핑이 프로토타입 표현력과 전이 성능을 바꾸는지 시험할 수 있다. 연구실의 QML 연구를 출발점으로 고전 모델과 비교하되, 이점은 아직 확인되지 않았다.",
   "labThreads": [
     "뉴로이미징과 시계열을 위한 양자 머신러닝(QML)",
     "fMRI·EEG 파운데이션 모델",
@@ -20,5 +20,10 @@
   "firstExperimentKo": "공개 EEG 데이터셋으로 양자 특징 맵을 적용한 Q-ProtoEEG 모델을 구축하고, 기존 EEG-PRIME 및 비-양자 모델과 교차 데이터셋/피험자 분류 정확도를 비교 평가한다.",
   "risks": "Quantum feature mapping may not deliver enough benefit, or noise in current quantum hardware may cancel out any gain.",
   "risksKo": "양자 특징 매핑의 이점이 부족하거나 양자 하드웨어 노이즈가 성능 향상을 저해할 수 있다.",
-  "generatedBy": "llm:google/gemini-2.5-flash"
+  "generatedBy": "llm:google/gemini-2.5-flash",
+  "editorialNote": {
+    "date": "2026-09-14",
+    "note": "Recast claimed expertise and maximized expressivity as a proposed comparison with classical models. The hypothesis remains unvalidated.",
+    "noteKo": "연구실의 전문성으로 표현력을 극대화한다는 주장을 고전 모델과 비교할 제안으로 바꿨습니다. 가설의 타당성은 검증되지 않았습니다."
+  }
 }

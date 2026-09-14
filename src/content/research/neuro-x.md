@@ -1,8 +1,9 @@
 ---
 title: "The Neuro-X Project: Brain Foundation Models"
 titleKo: "Neuro-X 프로젝트: 뇌 파운데이션 모델"
-tagline: "We develop a range of brain foundation models suited to fMRI and EEG, learning from brain activity for use with new datasets and tasks."
+tagline: "We build models around fMRI patterns across space and time and EEG channel configurations, examining how they learn information related to cognition, emotion and behavior."
 category: "foundation-models"
+question: "How can AI trained on brain data help us understand and predict cognition, emotion, and behavior?"
 featured: true
 order: 1
 keyHighlights:
@@ -12,15 +13,17 @@ keyHighlights:
   - "[DIVER-0](https://arxiv.org/abs/2507.14141): EEG modeling across channel configurations (ICML 2025 GenBio workshop, Spotlight). [DIVER-1](https://doi.org/10.48550/arxiv.2512.19097) extends the work to intracranial EEG"
 ---
 
-Neuro-X is a research program developing a range of foundation models suited to different brain signals and research goals. We aim to learn features from large brain datasets that can support tasks such as cognitive-state analysis and mental-health research.
+Neuro-X studies AI that can help us understand and predict human cognition, emotion, behavior, and their changes through brain activity. Our goal is to apply patterns learned from diverse brain data to new people and tasks. We develop a range of foundation models suited to different brain signals and research goals.
 
-fMRI captures spatial patterns across the brain and their changes over time. EEG records rapid neural activity, but electrode configurations vary across datasets. We design models around these differences and evaluate whether what they learn transfers to new people and data.
+Brain activity varies across space and time, and fMRI and EEG record different aspects of it. Models designed around these differences predict cognitive states and mental-health measures; we also analyze what the patterns used for prediction reveal about relationships between brain and behavior. Choices about signal summaries, frequency bands, and electrode configurations serve this goal. Evaluation with new people and recording settings tests where the models can be used.
 
 ### Learning spatial and temporal patterns in fMRI
 
 [SwiFT](https://doi.org/10.52202/075280-1820) learns spatial and temporal patterns from fMRI without first reducing it to averages over predefined brain regions. Its successor, [SwiFUN](https://doi.org/10.1162/imag_a_00440), predicts task-evoked brain activity from resting-state fMRI.
 
-[MBBN](https://doi.org/10.1038/s42003-026-10011-7) learns from separate frequency bands in fMRI to analyze brain-activity patterns relevant to cognitive and mental-health prediction. [NeuroMamba](https://neurips.cc/virtual/2025/132664) uses state-space modeling to process long spatiotemporal recordings efficiently.
+In adult UK Biobank and child ABCD data, SwiFUN achieved higher overall similarity between predicted and measured maps than the connectivity-based comparison model, ConnTask. ConnTask performed better at identifying individuals. Predicting shared response patterns and preserving individual specificity therefore require separate evaluation.
+
+[MBBN](https://doi.org/10.1038/s42003-026-10011-7) learns from separate frequency bands in fMRI to analyze brain-activity patterns relevant to cognitive and mental-health prediction. It examines how distinguishing different timescales changes the information used for prediction. [NeuroMamba](https://neurips.cc/virtual/2025/132664) uses state-space modeling and removal of non-brain background tokens to reduce the computational cost of fMRI learning. The public study evaluates sex classification; extending it to cognition and mental health remains a goal for further testing.
 
 ### Learning from EEG across recording settings
 

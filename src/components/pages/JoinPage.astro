@@ -17,7 +17,17 @@ const pageTitle = lang === 'ko' ? '함께하기 | 서울대학교 커넥톰 연�
       <p class="eyebrow">{t('join.eyebrow')}</p>
       <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">{t('join.title')}</h1>
       <p class="text-lg text-ink-soft leading-relaxed">{t('join.desc')}</p>
+      <a href="#applications" class="text-link inline-block text-sm">{t('join.applyTitle')}</a>
     </div>
+
+    <section aria-labelledby="research-practice-title" class="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16">
+      <h2 id="research-practice-title" class="font-display text-2xl font-semibold text-ink">{t('join.researchTitle')}</h2>
+      <div class="space-y-5 measure text-base text-ink-soft leading-relaxed">
+        <p>{t('join.researchPractice')}</p>
+        <p>{t('join.researchThinking')}</p>
+        <p>{t('join.researchResponsibility')}</p>
+      </div>
+    </section>
 
     <!-- Graduate tracks -->
     <section class="space-y-6">
@@ -52,7 +62,7 @@ const pageTitle = lang === 'ko' ? '함께하기 | 서울대학교 커넥톰 연�
     </section>
 
     <!-- How to apply -->
-    <section class="border-t border-ink pt-8 space-y-6">
+    <section id="applications" class="border-t border-ink pt-8 space-y-6">
       <div class="space-y-1">
         <p class="eyebrow">{t('join.applyEyebrow')}</p>
         <h2 class="font-display text-2xl font-semibold text-ink">{t('join.applyTitle')}</h2>
@@ -72,7 +82,7 @@ const pageTitle = lang === 'ko' ? '함께하기 | 서울대학교 커넥톰 연�
           <h3 class="font-semibold text-lab-800">{t('join.sendTitle')}</h3>
           <p class="text-base text-ink-soft leading-relaxed measure">{t('join.sendDesc')}</p>
           <a
-            href="mailto:connectome@snu.ac.kr?subject=[Connectome Lab Application]"
+            href="mailto:connectome@snu.ac.kr?subject=%5BConnectome%20Lab%20Application%5D"
             class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-lab-700 hover:bg-lab-800 text-white font-semibold text-base transition-colors"
           >
             connectome@snu.ac.kr

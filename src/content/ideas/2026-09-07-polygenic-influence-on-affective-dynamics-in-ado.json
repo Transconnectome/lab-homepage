@@ -3,10 +3,10 @@
   "titleKo": "청소년 감정 역학에 대한 다유전자 영향",
   "date": "2026-09-07",
   "category": "affective-development",
-  "hypothesis": "Specific polygenic scores (e.g., for depression or anxiety) will predict distinct trajectories of affective dynamics (e.g., variability, switching) in adolescent fMRI, mediated by identified brain structure/function convergence patterns.",
-  "hypothesisKo": "특정 다유전자 점수(예: 우울증 또는 불안)는 청소년 fMRI에서 식별된 뇌 구조/기능 수렴 패턴에 의해 매개되는 감정 역학(예: 변동성, 전환)의 뚜렷한 궤적을 예측할 것이다.",
-  "rationale": "Linking polygenic influences to brain function in development is crucial for understanding mental health. This directly connects genetics and affective neuroscience using longitudinal data, a core lab interest.",
-  "rationaleKo": "발달 과정에서 뇌 기능에 대한 다유전자 영향 연결은 정신 건강 이해에 매우 중요하다. 이는 종단 데이터를 사용하여 유전학과 정서 신경과학을 직접 연결하며, 이는 연구실의 핵심 관심사이다.",
+  "hypothesis": "Polygenic scores for depression or anxiety may predict differences in adolescents' affective change, with longitudinal brain measures accounting for part of the statistical association.",
+  "hypothesisKo": "우울이나 불안 관련 다유전자 점수는 청소년 정서 변화의 개인차를 예측하고, 종단 뇌 지표가 그 통계적 연관의 일부를 설명할 수 있다는 가설이다.",
+  "rationale": "The lab studies how genetic, brain, behavioral, and environmental measures relate during development. A candidate extension is to connect polygenic scores and brain dynamics to repeated measures of emotion.",
+  "rationaleKo": "연구실은 발달 과정에서 유전·뇌·행동·환경 지표가 맺는 관계를 연구한다. 이를 확장해 다유전자 점수와 뇌의 동적 변화를 반복 측정한 정서 지표에 연결해 볼 수 있다.",
   "labThreads": [
     "Polygenic risk-informed white matter integrity",
     "Polygenic scores for psychiatric traits mediate the impact",
@@ -15,9 +15,14 @@
   "externalInspiration": [
     "Polygenic architecture of brain structure and function, behaviors, and psychopathologies in children"
   ],
-  "firstExperiment": "Using ABCD cohort data, we will correlate polygenic scores for psychiatric traits with longitudinal fMRI-derived affective dynamics measures, using identified gene-brain convergence patterns (cortical/subcortical volumes, functional connectivity) as mediators in a structural equation model.",
-  "firstExperimentKo": "ABCD 코호트 데이터를 사용하여, 정신과적 특성 다유전자 점수를 종단 fMRI 기반 감정 역학 측정치와 상관시키고, 식별된 유전자-뇌 수렴 패턴(피질/피질하 부피, 기능적 연결성)을 구조 방정식 모델의 매개체로 사용한다.",
-  "risks": "The polygenic scores might explain too little variance to show clear effects, or the longitudinal affective dynamics metrics from fMRI may be too noisy or inconsistent to reveal stable trajectories in adolescents.",
-  "risksKo": "다유전자 점수가 너무 적은 분산을 설명하여 명확한 효과를 보이지 못하거나, fMRI에서 파생된 종단적 감정 역학 지표가 너무 노이즈가 많거나 일관성이 없어 청소년의 안정적인 궤적을 드러내지 못할 수 있다.",
-  "generatedBy": "llm:google/gemini-2.5-flash"
+  "firstExperiment": "Check which repeated emotion and symptom measures are available in ABCD, then relate them to polygenic scores and longitudinal fMRI. Test a statistical mediation model with prespecified covariates; indirect associations alone would not establish a causal pathway.",
+  "firstExperimentKo": "ABCD에서 반복 측정한 정서·증상 지표를 확인한 뒤 다유전자 점수와 종단 fMRI의 관계를 분석한다. 공변량을 사전에 정한 통계적 매개 모형을 시험하되, 간접 연관만으로 인과 경로가 입증되지는 않는다.",
+  "risks": "Emotion reports and fMRI dynamics may capture different timescales, polygenic prediction may be weak, and confounding can produce apparent mediation.",
+  "risksKo": "정서 보고와 fMRI 동역학이 서로 다른 시간 규모를 반영하거나 다유전자 예측력이 낮을 수 있으며, 교란 때문에 매개처럼 보이는 연관이 생길 수 있다.",
+  "generatedBy": "llm:google/gemini-2.5-flash",
+  "editorialNote": {
+    "date": "2026-09-14",
+    "note": "Revised the hypothesis and proposed measurements to distinguish emotional change from fMRI dynamics, and statistical mediation from causation. The hypothesis remains unvalidated.",
+    "noteKo": "가설과 측정·실험 제안을 고쳐 정서 변화와 fMRI 동역학, 통계적 매개와 인과를 구분했습니다. 가설의 타당성은 검증되지 않았습니다."
+  }
 }

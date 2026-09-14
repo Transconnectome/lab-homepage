@@ -21,9 +21,11 @@
     "Red Velvet & Jannabi",
     "Jazz & Ukulele",
     "Contemporary Dance & Art",
-    "Mint Chocolate Desserts",
-    "MILA Visiting Researcher"
+    "Mint Chocolate Desserts"
   ],
   "order": 5,
-  "avatar": "/assets/members/sangyoon-bae.jpg"
+  "avatar": "/assets/members/sangyoon-bae.jpg",
+  "researchExperience": [
+    "MILA Visiting Researcher"
+  ]
 }

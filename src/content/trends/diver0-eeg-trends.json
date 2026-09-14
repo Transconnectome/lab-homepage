@@ -6,18 +6,31 @@
   "publishedDate": "2025-07-01",
   "source": "ICML 2025 GenBio Workshop (Spotlight)",
   "topic": "Brain Foundation Models (EEG)",
-  "url": "https://github.com/snuconnectome",
+  "url": "https://arxiv.org/abs/2507.14141",
   "summaryPoints": [
-    "Formulates EEG sensor arrays as spatial point clouds with continuous coordinate embeddings.",
-    "Guarantees SE(3)/permutation equivariance across arbitrary electrode channel layouts (8 to 256 channels).",
-    "Enables seamless zero-shot cross-dataset transfer across heterogeneous clinical and research setups."
+    "Combines spatiotemporal attention with channel permutation equivariance for EEG representation learning.",
+    "Fine-tunes the pretrained model for emotion recognition with 32 channels and motor imagery with 64 channels.",
+    "Remains stable under synthetic channel permutations; relative performance varies by task."
   ],
-  "significance": "Solves one of the largest obstacles in bio-signal AI: disparate electrode montages across worldwide hospital & research databases.",
-  "labRelevance": "Developed by Connectome Lab members at SNU and MILA.",
+  "significance": "Treats channel ordering as a design and transfer-evaluation problem in EEG modeling.",
+  "labRelevance": "Develops the lab’s EEG representation learning around differences between recording setups.",
   "modality": [
     "EEG",
-    "Equivariant GNN",
-    "Zero-Shot"
+    "Spatiotemporal Attention",
+    "Channel Permutation Equivariance"
   ],
-  "badge": "Lab SOTA"
+  "badge": "Lab Paper",
+  "summaryPointsKo": [
+    "EEG 채널 순서가 달라도 일관된 표현을 배우도록 시공간 어텐션과 채널 순열 등변성을 결합했다.",
+    "사전학습 후 정서 인식(32채널)과 운동심상 분류(64채널)에 미세조정했다.",
+    "합성 채널 순열에서 안정성을 확인했으며, 과제에 따라 비교 모델 대비 성능이 달랐다."
+  ],
+  "significanceKo": "기록마다 달라지는 채널 순서를 모델 설계와 전이 평가의 문제로 다룬다.",
+  "labRelevanceKo": "연구실의 EEG 표현 학습을 기록 조건의 차이에 대응하는 설계로 구체화한다.",
+  "badgeKo": "연구실 논문",
+  "editorialNote": {
+    "date": "2026-09-14",
+    "note": "Corrected the summary and research connection against the paper’s methods, results and limits; added a Korean summary.",
+    "noteKo": "원문의 방법·결과·한계에 맞춰 요약과 연구 관련성을 교정하고 한국어 요약을 추가했습니다."
+  }
 }

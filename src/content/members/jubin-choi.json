@@ -19,7 +19,6 @@
     "Representation learning on massive neuroimaging cohorts"
   ],
   "passions": [
-    "NeurIPS 2025 Brain & Body Workshop Spotlight Author",
     "HPC & GPU Optimization",
     "Coffee & Long Walks in NY"
   ],
@@ -27,5 +26,8 @@
     "website": "https://jubilant-choi.notion.site/neuromamba-neurips2025"
   },
   "order": 6,
-  "avatar": "/assets/members/jubin-choi.jpg"
+  "avatar": "/assets/members/jubin-choi.jpg",
+  "researchExperience": [
+    "NeurIPS 2025 Brain & Body Workshop Spotlight Author"
+  ]
 }
