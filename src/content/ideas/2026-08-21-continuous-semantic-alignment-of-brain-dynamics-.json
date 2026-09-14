@@ -4,7 +4,7 @@
   "date": "2026-08-21",
   "category": "affective-neuro",
   "hypothesis": "Quantum reservoir computing can model the nonlinear brain dynamics evoked by art and music better than classical approaches, enabling continuous semantic alignment between neural signals and artistic features.",
-  "rationale": "The lab's art-science and EEG-reconstruction threads already link brain activity to aesthetic experience; QRC's strength on complex time series makes a continuous, art-specific semantic alignment feasible now.",
+  "rationale": "The lab studies awe and memory with EEG and experience reports, alongside separate image and music-generation methods. These threads motivate testing whether a quantum reservoir can align EEG dynamics with art and music features better than matched classical models.",
   "labThreads": [
     "Affective Neuroscience: Awe, Memory, and Aesthetic Experience",
     "Quantum Machine Learning for Neuroimaging and Time-Series",
@@ -19,9 +19,15 @@
   "risks": "Semantic features of abstract art are subjective, QRC models are hard to interpret, and EEG data for diverse artistic experiences is scarce.",
   "generatedBy": "llm:google/gemini-2.5-flash",
   "hypothesisKo": "Quantum reservoir computing(QRC)은 예술과 음악이 유발하는 뇌 활동의 비선형 동역학을 고전 모델보다 잘 포착한다. 이를 통해 신경 신호와 예술적 특징 사이의 연속적 의미 정렬이 가능해진다.",
-  "rationaleKo": "연구실의 art-science와 EEG 재구성 연구는 뇌 활동과 미적 경험의 관계를 다뤄왔다. 복잡한 시계열에 강한 QRC를 쓰면 예술 영역에 특화된 연속적 의미 정렬을 시도할 수 있다.",
+  "rationaleKo": "연구실은 EEG와 경험 보고로 경외와 기억을 연구하며, 별도의 이미지·음악 생성 방법도 다룬다. 이 연구들을 바탕으로 양자 리저버가 EEG 동역학과 예술·음악 특징을 고전 모델보다 잘 정렬하는지 비교할 수 있다.",
   "firstExperimentKo": "추상 예술·음악 감상 중 EEG를 기록하고, 자극에서 CLIP·오디오 임베딩을 추출한다. EEG로 그 임베딩을 예측하는 QRC를 학습해 cosine similarity로 고전 reservoir·RNN과 비교한다.",
   "risksKo": "추상 예술의 '의미 특징' 정의가 주관적이고, QRC 해석이 불투명하며, 예술 감상 EEG 데이터가 부족할 수 있다.",
   "image": "/assets/ideas/2026-08-21-continuous-semantic-alignment-of-brain-dynamics-.png",
-  "imageGeneratedBy": "imagegen:openai/gpt-image-2 (codex)"
+  "imageGeneratedBy": "imagegen:openai/gpt-image-2 (codex)",
+  "editorialNote": {
+    "date": "2026-09-14",
+    "note": "Removed an assumed quantum benefit from the background. An earlier illustration is omitted because it presented that benefit as a result. The hypothesis remains unvalidated.",
+    "noteKo": "양자 방법의 이점을 전제한 배경을 교정했습니다. 그 이점을 결과처럼 표현한 기존 생성 그림은 표시에서 제외했습니다. 가설의 타당성은 검증되지 않았습니다."
+  },
+  "imageHidden": true
 }

@@ -1,7 +1,7 @@
 ---
 title: "Computational Psychiatry: Genes, Brain, Behavior & Environment"
 titleKo: "계산정신의학: 유전·뇌·행동·환경의 연결"
-tagline: "We study genes, brain, behavior, and environment together to build models of individual differences in development and mental health."
+tagline: "We analyze connections among genes, brain, behavior and environment in developmental data, studying the information in family history and predictions from combined measurements."
 category: "genetics"
 question: "How are genes, brain, behavior, and environment connected in development and mental health?"
 featured: true

@@ -9,9 +9,12 @@
     "Psychiatry Resident, Columbia University"
   ],
   "education": [
-    "MD — Research Intern, Columbia University"
+    "MD"
   ],
   "researchInterests": [],
   "passions": [],
-  "order": 40
+  "order": 40,
+  "researchExperience": [
+    "Research Intern, Columbia University"
+  ]
 }

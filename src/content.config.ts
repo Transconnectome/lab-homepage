@@ -6,6 +6,12 @@ const httpUrl = z.string().url().refine((value) => /^https?:\/\//i.test(value), 
   message: 'Only HTTP(S) links are allowed',
 });
 
+const editorialNote = z.object({
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  note: z.string(),
+  noteKo: z.string(),
+}).optional();
+
 const membersCollection = defineCollection({
   loader: glob({ pattern: '*.json', base: './src/content/members' }),
   schema: z.object({
@@ -18,6 +24,7 @@ const membersCollection = defineCollection({
     avatar: z.string().nullable().optional(),
     affiliations: z.array(z.string()).default([]),
     education: z.array(z.string()).default([]),
+    researchExperience: z.array(z.string()).default([]),
     researchInterests: z.array(z.string()).default([]),
     passions: z.array(z.string()).default([]),
     links: z.object({
@@ -120,10 +127,15 @@ const trendsCollection = defineCollection({
     ]),
     url: z.string(),
     summaryPoints: z.array(z.string()),
+    summaryPointsKo: z.array(z.string()).optional(),
     significance: z.string(),
+    significanceKo: z.string().optional(),
     labRelevance: z.string(),
+    labRelevanceKo: z.string().optional(),
+    editorialNote,
     modality: z.array(z.string()).default([]),
     badge: z.string().nullable().optional(),
+    badgeKo: z.string().optional(),
     generatedBy: z.string().nullable().optional(),
     // 0-1 lab-relevance score from the summarizer; entries below the gate in
     // update_research_radar.py are never written, so this is a record of what
@@ -170,8 +182,10 @@ const ideasCollection = defineCollection({
     risks: z.string(),
     risksKo: z.string().nullable().optional(),
     generatedBy: z.string(),
+    editorialNote,
     image: z.string().nullable().optional(), // /assets/ideas/<slug>.png, rendered by scripts/generate_idea_infographics.py
     imageGeneratedBy: z.string().nullable().optional(),
+    imageHidden: z.boolean().default(false),
   }),
 });
 

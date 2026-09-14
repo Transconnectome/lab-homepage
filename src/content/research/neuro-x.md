@@ -1,7 +1,7 @@
 ---
 title: "The Neuro-X Project: Brain Foundation Models"
 titleKo: "Neuro-X 프로젝트: 뇌 파운데이션 모델"
-tagline: "We develop AI models that learn from diverse brain data to study individual differences and changes in cognition, emotion, and behavior."
+tagline: "We build models around fMRI patterns across space and time and EEG channel configurations, examining how they learn information related to cognition, emotion and behavior."
 category: "foundation-models"
 question: "How can AI trained on brain data help us understand and predict cognition, emotion, and behavior?"
 featured: true
@@ -21,9 +21,9 @@ Brain activity varies across space and time, and fMRI and EEG record different a
 
 [SwiFT](https://doi.org/10.52202/075280-1820) learns spatial and temporal patterns from fMRI without first reducing it to averages over predefined brain regions. Its successor, [SwiFUN](https://doi.org/10.1162/imag_a_00440), predicts task-evoked brain activity from resting-state fMRI.
 
-Predicting task responses from rest tests how much information activity in one state carries about responses in another. It offers a way to study individual brain responses by relating different states.
+In adult UK Biobank and child ABCD data, SwiFUN achieved higher overall similarity between predicted and measured maps than the connectivity-based comparison model, ConnTask. ConnTask performed better at identifying individuals. Predicting shared response patterns and preserving individual specificity therefore require separate evaluation.
 
-[MBBN](https://doi.org/10.1038/s42003-026-10011-7) learns from separate frequency bands in fMRI to analyze brain-activity patterns relevant to cognitive and mental-health prediction. It examines how distinguishing different timescales changes the information used for prediction. [NeuroMamba](https://neurips.cc/virtual/2025/132664) uses state-space modeling to process long spatiotemporal recordings efficiently.
+[MBBN](https://doi.org/10.1038/s42003-026-10011-7) learns from separate frequency bands in fMRI to analyze brain-activity patterns relevant to cognitive and mental-health prediction. It examines how distinguishing different timescales changes the information used for prediction. [NeuroMamba](https://neurips.cc/virtual/2025/132664) uses state-space modeling and removal of non-brain background tokens to reduce the computational cost of fMRI learning. The public study evaluates sex classification; extending it to cognition and mental health remains a goal for further testing.
 
 ### Learning from EEG across recording settings
 

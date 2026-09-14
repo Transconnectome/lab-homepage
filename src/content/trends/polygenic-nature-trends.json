@@ -13,16 +13,30 @@
   "topic": "Gene & Brain",
   "url": "https://doi.org/10.1038/s41467-025-63312-6",
   "summaryPoints": [
-    "Maps genome-wide polygenic influences onto brain structure and function in the ABCD developmental cohort.",
-    "Identifies gene-brain convergence patterns linking polygenic scores to cortical and subcortical phenotypes.",
-    "Characterizes pathways from polygenic risk through brain phenotypes to behaviors and psychopathologies."
+    "Examines relationships among genes, brain, behavior and environment in childhood using ABCD data.",
+    "Analyzes covariation among 33 polygenic scores, MRI modalities, cognition, mental health and environmental measures.",
+    "Finds covariation involving cognitive-related scores and brain measures; separate PGS–non-imaging components include neighborhood income, poverty and parental acceptance."
   ],
-  "significance": "Demonstrates population-scale genomic-connectome convergence as a foundation for computational psychiatry.",
-  "labRelevance": "Flagship Connectome Lab publication in Nature Communications.",
+  "significance": "Places genetic differences alongside brain measures and lived context to study individual differences.",
+  "labRelevance": "Provides a concrete study of relationships across genetic, brain, behavioral and environmental levels.",
   "modality": [
-    "Genomics",
-    "fMRI",
-    "Cortical Morphology"
+    "Genetics",
+    "MRI",
+    "Behavior",
+    "Environment"
   ],
-  "badge": "Nature Comms"
+  "badge": "Lab Paper",
+  "summaryPointsKo": [
+    "ABCD 아동 자료에서 유전·뇌·행동·생활환경 사이의 관계를 분석했다.",
+    "33개 형질의 다유전자 점수와 여러 MRI, 인지·정신건강·환경 지표의 공변 패턴을 살폈다.",
+    "인지 관련 유전 점수와 뇌 측정치의 공변 패턴을 찾았으며, 별도의 PGS–비영상 분석에서는 지역 소득·빈곤·부모 수용성도 공변 성분에 포함됐다."
+  ],
+  "significanceKo": "유전적 차이를 뇌와 생활 맥락에 함께 놓고 개인차를 탐구하는 근거를 제공한다.",
+  "labRelevanceKo": "유전–뇌–행동–환경의 다층 연결을 연구하는 구체적 사례다.",
+  "badgeKo": "연구실 논문",
+  "editorialNote": {
+    "date": "2026-09-14",
+    "note": "Corrected the summary and research connection against the paper’s methods, results and limits; added a Korean summary.",
+    "noteKo": "원문의 방법·결과·한계에 맞춰 요약과 연구 관련성을 교정하고 한국어 요약을 추가했습니다."
+  }
 }

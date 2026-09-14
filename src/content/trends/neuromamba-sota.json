@@ -6,18 +6,31 @@
   "publishedDate": "2025-12-01",
   "source": "NeurIPS 2025 Workshop (Spotlight)",
   "topic": "Brain Foundation Models (fMRI)",
-  "url": "https://jubilant-choi.notion.site/neuromamba-neurips2025",
+  "url": "https://neurips.cc/virtual/2025/132664",
   "summaryPoints": [
-    "Replaces quadratic Transformer self-attention with linear-time selective state-space layers (Mamba) for 4D fMRI.",
-    "Efficiently models full-length brain scans across thousands of time steps without aggressive temporal downsampling.",
-    "Outperforms standard 3D CNNs and ViT baselines across multi-site cognitive decoding benchmarks."
+    "Models whole-brain fMRI as patch sequences, removing non-brain background tokens.",
+    "Uses UK Biobank, ABCD and HCP for autoregressive pretraining, followed by HCP sex classification.",
+    "Evaluates computational savings and classification performance; prior-model comparisons use different data splits."
   ],
-  "significance": "Pioneers the first scalable State-Space architecture directly tailored to continuous 4D physiological brain dynamics, establishing a new SOTA for fMRI foundation models.",
-  "labRelevance": "Led by Connectome Lab PhD student Jubin Choi and Prof. Jiook Cha as part of the core Neuro-X initiative.",
+  "significance": "Develops a computationally efficient approach to whole-brain learning that retains spatial detail.",
+  "labRelevance": "Extends Neuro-X’s whole-brain representation learning through computational efficiency.",
   "modality": [
     "fMRI",
     "4D Spatiotemporal",
     "Mamba"
   ],
-  "badge": "Lab SOTA"
+  "badge": "Lab Paper",
+  "summaryPointsKo": [
+    "전뇌 fMRI를 시공간 패치의 시퀀스로 바꾸고, 뇌 밖 배경 토큰을 제거해 학습한다.",
+    "UK Biobank·ABCD·HCP 데이터로 자기회귀 사전학습하고, HCP 성별 분류에 미세조정했다.",
+    "배경 제거의 계산량 감소와 분류 성능을 평가했으며, 기존 모델과의 비교는 데이터 분할이 다르다."
+  ],
+  "significanceKo": "세밀한 공간 정보를 유지하는 전뇌 학습의 계산 부담을 줄이는 방법을 제시한다.",
+  "labRelevanceKo": "Neuro-X의 전뇌 표현 학습을 계산 효율의 문제로 확장한다.",
+  "badgeKo": "연구실 논문",
+  "editorialNote": {
+    "date": "2026-09-14",
+    "note": "Corrected the summary and research connection against the paper’s methods, results and limits; added a Korean summary.",
+    "noteKo": "원문의 방법·결과·한계에 맞춰 요약과 연구 관련성을 교정하고 한국어 요약을 추가했습니다."
+  }
 }

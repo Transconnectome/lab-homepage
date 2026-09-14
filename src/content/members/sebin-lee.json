@@ -17,10 +17,12 @@
     "Self-supervised EEG representation learning"
   ],
   "passions": [
-    "ICML 2025 GenBio Workshop Spotlight Author",
     "Deep Learning Architectures",
     "Hackathons"
   ],
   "order": 11,
-  "avatar": "/assets/members/sebin-lee.jpg"
+  "avatar": "/assets/members/sebin-lee.jpg",
+  "researchExperience": [
+    "ICML 2025 GenBio Workshop Spotlight Author"
+  ]
 }

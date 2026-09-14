@@ -1,7 +1,7 @@
 ---
 title: "Affective Neuroscience: Awe, Memory, and Aesthetic Experience"
 titleKo: "정서 신경과학: 경외, 기억, 그리고 미적 경험"
-tagline: "We relate the structure and changes of emotional and remembered experiences to brain activity, and explore media that respond to emotion."
+tagline: "We use VR, experience reports and EEG to study mixed emotions, and test how emotional changes during recall can guide music and video generation."
 category: "affective-neuro"
 question: "How do feelings and remembered experiences relate to brain activity?"
 featured: false

@@ -1,7 +1,7 @@
 ---
 title: "계산정신의학: 유전·뇌·행동·환경의 연결"
 titleKo: "Computational Psychiatry: Genes, Brain, Behavior & Environment"
-tagline: "유전·뇌·행동·환경을 함께 살펴, 발달과 정신건강의 개인차를 이해하고 예측하는 모델을 연구합니다."
+tagline: "발달 자료에서 유전·뇌·행동·환경의 연결을 분석하고, 가족력이 담은 정보와 여러 자료를 결합한 모델의 예측 가능성을 살핍니다."
 category: "genetics"
 question: "유전·뇌·행동·환경은 발달과 정신건강에서 어떻게 연결될까?"
 featured: true

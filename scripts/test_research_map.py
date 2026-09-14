@@ -152,7 +152,8 @@ class ResearchMap(unittest.TestCase):
             for term in terms:
                 self.assertIn(term, self.page.locator("#faq-pi").inner_text().lower())
             for topic in ("pi", "genetics", "affective", "neurox", "neuromamba", "diver0", "qml"):
-                expect(self.page.locator(f"#faq-{topic} a[href]")).to_have_count(1)
+                expect(self.page.locator(f"#faq-{topic} a[href]")).to_have_count(2 if topic == "pi" else 1)
+            expect(self.page.locator(f'#faq-pi a[href="{prefix}/team#pi-perspective"]')).to_have_count(1)
 
     def test_responsive_layout_and_full_image_box(self):
         for lang in ("ko", "en"):

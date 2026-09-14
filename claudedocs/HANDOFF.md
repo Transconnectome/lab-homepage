@@ -5,59 +5,50 @@
 > 읽기 순서: 이 파일 → `claudedocs/design-audit-ai-look_2026-09-11.md` → `docs/research-content-review.md`.
 > 공식 홈페이지: https://www.connectomelab.com/ · 영어: https://www.connectomelab.com/en/.
 
-## 현재 인수인계 — 구현한 검토본과 미구현 제안을 구분
+## 현재 인수인계 — 추가 문단 구현과 운영 배포 승인
 
 - 작업 폴더: `/home/juke/.codex/worktrees/6b6d/lab-homepage`.
-- 브랜치와 푸시 대상: `codex/research-philosophy-handoff-20260914` →
-  `origin/codex/research-philosophy-handoff-20260914` (`Transconnectome/lab-homepage`).
-- 2026-09-14 사용자가 `handoff-push`를 명시 호출했다. 아래의 기존 완료 변경과 이 인수인계가
-  커밋·푸시 대상이다. **새 문안 제안의 구현, main 반영, PR 병합, 운영 배포는 포함하지 않는다.**
-  최종 커밋 SHA와 실제 원격 반영은 Git ref와 완료 응답에서 확인한다.
-- 기준 커밋은 `458ebbb`. fetch 시 `origin/main`에는 `77b42cc` 자동 갱신 한 개가 추가되어 있었다.
-  이 커밋은 `src/content/projects/emobrain.json`, `mbbn.json`의 갱신이며 현재 검토본에 합치지 않았다.
-  다음 통합 단계에서 원격 차이를 다시 확인한다. 관련 없는 로컬 staged 변경은 없었다.
-- 비공개 메일·Drive·Teams 원문, 철학 에이전트 DB·원칙 스냅샷·전체 평가 bundle은 저장소 밖에
-  유지한다. 아래 과거 배포 기록은 이번 검토본의 운영 반영 상태를 뜻하지 않는다.
+- 브랜치: `codex/research-philosophy-handoff-20260914`.
+- 이전 `handoff-push`는 커밋 `344789466acc11940b818f36c6b8d6a7a9ece933`을 같은 원격 브랜치로
+  푸시하고 draft PR #15를 만든 상태다: https://github.com/Transconnectome/lab-homepage/pull/15 .
+- 이후 사용자의 “추가 문단 수정 구현해 줘” 요청에 따라 아래 추가 교정을 로컬에 구현했다.
+  추가 구현과 재검토·로컬 검증을 완료했다. 이어서 사용자가 **“커밋 푸쉬 운영 배포”**를
+  명시 승인했다. 이번 커밋과 PR #15는 기존 연구 철학·지도 개편 및 추가 문안을 함께
+  main에 통합해 운영 배포하는 대상이다. 실제 커밋·병합·배포 성공은 Git ref·Actions와
+  완료 응답에서 확인한다. 성공을 미리 기록하지 않는다.
+- 배포 전 fetch에서 `origin/main`의 추가 커밋은 `77b42cc` 하나였다. EmoBrain과 MBBN의
+  `lastPush` 날짜만 바뀌었으며, 검토된 문구와 충돌하지 않는다. 이 변경도 보존해 통합한다.
+- 비공개 메일·Drive·Teams 원문과 철학 에이전트 자료는 저장소 밖에 유지한다.
 
-### 가장 최근 요청: 전체 문안 평가만 완료, 수정 제안은 미구현
+### 이번 구현
 
-사용자: “전체 홈페이지의 롸이팅을 다른 세션에서 작업한 차지욱 교수 철학 에이전트를 활용해서
-평가 … 직접 고치지는 말고 … 설명부터”. 설치된 `cha-philosophy`와 두 읽기 전용 검토자를 통해
-한영 16페이지의 문안을 평가했다. 평가 전후 사이트 371개 파일 해시가 같았고 사이트 수정은 없었다.
-근거 지지 원칙을 교수 본인의 문장별 확인으로 취급하지 않았다. 논문 목록의 모든 원논문을
-이번에 새로 심사한 것은 아니다.
+- 홈의 추상적 반복을 줄이고 발달 자료의 구체적인 관측을 예로 설명했다. 지도는 상세 첫 문단
+  복사를 중단하고 방법 개요를 보여준다. 네 질문과 유전·뇌·행동·환경의 연결은 유지한다.
+- SwiFUN의 전체 지도 예측과 개인 식별 비교를 연구 상세·교수 소개에 반영했다.
+  논문 페이지에는 네 분야의 질문별 읽기 경로를 추가했다.
+- 소식 한영 한 쌍, 레이더 5개, 아이디어 10개를 교정했다. NeuroMamba의 fMRI/EEG 혼동,
+  DIVER-0 등변성·일반화 과장, 양자 우위 전제, 인과·측정·자료 가용성 혼동을 수정했다.
+- 아이디어 10개·레이더 5개에 `editorialNote`를 표시한다. 원래 생성 모델과 날짜는 유지했다.
+  레이더 5개는 한국어 요약을 추가했고 나머지는 영문 요약 표시를 사용한다.
+- `imageHidden`은 그림 원본과 출처를 보존하면서 화면에서만 제외한다. 현재 continuous-semantic
+  아이디어 그림 1개에 적용했다. 그림의 결과 단정 문구를 고치지 않은 채 재노출하지 않는다.
+- FAQ 9개를 두 묶음으로 정리하고 연구 설명을 축약했다. PI FAQ는 연구관·공식 이력 두 링크다.
+  구성원 6명의 기존 방문·연구활동 기록은 `researchExperience`로 옮겼다.
+- 생성기는 전체 검토 영문 연구 본문을 입력으로 받는다. 새 파일과 경로가 충돌하면 기존 파일을
+  덮어쓰지 않는다. 자동 공개 일정과 워크플로 설정은 변경하지 않았다.
 
-**다음 구현은 제안에 대한 사용자 지시를 받은 뒤 시작한다.** 이어갈 수정 우선순위:
+### 검증과 이어갈 위치
 
-1. 소식·레이더·AI 아이디어의 설명 불일치부터 수정한다. `src/content/news/2025-09-nature-comms-paper-ko.md`
-   및 영어 짝의 ‘유전 변이가 뇌에 미치는 영향 규명’은 검토된 연구 본문의 유전·뇌·행동·환경 관계와 맞춘다.
-2. `src/content/trends/diver0-eeg-trends.json`, `neuromamba-sota.json`의 일반화·SOTA·평가 대상 설명을
-   `JoinFaq.astro`와 `docs/research-content-review.md`의 원자료 검토 범위와 대조한다.
-3. `src/content/ideas/2026-08-21-quantum-enhanced-interpretable-eeg-foundation-mo.json`의 영문 배경에서
-   NeuroMamba를 EEG 모델로 소개하거나 양자 우위를 전제하는 문구를 점검한다.
-   `2026-09-07-polygenic-influence-on-affective-dynamics-in-ado.json`의 “we will”은 AI 제안의 주체와 맞춘다.
-   미검토 고지는 이미 있으므로 추가 경고보다 본문의 사실·표현을 바로잡는다. 자동 공개 정책 변경은 별도 제안이다.
-4. `HomePage.astro`, `ResearchPage.astro`, 연구 Markdown의 소개 반복을 줄이고 대표 사례에서
-   질문 → 방법 선택 → 실제 기여로 깊이를 더한다. 모든 연구를 네 수준의 완성된 통합 모델로 묶지 않는다.
-5. `TeamPage.astro`, `JoinPage.astro`는 기존 설명·예측, 큰 목표·학습·동료 도움 문단을 살린다.
-   기술 FAQ와 지원 안내의 배치를 정리하고, 구성원 개인 관심사·논문 원제목은 보존한다.
-6. 한영 의미를 함께 맞춘다. 아이디어의 `valence/arousal`을 ‘가치/각성’으로 옮긴 곳,
-   한국어 레이더의 영어 본문, 구성원 취미 항목에 섞인 연구 경력은 후순위 정리 대상이다.
-
-로컬 전용 상세 평가: `/home/juke/data/lab-homepage-editorial/2026-09-14/writing-evaluation/evaluation.md`.
-같은 폴더의 원문 입력·22개 단위 메모·46개 정확 인용·통합 검토는 Git에 포함하지 않는다.
-구조 감사 통과는 의미 정확성이나 교수 관점의 완전한 재현을 입증하지 않는다.
-
-### 인수인계 직전 검증 — 2026-09-14
-
-- `npm test`, `npm run build`(정식 한영 16페이지), `npm run test:site`, `npx tsc --noEmit`,
-  `git diff --check`를 다시 실행해 통과했다. HTML NUL 검사도 사이트 계약에 포함된다.
-- 핵심 소스 20개가 이전 최종 검증본과 동일함을 SHA256으로 확인했다. 아래의 연구 지도 브라우저
-  11개·한영 24화면 검사 결과는 재사용했고 이번 인수인계 단계에서 브라우저를 다시 실행하지 않았다.
-- 이번 추가 편집은 HANDOFF의 현재 상태·후속 작업, 검토 기록의 최신 상태 안내,
-  README의 FAQ 개수(현재 9개) 정정이다. 직전 평가의 문안 수정안을 사이트에 적용하지 않았다.
-- 새로운 작업자는 `git status --short --branch`, `git fetch origin`,
-  `git log --oneline HEAD..origin/main`으로 상태를 확인한다. 제안 구현 시 시작할 위치는 위 우선순위다.
+- TDD에서 콘텐츠 오류 3종, 생성기 본문 누락, 기존 파일 덮어쓰기를 재현한 뒤 수정했다.
+- `npm test`, 빌드(한영 16페이지), `test:site`, TypeScript, diff 검사 통과. 최초 한영
+  32화면에서 넘침·실행 오류 0. 마지막 교정 후 지도 브라우저 11개와 아이디어·레이더 8화면
+  재검사도 통과했다. 전체 기록과 범위는 `docs/research-content-review.md` §18을 따른다.
+- 두 읽기 전용 검토자가 최종 과학적 의미와 편집·구조를 점검했고 추가 지적을 반영했다.
+  이번 단계에서 새 Trinity 실행이나 삼자 합의를 주장하지 않는다.
+- 상세한 공개 주장–출처와 변경 범위는 §18, 이전 구현은 §17이다. 비공개 적용 기록과 화면
+  검사는 `/home/juke/data/lab-homepage-editorial/2026-09-14/`에 있으며 Git에 포함하지 않는다.
+- 이전 ‘평가만 하고 구현하지 않음’은 당시 상태다. 위 승인된 추가 문단은 이제 구현됐다.
+  향후 생성 항목의 정확성이나 교수의 문장별 최종 확인까지 완료했다는 뜻은 아니다.
 
 ### 이전 단계: 연구 목적·지도 개편의 구현과 검증
 

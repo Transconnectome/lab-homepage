@@ -38,6 +38,10 @@ const pageTitle = lang === 'ko' ? '구성원 | 서울대학교 커넥톰 연구�
         <div class="space-y-3">
           <h3 class="font-semibold text-ink">{t('people.piModelsTitle')}</h3>
           <p>{t('people.piModels')}</p>
+          <p>{lang === 'ko'
+            ? '예를 들어 SwiFUN 연구는 휴지기 뇌 활동으로 과제 반응을 예측하면서, 전체 지도와의 유사도와 개인을 구별하는 능력을 따로 평가했습니다. 두 기준에서 모델의 장단점이 달랐습니다. 무엇을 잘 예측하는지 구체적으로 묻는 일이 개인차를 이해하는 데 왜 필요한지 보여주는 사례입니다.'
+            : 'For example, SwiFUN predicts task responses from resting brain activity and evaluates overall map similarity separately from the ability to distinguish individuals. The models had different strengths on these criteria. The study shows why asking precisely what a model predicts matters for understanding individual differences.'}</p>
+          <a href="https://doi.org/10.1162/imag_a_00440" class="text-link text-sm">{lang === 'ko' ? 'SwiFUN: 휴지기에서 과제 반응 예측하기' : 'SwiFUN: predicting task responses from rest'}</a>
         </div>
         <div class="space-y-3">
           <h3 class="font-semibold text-ink">{t('people.piAiTitle')}</h3>

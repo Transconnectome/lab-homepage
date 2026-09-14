@@ -1,7 +1,7 @@
 ---
 title: "Quantum Machine Learning for Neuroimaging and Time-Series"
 titleKo: "뉴로이미징과 시계열을 위한 양자 머신러닝(QML)"
-tagline: "We combine quantum and classical computation to explore new ways of representing and learning relationships in brain signals."
+tagline: "We compare ways to combine quantum circuits with classical models for brain-signal learning, examining computational requirements and constraints from noise."
 category: "qml"
 question: "What possibilities does quantum computation open for representing and learning complex brain signals?"
 featured: true

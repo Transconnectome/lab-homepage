@@ -8,16 +8,20 @@
   "rationale": "Interpreting complex EEG foundation models is challenging. Combining agentic AI with physiologically-grounded interpretability methods like EEG-PRISM offers a novel path to automated hypothesis generation in brain research.",
   "rationaleKo": "복잡한 EEG 파운데이션 모델을 해석하는 것은 어렵다. 에이전트 AI와 EEG-PRISM과 같은 생리적 기반의 해석 가능성 방법을 결합하면 뇌 연구에서 자동화된 가설 생성에 대한 새로운 길을 열 수 있다.",
   "labThreads": [
-    "NeuroMamba",
-    "SpatioTemporal Learning of Brain Dynamics",
-    "Can Natural Image Autoencoders Compactly Tokenize fMRI"
+    "DIVER-0: Fully Channel-Equivariant EEG Foundation Model",
+    "The Neuro-X Project: Brain Foundation Models"
   ],
   "externalInspiration": [
     "EEG-PRISM: Physiologically-Grounded Interpretability of Predictions by EEG Foundation Models"
   ],
-  "firstExperiment": "An agent will use EEG-PRISM to map attribution scores from a pre-trained EEG foundation model (e.g., NeuroMamba adapted for EEG) to source/frequency domains, identifying salient patterns and proposing neurophysiological hypotheses for specific task predictions, evaluated by expert review.",
-  "firstExperimentKo": "에이전트가 EEG-PRISM을 사용하여 사전 훈련된 EEG 파운데이션 모델(예: EEG에 맞춰진 NeuroMamba)의 기여도 점수를 소스/주파수 도메인으로 매핑하고, 주요 패턴을 식별하며, 특정 작업 예측에 대한 신경생리학적 가설을 제안하고, 전문가 검토를 통해 평가한다.",
+  "firstExperiment": "An initial test would let an agent use EEG-PRISM to map time-channel attribution scores from an EEG model such as DIVER-0 into frequency and source domains. Experts would assess the resulting hypotheses for plausibility and testability.",
+  "firstExperimentKo": "첫 실험에서는 에이전트가 EEG-PRISM으로 DIVER-0 같은 EEG 모델의 시간-채널 귀인 점수를 주파수와 소스 영역에 매핑하고, 그 결과에서 가설을 만들도록 한다. 전문가가 가설의 타당성과 검증 가능성을 평가한다.",
   "risks": "The agent's ability to generate truly novel and biologically plausible hypotheses might be limited by the explicit knowledge embedded in its prompts or the quality of EEG-PRISM's physiological mapping.",
   "risksKo": "에이전트가 진정으로 새롭고 생물학적으로 타당한 가설을 생성하는 능력은 프롬프트에 내재된 명시적 지식이나 EEG-PRISM의 생리적 매핑 품질에 의해 제한될 수 있다.",
-  "generatedBy": "llm:google/gemini-2.5-flash"
+  "generatedBy": "llm:google/gemini-2.5-flash",
+  "editorialNote": {
+    "date": "2026-09-14",
+    "note": "Replaced the supposed EEG adaptation of NeuroMamba with an EEG model and clarified the proposed attribution analysis. The hypothesis remains unvalidated.",
+    "noteKo": "NeuroMamba의 EEG 적용을 기존 사례처럼 든 부분을 EEG 모델로 바꾸고 귀인 분석 제안을 명확히 했습니다. 가설의 타당성은 검증되지 않았습니다."
+  }
 }

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslations } from '../../i18n/ui';
+import EditorialNote, { type EditorialCorrection } from '../common/EditorialNote';
 
 export interface IdeaItem {
   slug: string;
@@ -19,8 +20,10 @@ export interface IdeaItem {
   risks: string;
   risksKo?: string | null;
   generatedBy: string;
+  editorialNote?: EditorialCorrection;
   image?: string | null;
   imageGeneratedBy?: string | null;
+  imageHidden?: boolean;
 }
 
 interface Props {
@@ -111,7 +114,7 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
                 : idea.titleKo && <p className="text-sm text-ink-faint" lang="ko">{idea.titleKo}</p>}
             </header>
 
-            {idea.image && (
+            {idea.image && !idea.imageHidden && (
               <figure className="space-y-2">
                 <img src={idea.image} alt={pick(idea.title, idea.titleKo)} className="w-full" loading="lazy" />
                 {idea.imageGeneratedBy && (
@@ -153,8 +156,9 @@ export default function IdeasFilter({ ideas, lang = 'en' }: Props) {
               <h3 className="text-sm font-semibold text-ink">{t('ideas.howFails')}</h3>
               <p className="text-sm text-ink-soft leading-relaxed measure" lang={itemLang(pick(idea.risks, idea.risksKo))}>{pick(idea.risks, idea.risksKo)}</p>
             </section>
-            <footer className="text-xs text-ink-faint break-words">
-              {t('ideas.generatedSummary')}: <span lang="en">{idea.generatedBy.replace('llm:', '')}</span>
+            <footer className="space-y-2 text-xs text-ink-faint break-words">
+              <p>{t('ideas.generatedSummary')}: <span lang="en">{idea.generatedBy.replace('llm:', '')}</span></p>
+              <EditorialNote correction={idea.editorialNote} lang={lang} />
             </footer>
           </article>
         ))}

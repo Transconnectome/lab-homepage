@@ -59,8 +59,9 @@ displayed. See [image sources and license](public/assets/site/README.md).
      title+abstract, then the summarizer's own 0-1 `labRelevanceScore` (entries
      below 0.4 are never written).
    - Summaries are generated with Gemini via OpenRouter when `OPENROUTER_API_KEY`
-     is set; otherwise an honestly-labeled abstract excerpt is used. Every record
-     carries a `generatedBy` field surfaced in the UI.
+     is set; otherwise an honestly-labeled abstract excerpt is used. New records
+     carry a `generatedBy` field surfaced in the UI; missing historical records
+     are labeled as not recorded.
    - `RADAR_DRY_RUN=1` prints each bucket's query URL and candidate counts without
      writing; `ARXIV_CACHE=<file>` replays a saved feed offline.
 
@@ -73,13 +74,13 @@ displayed. See [image sources and license](public/assets/site/README.md).
      idea per category, and an idea is rejected when the same radar paper has
      already been mined for that category — the failure mode that once produced
      three foundation-models ideas from a single paper.
-   - Published unedited with a fixed "AI-generated, not lab-endorsed" disclaimer
-     and the exact model id on every entry. No LLM key → nothing is generated
+   - Keeps the exact generation model and entry-specific content corrections.
+     Hypotheses remain unvalidated and are not adopted lab plans. No LLM key → nothing is generated
      (no fake fallback, by design).
 
 5. **Frequently asked questions**
    - The Join page collects nine questions about research, admissions, and lab
-     culture in a bilingual, accessible FAQ. Answers are static and hand-written.
+     culture in a bilingual, accessible FAQ. Answers are static and hand-written, grouped into applications/lab life and research.
 
 6. ** People-first content**
    - Member profiles with photos, education, research interests, and passions;
@@ -129,7 +130,7 @@ without JavaScript, keyboard selection, the static image without WebGL, visible
 research scope and FAQ source links. This is a separately invoked local suite;
 it is not included in `npm test` or CI. Content regression checks preserve known
 PI corrections but do not establish scientific meaning or philosophical depth.
-The source-based review and its limits are in [the content review](docs/research-content-review.md#17-연구-목적-복원과-trinity-재점검--2026-09-13).
+The source-based review and its limits are in [the content review](docs/research-content-review.md#18-추가-문단-교정과-읽기-흐름-보완--2026-09-14).
 
 ---
 
@@ -203,3 +204,10 @@ certificate state at any time.
 - **PI**: Prof. Jiook Cha (차지욱) — `connectome@snu.ac.kr` · +82-2-880-8618
 - **Lab**: Office M512, Building 16, Seoul National University
 - © 2026 SNU Connectome Lab. All rights reserved.
+
+Editorial corrections on Radar and Ideas use `editorialNote` (date, English/Korean scope);
+original `generatedBy` values stay intact. Missing historic generation records are not inferred.
+Radar supports Korean summary fields with explicit English fallback. `imageHidden` preserves
+an existing illustration and its provenance while omitting it from the public rendering.
+The idea generator reads the complete curated English research descriptions and never
+overwrites an existing output path. These safeguards do not verify new AI hypotheses.

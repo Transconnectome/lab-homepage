@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslations } from '../../i18n/ui';
+import EditorialNote, { type EditorialCorrection } from '../common/EditorialNote';
 
 interface TrendItem {
   title: string;
@@ -9,10 +10,15 @@ interface TrendItem {
   topic: string;
   url: string;
   summaryPoints: string[];
+  summaryPointsKo?: string[];
   significance: string;
+  significanceKo?: string;
   labRelevance: string;
+  labRelevanceKo?: string;
+  editorialNote?: EditorialCorrection;
   modality: string[];
   badge?: string | null;
+  badgeKo?: string;
   generatedBy?: string | null;
 }
 
@@ -60,6 +66,7 @@ const itemLang = (text: string) => (HANGUL.test(text) ? 'ko' : 'en');
 
 export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
   const t = useTranslations(lang);
+  const pick = (en: string, ko?: string) => lang === 'ko' && ko ? ko : en;
   const [selectedTopic, setSelectedTopic] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -67,6 +74,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
     const matchTopic = selectedTopic === 'All' || item.topic === selectedTopic;
     const query = searchQuery.trim().toLowerCase();
     const matchSearch = [item.title, item.significance, item.labRelevance, item.topic,
+      item.significanceKo ?? '', item.labRelevanceKo ?? '', ...item.summaryPoints, ...(item.summaryPointsKo ?? []),
       TOPIC_LABELS[lang][item.topic] ?? '', ...item.modality, ...item.authors]
       .some((value) => value.toLowerCase().includes(query));
     return matchTopic && matchSearch;
@@ -98,7 +106,7 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
               <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs text-ink-faint">
                 <time dateTime={trend.publishedDate} className="font-mono" lang="en">{trend.publishedDate}</time>
                 <span>{TOPIC_LABELS[lang][trend.topic] ?? trend.topic}</span>
-                {trend.badge && <span lang={itemLang(trend.badge)}>{trend.badge}</span>}
+                {trend.badge && <span lang={itemLang(pick(trend.badge, trend.badgeKo))}>{pick(trend.badge, trend.badgeKo)}</span>}
               </div>
               <h2 className="font-display text-xl sm:text-2xl font-semibold text-ink leading-snug">
                 <a href={trend.url} target="_blank" rel="noreferrer" className="hover:underline underline-offset-4 hover:text-lab-800" lang={itemLang(trend.title)}>{trend.title}</a>
@@ -115,24 +123,26 @@ export default function ResearchRadarView({ trends, lang = 'en' }: Props) {
                 <section className="space-y-2">
                   <h3 className="text-sm font-semibold text-ink">
                     {trend.generatedBy?.startsWith('llm') ? t('radar.llmSummary') : trend.generatedBy === 'extractive-fallback' ? t('radar.excerpt') : t('radar.summary')}
+                    {lang === 'ko' && !trend.summaryPointsKo && ' · 영문'}
                   </h3>
                   <ul className="list-disc pl-5 space-y-2 text-sm text-ink-soft leading-relaxed">
-                    {trend.summaryPoints.map((point, index) => <li key={index} lang={itemLang(point)}>{point}</li>)}
+                    {(lang === 'ko' && trend.summaryPointsKo ? trend.summaryPointsKo : trend.summaryPoints).map((point, index) => <li key={index} lang={itemLang(point)}>{point}</li>)}
                   </ul>
                 </section>
                 <section className="space-y-2">
                   <h3 className="text-sm font-semibold text-ink">{t('radar.significance')}</h3>
-                  <p className="text-sm text-ink-soft leading-relaxed" lang={itemLang(trend.significance)}>{trend.significance}</p>
+                  <p className="text-sm text-ink-soft leading-relaxed" lang={itemLang(pick(trend.significance, trend.significanceKo))}>{pick(trend.significance, trend.significanceKo)}</p>
                 </section>
                 <section className="space-y-2">
                   <h3 className="text-sm font-semibold text-ink">{t('radar.labRelevance')}</h3>
-                  <p className="text-sm text-ink-soft leading-relaxed" lang={itemLang(trend.labRelevance)}>{trend.labRelevance}</p>
+                  <p className="text-sm text-ink-soft leading-relaxed" lang={itemLang(pick(trend.labRelevance, trend.labRelevanceKo))}>{pick(trend.labRelevance, trend.labRelevanceKo)}</p>
                 </section>
               </div>
             </details>
             <footer className="space-y-2 text-xs text-ink-faint">
               <p lang="en">{trend.modality.join(' · ')}</p>
               <p className="break-words">{t('radar.provenance')}: <span lang={trend.generatedBy ? 'en' : lang}>{trend.generatedBy || t('radar.unknownSource')}</span></p>
+              <EditorialNote correction={trend.editorialNote} lang={lang} />
             </footer>
           </article>
         ))}

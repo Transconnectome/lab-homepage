@@ -1,7 +1,7 @@
 ---
 title: "뉴로이미징과 시계열을 위한 양자 머신러닝(QML)"
 titleKo: "Quantum Machine Learning for Neuroimaging and Time-Series"
-tagline: "양자·고전 계산을 결합해 뇌신호의 관계를 표현하고 학습하는 새로운 방법을 탐구합니다."
+tagline: "양자 회로와 고전 모델의 결합을 바꾸며 뇌신호 학습을 비교하고, 계산량과 잡음이 성능에 주는 제약을 살핍니다."
 category: "qml"
 question: "양자 계산은 복잡한 뇌신호를 표현하고 학습하는 데 어떤 가능성을 열까?"
 featured: true

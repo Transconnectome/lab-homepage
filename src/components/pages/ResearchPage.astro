@@ -18,7 +18,7 @@ const mapAreas = sortedResearch.map((item) => {
   return {
     id, label: mapLabels[id]?.[lang] ?? item.data.title,
     question: item.data.question, summary: item.data.tagline,
-    approach: item.body?.trim().split(/\n\s*\n/)[0] ?? item.data.tagline,
+    approach: item.data.tagline,
     href: localePath(lang, `/research#${id}`),
     example: example ? { label: example[1], href: example[2] } : null,
   };

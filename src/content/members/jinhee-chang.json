@@ -7,10 +7,13 @@
   "email": null,
   "affiliations": [],
   "education": [
-    "BS — Research Assistant, Columbia University"
+    "BS"
   ],
   "researchInterests": [],
   "passions": [],
   "order": 39,
-  "avatar": "/assets/members/jinhee-chang.jpg"
+  "avatar": "/assets/members/jinhee-chang.jpg",
+  "researchExperience": [
+    "Research Assistant, Columbia University"
+  ]
 }

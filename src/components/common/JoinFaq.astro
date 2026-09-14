@@ -13,31 +13,17 @@ type FaqKey = 'neuromamba' | 'diver0' | 'neurox' | 'genetics' | 'affective' | 'q
 
 const FAQ_ANSWERS: Record<Lang, Record<FaqKey, string>> = {
   ko: {
-    genetics: `사람마다 다르게 생각하고 행동하며 발달하는 이유를 **유전·뇌·행동·환경의 연결**에서 연구합니다. 대규모 발달 자료에서 유전적 차이, 뇌의 구조와 활동, 인지·정신건강 및 생활환경 지표의 관계를 분석하고, 개인차를 이해하고 예측하는 계산 모델을 개발합니다.
+    genetics: `발달과 정신건강을 **유전·뇌·행동·환경의 연결**에서 연구합니다. 다유전자 점수와 뇌영상, 행동·생활환경 지표의 관계를 분석하고, 가족력이 담고 있는 정보와 여러 자료를 결합한 모델의 예측 가능성을 살핍니다. 함께 나타나는 패턴과 인과 경로는 구분합니다.`,
 
-여러 관측이 함께 달라지는 양상과 가족력이 담고 있는 정보를 살피며, 연구마다 확인할 수 있는 관계와 예측의 범위를 구분합니다.`,
+    affective: `경외에서 긍정과 부정이 함께 드는 경험을 VR·경험 보고·EEG로 살핍니다. 별도의 회상 연구에서는 EEG에서 추정한 정서 변화를 음악·영상 생성에 반영합니다. 기억 내용은 참여자가 제공한 자료에서 가져옵니다.`,
 
-    affective: `우리가 느끼고 기억하는 경험이 **뇌 활동과 어떻게 연결되는지** 연구합니다. 경외에서 긍정과 부정이 함께 드는 경험을 VR·EEG·경험 보고로 살피고, 별도의 회상 연구에서는 시간에 따른 정서 변화에 주목합니다.
+    neuromamba: `**NeuroMamba**는 **4D fMRI용 상태공간 모델**입니다. 뇌 바깥의 배경 토큰을 제거해 학습의 계산 부담을 줄입니다. 공개 연구의 후속 평가는 성별 분류이며, 인지·정신건강 과제로의 확장은 추가 검증할 목표입니다 (NeurIPS 2025 Brain & Body 워크숍 Spotlight).`,
 
-회상 중 EEG에서 추정한 정서를 음악·영상 생성에 반영하는 방법도 탐구합니다. 기억 내용은 참여자가 제공한 자료에서 가져오며, 뇌신호만으로 기억의 장면을 읽는 방식은 아닙니다.`,
+    diver0: `**DIVER-0**는 EEG 채널 순서가 바뀌면 출력도 그 순서에 맞게 바뀌도록 설계한 모델입니다. 정서 인식과 운동심상 분류에 미세조정하고 합성 채널 순열에서 평가했습니다. 다양한 임상 전극 배치와 누락 조건으로의 확장은 추가 검증이 필요합니다 (ICML 2025 GenBio 워크숍 Spotlight).`,
 
-    neuromamba: `**NeuroMamba**는 커넥톰 연구실이 개발한 **4D fMRI용 상태공간 파운데이션 모델**입니다 (NeurIPS 2025 Brain & Body 워크숍 Spotlight).
+    neurox: `**Neuro-X**는 뇌 활동으로 인지·정서·행동을 이해하고 예측할 AI를 연구하는 프로그램입니다. fMRI 모델(SwiFT·NeuroMamba)과 EEG 모델(DIVER)처럼 신호와 질문에 맞는 여러 모델을 개발합니다. 배운 패턴을 새로운 사람·과제에 활용하고 여러 뇌 기록을 함께 다루는 것이 연구 방향입니다.`,
 
-긴 뇌 활동 기록에서 학습한 패턴을 다양한 인지·행동 연구에 활용하려는 Neuro-X 프로그램의 한 접근입니다. 상태공간 모델을 활용하고 뇌 바깥의 배경 토큰을 제거해 시공간 기록을 효율적으로 처리합니다. 공개 연구는 성별 분류 등으로 평가했으며, 인지·정신건강 과제로의 확장은 연구 목표입니다.`,
-
-    diver0: `**DIVER-0**는 커넥톰 연구실이 제안한 **완전 채널 등변(Channel-Equivariant) EEG 파운데이션 모델**입니다 (ICML 2025 GenBio 워크숍 Spotlight).
-
-- **문제**: 병원과 연구소마다 EEG 전극의 수와 배치가 달라, 한 데이터셋으로 학습한 모델을 다른 데이터셋에 그대로 쓰기 어렵습니다.
-- **기술과 현재 근거**: 채널 순열과 시간 이동에 대한 등변성(equivariance)을 아키텍처 안에 넣었습니다. 서로 다른 전극 구성을 쓰는 두 후속 데이터셋과 합성 채널 순열에서 시험했으며, 더 다양한 임상 배치와 전극 누락 상황은 추가 검증이 필요합니다.`,
-
-    neurox: `**Neuro-X 프로젝트**는 커넥톰 연구실의 **뇌 파운데이션 모델** 프로그램입니다.
-
-뇌 활동에서 인간의 인지·정서·행동과 그 변화를 이해하고 예측할 AI를 연구합니다. fMRI 모델(SwiFT·NeuroMamba)과 EEG 모델(DIVER)처럼 신호의 특성과 연구 목적에 맞는 다양한 모델을 개발하고, 배운 패턴을 새로운 사람과 과제에 활용하고자 합니다. 여러 종류의 뇌 데이터를 함께 활용하는 방법도 연구합니다.`,
-
-    qml: `커넥톰 연구실은 **양자 머신러닝(QML)**으로 뇌신호의 복잡한 관계를 표현하고 학습할 새로운 계산 방법을 탐구합니다.
-
-- **연구 주제**: fMRI 분석을 위한 양자 시계열 트랜스포머와 EEG 모델에 양자 회로를 연결하는 Q-DIVER를 시뮬레이션에서 평가했습니다. 작은 회로들을 결합하는 학습과 별도 이미지 분류 과제의 실제 하드웨어 실험도 수행합니다. 현재 뇌 데이터의 양자 우위는 입증되지 않았습니다.
-- **지원 안내**: 현재 모집 여부와 공식 지원 경로는 함께하기 페이지의 최신 안내를 확인해 주세요.`,
+    qml: `양자 회로와 고전 모델을 결합해 뇌신호를 표현하고 학습하는 방법을 탐구합니다. fMRI 시계열 분석과 EEG 모델에 양자 회로를 연결하는 Q-DIVER를 시뮬레이션에서 평가했습니다. 뇌 데이터에서의 양자 우위는 아직 확인되지 않았습니다.`,
 
     admission: `**커넥톰 연구실 대학원 및 인턴 지원 안내**:
 
@@ -49,39 +35,21 @@ const FAQ_ANSWERS: Record<Lang, Record<FaqKey, string>> = {
 
 MILA와 브룩헤이븐 국립연구소(BNL)에서 연구한 구성원들이 있습니다. 2025년 11월 옵/신 포커스에서는 EEG와 AI를 활용해 감정과 기억을 예술로 표현하는 실험의 초기 과정을 소개했습니다.`,
 
-    pi: `**차지욱 교수 (Jiook Cha, PhD)**는 서울대학교 심리학과·인공지능협동과정·뇌인지과학과 부교수이자 커넥톰 연구실의 PI입니다.
-
-- 미국 컬럼비아 대학교 아동청소년정신의학과 조교수와 데이터사이언스 연구소(DSI) 멤버를 역임했습니다.
-- NIMH K01 커리어 개발상, NARSAD Young Investigator Award, 서울대 창의선도연구자 등을 수상했습니다.
-- 연구 방향: 유전·뇌·행동·환경의 연결을 통해 인지·정서·발달·정신건강을 이해하고, 그 관계를 연구할 계산 모델을 개발합니다.`,
+    pi: `**차지욱 교수**는 서울대학교 커넥톰 연구실의 PI입니다. 유전·뇌·행동·환경의 관계에서 인지·정서·정신건강을 연구하며, 이론적 설명과 AI의 예측을 함께 다룹니다. 구성원 페이지에서 연구관을, 서울대학교 교수 소개에서 이력을 확인할 수 있습니다.`,
   },
 
   en: {
-    genetics: `We study why people differ in thinking, behavior, and development through **connections among genes, brain, behavior, and environment**. Using large developmental datasets, we analyze relationships among genetic variation, brain structure and activity, cognition, mental health, and living environments, and develop computational models of individual differences.
+    genetics: `We study development and mental health through **connections among genes, brain, behavior and environment**. We analyze relationships among polygenic scores, brain imaging, behavior and living environments, and examine information from family history and predictions from combined measurements. Covariation and causal pathways are distinct.`,
 
-We examine patterns of covariation and the information carried by family history, distinguishing the relationships and predictions each study can establish.`,
+    affective: `We use VR, experience reports and EEG to examine positive and negative feelings that coexist during awe. A separate recall study uses emotion estimated from EEG to guide music and video generation. Memory content comes from participant-provided materials.`,
 
-    affective: `We study how feelings and remembered experiences **relate to brain activity**. We use VR, EEG, and experience reports to examine mixed positive and negative feelings during awe. A separate recall study examines emotional changes over time.
+    neuromamba: `**NeuroMamba** is a **state-space model for 4D fMRI**. It reduces the computational cost of learning by removing non-brain background tokens. The public study evaluates sex classification; extension to cognition and mental health needs further testing (NeurIPS 2025 Brain & Body workshop Spotlight).`,
 
-We also explore how emotion estimated from EEG during recall can guide music and video generation. The memory content comes from participant-provided materials; remembered scenes are not read from brain signals alone.`,
+    diver0: `**DIVER-0** is designed so that its output follows changes in EEG channel order. It was fine-tuned for emotion recognition and motor-imagery classification and tested under synthetic channel permutations. Extension to broader clinical montages and missing-electrode settings needs validation (ICML 2025 GenBio workshop Spotlight).`,
 
-    neuromamba: `**NeuroMamba** is the lab's **state-space foundation model for 4D fMRI** (Spotlight at the NeurIPS 2025 Brain & Body workshop).
+    neurox: `**Neuro-X** studies AI for understanding and predicting cognition, emotion and behavior from brain activity. It develops models suited to different signals and questions, including fMRI models (SwiFT, NeuroMamba) and EEG models (DIVER). Research directions include applying learned patterns to new people and tasks, and combining different brain recordings.`,
 
-It is one approach within Neuro-X to applying patterns learned from long brain recordings to research on cognition and behavior. State-space modeling and removal of non-brain background tokens make processing spatiotemporal recordings more efficient. The public study includes evaluation on sex classification; extending evaluation to cognition and mental health is a research goal.`,
-
-    diver0: `**DIVER-0** is the lab's **fully channel-equivariant EEG foundation model** (Spotlight at the ICML 2025 GenBio workshop).
-
-- **The problem**: every clinic and lab uses a different number and layout of electrodes, so EEG datasets do not line up.
-- **The approach and current evidence**: build equivariance to channel permutation and to shifts in time into the architecture. It was tested on two downstream datasets with different electrode configurations and under synthetic channel permutations; broader clinical montages and missing-electrode settings still need validation.`,
-
-    neurox: `**The Neuro-X Project** is the lab's **brain foundation model** program.
-
-We study AI that can help us understand and predict cognition, emotion, behavior, and their changes through brain activity. We develop models suited to different signals and research goals, including fMRI models such as SwiFT and NeuroMamba, and EEG models such as DIVER. Our aim is to apply learned patterns to new people and tasks. Combining information from different kinds of brain recordings is another research direction.`,
-
-    qml: `The lab uses **quantum machine learning (QML)** to explore new computational methods for representing and learning complex relationships within brain signals.
-
-- **Current threads**: simulation studies of a Quantum Time-series Transformer for fMRI and Q-DIVER, which connects quantum circuits to an EEG model. We also study learning with combinations of smaller circuits and real-hardware experiments on a separate image-classification task. Quantum advantage on brain data has not been established.
-- **Applications**: see the Join page for the current recruitment status and official application route.`,
+    qml: `We explore ways to represent and learn from brain signals by combining quantum circuits with classical models. Simulation studies include fMRI time-series analysis and Q-DIVER, which connects quantum circuits to an EEG model. Quantum advantage on brain data has not been established.`,
 
     admission: `**Applying for graduate study and internships**:
 
@@ -93,15 +61,14 @@ We study AI that can help us understand and predict cognition, emotion, behavior
 
 Members have conducted research at MILA and Brookhaven National Laboratory (BNL). At OB/Scene Focus in November 2025, the lab presented early experiments using EEG and AI to express emotion and memory through art.`,
 
-    pi: `**Prof. Jiook Cha (차지욱, PhD)** is Associate Professor in the Department of Psychology, the Interdisciplinary Program in AI, and the Department of Brain & Cognitive Sciences at Seoul National University, and PI of the Connectome Lab.
-
-- Previously Assistant Professor of Child & Adolescent Psychiatry at Columbia University and a member of its Data Science Institute.
-- Awards include the NIMH K01 Career Development Award, a NARSAD Young Investigator Award, and SNU's Creative-Pioneering Researcher award.
-- Research direction: understanding cognition, emotion, development, and mental health through connections among genes, brain, behavior, and environment, and developing computational models to study those relationships.`,
+    pi: `**Jiook Cha** is PI of the SNU Connectome Lab. He studies cognition, emotion and mental health through relationships among genes, brain, behavior and environment, bringing theoretical explanation and AI prediction together. The People page describes his approach; the SNU faculty profile provides his biography.`,
   },
 };
 
-const topics: FaqKey[] = ['admission', 'culture', 'pi', 'genetics', 'affective', 'neurox', 'neuromamba', 'diver0', 'qml'];
+const groups: { title: string; topics: FaqKey[] }[] = [
+  { title: lang === 'ko' ? '지원과 연구실 생활' : 'Applications and lab life', topics: ['admission', 'culture', 'pi'] },
+  { title: lang === 'ko' ? '연구 더 알아보기' : 'Explore the research', topics: ['genetics', 'affective', 'neurox', 'neuromamba', 'diver0', 'qml'] },
+];
 const researchSources: Partial<Record<FaqKey, { url: string; label: string }>> = {
   genetics: { url: localePath(lang, '/research#computational-genetics-psychiatry'), label: lang === 'ko' ? '발달·정신건강 연구와 논문' : 'Development and mental-health studies and sources' },
   affective: { url: localePath(lang, '/research#art-and-neuroscience'), label: lang === 'ko' ? '정서·기억 연구와 논문' : 'Emotion and memory studies and sources' },
@@ -119,8 +86,11 @@ const inlineParts = (text: string) => text.split(/(\*\*[^*]+\*\*)/g);
 
 <section id="faq" aria-labelledby="faq-title" class="space-y-6">
   <h2 id="faq-title" class="font-display text-2xl font-semibold text-ink">{t('join.faqTitle')}</h2>
-  <div class="border-t border-line">
-    {topics.map((topic) => (
+  {groups.map((group) => (
+  <div class="space-y-2">
+    <h3 class="text-sm font-semibold text-ink-soft">{group.title}</h3>
+    <div class="border-t border-line">
+    {group.topics.map((topic) => (
       <details id={`faq-${topic}`} class="border-b border-line">
         <summary class="cursor-pointer py-5 pr-3 font-semibold text-ink hover:text-lab-800 transition-colors">
           {t(`join.faq.${topic}`)}
@@ -141,11 +111,14 @@ const inlineParts = (text: string) => text.split(/(\*\*[^*]+\*\*)/g);
               ))}</p>
             )
           ))}
+          {topic === 'pi' && <a href={localePath(lang, '/team#pi-perspective')} class="text-link text-sm block">{t('people.piPerspectiveTitle')} →</a>}
           {researchSources[topic] && (
             <a href={researchSources[topic].url} class="text-link text-sm">{researchSources[topic].label} ↗</a>
           )}
         </div>
       </details>
     ))}
+    </div>
   </div>
+  ))}
 </section>

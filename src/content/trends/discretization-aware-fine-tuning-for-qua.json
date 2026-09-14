@@ -9,16 +9,29 @@
   "topic": "Quantum ML",
   "url": "https://arxiv.org/abs/2609.03220v1",
   "summaryPoints": [
-    "Quantum Machine Learning (QML) faces challenges in encoding high-dimensional classical data into limited quantum registers, leading to 'cross-class collisions' where distinct data points become indistinguishable.",
-    "The paper introduces Discretization-Aware Fine-Tuning (DAFT), a method that optimizes pre-trained chemical foundation models to produce representations that are robust to quantization by minimizing collision probability.",
-    "DAFT significantly improves QML performance on molecular property prediction, reducing collision counts and enabling quantum models to outperform classical baselines when trained on identical discretized inputs at higher qubit counts."
+    "Adapts chemical foundation-model representations to reduce collisions between differently labeled molecules after conversion to short bit strings.",
+    "Evaluates blood–brain barrier permeability prediction using ChemBERTa and simulated quantum circuits.",
+    "Reports higher accuracy than a logistic-regression baseline on identical inputs at 10 qubits; this is a restricted model comparison."
   ],
-  "significance": "This work demonstrates a crucial method for bridging the gap between continuous classical data and discrete quantum encoding, which is essential for unlocking the potential of QML in information-constrained environments.",
-  "labRelevance": "While the paper focuses on chemical foundation models, its exploration of 'quantum machine learning for high-dimensional brain data' as a radar bucket topic suggests a potential for adapting DAFT-like strategies to improve the encoding of neuroimaging or electrophysiological data into quantum systems.",
+  "significance": "Examines how information lost during discretization affects subsequent classification.",
+  "labRelevance": "Offers a reference for assessing information loss when compressing brain representations. Adaptation to fMRI or EEG remains untested.",
   "modality": [
     "Quantum"
   ],
-  "badge": "Emerging Paper",
+  "badge": "Preprint",
   "generatedBy": "llm:google/gemini-2.5-flash",
-  "labRelevanceScore": 0.5
+  "labRelevanceScore": 0.5,
+  "summaryPointsKo": [
+    "서로 다른 범주의 분자들이 같은 비트열로 압축되는 충돌을 줄이도록 화학 모델의 표현을 조정한다.",
+    "ChemBERTa와 양자 회로 시뮬레이션으로 분자의 혈뇌장벽 투과 여부를 예측했다.",
+    "10큐비트 조건에서 같은 입력을 받는 로지스틱 회귀보다 높은 정확도를 보고했으며, 특정 비교 조건의 결과다."
+  ],
+  "significanceKo": "이산화 과정의 정보 손실이 후속 분류에 미치는 영향을 검토한다.",
+  "labRelevanceKo": "뇌 표현을 압축할 때의 정보 손실을 점검하는 참고 방법이다. fMRI나 EEG에 적용한 결과는 이 논문에서 검증되지 않았다.",
+  "badgeKo": "프리프린트",
+  "editorialNote": {
+    "date": "2026-09-14",
+    "note": "Corrected the summary and research connection against the paper’s methods, results and limits; added a Korean summary.",
+    "noteKo": "원문의 방법·결과·한계에 맞춰 요약과 연구 관련성을 교정하고 한국어 요약을 추가했습니다."
+  }
 }

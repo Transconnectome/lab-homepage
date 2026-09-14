@@ -1,7 +1,7 @@
 ---
 title: "정서 신경과학: 경외, 기억, 그리고 미적 경험"
 titleKo: "Affective Neuroscience: Awe, Memory, and Aesthetic Experience"
-tagline: "감정과 기억이 경험되고 변화하는 양상을 뇌 활동과 연결해 연구하고, 정서를 반영하는 표현 매체를 탐구합니다."
+tagline: "VR·경험 보고·EEG로 복합적인 정서를 살피고, 회상 중 정서 변화를 음악과 영상 생성에 반영하는 방법을 시험합니다."
 category: "affective-neuro"
 question: "우리가 느끼고 기억하는 경험은 뇌 활동과 어떻게 연결될까?"
 featured: false

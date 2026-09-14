@@ -18,6 +18,40 @@ def metadata(path):
 
 
 class ContentContract(unittest.TestCase):
+    def test_corrected_lab_summaries_do_not_restore_known_false_claims(self):
+        # Source-specific regressions, not a proxy for scientific quality.
+        cases = {
+            "diver0-eeg-trends.json": ("SE(3)", "8 to 256", "zero-shot"),
+            "neuromamba-sota.json": ("cognitive decoding benchmarks", "thousands of time steps"),
+        }
+        for name, rejected in cases.items():
+            data = json.loads((CONTENT / "trends" / name).read_text())
+            prose = " ".join(data["summaryPoints"] + [data["significance"], data["labRelevance"]])
+            for claim in rejected:
+                self.assertNotIn(claim, prose, name)
+            for field in ("summaryPointsKo", "significanceKo", "labRelevanceKo", "editorialNote"):
+                self.assertTrue(data.get(field), (name, field))
+
+    def test_news_preserves_the_development_study_scope(self):
+        for suffix, terms in (("-ko", ("유전", "뇌", "행동", "환경")),
+                              ("", ("gen", "brain", "behavio", "environment"))):
+            body = (CONTENT / "news" / f"2025-09-nature-comms-paper{suffix}.md").read_text().split("---", 2)[2].lower()
+            for term in terms:
+                self.assertIn(term, body)
+
+    def test_idea_background_and_translation_corrections(self):
+        rejected = ("NeuroMamba adapted for EEG", "EEG에 맞춰진 NeuroMamba",
+                    "Combining quantum advantages", "가치/각성")
+        for path in (CONTENT / "ideas").glob("*.json"):
+            data = json.loads(path.read_text())
+            prose = " ".join(data.get(k, "") for k in (
+                "rationale", "rationaleKo", "firstExperiment", "firstExperimentKo"))
+            for claim in rejected:
+                self.assertNotIn(claim, prose, path.name)
+            if "editorialNote" in data:
+                self.assertTrue(data["generatedBy"])
+                self.assertEqual(set(data["editorialNote"]), {"date", "note", "noteKo"})
+
     def test_language_pairs(self):
         for collection in ("research", "news", "history"):
             pairs = {"en": set(), "ko": set()}

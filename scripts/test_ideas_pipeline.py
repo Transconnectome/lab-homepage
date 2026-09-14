@@ -15,6 +15,7 @@ import os
 import shutil
 import sys
 import tempfile
+from unittest.mock import patch
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -145,6 +146,43 @@ def test_research_context_uses_one_language_twin():
           "the canonical idea context must be English-only")
 
 
+def test_context_keeps_methods_and_limitations_from_curated_research():
+    """The generator must receive the source prose, including its final caveat."""
+    original_root = gen.ROOT
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            gen.ROOT = tmp
+            research = os.path.join(tmp, "src", "content", "research")
+            os.makedirs(research)
+            body = "A model was evaluated on measured brain activity.\n\nThe study did not test clinical diagnosis."
+            with open(os.path.join(research, "example.md"), "w") as handle:
+                handle.write('---\nlang: "en"\ntitle: "A research question"\ntagline: "Short overview"\n---\n\n' + body)
+            context = gen.gather_lab_context()
+            check(body in context, "full curated methods and limitations must reach the idea generator")
+        finally:
+            gen.ROOT = original_root
+
+
+def test_filename_collision_preserves_an_edited_record():
+    """A generated slug collision must not erase manual text or provenance."""
+    with tempfile.TemporaryDirectory() as tmp:
+        original = make_idea("Existing Reviewed Idea", "qml", "Original paper")
+        original.update(generatedBy="llm:original-model", editorialNote={
+            "date": "2026-09-14", "note": "Corrected background", "noteKo": "배경 교정"})
+        path = os.path.join(tmp, f"{gen.datetime.date.today().isoformat()}-collision.json")
+        before = json.dumps(original, ensure_ascii=False).encode()
+        with open(path, "wb") as handle:
+            handle.write(before)
+        payload = {"ideas": [make_idea("Unrelated Generated Proposal", "genetics", "Different paper")]}
+        with patch.object(gen, "IDEAS_DIR", tmp), patch.object(gen, "gather_lab_context", return_value=""), \
+             patch.object(gen, "call_openrouter", return_value=payload), \
+             patch.object(gen, "clean_filename", return_value="collision"), \
+             patch.dict(os.environ, {"IDEAS_BACKEND": "openrouter", "OPENROUTER_API_KEY": "test-key"}):
+            gen.main()
+        with open(path, "rb") as handle:
+            check(handle.read() == before, "a slug collision must preserve the edited record byte for byte")
+
+
 def make_idea(title, category, source):
     body = {k: "충분히 긴 한국어 본문입니다." if k.endswith("Ko") else "A long enough English body."
             for k in gen.BODY_FIELDS}
@@ -157,7 +195,9 @@ if __name__ == "__main__":
                test_redundancy_matches_the_real_history,
                test_one_idea_per_category_per_run,
                test_recent_category_mix_summarises_the_window,
-               test_research_context_uses_one_language_twin):
+               test_research_context_uses_one_language_twin,
+               test_context_keeps_methods_and_limitations_from_curated_research,
+               test_filename_collision_preserves_an_edited_record):
         fn()
     if FAILURES:
         print("\nFAILED:\n  " + "\n  ".join(FAILURES))
