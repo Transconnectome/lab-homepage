@@ -237,4 +237,591 @@
     @apply font-sans text-sm text-ink-faint;
     letter-spacing: 0;
   }
+
+  /* ===========================================================================
+     Option E: The Quiet Intellectual / Editorial Monograph System
+     =========================================================================== */
+
+  .opt-e-hero-eyebrow {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #801818;
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .opt-e-hero-eyebrow::after {
+    content: "";
+    width: 36px;
+    height: 1px;
+    background: #801818;
+    opacity: 0.45;
+  }
+
+  .opt-e-summary-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 1.75rem 0;
+    border-top: 1px solid #E7E5E4;
+    border-bottom: 1px solid #E7E5E4;
+    margin: 2.5rem 0 3.5rem;
+  }
+
+  .opt-e-summary-item .num {
+    font-family: 'Newsreader', 'MaruBuri', 'Hahmlet', serif;
+    font-size: 2.15rem;
+    font-weight: 600;
+    color: #1C1917;
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+  }
+
+  .opt-e-summary-item .label {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #1C1917;
+    margin-bottom: 0.2rem;
+  }
+
+  .opt-e-summary-item .desc {
+    font-size: 0.775rem;
+    color: #57534E;
+    line-height: 1.55;
+    word-break: keep-all;
+  }
+
+  .opt-e-section {
+    padding: 4rem 0;
+    border-bottom: 1px solid #E7E5E4;
+  }
+
+  .opt-e-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .opt-e-section-num {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: #801818;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .opt-e-section-title {
+    font-family: 'MaruBuri', 'Newsreader', 'Hahmlet', serif;
+    font-size: 2.15rem;
+    font-weight: 600;
+    color: #1C1917;
+    letter-spacing: -0.015em;
+    word-break: keep-all;
+  }
+
+  .opt-e-essay-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+  }
+
+  .opt-e-essay-col h3 {
+    font-family: 'MaruBuri', 'Newsreader', 'Hahmlet', serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: #1C1917;
+    margin-bottom: 1rem;
+    line-height: 1.35;
+    word-break: keep-all;
+  }
+
+  .opt-e-essay-col p {
+    font-size: 0.975rem;
+    line-height: 1.85;
+    color: #44403C;
+    margin-bottom: 1.25rem;
+    word-break: keep-all;
+  }
+
+  .opt-e-essay-col p strong {
+    color: #1C1917;
+    font-weight: 600;
+  }
+
+  .opt-e-pullquote {
+    border-left: 2px solid #801818;
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    font-family: 'Newsreader', 'MaruBuri', 'Hahmlet', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: #1C1917;
+    line-height: 1.7;
+    margin: 1.75rem 0;
+    word-break: keep-all;
+  }
+
+  .opt-e-inquiry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .opt-e-inquiry-row {
+    display: grid;
+    grid-template-columns: 80px 1.2fr 1fr;
+    gap: 2.25rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #F0ECE4;
+  }
+
+  .opt-e-inquiry-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .opt-e-inquiry-index {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #801818;
+    padding-top: 0.25rem;
+  }
+
+  .opt-e-inquiry-primary h3,
+  .opt-e-inquiry-primary h4 {
+    font-family: 'MaruBuri', 'Newsreader', 'Hahmlet', serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: #1C1917;
+    margin-bottom: 0.65rem;
+    line-height: 1.3;
+    word-break: keep-all;
+  }
+
+  .opt-e-inquiry-question {
+    font-family: 'Newsreader', 'MaruBuri', 'Hahmlet', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #9E2424;
+    margin-bottom: 0.85rem;
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+
+  .opt-e-inquiry-body {
+    font-size: 0.925rem;
+    line-height: 1.8;
+    color: #44403C;
+    word-break: keep-all;
+  }
+
+  .opt-e-inquiry-spec-block {
+    background: #FFFFFF;
+    border: 1px solid #E7E5E4;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .opt-e-inquiry-spec-item .meta-label {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #57534E;
+    margin-bottom: 0.25rem;
+  }
+
+  .opt-e-inquiry-spec-item .meta-val {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #1C1917;
+  }
+
+  .opt-e-figure-plate {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2.5rem;
+    background: #FFFFFF;
+    border: 1px solid #E7E5E4;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    align-items: center;
+  }
+
+  .opt-e-figure-img-wrap {
+    border: 1px solid #E7E5E4;
+    background: #FAF9F6;
+    padding: 0.75rem;
+  }
+
+  .opt-e-figure-img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .opt-e-figure-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .opt-e-figure-caption .fig-tag {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.7rem;
+    color: #801818;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .opt-e-figure-caption h3,
+  .opt-e-figure-caption h4 {
+    font-family: 'MaruBuri', 'Newsreader', 'Hahmlet', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #1C1917;
+    line-height: 1.35;
+    word-break: keep-all;
+  }
+
+  .opt-e-figure-caption p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: #44403C;
+    word-break: keep-all;
+  }
+
+  .opt-e-figure-citation {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.75rem;
+    color: #57534E;
+    border-top: 1px solid #F0ECE4;
+    padding-top: 0.75rem;
+  }
+
+  .opt-e-pi-feature {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2.5rem;
+    background: #FFFFFF;
+    border: 1px solid #E7E5E4;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    align-items: center;
+  }
+
+  .opt-e-pi-feature img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    object-position: top;
+    border: 1px solid #E7E5E4;
+    display: block;
+  }
+
+  .opt-e-pi-details h3,
+  .opt-e-pi-details h4 {
+    font-family: 'MaruBuri', 'Newsreader', 'Hahmlet', serif;
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: #1C1917;
+    margin-bottom: 0.25rem;
+  }
+
+  .opt-e-pi-details .title-sub {
+    font-size: 0.85rem;
+    color: #57534E;
+    margin-bottom: 1rem;
+  }
+
+  .opt-e-pi-statement {
+    font-family: 'Newsreader', 'MaruBuri', 'Hahmlet', serif;
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.75;
+    color: #1C1917;
+    margin-bottom: 1rem;
+    word-break: keep-all;
+  }
+
+  .opt-e-pi-bio {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: #44403C;
+    word-break: keep-all;
+  }
+
+  .opt-e-fellows-roster {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .opt-e-fellow-tile {
+    background: #FFFFFF;
+    border: 1px solid #E7E5E4;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .opt-e-fellow-tile:hover {
+    border-color: #801818;
+  }
+
+  .opt-e-fellow-tile img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    background: #F0ECE4;
+  }
+
+  .opt-e-fellow-name {
+    font-family: 'MaruBuri', 'Newsreader', 'Hahmlet', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1C1917;
+  }
+
+  .opt-e-fellow-role {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #801818;
+    font-weight: 600;
+  }
+
+  .opt-e-fellow-focus {
+    font-size: 0.775rem;
+    line-height: 1.55;
+    color: #57534E;
+    word-break: keep-all;
+  }
+
+  .opt-e-pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .opt-e-pub-entry {
+    background: #FFFFFF;
+    border: 1px solid #E7E5E4;
+    padding: 1.5rem 1.75rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .opt-e-pub-entry .venue {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #801818;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  .opt-e-pub-entry h4 {
+    font-family: 'Newsreader', 'MaruBuri', 'Hahmlet', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1C1917;
+    line-height: 1.4;
+    margin-bottom: 0.35rem;
+  }
+
+  .opt-e-pub-entry .authors {
+    font-size: 0.825rem;
+    color: #44403C;
+    margin-bottom: 0.5rem;
+  }
+
+  .opt-e-pub-entry .significance {
+    font-size: 0.85rem;
+    color: #57534E;
+    line-height: 1.65;
+    word-break: keep-all;
+  }
+
+  .opt-e-btn-copy {
+    background: transparent;
+    border: 1px solid #E7E5E4;
+    color: #44403C;
+    padding: 0.5rem 0.85rem;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .opt-e-btn-copy:hover {
+    border-color: #801818;
+    color: #801818;
+    background: #F2EFE9;
+    text-decoration: none;
+  }
+
+  .opt-e-prospectus {
+    padding: 3.5rem 0 5rem;
+  }
+
+  .opt-e-prospectus-card {
+    background: #FFFFFF;
+    border: 1px solid #E7E5E4;
+    padding: 2.75rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .opt-e-prospectus-card h3,
+  .opt-e-prospectus-card h4 {
+    font-family: 'MaruBuri', 'Newsreader', 'Hahmlet', serif;
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: #1C1917;
+    margin-bottom: 0.85rem;
+    word-break: keep-all;
+  }
+
+  .opt-e-prospectus-card p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #44403C;
+    word-break: keep-all;
+  }
+
+  .opt-e-prospectus-contact {
+    border-left: 1px solid #E7E5E4;
+    padding-left: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .opt-e-prospectus-contact .label {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #57534E;
+  }
+
+  .opt-e-prospectus-contact a.email {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.925rem;
+    color: #801818;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .opt-e-prospectus-contact a.email:hover {
+    text-decoration: underline;
+  }
+
+  .opt-e-prospectus-contact .address {
+    font-size: 0.825rem;
+    line-height: 1.6;
+    color: #44403C;
+  }
+
+  .opt-e-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #1C1917;
+    color: #FAF9F6;
+    padding: 10px 18px;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.8rem;
+    border-radius: 4px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .opt-e-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive Rules for Mobile */
+  @media (max-width: 768px) {
+    .opt-e-summary-strip {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .opt-e-essay-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .opt-e-inquiry-row {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    .opt-e-figure-plate {
+      grid-template-columns: 1fr;
+      padding: 1.25rem 1rem;
+      gap: 1.25rem;
+    }
+    .opt-e-pi-feature {
+      grid-template-columns: 1fr;
+      padding: 1.25rem;
+      gap: 1.25rem;
+    }
+    .opt-e-pi-feature img {
+      height: 220px;
+    }
+    .opt-e-fellows-roster {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .opt-e-pub-entry {
+      grid-template-columns: 1fr;
+      padding: 1.25rem 1rem;
+      gap: 1rem;
+    }
+    .opt-e-prospectus-card {
+      grid-template-columns: 1fr;
+      padding: 1.5rem 1.25rem;
+      gap: 1.5rem;
+    }
+    .opt-e-prospectus-contact {
+      border-left: none;
+      border-top: 1px solid #E7E5E4;
+      padding-left: 0;
+      padding-top: 1.25rem;
+    }
+  }
 }

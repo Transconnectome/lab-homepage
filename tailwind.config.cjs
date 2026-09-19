@@ -30,22 +30,21 @@ module.exports = {
           line: '#1E2A44',
         },
         line: '#E7E5E4',
+        // Option E: Muted Oxblood / Crimson accent
+        oxblood: {
+          DEFAULT: '#801818',
+          light: '#9E2424',
+          muted: '#A33838',
+          soft: '#F2EFE9',
+        },
       },
       fontFamily: {
         // Display resolves per glyph: MaruBuri's @font-face (global.css) is
         // limited to Hangul unicode-ranges, so Hangul lands on MaruBuri while
-        // Latin skips straight to Hahmlet. Hahmlet's own Hangul remains the
-        // fallback for the rare syllable outside the self-hosted subset —
-        // its Hangul is a gothic wearing a serif's name (HANDOFF §5.3), which
-        // is why it no longer leads for Korean display text.
-        display: ['MaruBuri', 'Hahmlet', 'Noto Serif KR', 'Georgia', 'serif'],
+        // Latin skips straight to Newsreader / Hahmlet.
+        display: ['MaruBuri', 'Newsreader', 'Hahmlet', 'Noto Serif KR', 'Georgia', 'serif'],
+        serif: ['Newsreader', 'MaruBuri', 'Hahmlet', 'Georgia', 'serif'],
         sans: ['Pretendard Variable', 'Pretendard', 'Noto Sans KR', 'system-ui', '-apple-system', 'sans-serif'],
-        // IBM Plex Mono carries no Hangul, so any Korean inside a mono context
-        // used to fall through to whatever the OS offered — on Linux that was
-        // Noto Sans Mono CJK *JP*, a Japanese face setting Korean text.
-        // Pretendard is already loaded for body copy, so naming it here routes
-        // Hangul to a real Korean face at zero additional payload while Latin
-        // and numerals stay in Plex Mono.
         mono: ['IBM Plex Mono', 'Pretendard Variable', 'Pretendard', 'ui-monospace', 'monospace'],
       },
     },
