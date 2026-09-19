@@ -242,6 +242,80 @@
      Option E: The Quiet Intellectual / Editorial Monograph System
      =========================================================================== */
 
+  .opt-e-rota-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1.75rem;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .opt-e-rota-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .opt-e-rota-label {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #801818;
+    font-weight: 600;
+    margin-right: 6px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .opt-e-rota-tab {
+    background: #FFFFFF;
+    border: 1px solid #E7E5E4;
+    color: #44403C;
+    padding: 6px 14px;
+    font-size: 0.775rem;
+    font-weight: 500;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .opt-e-rota-tab:hover {
+    border-color: #801818;
+    color: #801818;
+    text-decoration: none;
+  }
+
+  .opt-e-rota-tab.active {
+    background: #801818;
+    border-color: #801818;
+    color: #FAF9F6;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .opt-e-rota-badge {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.65rem;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 1px 6px;
+    border-radius: 999px;
+    margin-left: 2px;
+  }
+
+  .opt-e-rota-tab:not(.active) .opt-e-rota-badge {
+    background: #F0ECE4;
+    color: #57534E;
+  }
+
   .opt-e-hero-eyebrow {
     font-family: var(--font-mono, 'IBM Plex Mono', monospace);
     font-size: 0.72rem;

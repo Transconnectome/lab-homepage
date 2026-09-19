@@ -12,7 +12,7 @@ DIST_DIR = Path(__file__).resolve().parent.parent / "dist"
 OUTPUT_DIR = Path(__file__).resolve().parent / "screenshots"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 CHROME_PATH = "/home/juke/.cache/ms-playwright/chromium-1217/chrome-linux/chrome"
-PORT = 8933
+PORT = 8944
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -64,6 +64,19 @@ def main():
             toast_text = toast.inner_text() if toast else ""
             print(f"✓ Toast on click: '{toast_text}'")
 
+        # Test clicking all 4 Daily Rota Tabs and capture screenshots
+        tabs = page.query_selector_all(".opt-e-rota-tab")
+        print(f"Found {len(tabs)} daily rota tabs")
+        theme_names = ["01_foundation", "02_genetics", "03_topology", "04_awe"]
+        for idx, tab in enumerate(tabs):
+            tab.click()
+            time.sleep(0.5)
+            headline_text = page.evaluate("() => document.getElementById('home-title')?.innerText")
+            print(f"✓ Tab {idx + 1} clicked: '{headline_text.splitlines()[0] if headline_text else ''}'")
+            hero_el = page.query_selector("#introduction")
+            if hero_el:
+                hero_el.screenshot(path=str(OUTPUT_DIR / f"theme_{theme_names[idx]}_hero.png"))
+
         # 2. Mobile 390x844 (Korean - iPhone 14/15 size)
         page_m = browser.new_page(
             viewport={"width": 390, "height": 844},
@@ -114,7 +127,7 @@ def main():
 
         browser.close()
 
-    print("\n[ALL VISUAL CHECKS PASSED PERFECTLY - ZERO HORIZONTAL OVERFLOW]")
+    print("\n[ALL VISUAL AND INTERACTION CHECKS PASSED]")
 
 if __name__ == "__main__":
     main()

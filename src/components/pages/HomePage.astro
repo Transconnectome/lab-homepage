@@ -4,17 +4,22 @@ import { getCollection } from 'astro:content';
 import { useTranslations, localePath, type Lang } from '../../i18n/ui';
 import { siteMedia } from '../../data/siteMedia';
 import { memberAnchor } from '../people/MemberGrid';
+import { dailyThemes, getTodayThemeIndex } from '../../data/dailyThemes';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-// 1. Research inquiries
+// 1. Daily Rotating Editorial Theme
+const todayIndex = getTodayThemeIndex();
+const activeTheme = dailyThemes[todayIndex];
+
+// 2. Research inquiries
 const research = (await getCollection('research'))
   .filter((item) => item.data.lang === lang)
   .sort((a, b) => a.data.order - b.data.order);
 
-// 2. Members: PI + Active fellows with avatars
+// 3. Members: PI + Active fellows with avatars
 const allMembers = await getCollection('members');
 const sortedMembers = allMembers.map((m) => m.data).sort((a, b) => a.order - b.order);
 const pi = sortedMembers.find((m) => m.category === 'pi');
@@ -22,13 +27,13 @@ const fellows = sortedMembers
   .filter((m) => m.category !== 'pi' && m.category !== 'alumni' && m.avatar)
   .slice(0, 8);
 
-// 3. Featured Publications & Top Papers
+// 4. Featured Publications & Top Papers
 const publications = (await getCollection('publications'))
   .filter((item) => item.data.kind !== 'preprint')
   .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0) || b.data.year - a.data.year || a.data.title.localeCompare(b.data.title))
   .slice(0, 3);
 
-// 4. Latest News
+// 5. Latest News
 const news = (await getCollection('news'))
   .filter((item) => item.data.lang === lang)
   .sort((a, b) => b.data.date.localeCompare(a.data.date))
@@ -60,39 +65,43 @@ const mbbnBibtex = `@article{lee2025multiscale,
 
 <BaseLayout lang={lang} title={pageTitle} description={t('home.metaDesc')}>
   <div class="section-shell">
-    <!-- Hero Section: The Restrained Monograph -->
-    <section id="introduction" class="pt-10 pb-10 sm:pt-16 sm:pb-14" aria-labelledby="home-title">
-      <div class="opt-e-hero-eyebrow">
-        {lang === 'ko' ? 'Laboratory Prospectus · 2026 / 서울대학교 심리학과 · 커넥톰 연구실' : 'Laboratory Prospectus · 2026 / Seoul National University · Connectome Laboratory'}
+    <!-- Hero Section: The Restrained Monograph with Daily Editorial Rotation -->
+    <section id="introduction" class="pt-8 pb-10 sm:pt-14 sm:pb-14" aria-labelledby="home-title">
+      <!-- Daily Rota Switcher Bar -->
+      <div class="opt-e-rota-bar" role="tablist" aria-label={lang === 'ko' ? '일일 연구 화두 전환' : 'Daily Editorial Perspectives'}>
+        <span class="opt-e-rota-label">
+          <span>{lang === 'ko' ? 'Inquiry of the Day' : 'Inquiry of the Day'}</span>
+          <span class="text-line" aria-hidden="true">·</span>
+        </span>
+        {dailyThemes.map((th, idx) => {
+          const isToday = idx === todayIndex;
+          return (
+            <button
+              type="button"
+              role="tab"
+              aria-selected={isToday ? 'true' : 'false'}
+              class={`opt-e-rota-tab ${isToday ? 'active' : ''}`}
+              data-theme-id={th.id}
+            >
+              <span>{th.tabLabel[lang]}</span>
+              {isToday && <span class="opt-e-rota-badge">{lang === 'ko' ? '오늘의 화두' : 'Today'}</span>}
+            </button>
+          );
+        })}
+      </div>
+
+      <div id="hero-eyebrow" class="opt-e-hero-eyebrow">
+        {activeTheme.eyebrow[lang]}
       </div>
 
       <h1 id="home-title" class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-medium leading-[1.25] text-ink tracking-tight mb-7">
-        {lang === 'ko' ? (
-          <>
-            뇌는 카메라가 아니라,<br class="hidden sm:inline" />
-            어둠 속에 가설을 쏘아 올리는 <span class="italic font-normal">프로젝터</span>다.
-          </>
-        ) : (
-          <>
-            The brain is not a camera.<br class="hidden sm:inline" />
-            It is a projector, casting <span class="italic font-normal">preformed conjectures</span> into the dark.
-          </>
-        )}
+        <span id="headline-lead">{activeTheme.headline[lang].lead}</span>{' '}
+        <span id="headline-emphasis" class="italic font-normal">{activeTheme.headline[lang].emphasis}</span>{' '}
+        <span id="headline-tail">{activeTheme.headline[lang].tail}</span>
       </h1>
 
-      <p class="text-base sm:text-lg text-ink-soft leading-relaxed max-w-3xl mb-8">
-        {lang === 'ko' ? (
-          <>
-            우리는 100조 개의 시냅스 연결망과 유전체, 4차원 신경 동역학을 통해 인간 마음의 숨은 기하학을 탐구합니다.
-            인간을 기계 부품으로 환원하기 위함이 아닙니다. <strong class="text-ink font-semibold">어둠 속에서 가설을 던지고, 그 가설이 현실과 어긋나 산산조각 나는 순간(예측 오차)에서
-            어떻게 배움과 회복탄력성, 그리고 숭고한 경외(Awe)라는 영혼이 피어나는가</strong>를 묻습니다.
-          </>
-        ) : (
-          <>
-            We explore the hidden geometry of mind through 100 trillion synaptic connections, genomics, and 4D spatiotemporal dynamics.
-            Not to reduce human beings to mechanical components, but to ask <strong class="text-ink font-semibold">how learning, resilience, and the sublime emotion of awe emerge from the very moment preformed conjectures collide with reality and shatter into prediction errors</strong>.
-          </>
-        )}
+      <p id="home-hero-sub" class="text-base sm:text-lg text-ink-soft leading-relaxed max-w-3xl mb-8">
+        {activeTheme.heroSub[lang]}
       </p>
 
       <!-- Editorial In-page Navigation Jumps -->
@@ -152,79 +161,21 @@ const mbbnBibtex = `@article{lee2025multiscale,
         </h2>
       </div>
 
-      <div class="opt-e-essay-grid">
-        <div class="opt-e-essay-col">
-          <h3>{lang === 'ko' ? '인사이드-아웃: 뇌는 수동적 수광판이 아니다' : 'Inside-Out: The Brain Is Not a Passive Receptor'}</h3>
-          <p>
-            {lang === 'ko' ? (
-              <>
-                전통적인 신경과학의 외부-내부(Outside-In) 관점은 뇌를 감각 입력을 수동적으로 받아들여 처리하는 카메라로 바라보았습니다.
-                그러나 실제 뇌는 자극이 주어지기 전부터 내부에서 스스로 발화 궤적을 만들어내는 <strong>사전 재생(Preplay)의 동역학</strong>을 갖추고 있습니다.
-              </>
-            ) : (
-              <>
-                Traditional neuroscience often adopted an outside-in stance, viewing the brain as an exposure camera passively recording sensory inputs.
-                Yet the biological brain exhibits <strong>preplay dynamics</strong>, continually projecting endogenous firing trajectories prior to sensory impingement.
-              </>
-            )}
-          </p>
-          <p>
-            {lang === 'ko' ? (
-              <>
-                피아노 건반의 수가 88개로 유한하더라도 천문학적인 선율을 낳듯이, 뇌는 태어날 때부터 유한한 시냅스 기저 위에서 무수한 가설의 멜로디를 연주합니다.
-                우리가 경험하는 현실은 뇌가 칠흑 같은 두개골 속에서 직조하는 <strong>통제된 환각(Controlled Hallucination)</strong>입니다.
-              </>
-            ) : (
-              <>
-                Just as eighty-eight keys yield astronomical melodies, the brain plays preconfigured conjectures upon a finite synaptic substrate.
-                Conscious reality is a <strong>controlled hallucination</strong> woven within the pitch-black vault of the cranium.
-              </>
-            )}
-          </p>
-          <div class="opt-e-pullquote">
-            {lang === 'ko'
-              ? '“배움의 유일한 화폐는 예측 오차(Prediction Error)다. 가설이 현실과 부딪혀 박살 나는 순간에서만 뇌는 세계의 지도를 다시 그린다.”'
-              : '“The sole currency of learning is prediction error. Only when a conjecture collides with reality and shatters does the brain redraw its map of the world.”'}
+      <div class="opt-e-essay-grid" id="essay-grid">
+        <div class="opt-e-essay-col" id="essay-col-1">
+          <h3 id="essay-title-1">{activeTheme.premiseCol1.title[lang]}</h3>
+          <p id="essay-p1-1">{activeTheme.premiseCol1.p1[lang]}</p>
+          <p id="essay-p2-1">{activeTheme.premiseCol1.p2[lang]}</p>
+          <div id="essay-quote" class="opt-e-pullquote">
+            {activeTheme.premiseCol1.pullquote[lang]}
           </div>
         </div>
 
-        <div class="opt-e-essay-col">
-          <h3>{lang === 'ko' ? '기계론적 환원을 넘어: 고통과 경외의 생물학적 기저' : 'Beyond Mechanical Reductionism: The Biology of Suffering and Awe'}</h3>
-          <p>
-            {lang === 'ko' ? (
-              <>
-                도스토옙스키는 《지하생활자의 수기》에서 자연 법칙과 수학으로 인간을 완전히 계산할 수 있다면 인간은 단지 ‘피아노 건반’이나 기계 부품에 불과하지 않은가라고 절규했습니다.
-                우리는 이 실존적 긴장을 결코 외면하지 않습니다.
-              </>
-            ) : (
-              <>
-                In <em>Notes from Underground</em>, Dostoevsky cried out: if man can be fully formulated by natural laws and mathematics, is he not merely an organ stop or a piano key? We do not look away from this existential tension.
-              </>
-            )}
-          </p>
-          <p>
-            {lang === 'ko' ? (
-              <>
-                우리가 최첨단 4차원 인공지능과 유전체 코호트로 뇌의 생물학적 건반을 해독하는 이유는, 인간을 한낱 기계로 격하하기 위함이 아닙니다.
-                오히려 <strong class="text-ink font-semibold">왜 인간은 우울과 고통에 빠지는가, 왜 불합리하게 타인의 슬픔에 공감하는가, 그리고 왜 예술과 광활한 자연 앞에서 자아를 잊고 전율(Awe)하는가</strong>라는 가장 깊은 물음에 과학의 언어로 정직하게 답하기 위함입니다.
-              </>
-            ) : (
-              <>
-                Our pursuit of 4D foundation models and longitudinal cohorts is not to diminish man to a cog, but to provide an honest, scientific answer to the most enduring questions: <strong class="text-ink font-semibold">Why do we descend into depression and anguish? Why do we empathize with another's pain? And why do we feel transcendent awe before sublime art and the cosmos?</strong>
-              </>
-            )}
-          </p>
-          <p>
-            {lang === 'ko' ? (
-              <>
-                우리는 계산신경과학의 엄밀성과 인문학적 성찰이 교차하는 지점에서, 인간 마음의 존엄을 밝히고자 합니다.
-              </>
-            ) : (
-              <>
-                At the intersection of computational rigor and humanist reflection, we seek to illuminate the biological dignity of the human mind.
-              </>
-            )}
-          </p>
+        <div class="opt-e-essay-col" id="essay-col-2">
+          <h3 id="essay-title-2">{activeTheme.premiseCol2.title[lang]}</h3>
+          <p id="essay-p1-2">{activeTheme.premiseCol2.p1[lang]}</p>
+          <p id="essay-p2-2">{activeTheme.premiseCol2.p2[lang]}</p>
+          <p id="essay-p3-2">{activeTheme.premiseCol2.p3[lang]}</p>
         </div>
       </div>
     </section>
@@ -246,7 +197,7 @@ const mbbnBibtex = `@article{lee2025multiscale,
 
       <div class="opt-e-inquiry-list">
         <!-- Axis 01 -->
-        <div class="opt-e-inquiry-row">
+        <div class="opt-e-inquiry-row" id="axis-row-foundation">
           <div class="opt-e-inquiry-index">AXIS 01</div>
           <div class="opt-e-inquiry-primary">
             <h3>
@@ -278,7 +229,7 @@ const mbbnBibtex = `@article{lee2025multiscale,
         </div>
 
         <!-- Axis 02 -->
-        <div class="opt-e-inquiry-row">
+        <div class="opt-e-inquiry-row" id="axis-row-genetics">
           <div class="opt-e-inquiry-index">AXIS 02</div>
           <div class="opt-e-inquiry-primary">
             <h3>
@@ -310,7 +261,7 @@ const mbbnBibtex = `@article{lee2025multiscale,
         </div>
 
         <!-- Axis 03 -->
-        <div class="opt-e-inquiry-row">
+        <div class="opt-e-inquiry-row" id="axis-row-topology">
           <div class="opt-e-inquiry-index">AXIS 03</div>
           <div class="opt-e-inquiry-primary">
             <h3>
@@ -342,7 +293,7 @@ const mbbnBibtex = `@article{lee2025multiscale,
         </div>
 
         <!-- Axis 04 -->
-        <div class="opt-e-inquiry-row">
+        <div class="opt-e-inquiry-row" id="axis-row-awe">
           <div class="opt-e-inquiry-index">AXIS 04</div>
           <div class="opt-e-inquiry-primary">
             <h3>
@@ -649,6 +600,9 @@ const mbbnBibtex = `@article{lee2025multiscale,
     </section>
   </div>
 
+  <!-- Hidden Daily Themes JSON for instant client-side tab switching -->
+  <script type="application/json" id="daily-themes-data" set:html={JSON.stringify(dailyThemes)} />
+
   <!-- Floating Toast Notification for BibTeX Copy -->
   <div id="opt-e-toast" class="opt-e-toast" role="status" aria-live="polite"></div>
 
@@ -666,6 +620,7 @@ const mbbnBibtex = `@article{lee2025multiscale,
       }, 2200);
     }
 
+    // 1. BibTeX Copy Handler
     document.querySelectorAll<HTMLButtonElement>('.copy-bib-btn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -683,5 +638,66 @@ const mbbnBibtex = `@article{lee2025multiscale,
         }
       });
     });
+
+    // 2. Interactive Daily Editorial Rota Switcher
+    const themesDataRaw = document.getElementById('daily-themes-data')?.textContent;
+    if (themesDataRaw) {
+      try {
+        const themes = JSON.parse(themesDataRaw);
+        const currentLang = document.documentElement.lang === 'ko' ? 'ko' : 'en';
+
+        document.querySelectorAll<HTMLButtonElement>('.opt-e-rota-tab').forEach((tab) => {
+          tab.addEventListener('click', () => {
+            const themeId = tab.getAttribute('data-theme-id');
+            const theme = themes.find((t: any) => t.id === themeId);
+            if (!theme) return;
+
+            // Update tab button styles
+            document.querySelectorAll('.opt-e-rota-tab').forEach((t) => {
+              t.classList.remove('active');
+              t.setAttribute('aria-selected', 'false');
+            });
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+
+            // Update Hero contents
+            const eyebrowEl = document.getElementById('hero-eyebrow');
+            const leadEl = document.getElementById('headline-lead');
+            const emEl = document.getElementById('headline-emphasis');
+            const tailEl = document.getElementById('headline-tail');
+            const subEl = document.getElementById('home-hero-sub');
+
+            if (eyebrowEl) eyebrowEl.textContent = theme.eyebrow[currentLang];
+            if (leadEl) leadEl.textContent = theme.headline[currentLang].lead;
+            if (emEl) emEl.textContent = theme.headline[currentLang].emphasis;
+            if (tailEl) tailEl.textContent = theme.headline[currentLang].tail;
+            if (subEl) subEl.textContent = theme.heroSub[currentLang];
+
+            // Update Section 01 Essay contents
+            const t1 = document.getElementById('essay-title-1');
+            const p11 = document.getElementById('essay-p1-1');
+            const p21 = document.getElementById('essay-p2-1');
+            const quote = document.getElementById('essay-quote');
+
+            const t2 = document.getElementById('essay-title-2');
+            const p12 = document.getElementById('essay-p1-2');
+            const p22 = document.getElementById('essay-p2-2');
+            const p32 = document.getElementById('essay-p3-2');
+
+            if (t1) t1.textContent = theme.premiseCol1.title[currentLang];
+            if (p11) p11.textContent = theme.premiseCol1.p1[currentLang];
+            if (p21) p21.textContent = theme.premiseCol1.p2[currentLang];
+            if (quote) quote.textContent = theme.premiseCol1.pullquote[currentLang];
+
+            if (t2) t2.textContent = theme.premiseCol2.title[currentLang];
+            if (p12) p12.textContent = theme.premiseCol2.p1[currentLang];
+            if (p22) p22.textContent = theme.premiseCol2.p2[currentLang];
+            if (p32) p32.textContent = theme.premiseCol2.p3[currentLang];
+          });
+        });
+      } catch (e) {
+        console.error('Failed to initialize editorial rotation:', e);
+      }
+    }
   </script>
 </BaseLayout>

@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    # Daily rebuild and redeploy at midnight KST (15:00 UTC)
+    - cron: '0 15 * * *'
   workflow_dispatch:
 
 permissions:
