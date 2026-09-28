@@ -1,0 +1,21 @@
+{
+  "title": "PIMSM: Physics-Informed Multi-Scale Mamba for Stable Neural Representations under Distribution Shift",
+  "authors": [
+    "Sangyoon Bae",
+    "Shinjae Yoo",
+    "Jiook Cha"
+  ],
+  "venue": "arXiv preprint",
+  "year": 2026,
+  "doi": "10.48550/arxiv.2605.16351",
+  "url": "https://doi.org/10.48550/arxiv.2605.16351",
+  "tags": [
+    "Neuroscience"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Sangyoon Bae",
+    "Jiook Cha"
+  ],
+  "kind": "preprint"
+}
