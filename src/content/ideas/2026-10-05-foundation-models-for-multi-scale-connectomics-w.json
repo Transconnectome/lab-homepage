@@ -1,0 +1,22 @@
+{
+  "title": "Foundation Models for Multi-Scale Connectomics with PIMSM",
+  "titleKo": "PIMSM을 활용한 다중 스케일 연결체학 파운데이션 모델",
+  "date": "2026-10-05",
+  "category": "connectomics",
+  "hypothesis": "Adapting Physics-Informed Multi-Scale Mamba (PIMSM) to connectomics could enable more stable and generalizable representations of structural and functional brain networks across different scales and populations.",
+  "hypothesisKo": "물리 정보 기반 다중 스케일 맘바(PIMSM)를 연결체학에 적용하면 다양한 규모와 인구 집단에 걸쳐 구조적 및 기능적 뇌 네트워크의 보다 안정적이고 일반화 가능한 표현을 가능하게 할 것이다.",
+  "rationale": "The lab has developed PIMSM for stable neural representations but has yet to apply it directly to connectomics. Combining the inherent multi-scale nature of connectomes with PIMSM's physics-informed architecture offers a novel approach to learning robust brain network models.",
+  "rationaleKo": "연구실은 안정적인 신경 표현을 위해 PIMSM을 개발했지만, 이를 연결체학에 직접 적용한 적은 없다. 연결체의 본질적인 다중 스케일 특성과 PIMSM의 물리 정보 기반 아키텍처를 결합하면 견고한 뇌 네트워크 모델을 학습하는 새로운 접근 방식을 제공한다.",
+  "labThreads": [
+    "The Neuro-X Project: Brain Foundation Models"
+  ],
+  "externalInspiration": [
+    "PIMSM: Physics-Informed Multi-Scale Mamba for Stable Neural Representations under Distribution Shift",
+    "Latent-Space Causal Discovery from Indirect Neuroimaging Observations"
+  ],
+  "firstExperiment": "PIMSM could be trained on multi-scale connectome data (e.g., derived from dMRI for structural and fMRI for functional connectivity) from a developmental cohort (e.g., ABCD) and evaluated on its ability to predict individual cognitive performance or mental health outcomes, comparing against traditional graph neural network approaches.",
+  "firstExperimentKo": "PIMSM을 발달 코호트(예: ABCD)의 다중 스케일 연결체 데이터(예: 구조적 연결성을 위한 dMRI 및 기능적 연결성을 위한 fMRI에서 파생)에 훈련시키고, 기존 그래프 신경망 접근법과 비교하여 개인의 인지 성능 또는 정신 건강 결과 예측 능력을 평가할 수 있다.",
+  "risks": "Integrating diverse connectomic data modalities and scales into a single physics-informed framework without losing critical information or introducing biases is complex.",
+  "risksKo": "다양한 연결체 데이터 모달리티와 스케일을 단일 물리 정보 기반 프레임워크로 통합할 때 중요한 정보를 손실하거나 편향을 도입하지 않는 것이 복잡하다.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}
