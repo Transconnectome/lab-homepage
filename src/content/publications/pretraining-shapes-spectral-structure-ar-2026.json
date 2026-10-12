@@ -1,0 +1,22 @@
+{
+  "title": "Pretraining Shapes Spectral Structure: Architecture- and Strategy-Conditional Prediction of OOD Robustness in Foundation Models",
+  "authors": [
+    "Sangyoon Bae",
+    "Sk Miraj Ahmed",
+    "Shinjae Yoo",
+    "Jiook Cha"
+  ],
+  "venue": "arXiv preprint",
+  "year": 2026,
+  "doi": "10.48550/arxiv.2610.09709",
+  "url": "https://doi.org/10.48550/arxiv.2610.09709",
+  "tags": [
+    "AI & Foundation Models"
+  ],
+  "featured": false,
+  "labMembers": [
+    "Sangyoon Bae",
+    "Jiook Cha"
+  ],
+  "kind": "preprint"
+}
