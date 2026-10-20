@@ -1,0 +1,642 @@
+[
+  {
+    "id": "F1-T1-01",
+    "feature": "F1",
+    "tier": 1,
+    "title": "Human-centered bilingual mission",
+    "expected": "Both homepages explain people and genes/brain/behavior/environment, rather than model names alone.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F1-T1-02",
+    "feature": "F1",
+    "tier": 1,
+    "title": "Four question-led entry points",
+    "expected": "Homepage exposes four distinct question links to detailed research.",
+    "source": "README.md#Design"
+  },
+  {
+    "id": "F1-T1-03",
+    "feature": "F1",
+    "tier": 1,
+    "title": "Question to method explanation",
+    "expected": "Research overview visibly explains at least one data/design choice for each research direction.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F1-T1-04",
+    "feature": "F1",
+    "tier": 1,
+    "title": "Demonstrated examples have research sources",
+    "expected": "Research page shows concrete study examples and external publication references.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F1-T1-05",
+    "feature": "F1",
+    "tier": 1,
+    "title": "Limits remain visible beside research",
+    "expected": "Research explanation includes predictive/causal boundary and unvalidated next-step language.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F1-T2-01",
+    "feature": "F1",
+    "tier": 2,
+    "title": "No-JavaScript research meaning",
+    "expected": "Disabling scripts preserves all four questions and substantial explanatory research text.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F1-T2-02",
+    "feature": "F1",
+    "tier": 2,
+    "title": "Homepage layer links to detail",
+    "expected": "Each unique homepage research question link reaches its corresponding visible explanatory section.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F1-T2-03",
+    "feature": "F1",
+    "tier": 2,
+    "title": "No unsupported superlative promise",
+    "expected": "Homepage does not promise guaranteed admission, guaranteed results or world-best ranking as fact.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F1-T2-04",
+    "feature": "F1",
+    "tier": 2,
+    "title": "Research locale coverage parity",
+    "expected": "Both locales expose the same four research directions through corresponding anchors.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F1-T2-05",
+    "feature": "F1",
+    "tier": 2,
+    "title": "Narrow-screen explanation readability",
+    "expected": "Research prose at 320px is visible, has no replacement characters or clipped horizontal extent.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F2-T1-01",
+    "feature": "F2",
+    "tier": 1,
+    "title": "Homepage research figure loads",
+    "expected": "Each homepage includes a rendered informative research image.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F2-T1-02",
+    "feature": "F2",
+    "tier": 1,
+    "title": "Figure caption carries scientific meaning",
+    "expected": "Homepage research caption explains the represented observation and its interpretation boundary.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F2-T1-03",
+    "feature": "F2",
+    "tier": 1,
+    "title": "Figure credit is a traceable link",
+    "expected": "A visible source link is associated with the homepage research figure.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F2-T1-04",
+    "feature": "F2",
+    "tier": 1,
+    "title": "Research surface labeled as reference",
+    "expected": "The research illustration is identified as a reference surface with a source, not a result localization map.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F2-T1-05",
+    "feature": "F2",
+    "tier": 1,
+    "title": "Informative image alternatives",
+    "expected": "Every rendered research/homepage image has an alt attribute; figure images have nonempty alternatives.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F2-T2-01",
+    "feature": "F2",
+    "tier": 2,
+    "title": "Narrow figure and caption containment",
+    "expected": "Figures and their captions stay inside the 320px viewport.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F2-T2-02",
+    "feature": "F2",
+    "tier": 2,
+    "title": "Figure source works without scripts",
+    "expected": "Caption, credit link and decoded figure remain available when JavaScript is disabled.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F2-T2-03",
+    "feature": "F2",
+    "tier": 2,
+    "title": "Missing image retains explanation",
+    "expected": "When image responses fail, textual figure alternative and visible caption still explain the content.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F2-T2-04",
+    "feature": "F2",
+    "tier": 2,
+    "title": "Image provenance locale parity",
+    "expected": "Both locales use the same homepage research figure source and credit destination.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F2-T2-05",
+    "feature": "F2",
+    "tier": 2,
+    "title": "Image license stays visible",
+    "expected": "Research figure attribution states the license in both languages.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F3-T1-01",
+    "feature": "F3",
+    "tier": 1,
+    "title": "Homepage offers application path",
+    "expected": "A reader can click a visible homepage action and reach the locale-appropriate join page.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F3-T1-02",
+    "feature": "F3",
+    "tier": 1,
+    "title": "Application route names supported roles",
+    "expected": "Join page identifies graduate, postdoctoral and undergraduate/intern routes without inventing openings.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F3-T1-03",
+    "feature": "F3",
+    "tier": 1,
+    "title": "Concrete application materials",
+    "expected": "Applicants see CV, transcript and a research-interest statement requirement.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F3-T1-04",
+    "feature": "F3",
+    "tier": 1,
+    "title": "Public contact action",
+    "expected": "Join includes a syntactically valid usable mailto application contact.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F3-T1-05",
+    "feature": "F3",
+    "tier": 1,
+    "title": "Research culture gives concrete expectations",
+    "expected": "Join explains independence, learning, collaboration and research completion.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F3-T2-01",
+    "feature": "F3",
+    "tier": 2,
+    "title": "Openings uncertainty preserved",
+    "expected": "Join asks readers to verify current openings and distinguishes formal university admission.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F3-T2-02",
+    "feature": "F3",
+    "tier": 2,
+    "title": "Keyboard-operable FAQ",
+    "expected": "FAQ question can be focused and expanded with Enter, revealing its answer.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F3-T2-03",
+    "feature": "F3",
+    "tier": 2,
+    "title": "Application without JavaScript",
+    "expected": "No-JS visitors can reach application instructions and contact.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F3-T2-04",
+    "feature": "F3",
+    "tier": 2,
+    "title": "Application locale contact parity",
+    "expected": "Both languages direct applications to the same verified public mailbox and matching program families.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F3-T2-05",
+    "feature": "F3",
+    "tier": 2,
+    "title": "Mobile application anchor",
+    "expected": "At 390px the join page application anchor reaches visible preparation/contact instructions.",
+    "source": "docs/research-editorial-guidelines.md"
+  },
+  {
+    "id": "F4-T1-01",
+    "feature": "F4",
+    "tier": 1,
+    "title": "Responsive home layout",
+    "expected": "Both homepages fit 320/390/1440px without horizontal overflow.",
+    "source": "PROJECT.md#F4"
+  },
+  {
+    "id": "F4-T1-02",
+    "feature": "F4",
+    "tier": 1,
+    "title": "Responsive research layout",
+    "expected": "Both research pages fit 320/390/1440px without horizontal overflow.",
+    "source": "PROJECT.md#F4"
+  },
+  {
+    "id": "F4-T1-03",
+    "feature": "F4",
+    "tier": 1,
+    "title": "Responsive join layout",
+    "expected": "Both join pages fit 320/390/1440px without horizontal overflow.",
+    "source": "PROJECT.md#F4"
+  },
+  {
+    "id": "F4-T1-04",
+    "feature": "F4",
+    "tier": 1,
+    "title": "Reading landmarks and heading",
+    "expected": "Core pages provide one visible h1, main landmark and named document language.",
+    "source": "PROJECT.md#F4"
+  },
+  {
+    "id": "F4-T1-05",
+    "feature": "F4",
+    "tier": 1,
+    "title": "Controls have accessible names",
+    "expected": "All visible core-page interactive controls have usable names.",
+    "source": "PROJECT.md#F4"
+  },
+  {
+    "id": "F4-T2-01",
+    "feature": "F4",
+    "tier": 2,
+    "title": "Keyboard mobile menu",
+    "expected": "A keyboard user opens mobile navigation and follows Research.",
+    "source": "PROJECT.md#F4"
+  },
+  {
+    "id": "F4-T2-02",
+    "feature": "F4",
+    "tier": 2,
+    "title": "Keyboard focus remains perceptible",
+    "expected": "Focused primary application link has visible outline or box-shadow focus styling.",
+    "source": "PROJECT.md#F4"
+  },
+  {
+    "id": "F4-T2-03",
+    "feature": "F4",
+    "tier": 2,
+    "title": "Native research navigation without scripts",
+    "expected": "At 320px all four native research links remain usable with JavaScript disabled.",
+    "source": "PROJECT.md#F4"
+  },
+  {
+    "id": "F4-T2-04",
+    "feature": "F4",
+    "tier": 2,
+    "title": "Text enlargement does not clip content",
+    "expected": "Core pages at 200% root text sizing remain readable without horizontal overflow.",
+    "source": "PROJECT.md#F4"
+  },
+  {
+    "id": "F4-T2-05",
+    "feature": "F4",
+    "tier": 2,
+    "title": "Reduced motion preserves content",
+    "expected": "Reduced-motion readers retain headline, research links, figures and application action.",
+    "source": "PROJECT.md#F4"
+  },
+  {
+    "id": "F5-T1-01",
+    "feature": "F5",
+    "tier": 1,
+    "title": "Public route preservation",
+    "expected": "All eight established public routes load in both languages.",
+    "source": "README.md"
+  },
+  {
+    "id": "F5-T1-02",
+    "feature": "F5",
+    "tier": 1,
+    "title": "Locale switch preserves route",
+    "expected": "Core pages offer the counterpart locale and follow it without losing page intent.",
+    "source": "AGENTS.md"
+  },
+  {
+    "id": "F5-T1-03",
+    "feature": "F5",
+    "tier": 1,
+    "title": "Core internal destinations resolve",
+    "expected": "Every visible core-page local link has a successful response; fragment IDs exist.",
+    "source": "AGENTS.md"
+  },
+  {
+    "id": "F5-T1-04",
+    "feature": "F5",
+    "tier": 1,
+    "title": "Core assets decode",
+    "expected": "All main images on home, research and join decode successfully.",
+    "source": "AGENTS.md"
+  },
+  {
+    "id": "F5-T1-05",
+    "feature": "F5",
+    "tier": 1,
+    "title": "Page metadata describes each route",
+    "expected": "Each core locale page has distinct title and nonempty description plus HTTPS canonical.",
+    "source": "README.md"
+  },
+  {
+    "id": "F5-T2-01",
+    "feature": "F5",
+    "tier": 2,
+    "title": "Legacy Korean redirects",
+    "expected": "Established /ko and /ko/research links reach Korean content.",
+    "source": "README.md"
+  },
+  {
+    "id": "F5-T2-02",
+    "feature": "F5",
+    "tier": 2,
+    "title": "Graceful unknown route",
+    "expected": "Unknown URL returns a genuine 404 with a visible explanation, not a blank page or false-success homepage.",
+    "source": "PROJECT.md#F5"
+  },
+  {
+    "id": "F5-T2-03",
+    "feature": "F5",
+    "tier": 2,
+    "title": "Publication no-match and recovery",
+    "expected": "Impossible publication search explains zero results; clearing restores publications.",
+    "source": "README.md"
+  },
+  {
+    "id": "F5-T2-04",
+    "feature": "F5",
+    "tier": 2,
+    "title": "Runtime console remains error-free",
+    "expected": "Core-page loads and native disclosures cause no browser page errors.",
+    "source": "PROJECT.md#F5"
+  },
+  {
+    "id": "F5-T2-05",
+    "feature": "F5",
+    "tier": 2,
+    "title": "Deep-link reload preserves target",
+    "expected": "A research link can be bookmarked and reloaded, retaining a valid visible section.",
+    "source": "PROJECT.md#F5"
+  },
+  {
+    "id": "F6-T1-01",
+    "feature": "F6",
+    "tier": 1,
+    "title": "Dated public review artifact",
+    "expected": "Request-scoped public review exists and explicitly records the 2026-10-20 revision.",
+    "source": "AGENTS.md#완료 보고"
+  },
+  {
+    "id": "F6-T1-02",
+    "feature": "F6",
+    "tier": 1,
+    "title": "Concrete before-after examples",
+    "expected": "Public review includes concrete before/after text and the rationale for changes.",
+    "source": "docs/research-editorial-guidelines.md#8"
+  },
+  {
+    "id": "F6-T1-03",
+    "feature": "F6",
+    "tier": 1,
+    "title": "Claim-source mapping",
+    "expected": "Public review maps claims to identifiable source URLs and section/figure/table locators.",
+    "source": "docs/research-editorial-guidelines.md#3"
+  },
+  {
+    "id": "F6-T1-04",
+    "feature": "F6",
+    "tier": 1,
+    "title": "Image provenance record",
+    "expected": "Image record identifies source and license plus excerpt/transformation provenance.",
+    "source": "docs/research-editorial-guidelines.md#6"
+  },
+  {
+    "id": "F6-T1-05",
+    "feature": "F6",
+    "tier": 1,
+    "title": "Scope and remaining verification",
+    "expected": "Public review distinguishes executed work from unresolved verification and PI decisions.",
+    "source": "docs/research-editorial-guidelines.md#8"
+  },
+  {
+    "id": "F6-T2-01",
+    "feature": "F6",
+    "tier": 2,
+    "title": "Public artifact local links resolve",
+    "expected": "All local Markdown link targets in the request-specific review exist.",
+    "source": "docs/research-editorial-guidelines.md#8"
+  },
+  {
+    "id": "F6-T2-02",
+    "feature": "F6",
+    "tier": 2,
+    "title": "Public documentation contains no private operational paths",
+    "expected": "Review does not expose home-directory paths, credentials, private workspace links or secret-bearing strings.",
+    "source": "AGENTS.md#검증과 변경 범위"
+  },
+  {
+    "id": "F6-T2-03",
+    "feature": "F6",
+    "tier": 2,
+    "title": "Verification is reproducible",
+    "expected": "Public review records actual build/browser verification commands or links to their report, and distinguishes science review.",
+    "source": "docs/research-editorial-guidelines.md#8"
+  },
+  {
+    "id": "F6-T2-04",
+    "feature": "F6",
+    "tier": 2,
+    "title": "Maintenance and future updates documented",
+    "expected": "Public review states how reviewed content and sources should be updated or revalidated.",
+    "source": "docs/research-editorial-guidelines.md#8"
+  },
+  {
+    "id": "F6-T2-05",
+    "feature": "F6",
+    "tier": 2,
+    "title": "New review is indexed by canonical content review",
+    "expected": "Canonical content review mentions this dated revision or links its public report.",
+    "source": "AGENTS.md#완료 보고"
+  },
+  {
+    "id": "F1+F2-T3-01",
+    "feature": "F1+F2",
+    "tier": 3,
+    "title": "Question-to-evidence reading path",
+    "expected": "A homepage reader follows a research figure/context link and finds question, representative study and limits.",
+    "source": "PROJECT.md#F1-F2"
+  },
+  {
+    "id": "F1+F3-T3-01",
+    "feature": "F1+F3",
+    "tier": 3,
+    "title": "Research interest becomes application",
+    "expected": "After reading a research question visitors can reach locale-correct application information from navigation.",
+    "source": "PROJECT.md#F1-F3"
+  },
+  {
+    "id": "F2+F4-T3-01",
+    "feature": "F2+F4",
+    "tier": 3,
+    "title": "Mobile visual explanation",
+    "expected": "At 390px decoded research figure, explanatory caption and credit remain readable together.",
+    "source": "PROJECT.md#F2-F4"
+  },
+  {
+    "id": "F3+F4-T3-01",
+    "feature": "F3+F4",
+    "tier": 3,
+    "title": "Keyboard mobile applicant flow",
+    "expected": "At 320px applicant follows visible CTA by Enter then opens a FAQ and can reach contact.",
+    "source": "PROJECT.md#F3-F4"
+  },
+  {
+    "id": "F4+F5-T3-01",
+    "feature": "F4+F5",
+    "tier": 3,
+    "title": "Mobile locale round trip",
+    "expected": "At 390px language switching twice preserves research route and no overflow.",
+    "source": "PROJECT.md#F4-F5"
+  },
+  {
+    "id": "F2+F6-T3-01",
+    "feature": "F2+F6",
+    "tier": 3,
+    "title": "Visible figure ties to provenance record",
+    "expected": "The homepage credit source is explicitly traceable in public image/review documentation.",
+    "source": "PROJECT.md#F2-F6"
+  },
+  {
+    "id": "ALL-T4-01",
+    "feature": "ALL",
+    "tier": 4,
+    "title": "Korean mobile prospective graduate",
+    "expected": "390px Korean visitor reads mission, research detail, application preparation and contact.",
+    "source": "ORIGINAL_REQUEST.md + PROJECT.md"
+  },
+  {
+    "id": "ALL-T4-02",
+    "feature": "ALL",
+    "tier": 4,
+    "title": "English desktop researcher",
+    "expected": "1440px English reader reviews image credit, follows research evidence, then finds publications and application.",
+    "source": "ORIGINAL_REQUEST.md + PROJECT.md"
+  },
+  {
+    "id": "ALL-T4-03",
+    "feature": "ALL",
+    "tier": 4,
+    "title": "Low-script narrow-screen applicant",
+    "expected": "320px visitor with scripts disabled can read question, its evidence, and prepare an application.",
+    "source": "ORIGINAL_REQUEST.md + PROJECT.md"
+  },
+  {
+    "id": "ALL-T4-04",
+    "feature": "ALL",
+    "tier": 4,
+    "title": "Bilingual reader compares meaning boundaries",
+    "expected": "Reader switches homepage language, sees same figure/source and matching scope dimensions, then follows research.",
+    "source": "ORIGINAL_REQUEST.md + PROJECT.md"
+  },
+  {
+    "id": "ALL-T4-05",
+    "feature": "ALL",
+    "tier": 4,
+    "title": "Skeptical visitor recovers from no-match search",
+    "expected": "Publication visitor sees empty-state feedback, clears it, finds evidence, and returns to research navigation.",
+    "source": "ORIGINAL_REQUEST.md + PROJECT.md"
+  },
+  {
+    "id": "F1+F4-T3-01",
+    "feature": "F1+F4",
+    "tier": 3,
+    "title": "Question links remain keyboard readable",
+    "expected": "At 320px keyboard activation of a question reaches a visible explanatory heading without clipping.",
+    "source": "PROJECT.md#F1-F4"
+  },
+  {
+    "id": "F1+F5-T3-01",
+    "feature": "F1+F5",
+    "tier": 3,
+    "title": "Research breadth survives route reload and locale change",
+    "expected": "All four question destinations still resolve after navigation and the paired locale retains all four.",
+    "source": "PROJECT.md#F1-F5"
+  },
+  {
+    "id": "F1+F6-T3-01",
+    "feature": "F1+F6",
+    "tier": 3,
+    "title": "Research examples tie to public claim record",
+    "expected": "A named representative model in the rendered research explanation is present in the public claim/source review.",
+    "source": "PROJECT.md#F1-F6"
+  },
+  {
+    "id": "F2+F3-T3-01",
+    "feature": "F2+F3",
+    "tier": 3,
+    "title": "Figure reading does not dead-end applicant",
+    "expected": "After viewing homepage evidence and source credit, an applicant can reach instructions without leaving the locale.",
+    "source": "PROJECT.md#F2-F3"
+  },
+  {
+    "id": "F2+F5-T3-01",
+    "feature": "F2+F5",
+    "tier": 3,
+    "title": "Figure assets survive language navigation",
+    "expected": "A decoded figure and its provenance remain available after switching locale and reloading.",
+    "source": "PROJECT.md#F2-F5"
+  },
+  {
+    "id": "F3+F5-T3-01",
+    "feature": "F3+F5",
+    "tier": 3,
+    "title": "Application route reload and locale equivalence",
+    "expected": "A bookmarked application page retains preparation and same contact after locale change and reload.",
+    "source": "PROJECT.md#F3-F5"
+  },
+  {
+    "id": "F3+F6-T3-01",
+    "feature": "F3+F6",
+    "tier": 3,
+    "title": "Applicant edits have a durable scope record",
+    "expected": "Working public application path is accompanied by a public review of recruitment/application changes and remaining approval boundaries.",
+    "source": "PROJECT.md#F3-F6"
+  },
+  {
+    "id": "F4+F6-T3-01",
+    "feature": "F4+F6",
+    "tier": 3,
+    "title": "Responsive evidence records actual target widths",
+    "expected": "Public review records the 320/390/1440 browser conditions whose homepage behavior is reproducible.",
+    "source": "PROJECT.md#F4-F6"
+  },
+  {
+    "id": "F5+F6-T3-01",
+    "feature": "F5+F6",
+    "tier": 3,
+    "title": "Reproducible verification points to current public route contract",
+    "expected": "Documented verification references coexist with reachable locale core routes and the canonical record indexes the same revision.",
+    "source": "PROJECT.md#F5-F6"
+  }
+]

@@ -11,13 +11,18 @@ Official website of the **Connectome Laboratory** at **Seoul National University
 
 ## Design
 
-The homepage starts with the lab's mission in the visitor's language, alongside
-an attributed research figure. It then explains what studying connections means,
-links four concrete questions to the research page, introduces how researchers
-learn and work together, and closes with dated news and selected publications.
-The English motto remains a secondary element. The paper, ink and teal palette
-uses MaruBuri for Korean display text, Hahmlet for English display text,
-Pretendard for body text and IBM Plex Mono for dates.
+The homepage opens with a fixed bilingual mission, direct research/publication/application
+links, and a credited excerpt of the MBBN research figure. Four questions and their
+summaries come directly from the reviewed research collection. A secondary daily
+question uses the KST calendar date; visitors can select any question with ordinary
+buttons, and direct research links remain available without JavaScript. The research
+perspective is optional reading. People, application guidance, news and selected
+publications follow in compact sections. Citation export stays on Publications.
+The paper and ink palette, restrained oxblood accents and existing typography remain.
+
+The 2026-10-02 local implementation and validation are recorded in
+[the redesign plan](docs/homepage-redesign-plan-2026-10-02.md) and
+[the content review](docs/research-content-review.md#20-홈페이지-개편-구현--2026-10-02).
 
 The research page combines four numbered questions with an accessible research
 map, a sourced cortical surface reference, and the project list. Each area's question and explanation

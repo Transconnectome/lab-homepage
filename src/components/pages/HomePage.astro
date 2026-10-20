@@ -2,702 +2,212 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { useTranslations, localePath, type Lang } from '../../i18n/ui';
-import { siteMedia } from '../../data/siteMedia';
 import { memberAnchor } from '../people/MemberGrid';
-import { dailyThemes, getTodayThemeIndex } from '../../data/dailyThemes';
+import { getTodayThemeIndex } from '../../data/dailyThemes';
+import { siteMedia } from '../../data/siteMedia';
+import ResearchStories from '../home/ResearchStories.astro';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
-// 1. Daily Rotating Editorial Theme
-const todayIndex = getTodayThemeIndex();
-const activeTheme = dailyThemes[todayIndex];
-
-// 2. Research inquiries
 const research = (await getCollection('research'))
   .filter((item) => item.data.lang === lang)
   .sort((a, b) => a.data.order - b.data.order);
-
-// 3. Members: PI + Active fellows with avatars
-const allMembers = await getCollection('members');
-const sortedMembers = allMembers.map((m) => m.data).sort((a, b) => a.order - b.order);
-const pi = sortedMembers.find((m) => m.category === 'pi');
-const fellows = sortedMembers
-  .filter((m) => m.category !== 'pi' && m.category !== 'alumni' && m.avatar)
-  .slice(0, 8);
-
-// 4. Featured Publications & Top Papers
-const publications = (await getCollection('publications'))
-  .filter((item) => item.data.kind !== 'preprint')
-  .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0) || b.data.year - a.data.year || a.data.title.localeCompare(b.data.title))
-  .slice(0, 3);
-
-// 5. Latest News
 const news = (await getCollection('news'))
   .filter((item) => item.data.lang === lang)
-  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .sort((a, b) => b.data.date.localeCompare(a.data.date)).slice(0, 3);
+// Select three published papers from the latest recorded years. Month metadata
+// is incomplete, so this is a selection rather than an exact publication timeline.
+const publications = (await getCollection('publications'))
+  .filter((item) => item.data.kind !== 'preprint')
+  .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title))
   .slice(0, 3);
-
-const pageTitle = lang === 'ko'
-  ? '서울대학교 커넥톰 연구실 | SNU Connectome Laboratory'
-  : 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실';
-
-// Helper for dynamic BibTeX generation
-function getBibtex(pub: { title: string; authors: string[]; venue: string; year: number; doi?: string | null }) {
-  const first = pub.authors[0]?.split(' ').pop()?.toLowerCase().replace(/[^a-z0-9]/g, '') || 'author';
-  const key = `${first}${pub.year}${pub.title.split(' ')[0].toLowerCase().replace(/[^a-z0-9]/g, '')}`;
-  return `@article{${key},
-  title={${pub.title}},
-  author={${pub.authors.join(' and ')}},
-  journal={${pub.venue}},
-  year={${pub.year}}${pub.doi ? `,\n  doi={${pub.doi}}` : ''}
-}`;
-}
-
-const mbbnBibtex = `@article{lee2025multiscale,
-  title={Multi-scale biological networks encode adolescent mental health dynamics},
-  author={Lee, Ahhyun and Wang, Heehwan and Park, David Keetae and Cha, Jiook},
-  journal={Nature Communications},
-  year={2025}
-}`;
+const members = (await getCollection('members'))
+  .filter((item) => item.data.category !== 'alumni' && item.data.avatar)
+  .sort((a, b) => a.data.order - b.data.order).slice(0, 10);
+const todayIndex = getTodayThemeIndex(research.length);
+const pageTitle = lang === 'ko' ? '서울대학교 커넥톰 연구실 | SNU Connectome Laboratory' : 'SNU Connectome Laboratory | 서울대학교 커넥톰 연구실';
 ---
 
 <BaseLayout lang={lang} title={pageTitle} description={t('home.metaDesc')}>
-  <div class="section-shell">
-    <!-- Hero Section: The Restrained Monograph with Daily Editorial Rotation -->
-    <section id="introduction" class="pt-8 pb-10 sm:pt-14 sm:pb-14" aria-labelledby="home-title">
-      <!-- Daily Rota Switcher Bar -->
-      <div class="opt-e-rota-bar" role="tablist" aria-label={lang === 'ko' ? '일일 연구 화두 전환' : 'Daily Editorial Perspectives'}>
-        <span class="opt-e-rota-label">
-          <span>{lang === 'ko' ? 'Inquiry of the Day' : 'Inquiry of the Day'}</span>
-          <span class="text-line" aria-hidden="true">·</span>
-        </span>
-        {dailyThemes.map((th, idx) => {
-          const isToday = idx === todayIndex;
-          return (
-            <button
-              type="button"
-              role="tab"
-              aria-selected={isToday ? 'true' : 'false'}
-              class={`opt-e-rota-tab ${isToday ? 'active' : ''}`}
-              data-theme-id={th.id}
-            >
-              <span>{th.tabLabel[lang]}</span>
-              {isToday && <span class="opt-e-rota-badge">{lang === 'ko' ? '오늘의 화두' : 'Today'}</span>}
-            </button>
-          );
-        })}
+  <section id="introduction" class="section-shell pt-10 pb-12 sm:pt-14 sm:pb-16" aria-labelledby="home-title">
+    <div class="grid lg:grid-cols-[1.2fr_0.9fr] gap-12 lg:gap-16 items-center">
+      <div class="space-y-7 min-w-0">
+        <p class="eyebrow">{t('home.eyebrow')}</p>
+        <h1 id="home-title" class="font-display text-[2rem] sm:text-[2.75rem] xl:text-[3.125rem] font-semibold leading-[1.4] text-ink">
+          <span class="block">{t('home.missionLead')}</span>
+          <span class="block text-oxblood">{t('home.missionFocus')}</span>
+        </h1>
+        <p class="text-base sm:text-lg text-ink-soft leading-relaxed">{t('home.heroDesc')}</p>
+        <nav class="flex flex-wrap gap-x-6 gap-y-3" aria-label={lang === 'ko' ? '연구실 알아보기' : 'Explore the lab'}>
+          <a href="#research-questions" class="text-link">{t('home.exploreCta')}</a>
+          <a href={localePath(lang, '/publications')} class="text-link">{t('home.allPubs')}</a>
+          <a href={localePath(lang, '/join')} class="text-link">{t('home.joinCta')}</a>
+        </nav>
+        <div class="pt-6 border-t border-line space-y-1" lang="en">
+          <p class="font-display text-sm sm:text-base text-ink-soft">Everything Connects to Everything Else.</p>
+          <p class="text-xs text-ink-faint">{t('home.mottoCredit')}</p>
+        </div>
       </div>
+      <figure class="space-y-3 min-w-0">
+        <p class="eyebrow">{t('home.figureEyebrow')}</p>
+        <a href={siteMedia.hero.source} target="_blank" rel="noreferrer" class="block aspect-square overflow-hidden bg-white" aria-label={siteMedia.hero.alt[lang]}>
+        <img src={siteMedia.hero.src} alt={siteMedia.hero.alt[lang]} width={siteMedia.hero.width} height={siteMedia.hero.height}
+          fetchpriority="high" class="w-full h-auto" />
+        </a>
+        <p class="text-sm text-ink-soft leading-relaxed">{siteMedia.hero.guide[lang]}</p>
+        <figcaption class="text-sm text-ink-soft leading-relaxed">
+          {siteMedia.hero.caption[lang]}
+          <a href={siteMedia.hero.source} target="_blank" rel="noreferrer" class="underline underline-offset-4 ml-1">{siteMedia.hero.credit}</a>
+          · <a href={siteMedia.hero.license} class="underline underline-offset-4" lang="en">CC BY 4.0</a>
+        </figcaption>
+        <a href={`${localePath(lang, '/research')}#neuro-x`} class="text-link inline-block text-sm">{t('home.figureLink')}</a>
+      </figure>
+    </div>
+  </section>
 
-      <div id="hero-eyebrow" class="opt-e-hero-eyebrow">
-        {activeTheme.eyebrow[lang]}
+  <section id="inquiry" class="border-y border-line" aria-labelledby="inquiry-title">
+    <div class="section-shell py-10 sm:py-14 grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-7 lg:gap-x-20">
+      <div class="space-y-6">
+        <div class="space-y-5">
+          <p class="eyebrow">{t('home.inquiryEyebrow')}</p>
+          <h2 id="inquiry-title" class="font-display text-3xl sm:text-4xl font-semibold">{t('home.inquiryTitle')}</h2>
+          <p class="text-base text-ink-soft leading-relaxed">{t('home.connectionDesc')}</p>
+        </div>
+        <details class="border-t border-line pt-5">
+          <summary class="font-display text-xl font-semibold cursor-pointer">{t('home.approachTitle')}</summary>
+          <div class="space-y-4 pt-4">
+            <p class="text-base text-ink-soft leading-relaxed">{t('home.approachDesc')}</p>
+            <a href={`${localePath(lang, '/team')}#pi-perspective`} class="text-link inline-block text-sm">{t('home.piCta')}</a>
+          </div>
+        </details>
+
       </div>
-
-      <h1 id="home-title" class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-medium leading-[1.25] text-ink tracking-tight mb-7">
-        <span id="headline-lead">{activeTheme.headline[lang].lead}</span>{' '}
-        <span id="headline-emphasis" class="italic font-normal">{activeTheme.headline[lang].emphasis}</span>{' '}
-        <span id="headline-tail">{activeTheme.headline[lang].tail}</span>
-      </h1>
-
-      <p id="home-hero-sub" class="text-base sm:text-lg text-ink-soft leading-relaxed max-w-3xl mb-8">
-        {activeTheme.heroSub[lang]}
-      </p>
-
-      <!-- Editorial In-page Navigation Jumps -->
-      <nav class="flex flex-wrap items-center gap-x-6 gap-y-2 pt-5 border-t border-line text-xs font-mono tracking-wider uppercase" aria-label="Prospectus Index">
-        <a href="#paradigm" class="text-ink-soft hover:text-oxblood transition-colors">01 {lang === 'ko' ? '근본 질문' : 'Premise'}</a>
-        <span class="text-line" aria-hidden="true">/</span>
-        <a href="#inquiry" class="text-ink-soft hover:text-oxblood transition-colors">02 {lang === 'ko' ? '연구 축' : 'Inquiries'}</a>
-        <span class="text-line" aria-hidden="true">/</span>
-        <a href="#evidence" class="text-ink-soft hover:text-oxblood transition-colors">03 {lang === 'ko' ? '관찰 데이터' : 'Findings'}</a>
-        <span class="text-line" aria-hidden="true">/</span>
-        <a href="#fellows" class="text-ink-soft hover:text-oxblood transition-colors">04 {lang === 'ko' ? '연구진' : 'People'}</a>
-        <span class="text-line" aria-hidden="true">/</span>
-        <a href="#publications" class="text-ink-soft hover:text-oxblood transition-colors">05 {lang === 'ko' ? '논문 및 소식' : 'Papers & News'}</a>
-        <span class="text-line" aria-hidden="true">/</span>
-        <a href="#prospectus" class="text-ink-soft hover:text-oxblood transition-colors">06 {lang === 'ko' ? '참여 안내' : 'Contact'}</a>
+      <nav id="research-questions" aria-labelledby="questions-title">
+        <h3 id="questions-title" class="eyebrow pb-5 border-b border-ink">{t('home.questionsTitle')}</h3>
+        <ol class="divide-y divide-line">
+          {research.map((item, index) => (
+            <li class="py-4 grid grid-cols-[1.5rem_minmax(0,1fr)] gap-4">
+              <span class="text-sm text-oxblood pt-1" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <div class="space-y-3">
+                <a href={`${localePath(lang, '/research')}#${item.data.baseSlug ?? item.id}`} class="block font-display text-xl sm:text-[1.375rem] leading-snug font-semibold hover:text-oxblood">
+                  {item.data.question}
+                </a>
+                <p class="text-sm text-ink-soft leading-relaxed">{item.data.tagline}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </nav>
-    </section>
+        <details class="border-t border-line pt-5 mt-2 lg:col-start-2">
+          <summary id="perspective-title" class="text-link text-sm cursor-pointer">{lang === 'ko' ? '오늘 살펴볼 연구 질문' : 'A research question for today'}</summary>
+          <p class="text-xs text-ink-faint mt-4 mb-3">{lang === 'ko' ? '네 연구 질문 중 하나를 골라 읽어보세요.' : 'Choose one of our four research questions.'}</p>
+          <div id="perspective-controls" class="flex flex-wrap gap-2" aria-label={lang === 'ko' ? '연구 질문 선택' : 'Choose a research question'}>
+            {research.map((item, i) => <a href={`${localePath(lang, '/research')}#${item.data.baseSlug ?? item.id}`} data-perspective-index={i} class="perspective-choice" aria-label={`${i + 1}. ${item.data.question}`}>{String(i + 1).padStart(2, '0')}</a>)}
+          </div>
+          <div id="perspective-panels" class="mt-4">
+            {research.map((item, i) => <div data-perspective-panel={i} hidden={i !== todayIndex}>
+              <a href={`${localePath(lang, '/research')}#${item.data.baseSlug ?? item.id}`} class="text-link leading-relaxed">{item.data.question}</a>
+            </div>)}
+          </div>
+        </details>
+    </div>
+  </section>
 
-    <!-- Summary Strip -->
-    <div class="opt-e-summary-strip">
-      <div class="opt-e-summary-item">
-        <div class="num">100T</div>
-        <div class="label">Synaptic Scale</div>
-        <div class="desc">
-          {lang === 'ko' ? '대뇌피질 360개 영역의 위상학적 연결망 기저' : 'Topological foundation across 360 cortical areas'}
-        </div>
-      </div>
-      <div class="opt-e-summary-item">
-        <div class="num">11.8k</div>
-        <div class="label">ABCD Cohort</div>
-        <div class="desc">
-          {lang === 'ko' ? '유전체(PRS)와 환경이 청소년기 마음에 남기는 10년 종단 궤적' : '10-year longitudinal trajectories linking genomics, environment, and mind'}
-        </div>
-      </div>
-      <div class="opt-e-summary-item">
-        <div class="num">4D</div>
-        <div class="label">Spatiotemporal Models</div>
-        <div class="desc">
-          {lang === 'ko' ? 'SwiFT와 DIVER를 통한 시계열 뇌 표현 및 개인 식별' : 'Spatiotemporal representation and individual fingerprinting via SwiFT & DIVER'}
-        </div>
-      </div>
-      <div class="opt-e-summary-item">
-        <div class="num">Inside-Out</div>
-        <div class="label">Predictive Processing</div>
-        <div class="desc">
-          {lang === 'ko' ? '통제된 환각(가설)과 예측 오차를 통한 의식의 발현' : 'Emergence of mind through controlled hallucinations and prediction error'}
-        </div>
+  <ResearchStories lang={lang} />
+
+  <section id="people" class="section-shell py-10 sm:py-14" aria-labelledby="people-title">
+    <div class="grid md:grid-cols-[0.9fr_1.1fr] gap-6 md:gap-16 mb-10">
+      <h2 id="people-title" class="font-display text-3xl sm:text-4xl font-semibold">{t('home.peopleTitle')}</h2>
+      <div class="space-y-5">
+        <p class="text-base text-ink-soft leading-relaxed">{t('home.peopleDesc')}</p>
+        <details><summary class="text-link cursor-pointer">{lang === 'ko' ? 'AI와 함께 연구한다는 것' : 'Working with AI'}</summary><p class="text-base text-ink-soft leading-relaxed pt-3">{t('home.peopleAi')}</p></details>
+        <a href={localePath(lang, '/team')} class="text-link inline-block">{t('home.peopleCta')}</a>
       </div>
     </div>
-
-    <!-- SECTION 01: FOUNDATIONAL PREMISE -->
-    <section class="opt-e-section" id="paradigm" aria-labelledby="paradigm-title">
-      <div class="opt-e-section-header">
-        <span class="opt-e-section-num">01 / The Foundational Premise</span>
-        <h2 id="paradigm-title" class="opt-e-section-title">
-          {lang === 'ko' ? '우리가 탐구하는 근본 질문' : 'The Foundational Premise'}
-        </h2>
-      </div>
-
-      <div class="opt-e-essay-grid" id="essay-grid">
-        <div class="opt-e-essay-col" id="essay-col-1">
-          <h3 id="essay-title-1">{activeTheme.premiseCol1.title[lang]}</h3>
-          <p id="essay-p1-1">{activeTheme.premiseCol1.p1[lang]}</p>
-          <p id="essay-p2-1">{activeTheme.premiseCol1.p2[lang]}</p>
-          <div id="essay-quote" class="opt-e-pullquote">
-            {activeTheme.premiseCol1.pullquote[lang]}
-          </div>
-        </div>
-
-        <div class="opt-e-essay-col" id="essay-col-2">
-          <h3 id="essay-title-2">{activeTheme.premiseCol2.title[lang]}</h3>
-          <p id="essay-p1-2">{activeTheme.premiseCol2.p1[lang]}</p>
-          <p id="essay-p2-2">{activeTheme.premiseCol2.p2[lang]}</p>
-          <p id="essay-p3-2">{activeTheme.premiseCol2.p3[lang]}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 02: FOUR CORE RESEARCH INQUIRIES -->
-    <section class="opt-e-section" id="inquiry" aria-labelledby="inquiry-title">
-      <div id="research-questions" class="sr-only">Research Questions</div>
-      <div class="opt-e-section-header">
-        <div>
-          <span class="opt-e-section-num">02 / Lines of Inquiry</span>
-          <h2 id="inquiry-title" class="opt-e-section-title">
-            {lang === 'ko' ? '네 가지 연구 축' : 'Four Lines of Inquiry'}
-          </h2>
-        </div>
-        <a href={localePath(lang, '/research')} class="text-link text-sm font-semibold">
-          {lang === 'ko' ? '전체 연구 분야 상세 보기 →' : 'Explore All Research Areas →'}
-        </a>
-      </div>
-
-      <div class="opt-e-inquiry-list">
-        <!-- Axis 01 -->
-        <div class="opt-e-inquiry-row" id="axis-row-foundation">
-          <div class="opt-e-inquiry-index">AXIS 01</div>
-          <div class="opt-e-inquiry-primary">
-            <h3>
-              <a href={`${localePath(lang, '/research')}#neuro-x`} class="hover:text-oxblood transition-colors">
-                {lang === 'ko' ? '4차원 시공간 뇌 파운데이션 모델' : '4D Spatiotemporal Brain Foundation Models'}
-              </a>
-            </h3>
-            <div class="opt-e-inquiry-question">
-              {lang === 'ko'
-                ? '“시간의 흐름 속에서 신경망의 비선형 궤적은 어떻게 자아의 연속성을 유지하는가?”'
-                : '“How do nonlinear neural trajectories preserve identity and continuity across the arrow of time?”'}
-            </div>
-            <p class="opt-e-inquiry-body">
-              {lang === 'ko'
-                ? '수천 시간의 안정상태 및 자연주의 fMRI와 고해상도 EEG 시계열을 4차원 트랜스포머(SwiFT)와 동역학 모델(DIVER)로 학습합니다. 정적인 뇌 지도를 넘어, 시간 축 위에서 스스로 가설을 영사하는 뇌의 동적 궤적을 해독하고 개인 고유의 뇌 지문과 정신건강 바이오마커를 추출합니다.'
-                : 'Learning from thousands of hours of resting-state and naturalistic fMRI alongside high-density EEG via 4D Transformers (SwiFT) and dynamical state-space models (DIVER). Transcending static atlases, we decode temporal trajectories to extract individual brain fingerprints and psychiatric biomarkers.'}
-            </p>
-          </div>
-          <div class="opt-e-inquiry-spec-block">
-            <div class="opt-e-inquiry-spec-item">
-              <div class="meta-label">Methodological Core</div>
-              <div class="meta-val">SwiFT 4D Transformer · DIVER EEG</div>
-            </div>
-            <div class="opt-e-inquiry-spec-item">
-              <div class="meta-label">Representative Output</div>
-              <div class="meta-val">NeurIPS 2024 · ICLR 2024 · NeuroMamba</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Axis 02 -->
-        <div class="opt-e-inquiry-row" id="axis-row-genetics">
-          <div class="opt-e-inquiry-index">AXIS 02</div>
-          <div class="opt-e-inquiry-primary">
-            <h3>
-              <a href={`${localePath(lang, '/research')}#computational-genetics-psychiatry`} class="hover:text-oxblood transition-colors">
-                {lang === 'ko' ? '발달 유전체학과 종단 코호트 인과 추론' : 'Developmental Genomics & Longitudinal Causal Inference'}
-              </a>
-            </h3>
-            <div class="opt-e-inquiry-question">
-              {lang === 'ko'
-                ? '“타고난 유전적 악보와 가정·사회 환경의 마찰 속에서, 뇌는 어떻게 상처 입고 회복하는가?”'
-                : '“How does the brain endure friction and cultivate resilience between innate genetic scores and family environments?”'}
-            </div>
-            <p class="opt-e-inquiry-body">
-              {lang === 'ko'
-                ? '미국 국립보건원(NIH) ABCD 연구의 청소년 11,875명을 10년간 종단 추적합니다. 다유전자 위험 점수(PRS)와 가족 환경, 신경 영상 데이터를 결합한 다층적 생물학 네트워크를 구축하여, 정신건강의 궤적을 단일 유전자가 아닌 시스템적 마찰과 회복의 관점에서 규명합니다.'
-                : 'Tracking 11,875 adolescents over a decade in the NIH ABCD Study. Constructing multi-scale biological networks integrating polygenic risk scores (PRS), neuroimaging, and socio-environmental friction, deciphering psychiatric trajectories not as isolated defects, but as systemic adaptation.'}
-            </p>
-          </div>
-          <div class="opt-e-inquiry-spec-block">
-            <div class="opt-e-inquiry-spec-item">
-              <div class="meta-label">Data & Cohort</div>
-              <div class="meta-val">ABCD Study (N=11,875) Longitudinal</div>
-            </div>
-            <div class="opt-e-inquiry-spec-item">
-              <div class="meta-label">Representative Output</div>
-              <div class="meta-val">Nature Communications 2025 (Lee et al.)</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Axis 03 -->
-        <div class="opt-e-inquiry-row" id="axis-row-topology">
-          <div class="opt-e-inquiry-index">AXIS 03</div>
-          <div class="opt-e-inquiry-primary">
-            <h3>
-              <a href={`${localePath(lang, '/research')}#quantum-machine-learning`} class="hover:text-oxblood transition-colors">
-                {lang === 'ko' ? '대뇌피질의 숨겨진 위상 기하학과 양자 매니폴드' : 'Hidden Cortical Topology & Quantum Manifolds'}
-              </a>
-            </h3>
-            <div class="opt-e-inquiry-question">
-              {lang === 'ko'
-                ? '“100조 개 시냅스가 빚어내는 대뇌피질의 기하학적 주름에는 어떤 수학적 대칭이 숨어 있는가?”'
-                : '“What mathematical symmetries lie latent within the folded geometry of 100 trillion synapses?”'}
-            </div>
-            <p class="opt-e-inquiry-body">
-              {lang === 'ko'
-                ? 'Glasser 360 영역 기반 고해상도 피질 두께 데이터와 위상 데이터 분석(TDA), 그리고 양자 상태 커널(Quantum State Kernels)을 융합합니다. 고전적 선형 상관관계로는 포착할 수 없는 고차원 뇌 구조 다양체를 기하학적으로 측량합니다.'
-                : 'Fusing Glasser 360 morphometric parcellations with topological data analysis (TDA) and quantum state kernels. Surveying high-dimensional cortical manifolds that elude classical linear correlations to chart subtle neurodevelopmental shifts.'}
-            </p>
-          </div>
-          <div class="opt-e-inquiry-spec-block">
-            <div class="opt-e-inquiry-spec-item">
-              <div class="meta-label">Approach</div>
-              <div class="meta-val">Glasser 360 Morphometry · Quantum ML</div>
-            </div>
-            <div class="opt-e-inquiry-spec-item">
-              <div class="meta-label">Domain</div>
-              <div class="meta-val">Topological Data Analysis & Geometry</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Axis 04 -->
-        <div class="opt-e-inquiry-row" id="axis-row-awe">
-          <div class="opt-e-inquiry-index">AXIS 04</div>
-          <div class="opt-e-inquiry-primary">
-            <h3>
-              <a href={`${localePath(lang, '/research')}#art-and-neuroscience`} class="hover:text-oxblood transition-colors">
-                {lang === 'ko' ? '자연주의 인지신경학과 경외감(Awe)의 신경미학' : 'Naturalistic Cognitive Neuroscience & Neuroaesthetics of Awe'}
-              </a>
-            </h3>
-            <div class="opt-e-inquiry-question">
-              {lang === 'ko'
-                ? '“인간은 왜 웅장한 예술과 타인의 고통 앞에서 자아를 잊고 경외감에 젖는가?”'
-                : '“Why does the self dissolve in awe before sublime art and another\'s sorrow?”'}
-            </div>
-            <p class="opt-e-inquiry-body">
-              {lang === 'ko'
-                ? '인위적인 실험실 과제를 넘어, 영화, 음악, 문학적 내러티브에 몰입할 때 일어나는 뇌의 자연스러운 반응을 추적합니다. 자아를 표상하는 기본모드신경망(DMN)이 순간적으로 해체되고 세계와 연결되는 \'경외(Awe)\'의 신경 메커니즘을 규명하여, 예술적 경험이 어떻게 치유의 힘을 갖는지 연구합니다.'
-                : 'Moving beyond constrained laboratory tasks to track real-time neural dynamics during immersion in cinema, literature, and music. Decoding the momentary deconstruction of the Default Mode Network (DMN) during sublime awe, discovering how aesthetic experiences foster psychiatric healing.'}
-            </p>
-          </div>
-          <div class="opt-e-inquiry-spec-block">
-            <div class="opt-e-inquiry-spec-item">
-              <div class="meta-label">Paradigm</div>
-              <div class="meta-val">Naturalistic fMRI · Affective Dynamics</div>
-            </div>
-            <div class="opt-e-inquiry-spec-item">
-              <div class="meta-label">Target Mechanism</div>
-              <div class="meta-val">DMN Deconstruction & Awe Experience</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 03: EMPIRICAL EVIDENCE & FIGURE PLATES -->
-    <section class="opt-e-section" id="evidence" aria-labelledby="evidence-title">
-      <div class="opt-e-section-header">
-        <div>
-          <span class="opt-e-section-num">03 / Empirical Findings</span>
-          <h2 id="evidence-title" class="opt-e-section-title">
-            {lang === 'ko' ? '연구실의 실제 관찰과 데이터' : 'Empirical Findings & Data Plates'}
-          </h2>
-        </div>
-      </div>
-
-      <!-- Plate 1: MBBN Nature Communications 2025 -->
-      <div class="opt-e-figure-plate">
-        <div class="opt-e-figure-img-wrap">
-          <a href={siteMedia.hero.source} target="_blank" rel="noreferrer" aria-label={siteMedia.hero.alt[lang]}>
-            <img src={siteMedia.hero.src} alt={siteMedia.hero.alt[lang]} width={siteMedia.hero.width} height={siteMedia.hero.height} class="w-full h-auto" />
+    <ul class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-x-3 gap-y-5 sm:gap-4">
+      {members.map(({ data: member }) => (
+        <li class="min-w-0">
+          <a href={`${localePath(lang, '/team')}#${memberAnchor(member.name)}`} class="block group">
+            <img src={member.avatar!} alt={lang === 'ko' ? member.nameKo : member.name} width="240" height="300" loading="lazy" class="w-full aspect-[4/5] object-cover object-top" />
+            <span class="block text-xs text-ink-soft mt-2 group-hover:underline">{lang === 'ko' ? member.nameKo : member.name}</span>
           </a>
-        </div>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-10 pt-6 border-t border-line text-base text-ink-soft">
+      {t('home.joinDesc')} <a href={localePath(lang, '/join')} class="text-link ml-2">{t('home.joinCta')}</a>
+    </p>
+  </section>
 
-        <div class="opt-e-figure-caption">
-          <span class="fig-tag">FIGURE PLATE · NATURE COMMUNICATIONS 2025</span>
-          <h3>
-            {lang === 'ko'
-              ? '다층적 생물학 네트워크를 통한 청소년 정신건강 궤적의 모델링'
-              : 'Multi-scale biological networks encode adolescent mental health dynamics'}
-          </h3>
-          <p>
-            {lang === 'ko' ? (
-              <>
-                단일 유전자나 뇌의 한 영역만으로는 복잡한 인간의 심리적 고통을 설명할 수 없습니다.
-                본 연구는 유전체 수준(PRS), 세포 유전자 발현, 구조적 및 기능적 커넥톰의 다층 층위를 하나의 수학적 그래프로 결합하여,
-                청소년기 환경 스트레스가 어떻게 뇌의 발달 궤적을 굴절시키는지를 규명했습니다.
-              </>
-            ) : (
-              <>
-                Neither isolated genes nor single brain regions can capture the complexity of human suffering.
-                This work combines polygenic scores (PRS), gene expression, and structural/functional connectomics into a unified multi-scale graph,
-                demonstrating how socio-environmental stressors deflect adolescent neurodevelopment.
-              </>
-            )}
-          </p>
-          <div class="opt-e-figure-citation">
-            Lee, A., Wang, H., Park, D. K., ... & Cha, J.* (2025). <em>Nature Communications</em>.
-            · <a href={siteMedia.hero.license} target="_blank" rel="noreferrer" class="underline underline-offset-4">CC BY 4.0</a>
-          </div>
-          <div>
-            <button type="button" class="opt-e-btn-copy copy-bib-btn" data-bib={mbbnBibtex}>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-              <span>{lang === 'ko' ? 'BibTeX 학술 인용 복사' : 'Copy BibTeX Citation'}</span>
-            </button>
-          </div>
-        </div>
+  <section id="latest" class="border-y border-line bg-white/40" aria-labelledby="latest-title">
+    <div class="section-shell py-10 sm:py-14">
+      <div class="flex flex-wrap items-baseline justify-between gap-4 mb-10">
+        <h2 id="latest-title" class="min-w-0 font-display text-3xl sm:text-4xl font-semibold">{t('home.currentTitle')}</h2>
+        {news[0] && <p class="text-sm text-ink-faint">{t('home.updated')} <time class="font-mono ml-2" datetime={news[0].data.date}>{news[0].data.date}</time></p>}
       </div>
-
-      <!-- Plate 2: Cortical Surface Topology Atlas -->
-      <div class="opt-e-figure-plate">
-        <div class="opt-e-figure-img-wrap" style="background:#0F1115; padding: 24px; text-align: center;">
-          <img src="/assets/research/cortical-surface.png" alt="Cortical Surface Topology" style="max-height: 280px; width: auto; margin: 0 auto;" />
-        </div>
-
-        <div class="opt-e-figure-caption">
-          <span class="fig-tag">MORPHOMETRY & TOPOLOGY ATLAS</span>
-          <h3>
-            {lang === 'ko'
-              ? '대뇌피질 360개 영역의 고해상도 위상 다양체 측량'
-              : 'High-Resolution Cortical Topology Across 360 Areas'}
-          </h3>
-          <p>
-            {lang === 'ko' ? (
-              <>
-                Glasser MMP 1.0 파셀레이션을 바탕으로 재구성한 대뇌피질 표면입니다.
-                피질 두께의 국소적 변화와 구조적 공변화 네트워크(Structural Covariance)를 위상 데이터 분석(TDA)과 양자 커널로 분석하여,
-                뇌 발달 및 인지 기능 저하의 비선형적 랜드마크를 추출합니다.
-              </>
-            ) : (
-              <>
-                Reconstructed cortical mantle based on the Glasser Multi-Modal Parcellation (MMP 1.0).
-                Analyzing localized cortical thickness variations and structural covariance via topological data analysis and quantum kernels to reveal nonlinear neurodevelopmental landmarks.
-              </>
-            )}
-          </p>
-          <div class="opt-e-figure-citation">
-            {lang === 'ko'
-              ? 'Connectome Laboratory Morphometry Pipeline · 서울대학교 심리학과'
-              : 'Connectome Laboratory Morphometry Pipeline · Seoul National University'}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 04: PEOPLE / INVESTIGATORS -->
-    <section class="opt-e-section" id="fellows" aria-labelledby="fellows-title">
-      <div id="people" class="sr-only">People</div>
-      <div class="opt-e-section-header">
+      <div class="grid grid-cols-1 md:grid-cols-[1.35fr_1fr] gap-12 lg:gap-20">
         <div>
-          <span class="opt-e-section-num">04 / Investigators</span>
-          <h2 id="fellows-title" class="opt-e-section-title">
-            {lang === 'ko' ? '연구진' : 'Investigators & Fellows'}
-          </h2>
-        </div>
-        <a href={localePath(lang, '/team')} class="text-link text-sm font-semibold">
-          {lang === 'ko' ? '전체 구성원 및 동문 보기 →' : 'View All Members & Alumni →'}
-        </a>
-      </div>
-
-      <!-- PI Profile Banner -->
-      {pi && (
-        <div class="opt-e-pi-feature">
-          <img src={pi.avatar ?? '/assets/members/jiook-cha.jpg'} alt={lang === 'ko' ? pi.nameKo : pi.name} />
-          <div class="opt-e-pi-details">
-            <h3>{lang === 'ko' ? `${pi.nameKo} (${pi.name})` : `${pi.name} (${pi.nameKo})`}</h3>
-            <div class="title-sub">
-              {lang === 'ko'
-                ? '서울대학교 심리학과 부교수 · 뇌인지과학과·협동과정 인공지능전공 겸무'
-                : 'Associate Professor of Psychology · Interdisciplinary Program in AI & Brain and Cognitive Sciences, SNU'}
-            </div>
-            <div class="opt-e-pi-statement">
-              {lang === 'ko'
-                ? '“우리는 기술을 자랑하기 위해 연구하지 않습니다. 100조 개의 시냅스가 빚어내는 물리적 법칙 속에서 한 인간의 고통을 이해하고 치유할 가능성을 찾기 위해 질문합니다.”'
-                : '“We do not do research to boast about technology. We ask questions to uncover how 100 trillion synapses obey physical laws while holding the potential to understand and heal human suffering.”'}
-            </div>
-            <p class="opt-e-pi-bio">
-              {lang === 'ko'
-                ? '컬럼비아 대학교 및 뉴욕 파운틴 하우스 방문 연구원. 계산신경과학, 인공지능 파운데이션 모델, 대규모 종단 코호트 인과 추론을 결합하여 인간 마음의 구조와 정신건강의 역학을 탐구하고 있습니다.'
-                : 'Former research scientist at Columbia University and visiting fellow at Fountain House, New York. Combining computational neuroscience, AI foundation models, and longitudinal causal inference to investigate the architecture of the human mind and mental health.'}
-            </p>
-            <a href={`${localePath(lang, '/team')}#pi-perspective`} class="text-link text-sm mt-3 inline-block">
-              {lang === 'ko' ? '차지욱 교수의 연구관 전문 읽기 →' : 'Read Jiook Cha’s Research Perspective →'}
-            </a>
+          <div class="flex flex-wrap items-baseline justify-between gap-4 pb-4 border-b border-ink">
+            <h3 class="text-lg font-semibold">{t('home.newsHeading')}</h3>
+            <a href={localePath(lang, '/news')} class="text-link text-sm">{t('home.allNews')}</a>
           </div>
-        </div>
-      )}
-
-      <!-- Fellows Roster -->
-      <div class="opt-e-fellows-roster">
-        {fellows.map((member) => (
-          <a href={`${localePath(lang, '/team')}#${memberAnchor(member.name)}`} class="opt-e-fellow-tile group">
-            <img src={member.avatar!} alt={lang === 'ko' ? member.nameKo : member.name} loading="lazy" />
-            <div class="opt-e-fellow-name group-hover:text-oxblood transition-colors">
-              {lang === 'ko' ? member.nameKo : member.name}
-            </div>
-            <div class="opt-e-fellow-role">
-              {lang === 'ko' ? member.roleKo : member.role}
-            </div>
-            <div class="opt-e-fellow-focus">
-              {member.researchInterests?.[0] ?? ''}
-            </div>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- SECTION 05: PUBLICATIONS & NEWS -->
-    <section class="opt-e-section" id="publications" aria-labelledby="pubs-title">
-      <div id="latest" class="sr-only">Latest Updates</div>
-      <div class="opt-e-section-header">
-        <div>
-          <span class="opt-e-section-num">05 / Selected Publications & News</span>
-          <h2 id="pubs-title" class="opt-e-section-title">
-            {lang === 'ko' ? '대표 논문 및 최근 소식' : 'Selected Publications & News'}
-          </h2>
-        </div>
-        <div class="flex gap-5 text-sm">
-          <a href={localePath(lang, '/publications')} class="text-link font-semibold">
-            {lang === 'ko' ? '전체 논문 →' : 'All Papers →'}
-          </a>
-          <a href={localePath(lang, '/news')} class="text-link font-semibold">
-            {lang === 'ko' ? '전체 소식 →' : 'All News →'}
-          </a>
-        </div>
-      </div>
-
-      <div class="grid lg:grid-cols-[1.3fr_0.9fr] gap-10">
-        <!-- Publications Column -->
-        <div class="space-y-4">
-          <h3 class="font-mono text-xs uppercase tracking-wider text-oxblood font-semibold pb-2 border-b border-ink">
-            {lang === 'ko' ? '대표 출판 논문' : 'Featured Publications'}
-          </h3>
-          <div class="opt-e-pub-list">
-            {publications.map(({ data: pub }) => (
-              <div class="opt-e-pub-entry">
-                <div>
-                  <div class="venue">{pub.spotlight ?? `${pub.venue} · ${pub.year}`}</div>
-                  <h4>
-                    <a href={pub.url ?? (pub.doi ? `https://doi.org/${pub.doi}` : localePath(lang, '/publications'))} target="_blank" rel="noreferrer" class="hover:text-oxblood transition-colors">
-                      {pub.title}
-                    </a>
-                  </h4>
-                  <div class="authors">
-                    {pub.authors.length > 3 ? `${pub.authors.slice(0, 3).join(', ')} et al.` : pub.authors.join(', ')}
-                  </div>
-                  {pub.abstract && (
-                    <p class="significance line-clamp-2">
-                      {pub.abstract}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <button type="button" class="opt-e-btn-copy copy-bib-btn" data-bib={getBibtex(pub)}>
-                    <span>{lang === 'ko' ? 'BibTeX 복사' : 'Copy BibTeX'}</span>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <!-- News Column -->
-        <div class="space-y-4">
-          <h3 class="font-mono text-xs uppercase tracking-wider text-oxblood font-semibold pb-2 border-b border-ink">
-            {lang === 'ko' ? '최근 실험실 소식' : 'Recent Lab News'}
-          </h3>
-          <ul class="divide-y divide-line bg-white border border-line p-5">
+          <ul class="divide-y divide-line">
             {news.map((item) => (
-              <li class="py-4 first:pt-0 last:pb-0 space-y-1.5">
+              <li class="py-6 space-y-2">
                 <time datetime={item.data.date} class="font-mono text-xs text-ink-faint">{item.data.date}</time>
-                <a href={`${localePath(lang, '/news')}#news-${item.data.baseSlug ?? item.id}`} class="block font-display text-base font-semibold hover:text-oxblood transition-colors">
-                  {item.data.title}
-                </a>
+                <a href={`${localePath(lang, '/news')}#news-${item.data.baseSlug ?? item.id}`} class="block font-display text-xl leading-snug font-semibold hover:text-oxblood">{item.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-baseline justify-between gap-4 pb-4 border-b border-ink">
+            <h3 class="text-lg font-semibold">{t('home.publicationsHeading')}</h3>
+            <a href={localePath(lang, '/publications')} class="text-link text-sm">{t('home.allPubs')}</a>
+          </div>
+          <ul class="divide-y divide-line">
+            {publications.map(({ data: pub }) => (
+              <li class="py-6 space-y-2">
+                <p class="text-xs text-ink-faint"><time datetime={String(pub.year)} class="font-mono">{pub.year}</time> · <span lang="en">{pub.venue}</span></p>
+                <a href={pub.url ?? (pub.doi ? `https://doi.org/${pub.doi}` : localePath(lang, '/publications'))} class="block font-semibold leading-relaxed hover:text-oxblood" lang="en">{pub.title}</a>
+                <p class="text-sm text-ink-faint" lang="en">{pub.authors.length > 3 ? `${pub.authors.slice(0, 3).join(', ')} et al.` : pub.authors.join(', ')}</p>
               </li>
             ))}
           </ul>
         </div>
       </div>
-    </section>
-
-    <!-- SECTION 06: PROSPECTUS & CONTACT -->
-    <section class="opt-e-prospectus" id="prospectus" aria-labelledby="prospectus-title">
-      <div id="contact" class="sr-only">Contact</div>
-      <div class="opt-e-prospectus-card">
-        <div>
-          <h3 id="prospectus-title">
-            {lang === 'ko' ? '연구실 참여 안내 (Joining the Lab)' : 'Laboratory Prospectus & Joining'}
-          </h3>
-          <p>
-            {lang === 'ko' ? (
-              <>
-                우리는 계산적 엄밀성(컴퓨터과학, 통계학, 인공지능)과 인간 마음에 대한 깊은 호기심(심리학, 인지과학, 뇌과학)을 겸비한 학부 연구생, 대학원생(석사/박사/통합과정), 박사후연구원을 상시 모집합니다.
-                표준화된 정답에 안주하지 않고, 가설이 부딪히는 예측 오차의 틈새에서 진짜 배움을 추구하는 분들의 연락을 환영합니다.
-              </>
-            ) : (
-              <>
-                We welcome undergraduate interns, graduate students (M.S., Ph.D., combined), and postdoctoral fellows who pair computational rigor (CS, statistics, machine learning) with deep humanistic curiosity (psychology, neuroscience).
-                We seek those who do not settle for standard answers, but pursue genuine learning in the gap where hypotheses encounter prediction error.
-              </>
-            )}
-          </p>
-          <a href={localePath(lang, '/join')} class="text-link text-sm font-semibold inline-block mt-4">
-            {lang === 'ko' ? '지원 절차 및 자주 묻는 질문(FAQ) 상세 보기 →' : 'Application Process & FAQ Details →'}
-          </a>
-        </div>
-
-        <div class="opt-e-prospectus-contact">
-          <div class="label">Inquiries & Correspondence</div>
-          <a href="mailto:connectome@snu.ac.kr" class="email">connectome@snu.ac.kr</a>
-          <div class="label mt-2">Location</div>
-          <div class="address">
-            {lang === 'ko' ? (
-              <>
-                서울특별시 관악구 관악로 1<br />
-                서울대학교 사회과학대학 (16동) 515호 커넥톰 연구실
-              </>
-            ) : (
-              <>
-                1 Gwanak-ro, Gwanak-gu, Seoul<br />
-                Seoul National University · Bldg 16, Rm 515
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- Hidden Daily Themes JSON for instant client-side tab switching -->
-  <script type="application/json" id="daily-themes-data" set:html={JSON.stringify(dailyThemes)} />
-
-  <!-- Floating Toast Notification for BibTeX Copy -->
-  <div id="opt-e-toast" class="opt-e-toast" role="status" aria-live="polite"></div>
+    </div>
+  </section>
 
   <script>
-    const toast = document.getElementById('opt-e-toast');
-    let toastTimer: number | undefined;
-
-    function showToast(msg: string) {
-      if (!toast) return;
-      toast.textContent = msg;
-      toast.classList.add('show');
-      if (toastTimer) window.clearTimeout(toastTimer);
-      toastTimer = window.setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2200);
-    }
-
-    // 1. BibTeX Copy Handler
-    document.querySelectorAll<HTMLButtonElement>('.copy-bib-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const bibText = btn.getAttribute('data-bib') || '';
-        if (!bibText) return;
-
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(bibText).then(() => {
-            showToast('✓ BibTeX Copied to Clipboard');
-          }).catch(() => {
-            showToast('✓ BibTeX Copied');
-          });
-        } else {
-          showToast('✓ BibTeX Copied');
-        }
+    import { getTodayThemeIndex } from '../../data/dailyThemes';
+    const controls = document.getElementById('perspective-controls');
+    const panels = Array.from(document.querySelectorAll<HTMLElement>('[data-perspective-panel]'));
+    if (controls && panels.length) {
+      const buttons = Array.from(controls.querySelectorAll<HTMLAnchorElement>('a')).map((link, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = link.className;
+        button.textContent = link.textContent;
+        button.setAttribute('aria-label', link.getAttribute('aria-label') || '');
+        button.setAttribute('aria-controls', `perspective-panel-${index}`);
+        panels[index].id = `perspective-panel-${index}`;
+        link.replaceWith(button);
+        button.addEventListener('click', () => select(index));
+        return button;
       });
-    });
-
-    // 2. Interactive Daily Editorial Rota Switcher
-    const themesDataRaw = document.getElementById('daily-themes-data')?.textContent;
-    if (themesDataRaw) {
-      try {
-        const themes = JSON.parse(themesDataRaw);
-        const currentLang = document.documentElement.lang === 'ko' ? 'ko' : 'en';
-
-        document.querySelectorAll<HTMLButtonElement>('.opt-e-rota-tab').forEach((tab) => {
-          tab.addEventListener('click', () => {
-            const themeId = tab.getAttribute('data-theme-id');
-            const theme = themes.find((t: any) => t.id === themeId);
-            if (!theme) return;
-
-            // Update tab button styles
-            document.querySelectorAll('.opt-e-rota-tab').forEach((t) => {
-              t.classList.remove('active');
-              t.setAttribute('aria-selected', 'false');
-            });
-            tab.classList.add('active');
-            tab.setAttribute('aria-selected', 'true');
-
-            // Update Hero contents
-            const eyebrowEl = document.getElementById('hero-eyebrow');
-            const leadEl = document.getElementById('headline-lead');
-            const emEl = document.getElementById('headline-emphasis');
-            const tailEl = document.getElementById('headline-tail');
-            const subEl = document.getElementById('home-hero-sub');
-
-            if (eyebrowEl) eyebrowEl.textContent = theme.eyebrow[currentLang];
-            if (leadEl) leadEl.textContent = theme.headline[currentLang].lead;
-            if (emEl) emEl.textContent = theme.headline[currentLang].emphasis;
-            if (tailEl) tailEl.textContent = theme.headline[currentLang].tail;
-            if (subEl) subEl.textContent = theme.heroSub[currentLang];
-
-            // Update Section 01 Essay contents
-            const t1 = document.getElementById('essay-title-1');
-            const p11 = document.getElementById('essay-p1-1');
-            const p21 = document.getElementById('essay-p2-1');
-            const quote = document.getElementById('essay-quote');
-
-            const t2 = document.getElementById('essay-title-2');
-            const p12 = document.getElementById('essay-p1-2');
-            const p22 = document.getElementById('essay-p2-2');
-            const p32 = document.getElementById('essay-p3-2');
-
-            if (t1) t1.textContent = theme.premiseCol1.title[currentLang];
-            if (p11) p11.textContent = theme.premiseCol1.p1[currentLang];
-            if (p21) p21.textContent = theme.premiseCol1.p2[currentLang];
-            if (quote) quote.textContent = theme.premiseCol1.pullquote[currentLang];
-
-            if (t2) t2.textContent = theme.premiseCol2.title[currentLang];
-            if (p12) p12.textContent = theme.premiseCol2.p1[currentLang];
-            if (p22) p22.textContent = theme.premiseCol2.p2[currentLang];
-            if (p32) p32.textContent = theme.premiseCol2.p3[currentLang];
-          });
-        });
-      } catch (e) {
-        console.error('Failed to initialize editorial rotation:', e);
+      function select(index: number) {
+        buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+        panels.forEach((panel, i) => panel.hidden = i !== index);
       }
+      select(getTodayThemeIndex(panels.length));
     }
   </script>
+  <style is:global>
+    .perspective-choice { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; border: 1px solid #d6d3d1; background: transparent; color: #801818; font: inherit; cursor: pointer; }
+    .perspective-choice[aria-pressed="true"] { background: #801818; color: white; border-color: #801818; }
+    .perspective-choice:hover { text-decoration: underline; }
+    .perspective-choice:focus-visible { outline: 3px solid #801818; outline-offset: 3px; }
+  </style>
 </BaseLayout>

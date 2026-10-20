@@ -1,0 +1,71 @@
+---
+import { researchStories } from '../../data/researchStories';
+import { localePath, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const [lead, ...others] = researchStories;
+const ko = lang === 'ko';
+---
+<section id="research-stories" class="section-shell py-12 sm:py-16" aria-labelledby="stories-title">
+  <header class="flex flex-wrap items-baseline justify-between gap-4 pb-7 border-b border-ink">
+    <div class="space-y-3">
+      <p class="eyebrow">{ko ? '연구에서 발견한 것' : 'Inside the research'}</p>
+      <h2 id="stories-title" class="font-display text-3xl sm:text-4xl font-semibold">{ko ? '질문을 연구로 만드는 과정' : 'Questions made testable'}</h2>
+    </div>
+    <a href={localePath(lang, '/research')} class="text-link text-sm">{ko ? '연구의 전체 맥락' : 'Explore the full research'}</a>
+  </header>
+  <article id={`story-${lead.id}`} class="py-9 sm:py-12 grid lg:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-14" aria-labelledby="story-swifun-title">
+    <div class="space-y-5">
+      <p class="eyebrow">{ko ? '01 / 예측과 개인 고유성' : '01 / Prediction & individuality'}</p>
+      <h3 id="story-swifun-title" class="font-display text-2xl sm:text-3xl font-semibold leading-snug">{lead.title[lang]}</h3>
+      <p class="text-base text-ink-soft leading-relaxed">{lead.body[lang]}</p>
+      <div class="flex flex-wrap gap-x-5 gap-y-3 text-sm">
+        <a href={`${localePath(lang, '/research')}#${lead.area}`} class="text-link">{lead.context[lang]}</a>
+        <a href={lead.source} class="text-link">{ko ? '연구 읽기' : 'Read the study'} ↗</a>
+      </div>
+      <p class="text-xs text-ink-faint" lang="en">{lead.citation}</p>
+    </div>
+    <figure class="study-design self-center" aria-labelledby="swifun-design-caption">
+      <p class="eyebrow">{ko ? '예측은 무엇과 비교하는가?' : 'What is the prediction compared with?'}</p>
+      <ol class="design-flow">
+        <li><span>01</span>{ko ? '휴지기 fMRI' : 'Resting-state fMRI'}</li>
+        <li><span aria-hidden="true">↓</span><strong>SwiFUN</strong></li>
+        <li><span aria-hidden="true">↓</span>{ko ? '예측한 과제 활성 지도' : 'Predicted task-activity map'}</li>
+      </ol>
+      <div class="design-comparison">
+        <p>{ko ? '실제로 측정한 과제 활성 지도와 비교' : 'Compared with the measured task-activity map'}</p>
+        <ul>
+          <li>{ko ? '전체 지도 유사도' : 'Overall map similarity'}</li>
+          <li>{ko ? '개인 고유성' : 'Individual specificity'}</li>
+        </ul>
+      </div>
+      <figcaption id="swifun-design-caption" class="text-xs text-ink-faint leading-relaxed mt-5">
+        {ko ? 'SwiFUN 연구의 평가 개념도. 측정 데이터나 성능 그래프가 아닙니다. 화살표는 데이터 처리 순서를 뜻합니다.' : "Conceptual view of SwiFUN's evaluation. Not measured data or a performance plot. Arrows indicate data processing."}
+      </figcaption>
+    </figure>
+  </article>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-9 md:gap-14 border-t border-line pt-9">
+    {others.map((story, index) => (
+      <article id={`story-${story.id}`} class="space-y-4" aria-labelledby={`story-${story.id}-title`}>
+        <p class="eyebrow">{String(index + 2).padStart(2, '0')} / {story.context[lang]}</p>
+        <h3 id={`story-${story.id}-title`} class="font-display text-2xl font-semibold leading-snug">{story.title[lang]}</h3>
+        <p class="text-base text-ink-soft leading-relaxed">{story.body[lang]}</p>
+        <div class="flex flex-wrap gap-x-5 gap-y-3 text-sm">
+          <a href={`${localePath(lang, '/research')}#${story.area}`} class="text-link">{story.context[lang]}</a>
+          <a href={story.source} class="text-link">{ko ? '연구 읽기' : 'Read the study'} ↗</a>
+        </div>
+        <p class="text-xs text-ink-faint" lang="en">{story.citation}</p>
+      </article>
+    ))}
+  </div>
+</section>
+<style>
+  .study-design { border-top: 2px solid #801818; padding: 1.5rem 0 0; }
+  .design-flow { list-style: none; margin: 1.25rem 0; padding: 0; display: grid; gap: .7rem; }
+  .design-flow li { display: grid; grid-template-columns: 2rem 1fr; align-items: center; gap: .75rem; font-size: 1rem; }
+  .design-flow span { color: #801818; text-align: center; font-size: .85rem; }
+  .design-flow strong { font-weight: 600; }
+  .design-comparison { border-left: 2px solid #801818; padding: .8rem 1rem; background: #f0ece4; font-size: .875rem; }
+  .design-comparison ul { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; list-style: none; margin-top: .75rem; font-weight: 600; }
+  .design-comparison li::before { content: '↳ '; color: #801818; }
+</style>

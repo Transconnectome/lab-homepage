@@ -1,0 +1,16 @@
+---
+import { localePath, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ko = lang === 'ko';
+---
+<section class="border-t border-ink pt-8 grid md:grid-cols-[1fr_1.25fr] gap-6 md:gap-14" aria-labelledby="research-invitation-title">
+  <h2 id="research-invitation-title" class="font-display text-2xl sm:text-3xl font-semibold">{ko ? '여기서 당신은 어떤 질문을 던지고 싶나요?' : 'What question would you bring here?'}</h2>
+  <div class="space-y-5">
+    <p class="text-base text-ink-soft leading-relaxed">{ko ? '관심 있는 연구 사례 하나에서 출발해 보세요. 무엇이 궁금한지, 어떤 관측이나 비교로 알아볼 수 있을지 적어 보세요. 연구 분야를 더 읽고, 지원 안내에서 준비할 자료와 절차를 확인할 수 있습니다.' : 'Start with a study that interests you. Describe what you want to understand and which observations or comparisons could help you investigate it. Explore the research, then see the application guide for materials and next steps.'}</p>
+    <nav class="flex flex-wrap gap-x-6 gap-y-3" aria-label={ko ? '연구 다음 단계' : 'Continue from the research'}>
+      <a href={`${localePath(lang, '/join')}#reading-path`} class="text-link">{ko ? '내 질문으로 지원 준비하기' : 'Prepare an application around your question'}</a>
+      <a href={localePath(lang, '/team')} class="text-link">{ko ? '함께 연구하는 사람들' : 'Meet the people'}</a>
+    </nav>
+  </div>
+</section>

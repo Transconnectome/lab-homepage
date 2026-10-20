@@ -1,11 +1,55 @@
 # HANDOFF — SNU Connectome Lab 홈페이지 (Transconnectome/lab-homepage)
 
-> 최종 갱신 **2026-09-14 KST**. 이 문서부터 읽고 시작할 것.
+> 최종 갱신 **2026-10-20 KST**. 이 문서부터 읽고 시작할 것.
 > 정본 = `main` · `/home/juke/git/lab-homepage`. 작업 시 현재 상태는 `git status --short --branch`로 확인한다.
-> 읽기 순서: 이 파일 → `claudedocs/design-audit-ai-look_2026-09-11.md` → `docs/research-content-review.md`.
+> 읽기 순서: 이 파일의 최신 절 → `docs/homepage-editorial-review-2026-10-20.md` → `docs/verification/2026-10-20/README.md` → `docs/research-content-review.md`.
 > 공식 홈페이지: https://www.connectomelab.com/ · 영어: https://www.connectomelab.com/en/.
 
-## 현재 인수인계 — 추가 문단 구현과 운영 배포 승인
+## 현재 인수인계 — 설명·그림 개편, 최종 감사 전 진행분 저장 (2026-10-20)
+
+사용자 목표: 세련되고 정보가 높은 연구실 홈페이지로 설명과 그림을 보강하고, 예비 연구자가 이곳에서 높은 수준의 연구를 할 수 있다고 느끼게 한다. `teamwork-preview`로 조사·편집·검증을 수행했다. 후속 지시 **“지금 까지 진행상황 모두 커밋 하고 다른 세션에서 인계할 준비”**에 따라 현재 진행분을 저장한다. **완료 승인이나 운영 배포 인계가 아니다.**
+
+### 시작 지점과 Git
+
+- 대상: `Transconnectome/lab-homepage`, 작업 브랜치 `feature/redesign-quiet-intellectual`.
+- 원격 대상: `origin`의 같은 이름 브랜치. 이 문서 작성 시 해당 원격 브랜치는 없으며, upstream을 설정해 푸시할 예정이다. 실제 성공·커밋 SHA는 Git ref로 확인한다.
+- 기존 개편 커밋 `eff61b4`, `fecb355`와 10월 2일 미커밋 개편을 보존·포함한다. 기존 `fecb355`에는 일일 배포 일정 변경도 있으므로 향후 main 통합 전에 해당 차이를 반드시 검토한다.
+- fetch 당시 원격 main은 `a90ea1d`이며 이 브랜치와 분기돼 있다. 원격 main의 최신 자동 갱신을 병합하거나 rebase하지 않았다. 이번 요청은 main 병합·배포 승인으로 해석하지 않는다.
+
+### 실제 반영한 변경
+
+- 홈의 반복 질문 영역을 정리하고 실제 연구 세 사례(SwiFUN, 유전·뇌·발달, VR·EEG 경외)를 한영으로 추가했다. 질문→설계/발견→한계→원문을 연결한다.
+- MBBN 원본 그림과 A–C 발췌는 보존하고 색상·주파수 분석·해석 한계를 보강했다. SwiFUN 평가 절차는 측정 결과가 아닌 HTML/CSS 개념도로 표시했다.
+- 연구/지원 페이지에 자신의 질문을 정리하는 선택 안내와 이동 경로를 추가했다. 모집·지도·연구자원·성과를 새로 보장하지 않는다.
+- 작은 화면의 초상 목록, 이메일 줄바꿈 및 200% root 글자 확대에서 발견한 질문·소식·사례 본문 잘림을 수정했다. 마지막 수정은 `HomePage.astro`와 `ResearchStories.astro`의 클래스 6곳이며 문구·그림·링크는 동일하다.
+- 편집 근거: `docs/homepage-editorial-review-2026-10-20.md`, 검토 인덱스 `docs/research-content-review.md` §21. 이들 안의 “대기” 문장은 당시 기록이며 최신 진행 상태는 본 절과 검증 요약을 따른다.
+
+### 검증 완료와 미완료
+
+- 마지막 소스 스냅샷 `39705a180de24de2bf125c5eac1c8e8b1fdd8e8cec6d93af3fbec8d4df6977f8`: 348개 파일 및 97개 빌드 산출물 기록. 이번 인계 문서 편집 직전 348개 해시가 전부 일치함을 재확인했다.
+- `npm test`, `npm run build`, `npm run test:site` 통과. 독립 작성 E2E를 구현 담당자가 변경 없이 실행해 **80 PASS**, 미실행 없음. 글꼴 안정화 후 확대/일반 **24조건 통과**. 독립 작성과 독립 실행을 혼동하지 않는다.
+- 새 UX 검토 승인, 새 모바일 챌린저 8조건·32상태 승인, 경계 챌린저 13사례 통과. 새 과학 문장과 한영 대응은 원문 확인 후 승인됐고 마지막 클래스 수정은 이 문장을 바꾸지 않았다.
+- **미완료:** 마지막 배치 수정에 대한 `forensic_layout` 감사가 진행 중 중단됐으며 최종 판정이 없다. 새로운 victory auditor와 최종 구조화 gate도 아직 실행하지 않았다. 전체 Teamwork 완료·세계 최고 수준·지원 전환 효과를 주장하지 않는다.
+- 과거 80건 통과 뒤 확대 검사에서 잘림을 발견했다. `overflow-x:hidden`과 글꼴 로딩 전 측정은 잘림을 놓칠 수 있으므로 후속 검사는 안정화 후 텍스트 사각형/클리핑까지 확인한다.
+- Astro preview와 일부 build가 SIGTERM/143으로 중단된 이력이 있다. 원인은 미확정. 별도 소유 Python static server와 검사를 같은 실행 수명에서 묶어 성공했다. 서버 종료를 제품 결함이나 검증 통과로 바꾸지 않는다.
+
+### 다음 세션의 구체적인 순서
+
+1. 현재 브랜치·dirty 상태와 이 문서, `docs/verification/2026-10-20/README.md`를 읽는다. 구현을 처음부터 반복하지 않는다.
+2. 같은 머신이면 `.agents/teamwork/20261020-homepage-editorial/orchestrator_resume/`의 BRIEFING/roster/progress와 `forensic_layout/` 미완료 기록을 읽는다. 실행 중 agent가 있다는 과거 roster를 그대로 믿지 말고 native 상태를 확인한다.
+3. 마지막 source/dist가 바뀌지 않았으면 완료된 과학·UX·챌린저 증거는 해당 범위에서 유지한다. 중단된 forensic은 실제 남은 부분을 새 독립 agent에게 인계하고, 그 후 새 context의 victory auditor와 gate를 실행한다. 새 감사자는 독립 실행을 해야 한다.
+4. 증거는 `verification/teamwork-20261020/`에 있다. 각 검증자는 자신의 포트/서버를 같은 동기 실행 안에서 소유·종료한다. 완료된 agent의 서버를 재사용하지 않는다. 브라우저 검사 중 공유 dist를 재빌드하지 않는다.
+5. 승인 후에도 운영 반영은 별도 결정이다. main 최신 변경 및 기존 branch의 workflow 변경을 검토하고 사용자 승인된 PR/배포 절차로 진행한다.
+
+### 보존·공개 범위
+
+- 공개 커밋: 구현 코드, 기존/신규 편집 문서, 이 인계, E2E runner/coverage, 선별한 검증 요약과 대표 화면.
+- **로컬 전용:** `.agents/teamwork/20261020-homepage-editorial/` 전체와 대부분의 `verification/teamwork-20261020/` 원시 기록(논문 다운로드, 상세 로그, 초기 바이트, 대량 화면). 삭제하지 않았다. 다른 머신에는 자동 전달되지 않으므로 필요한 기록을 별도 검토 후 전달하거나 검증을 재실행한다.
+- 남은 품질 한계: 모바일 읽기 길이, 넓은 hero 문구, 검증된 연구자 성장 사례 부족, 극단적 확대/중간 폭 영어 단어 줄바꿈. JavaScript 없는 모바일 상단 메뉴는 기존 제한이지만 푸터의 네이티브 경로를 확인했다.
+- 현재 요약: [검증 상태](../docs/verification/2026-10-20/status.json), [데스크톱 연구 사례](../docs/verification/2026-10-20/desktop-research.png), [모바일](../docs/verification/2026-10-20/mobile-home.png). 이 문서에는 아직 발생하지 않은 푸시 성공을 기록하지 않는다.
+
+## 과거 인수인계 — 추가 문단 구현과 운영 배포 승인 (2026-09-14)
+
 
 - 작업 폴더: `/home/juke/.codex/worktrees/6b6d/lab-homepage`.
 - 브랜치: `codex/research-philosophy-handoff-20260914`.

@@ -6,6 +6,7 @@ import FeaturedProjects from '../projects/FeaturedProjects.astro';
 import { getCollection, render } from 'astro:content';
 import { useTranslations, localePath, type Lang } from '../../i18n/ui';
 import { renderInlineLinks } from '../../utils/inlineLinks';
+import ResearchInvitation from '../home/ResearchInvitation.astro';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
@@ -32,6 +33,9 @@ const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실'
       <div class="space-y-5 max-w-2xl">
         <p class="text-lg text-ink-soft leading-relaxed">{t('research.desc')}</p>
         <p class="text-base text-ink-soft leading-relaxed">{t('research.approach')}</p>
+        <nav class="flex flex-wrap gap-x-5 gap-y-3 text-sm" aria-label={lang === 'ko' ? '연구 본문 바로가기' : 'Go directly to a research area'}>
+          {mapAreas.map((area, index) => <a class="text-link" href={`#${area.id}`}>{String(index + 1).padStart(2, '0')} {area.label}</a>)}
+        </nav>
       </div>
     </header>
     <section id="research-map" class="space-y-8" aria-labelledby="research-map-title">
@@ -69,5 +73,6 @@ const pageTitle = lang === 'ko' ? '연구 | 서울대학교 커넥톰 연구실'
       })}
     </div>
     <FeaturedProjects lang={lang} />
+    <ResearchInvitation lang={lang} />
   </div>
 </BaseLayout>

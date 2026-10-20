@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-10-20T08:55:14.870077+00:00",
+  "status": "HANDOFF_INCOMPLETE_FINAL_AUDIT",
+  "verified_source_snapshot": "39705a180de24de2bf125c5eac1c8e8b1fdd8e8cec6d93af3fbec8d4df6977f8",
+  "source_files_matched": 348,
+  "source_check_before_handoff_docs": true,
+  "e2e": {
+    "counts": {
+      "PASS": 80
+    },
+    "tiers": {
+      "1": 30,
+      "2": 30,
+      "3": 15,
+      "4": 5
+    },
+    "not_run": [],
+    "runner_sha256": "8ebdf4530b18eea4469fe19392f03d9863d9e1e6264cc3c12889adedb6baf56b",
+    "original_local_receipt": "verification/teamwork-20261020/layout_worker/e2e-round2/results.json"
+  },
+  "browser": {
+    "case_count": 24,
+    "errors": [],
+    "original_local_receipt": "verification/teamwork-20261020/layout_worker/browser-results-round3.json"
+  },
+  "pending": [
+    "Fresh layout forensic audit interrupted before final verdict",
+    "Fresh victory auditor not dispatched",
+    "Final structured General gate not passed"
+  ],
+  "limitations": [
+    "No deployment or merge authorized",
+    "No global design ranking or applicant-conversion measurement",
+    "Root text enlargement is not browser zoom",
+    "Detailed local receipts and source downloads are deliberately not published"
+  ]
+}

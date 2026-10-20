@@ -1,0 +1,1398 @@
+{
+  "description": "Pre-handoff frozen source identities; status/editorial handoff docs may subsequently change. This is identity evidence, not final acceptance.",
+  "snapshot_sha256": "39705a180de24de2bf125c5eac1c8e8b1fdd8e8cec6d93af3fbec8d4df6977f8",
+  "artifacts": [
+    {
+      "path": "astro.config.mjs",
+      "sha256": "82031ec24b8b183b2ccddcd379560c9d069e8563484de3802fd265ccdf98d690"
+    },
+    {
+      "path": "docs/homepage-editorial-review-2026-10-20.md",
+      "sha256": "b02e6be2c43c6a0438214b98b6568b4ecf487424539fd5297a1bbf6bda030f1f"
+    },
+    {
+      "path": "docs/research-content-review.md",
+      "sha256": "954628389159380b4618428ee1b36daba4229585a8e71b116afa07a6f3009ddc"
+    },
+    {
+      "path": "docs/research-editorial-guidelines.md",
+      "sha256": "4de4c2f39126e9d0851f842fce0dce213689dd8c4a0476e08372cf37ca8ee4af"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "4661d5f4cb1abbfeb2e33b59e260fd1c1ebeee9131cfb2aacdfc72851d085094"
+    },
+    {
+      "path": "package.json",
+      "sha256": "1486647741fb1774c0f774d83526b50bba605bcc4fc63279bb8de466ff78e98f"
+    },
+    {
+      "path": "public/CNAME",
+      "sha256": "8d21e49467b691160b0c2f12bd5ab70c8286198161767879fecf9da7959aab1f"
+    },
+    {
+      "path": "public/assets/ideas/2026-08-21-continuous-semantic-alignment-of-brain-dynamics-.png",
+      "sha256": "ab86d1bd6a2f81ff5af7868c768a87c38431301450c0008e059e3faf9a6cef92"
+    },
+    {
+      "path": "public/assets/ideas/2026-08-21-multi-modal-quantum-enhanced-causal-discovery-fo.png",
+      "sha256": "620216d4ad3fffdcde8c6e114119368a9c017a3c22040fc52728746d883bfe85"
+    },
+    {
+      "path": "public/assets/ideas/2026-08-21-quantum-enhanced-spatio-temporal-alignment-for-e.png",
+      "sha256": "326e83f9de1e82d5df656ecb559ac0e614d8f54866d19523692956c688006cf2"
+    },
+    {
+      "path": "public/assets/ideas/2026-08-22-causal-semantic-memory-canvas.png",
+      "sha256": "5a350e824f3c6d0909a16004bc55f2b2ccded320031abf0b0e336399a062c00b"
+    },
+    {
+      "path": "public/assets/ideas/2026-08-22-edge-safe-eeg-foundation-model.png",
+      "sha256": "1f32767e592abdc1fc297706e4a999c632d8a2087d71f2a20c851cdb51b86124"
+    },
+    {
+      "path": "public/assets/ideas/2026-08-22-prs-conditioned-brain-state-prototypes.png",
+      "sha256": "ef83790b82a2a559a50fb3216bc61cffbca1ae7d656aef9da4b05cf319a905a7"
+    },
+    {
+      "path": "public/assets/logo-mark.png",
+      "sha256": "2b2400cc780aabdbfdec4280bcdddeea445e974a73419dd1e70df47c08df19a6"
+    },
+    {
+      "path": "public/assets/members/ahhyun-lee.jpg",
+      "sha256": "3794419b991f3a70bd25a9bcc6149aa13f1443fe5135f6d936afeec017538fca"
+    },
+    {
+      "path": "public/assets/members/allison-eun-se-you.jpg",
+      "sha256": "7c8ae6a902763ec8ec412bda9922be2d4711d84d93f1b2748a43f7fff4a71e70"
+    },
+    {
+      "path": "public/assets/members/anna-jung.jpg",
+      "sha256": "196f9b03bb8d6ca37440ff6dd42e018072407b583384632733ed7d995bbb5932"
+    },
+    {
+      "path": "public/assets/members/bogyeom-kim.jpg",
+      "sha256": "bff8f2874db8a2d988ae542719820e49e738849825e072b14a954a1f2dc35c88"
+    },
+    {
+      "path": "public/assets/members/bohee-lee.jpg",
+      "sha256": "386a0ff3a5f2a4ac889afcc83e56cd52f2553ebc4652273999b6bc9b6ac7b59a"
+    },
+    {
+      "path": "public/assets/members/david-keetae-park.jpg",
+      "sha256": "7fb55699f4bee80c5a628635cc2c720e9cc13fbc99991e9c5608fc0816f03474"
+    },
+    {
+      "path": "public/assets/members/dongyeop-han.jpg",
+      "sha256": "a4bfc625f7b208a6049fd1ec4d01153b925dc67029fc0d9bdb5830faad32142b"
+    },
+    {
+      "path": "public/assets/members/dowon-kim.jpg",
+      "sha256": "c8b0d4b06217666f52a6f555caaf1d69e28710a17a2dcf3989f91326e1a7ecfa"
+    },
+    {
+      "path": "public/assets/members/eunji-lee.jpg",
+      "sha256": "e1e9bb7f21ce849d6f88087f58d2bf8b8fbe70f8d33fac90e101f11d3b14004c"
+    },
+    {
+      "path": "public/assets/members/gakyung-kim.jpg",
+      "sha256": "a2f7dc772d616459bb2c97ecf21816c6a881d43842104182d899ae5ca3861522"
+    },
+    {
+      "path": "public/assets/members/heehwan-wang.jpg",
+      "sha256": "01dfc103cbbee59a36bffc9eab0e90c979eeca24a6085d835806cc906620bc0f"
+    },
+    {
+      "path": "public/assets/members/jinhee-chang.jpg",
+      "sha256": "d7052a621c0c38bbd7ab27a17cd1c2e0b771391cc837a0a3ae13003501fe9de4"
+    },
+    {
+      "path": "public/assets/members/jinil-kim.jpg",
+      "sha256": "93cdcba033da7c7e94b4c2ceeeb520a9c44f91285eecede3f871cf5ec407e0cb"
+    },
+    {
+      "path": "public/assets/members/jinwoo-yi.jpg",
+      "sha256": "7b16c44f9393077b349636ba95c071e2a55e5e5ee1f1c4b3d4667e0e0b8de4da"
+    },
+    {
+      "path": "public/assets/members/jiook-cha.jpg",
+      "sha256": "cb6b7b62d9f90fcbf330058e1d6482895813e19c3c0d8f384c4254421ce3c59e"
+    },
+    {
+      "path": "public/assets/members/joonwoo-kwon.jpg",
+      "sha256": "5d0c7ef254dda1b452ecac9a0884410c88962c81f7e9159f0f9394ab601c180a"
+    },
+    {
+      "path": "public/assets/members/jubin-choi.jpg",
+      "sha256": "5f639816da199d62975adf7bfafb800aed18eb393f19658da6b2670ec9f76918"
+    },
+    {
+      "path": "public/assets/members/junbeom-kwon.jpg",
+      "sha256": "70e7e4c21b6a25b974d4df7d4aa24c107e3263f3336f5a7e9eee3b611713d907"
+    },
+    {
+      "path": "public/assets/members/junghoon-park.jpg",
+      "sha256": "f698741c98dac466961282ca7e780aa88b9136f314a5070a0fe156652a94a0ae"
+    },
+    {
+      "path": "public/assets/members/jungwoo-seo.jpg",
+      "sha256": "eb7a3bdbc55045d33bd65b5eefb1047311f84cb9d9eda75f7b3b09368d00eb85"
+    },
+    {
+      "path": "public/assets/members/jungyoon-min.jpg",
+      "sha256": "b6677923b83c65101047352bd419f6e9e113d85b5651e45becb91afb0884633e"
+    },
+    {
+      "path": "public/assets/members/kyungjin-oh.jpg",
+      "sha256": "29e0a10dfed093a944b1ec347ca69a1463cc70de388ffe3aa2940d2ab650d5d4"
+    },
+    {
+      "path": "public/assets/members/maria-pak.jpg",
+      "sha256": "6b663e3e2e19cd4c0b3b5b6e9453dcbf801f7631a6dfb57ec413be7ee0ff2bd7"
+    },
+    {
+      "path": "public/assets/members/sangyoon-bae.jpg",
+      "sha256": "1a25ebfb7ef6441eaf03e29e12b1d0e3c5295a8c9097c9ca350c8f90f8098f69"
+    },
+    {
+      "path": "public/assets/members/sebin-lee.jpg",
+      "sha256": "528adcc1be6358c8be2628a60013deb6be3c9628290df81a5a1e8eacc7b490d9"
+    },
+    {
+      "path": "public/assets/members/seokjin-moon.jpg",
+      "sha256": "96f4c953504e65577cf288bc958b4148b81b38a43973e4fe4b45b75a5c8cf817"
+    },
+    {
+      "path": "public/assets/members/seoyoung-lim.jpg",
+      "sha256": "467ac5c647c23f3b5e4b32002010fc1c7038c970d37af12d0e5a48800169f269"
+    },
+    {
+      "path": "public/assets/members/seung-yun-choi.jpg",
+      "sha256": "cb170a033a79d1220609b47800e727440b8b6ebcbe6acf14f62e32275d491728"
+    },
+    {
+      "path": "public/assets/members/seungju-lee.jpg",
+      "sha256": "bb11a8f5d3db7bba419b7cf34dce64ffcf352d0faad3a26d3ef7f51839ae301c"
+    },
+    {
+      "path": "public/assets/members/seungwook-han.jpg",
+      "sha256": "3d907a74d6a70bc31f299b42ad465242cbfb8e16a8591a48127fa6944a46c297"
+    },
+    {
+      "path": "public/assets/members/sooyoung-kim.jpg",
+      "sha256": "c3e317422781c20248f8d8e92c4f49147fea33da594557c98fcc26df087030b4"
+    },
+    {
+      "path": "public/assets/members/taeyang-lee.jpg",
+      "sha256": "e589392de3a392c7d37cb207a5a9135d22fdbd3f7ffaf226d8c839690e934731"
+    },
+    {
+      "path": "public/assets/members/yoonjung-yoonie-joo.jpg",
+      "sha256": "0f1e446a3871e4961a07b35d4505b2fc12f39b745a5f3ec42cd2977b1d99e826"
+    },
+    {
+      "path": "public/assets/members/yujin-yun.jpg",
+      "sha256": "4e16b54c2e9c5094e0fe84d5c93a0f44535096c9dc0af9547f52c654f5471274"
+    },
+    {
+      "path": "public/assets/news/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "public/assets/news/2026-01-iclr-2026-acceptance.png",
+      "sha256": "550527d535cb34ccd0d44e922cb8c58ab5c8528444c54cc4acd9f998a3f2828f"
+    },
+    {
+      "path": "public/assets/news/2026-03-nrf-mid-career-grant.png",
+      "sha256": "bcaf91c81e1faa96d1bd7aab1cff66b84cb2a1e571844b197e59cf16fecb65b7"
+    },
+    {
+      "path": "public/assets/news/2026-08-comm-med-youth-depression.png",
+      "sha256": "e2d1c8979b075e7e2c535770a53b693977286368b4e99d47d91c09fd29e82b07"
+    },
+    {
+      "path": "public/assets/news/2026-08-connectome-lab-in-new-york.png",
+      "sha256": "8a5cec7cd578a350a0becd19bd973db47469f5d8cf7effb2d627172b27c36a3c"
+    },
+    {
+      "path": "public/assets/og-image.jpg",
+      "sha256": "873daff6a3f8e0e92308b0499f9eac6dfd9ad7f28a1562845fe1ee0b0526b6d0"
+    },
+    {
+      "path": "public/assets/research/FreeSurfer-LICENSE.txt",
+      "sha256": "00e8828048f25d76cc2165ff7420361b83a8aa29525671089e9f40729d7353ff"
+    },
+    {
+      "path": "public/assets/research/Nilearn-LICENSE.txt",
+      "sha256": "51c7f2782990909d5c7a7aa31c9b7976fddb455b96519d1d599af1f303504a8c"
+    },
+    {
+      "path": "public/assets/research/README.md",
+      "sha256": "dc5a1370a4031a4d78b92b2aa83dc8678774010fc0c541f47d92a53d57f8633d"
+    },
+    {
+      "path": "public/assets/research/cortical-surface.png",
+      "sha256": "6e38f77413a9aa15e12f84e413f191f79e1b83b0b2d46d6bb41d97f93839606a"
+    },
+    {
+      "path": "public/assets/site/README.md",
+      "sha256": "1c321410dd157daff9a675c1136d0bf11ba98a40f4186ab67bed314f820df5f0"
+    },
+    {
+      "path": "public/assets/site/mbbn-figure-2.png",
+      "sha256": "98583e0cf7d7dde33444c311c0472362f04ac3c4147f71f714e967725a4f691d"
+    },
+    {
+      "path": "public/assets/site/og-homepage.png",
+      "sha256": "c72110d1acbd7aa0701941b069836e6a91de8a274fe89721fb7b23591e5cbaca"
+    },
+    {
+      "path": "public/favicon.svg",
+      "sha256": "ec7d079172d4d2bd0e36e147325fde540d182b877c356c983b305d5dfaa4eada"
+    },
+    {
+      "path": "public/fonts/maruburi/LICENSE.txt",
+      "sha256": "b42f4d9569f966a6999b16a79c732979ee3aa8d03b5f7fdb97240a6407894e0e"
+    },
+    {
+      "path": "public/fonts/maruburi/MaruBuri-SemiBold.woff2",
+      "sha256": "7aef4862fa3219b0a7deb6746e27116a38c4069f4424eb51edf103b29795f5c2"
+    },
+    {
+      "path": "public/fonts/maruburi/PROVENANCE.txt",
+      "sha256": "6dd9345570105b27a33d1cd93b926406ddfa71c261cbf422b3ac89211dad9e76"
+    },
+    {
+      "path": "public/robots.txt",
+      "sha256": "23809c202b950ef9cbbda3af61b95bf5534f997b80c4b4ae53ce12d74a46489a"
+    },
+    {
+      "path": "scripts/cutover.sh",
+      "sha256": "c9ef8e490e9dcb3e5697e0ee0d62237719666e713ebf4d8f849b31093dee9237"
+    },
+    {
+      "path": "scripts/fetch_maruburi.py",
+      "sha256": "b3bc6802c671de644ee97e003744c22bcd768065cf2620c1123ef98295c3e11e"
+    },
+    {
+      "path": "scripts/generate_idea_infographics.py",
+      "sha256": "cdcd2ba5e538895e73efb2d12a079e0a13ada28985f5c6e1917a0f184b3c34a8"
+    },
+    {
+      "path": "scripts/generate_research_ideas.py",
+      "sha256": "e56e0b6e55aeba0bd07be37cadf2a610e94e4da213c5d0af8250f0d95ac48f9a"
+    },
+    {
+      "path": "scripts/news_from_issue.py",
+      "sha256": "d9d1d78d6c4d33b9eae9f263007f327895a5cc6861e882d43dd211ce9d31f990"
+    },
+    {
+      "path": "scripts/og-homepage.html",
+      "sha256": "0f7ad291ba6617c8d7b8ceb782f63c7b11b7ca0539803f68534ea3d2b80abff6"
+    },
+    {
+      "path": "scripts/render_cortical_surface.py",
+      "sha256": "69f47fe38944e1d64c56955a60c235bc8fcb59321f32ca591ac44ddcb5fecd51"
+    },
+    {
+      "path": "scripts/run_dgx_spark_sync.sh",
+      "sha256": "554f1db7547c5e3b951e3dfaf8dfc0efe7c71fd8babc337938b093cf74f7f624"
+    },
+    {
+      "path": "scripts/sync_project_metadata.py",
+      "sha256": "2d8117c488ee6aeba43bbd900312ecfd0629634bb7803f7316895c1db04b2075"
+    },
+    {
+      "path": "scripts/sync_scholar.py",
+      "sha256": "e0b88a17a741a76b0577fc3a75595601949b17233a1914ef1120b1f522455db3"
+    },
+    {
+      "path": "scripts/test_built_site.py",
+      "sha256": "b77a33d0132c8158fd5f562db0146ecbd745fe1a722666ebb9e32d3d222006a5"
+    },
+    {
+      "path": "scripts/test_content_contract.py",
+      "sha256": "dec60742dc2786b3a0d3d5cae46add6a116e7539c5cd6729c8867338b758a51d"
+    },
+    {
+      "path": "scripts/test_ideas_pipeline.py",
+      "sha256": "c1167200d4c302b08607036603088fa3b7c3aa83117cedb447492a4f63f1f353"
+    },
+    {
+      "path": "scripts/test_news_from_issue.py",
+      "sha256": "42a0523285b7daa3be99c089cf34d7124cdb702d591b71f51ca18f58ba4836e9"
+    },
+    {
+      "path": "scripts/test_radar_buckets.py",
+      "sha256": "58a98e4b80922d6811bfd158f630522f4e500db30d3a4e1f71c66a494d3dc153"
+    },
+    {
+      "path": "scripts/test_research_map.py",
+      "sha256": "4391185b6b0223696f93c9e54d971f89f216677f920457ea09e27d0f6cfafd5e"
+    },
+    {
+      "path": "scripts/update_research_radar.py",
+      "sha256": "3d8e9663f15928df892b5400695edc3b798ec5dd3b2344fb5e0746b2509e7fbf"
+    },
+    {
+      "path": "scripts/verify-live-fonts.mjs",
+      "sha256": "8d5bced010a4f9ed61cd70c81cd134f19464fa2627c7b6a272000260832bc531"
+    },
+    {
+      "path": "src/components/3d/BrainCanvas.tsx",
+      "sha256": "8251c36d06cb1f3d00257f779bfde46ec666214be9ecc37b262a73709d47f975"
+    },
+    {
+      "path": "src/components/3d/BrainViewer.tsx",
+      "sha256": "3206d79b9dc51d3fb265af12571bc2a56f52eba3f241bd78c4cde1831a43ab17"
+    },
+    {
+      "path": "src/components/3d/brainData.ts",
+      "sha256": "0ebe5981b59ec858eb79800b5c3c70bd65df8e197f4e64580c7713658dde8fd7"
+    },
+    {
+      "path": "src/components/ai/ResearchRadarView.tsx",
+      "sha256": "f111ff5cfc8798d1a2c8803f2fa640dbdeff88f681347d63737bf070bdcc5fb5"
+    },
+    {
+      "path": "src/components/common/EditorialNote.tsx",
+      "sha256": "85ba8211ffb7d31e3fee2554bd3cc0955e56e573aff8715e6d6b2ef54c228dae"
+    },
+    {
+      "path": "src/components/common/Footer.astro",
+      "sha256": "51c6143797395c051e8606f5bf065120e5411c89624fe2f6c75852deba2cf983"
+    },
+    {
+      "path": "src/components/common/JoinFaq.astro",
+      "sha256": "e77c0b552e9e0c0721866cbe1b2e6c7ac630d466a8bf33d3a5c71bb37dfa7e9b"
+    },
+    {
+      "path": "src/components/common/Navbar.astro",
+      "sha256": "08ff01095987977b36bd9ffcc6c26516a74a7b6d2a623a36bc97f79190bd882c"
+    },
+    {
+      "path": "src/components/home/ResearchInvitation.astro",
+      "sha256": "217d143328b61be821b59dc3d604443d7ac40c2549dc40a9b7a713b9facfdcfa"
+    },
+    {
+      "path": "src/components/home/ResearchStories.astro",
+      "sha256": "c96893932cb9cb13bf6b80eb2707e50c97e79d909b0d05d796c939a633f9a7aa"
+    },
+    {
+      "path": "src/components/ideas/IdeasFilter.tsx",
+      "sha256": "fa710f7a356d58e69774e7bb119cc6bbafe25e47025c3280411122b49d9cd9c7"
+    },
+    {
+      "path": "src/components/pages/HistoryPage.astro",
+      "sha256": "669fb9dfaf1a7500b770d21e814c30c5c95a7e0b2c4ebabc23ee70e6dab89f88"
+    },
+    {
+      "path": "src/components/pages/HomePage.astro",
+      "sha256": "3fb2256e6c467ef37696d46339512e9b755e2d2221d72cec413cb4d67abbfac1"
+    },
+    {
+      "path": "src/components/pages/IdeasPage.astro",
+      "sha256": "d320e28589a012aff185d203314d41c7401e96f6e2602b5c1a2c7b7a2d0f1991"
+    },
+    {
+      "path": "src/components/pages/JoinPage.astro",
+      "sha256": "351f7d08f08836c11a7689a23928be9f56fa6a6f82b031660a3b7837767170d6"
+    },
+    {
+      "path": "src/components/pages/NewsPage.astro",
+      "sha256": "01e47438dd31263eb21f79f0e926bed16cf128b43d70d395472f755cba88c3cd"
+    },
+    {
+      "path": "src/components/pages/PublicationsPage.astro",
+      "sha256": "e73d2b6b5590d5d09b201654dbb833287374a1ff221fd00ca320e6c5292ae3fb"
+    },
+    {
+      "path": "src/components/pages/RadarPage.astro",
+      "sha256": "f636ad03df36f9210181c29d55d1394a700791fa5b40f4b4f88b2f1232213d16"
+    },
+    {
+      "path": "src/components/pages/ResearchPage.astro",
+      "sha256": "52c1bd21f8cd7a2410492b99d35a29713bc63e2b43325447b95a2e7ca35949f9"
+    },
+    {
+      "path": "src/components/pages/TeamPage.astro",
+      "sha256": "a22e52c9cc04778c911bd8732349696d5972cc05ca7d3c388f8b2198a3c6b91e"
+    },
+    {
+      "path": "src/components/people/MemberGrid.tsx",
+      "sha256": "dfebd346b94f97ba8eefe7f7f07e32f295b3fb7c146b0559a8b06b6e6f822762"
+    },
+    {
+      "path": "src/components/projects/FeaturedProjects.astro",
+      "sha256": "ab6c0b74fd6769d86efe0bc697eab1e398ac8e1e5d70c77fafaec86c1022b57d"
+    },
+    {
+      "path": "src/components/publications/PublicationFilter.tsx",
+      "sha256": "b7534ed4355728c689979a830a131891a6986fb625d5172da2cd36e006a1534b"
+    },
+    {
+      "path": "src/components/research/ResearchMap.tsx",
+      "sha256": "f24d45a3666b0a739d76de0adb98dd3922c0430c176b21a910d69864ceefccb4"
+    },
+    {
+      "path": "src/content/history/2024-activities-ko.md",
+      "sha256": "7d726e15c585438296a6b51f6fedc78f7ab96d2cc58a80e8021fcb4a849b6048"
+    },
+    {
+      "path": "src/content/history/2024-activities.md",
+      "sha256": "935dcfe1849222477879276b8c9b319a8c7ae4754aa802303ff35c0fc39f353c"
+    },
+    {
+      "path": "src/content/history/2025-activities-ko.md",
+      "sha256": "6fa9a409718b141a97fb4afa4b5b88e955e19babb4f3005d5fb47d1e335059ed"
+    },
+    {
+      "path": "src/content/history/2025-activities.md",
+      "sha256": "dcdecc49bcb3512290ee968a51a518a37a45f438bc78b9f8b6bb7633b7d9c573"
+    },
+    {
+      "path": "src/content/history/graduations-welcomes-ko.md",
+      "sha256": "7a26cefda463585748944f2c77c548cc133a2df2792940d75ae2df612161e679"
+    },
+    {
+      "path": "src/content/history/graduations-welcomes.md",
+      "sha256": "f68e77f0049df0ab76f5ddb9bab05b8481a8e3a3591fee4e3f4f05179f326178"
+    },
+    {
+      "path": "src/content/ideas/2026-08-21-continuous-semantic-alignment-of-brain-dynamics-.json",
+      "sha256": "4b97e90d3727851104eb59f3406a7a12f45ea49b23f3cacc313bc578b8edd58e"
+    },
+    {
+      "path": "src/content/ideas/2026-08-21-energy-efficient-and-locally-deployable-eeg-foun.json",
+      "sha256": "77e0a1ffc96743a4bf8c6c093ac343597f3d4946186bfd88016b746296bda429"
+    },
+    {
+      "path": "src/content/ideas/2026-08-21-multi-modal-quantum-enhanced-causal-discovery-fo.json",
+      "sha256": "2bf8548e642c5ba7fafbdb645e5aca8923f5fe699592c888aef169c40caefe19"
+    },
+    {
+      "path": "src/content/ideas/2026-08-21-multimodal-brain-language-foundation-models-with.json",
+      "sha256": "79ce567863f8dd0bbfe519f4ac66711b7af52bffbcb5606694f1edfcca5864c2"
+    },
+    {
+      "path": "src/content/ideas/2026-08-21-quantum-enhanced-interpretable-eeg-foundation-mo.json",
+      "sha256": "3c4381e5b23095f808a341d138d182b0b38358676ec843cd62c2272c2c329bc3"
+    },
+    {
+      "path": "src/content/ideas/2026-08-21-quantum-enhanced-spatio-temporal-alignment-for-e.json",
+      "sha256": "312fecabb5316b6107403c5e9f1f0f247447f1f7317d39595c0a6832dd17d67b"
+    },
+    {
+      "path": "src/content/ideas/2026-08-22-causal-semantic-memory-canvas.json",
+      "sha256": "bee61d4717937708cba5af19a7cda928b22478e8b945853ac047c58f25062707"
+    },
+    {
+      "path": "src/content/ideas/2026-08-22-edge-safe-eeg-foundation-model.json",
+      "sha256": "36b837e872f30a6dc62efe77b9e6cf3781326f14e454ae6989949e3477e2268e"
+    },
+    {
+      "path": "src/content/ideas/2026-08-22-prs-conditioned-brain-state-prototypes.json",
+      "sha256": "b35e9b92968c72ef776f0a9a68ec2f53cc86b4ee27c544581d4a12e3f08a094c"
+    },
+    {
+      "path": "src/content/ideas/2026-08-24-neurotopology-aware-structured-latent-prediction.json",
+      "sha256": "4cae8fb71d4d5b8b2887324cf1a606c31032b8777dda7d59cab79f6a62e015e6"
+    },
+    {
+      "path": "src/content/ideas/2026-08-24-physiologically-grounded-eeg-foundation-model-in.json",
+      "sha256": "28ae4339183b3caa79a44f85f6e8d1623fc54c8c75326666c6d8876f7f782f6f"
+    },
+    {
+      "path": "src/content/ideas/2026-08-24-quantum-enhanced-prototypes-for-eeg-decoding-gen.json",
+      "sha256": "fe36ba64b35d4a3d7278f88daf4aad34fee16bbf06d6a862c05d2e9d21c3d7b0"
+    },
+    {
+      "path": "src/content/ideas/2026-08-31-frequency-domain-interpretability-for-eeg-founda.json",
+      "sha256": "e005d64fee51fa58e8d88bc1156fddb2c97f4e2c9af766826fc355fa9975c930"
+    },
+    {
+      "path": "src/content/ideas/2026-08-31-neuro-agentic-hypothesis-generation-for-personal.json",
+      "sha256": "c8d7b2fe93d979784f66491e4aa06e288c1bb6f9ebe759609e8900dd75f643eb"
+    },
+    {
+      "path": "src/content/ideas/2026-09-07-agentic-ai-for-eeg-foundation-model-interpretabi.json",
+      "sha256": "113b767e11d70480ca89cec8061e6a56af2b4a1630527e40942a55be3b8f77e3"
+    },
+    {
+      "path": "src/content/ideas/2026-09-07-polygenic-influence-on-affective-dynamics-in-ado.json",
+      "sha256": "72d9f60c751986a276f74ced8d27418db8445dfdd97987a216d906a554aecd4e"
+    },
+    {
+      "path": "src/content/ideas/2026-09-07-quantum-resilient-brain-language-alignment.json",
+      "sha256": "26fa0c799da2b591d01d919d6dd49ef5c019a14a27f5ac5e114398610c31d47e"
+    },
+    {
+      "path": "src/content/members/ahhyun-lee.json",
+      "sha256": "5ca22a0ff8bc5aa2d2eb9dd3b89cf1c58298f79081b317a0215dab87de03f6f2"
+    },
+    {
+      "path": "src/content/members/alex-luna.json",
+      "sha256": "f1a76d042fbf32784274795123c715dbfbfc553d7033df23471a7c37f0eabb77"
+    },
+    {
+      "path": "src/content/members/allison-eun-se-you.json",
+      "sha256": "fdd04a1976bc3fb15906bc7de89d692db8ce295919a7d454895b72f0f4089953"
+    },
+    {
+      "path": "src/content/members/anna-jung.json",
+      "sha256": "51982225362c285713dc882c4eaaf04505d76bf66be3022ffb70cbbfbc19b59f"
+    },
+    {
+      "path": "src/content/members/bogyeom-kim.json",
+      "sha256": "831260dac512cbd2a02ba4f27dd5fd087aa2d4b20b96893a137910517356bbef"
+    },
+    {
+      "path": "src/content/members/bohee-lee.json",
+      "sha256": "d81fba06ecb914bcf242760e1b50bc17e52f540747155e2508eabeb67fcc35f7"
+    },
+    {
+      "path": "src/content/members/david-keetae-park.json",
+      "sha256": "0559bfaf3f86d5e38fce3ae565fca268779692a776a24bc325e552f780fe2bfd"
+    },
+    {
+      "path": "src/content/members/dongyeop-han.json",
+      "sha256": "9eeacb9c3f93d6ab26d282836d110b00ca1024c13487fe14c09117f13cebc6e9"
+    },
+    {
+      "path": "src/content/members/dowon-kim.json",
+      "sha256": "096b84f5826acd89068937e03e19bac5d1f2526f39af0ede504095f5169d14c2"
+    },
+    {
+      "path": "src/content/members/eunji-lee.json",
+      "sha256": "473946b544f0528b07ae5ab05dc04d1b90e10a60b5165bc3fe171ede26322e00"
+    },
+    {
+      "path": "src/content/members/gakyung-kim.json",
+      "sha256": "9119768214cb76b44a4790b59060f1b431966449a1651b3f6bd695f82f1f660c"
+    },
+    {
+      "path": "src/content/members/heehwan-wang.json",
+      "sha256": "3ed2c6e6119d089f910e90d263610db147f6af5fb860c3bd035c8e20fe8e9312"
+    },
+    {
+      "path": "src/content/members/jinhee-chang.json",
+      "sha256": "9822e3a877ebd8fa8f2ee10e39411f5e7ea2498f99b15f71ce95fa47a2da837b"
+    },
+    {
+      "path": "src/content/members/jinil-kim.json",
+      "sha256": "49e97d5bd3b528f57f1a78175c3ede0523e93c42b2950f07159c822270aec90d"
+    },
+    {
+      "path": "src/content/members/jinwoo-yi.json",
+      "sha256": "0967f18a0eb858c045090811fd9d3f24946514a30842be8c5ecf3523ccbd1d67"
+    },
+    {
+      "path": "src/content/members/jiook-cha.json",
+      "sha256": "28eaf2d2739fc44b6e812fb6ddf3be52739a6a006e400b50d36431c384d49ac7"
+    },
+    {
+      "path": "src/content/members/joonwoo-kwon.json",
+      "sha256": "7c2c11077e3a7c4ff02f09c8f7e9aea97ba44dfd3a01e6f9930ef887969595a8"
+    },
+    {
+      "path": "src/content/members/jubin-choi.json",
+      "sha256": "9773862882b599c1dfc2adf59fea21f8288725904b5700a82627fbb10402119e"
+    },
+    {
+      "path": "src/content/members/junbeom-kwon.json",
+      "sha256": "35363e2cdf0d95ec8769ce76da95accdd6cfb2f4954277b2f58249db5ab0e349"
+    },
+    {
+      "path": "src/content/members/junghoon-park.json",
+      "sha256": "b2ea8ac94101f063d5d7dc689c642ffb63b041523eb6c1136e5b200624786b3b"
+    },
+    {
+      "path": "src/content/members/jungwoo-seo.json",
+      "sha256": "e74bd1b093b60ac05e413cc0c0592e10c865a3dfc394f6c73ca751f705683a68"
+    },
+    {
+      "path": "src/content/members/jungyoon-min.json",
+      "sha256": "a383f9409f226d09327e42f7848c29cc321e4ffeed2486e22bc8e0aac33239f1"
+    },
+    {
+      "path": "src/content/members/kyungjin-oh.json",
+      "sha256": "3bb21e9555ce615210fbddfb92ec3076dd51ee98ff50f7db985d0c440c98183b"
+    },
+    {
+      "path": "src/content/members/maria-pak.json",
+      "sha256": "fb4650c14aad8298c750291e6ffc5b667ad148a5e0007c26acd2f12f540abfbc"
+    },
+    {
+      "path": "src/content/members/sangyoon-bae.json",
+      "sha256": "aa4b9f73238c653c5bc4b6e26eadb04a1b824d97e1b1dfbc087b43879a786b5d"
+    },
+    {
+      "path": "src/content/members/sebin-lee.json",
+      "sha256": "141e92ae0db3c8afab04d80ae902f16b3960d5d5a263491d5940f632826026ab"
+    },
+    {
+      "path": "src/content/members/seokjin-moon.json",
+      "sha256": "11a5d067a6e7b63d8445c0dcb71f4dd07af38e5489569c7b861cb89e21454cde"
+    },
+    {
+      "path": "src/content/members/seoyoung-lim.json",
+      "sha256": "b3b1d28f998c38499e5732cf123ba7f40f9bd494538d87bc0a9778d960571cb8"
+    },
+    {
+      "path": "src/content/members/seung-yun-choi.json",
+      "sha256": "6d21fd5eadca3f3120c50f4bf080917b779281c61ec39667d9a5eb05c31720bd"
+    },
+    {
+      "path": "src/content/members/seungju-lee.json",
+      "sha256": "5af90a9d2d6af17fcb3b9614223ec96c5b0674152eab13dbc63bec4f5acb6139"
+    },
+    {
+      "path": "src/content/members/seungwook-han.json",
+      "sha256": "22faf11ae916146f46e366ccc2a690f005259246666b2ea1e944e0dcb3e44afe"
+    },
+    {
+      "path": "src/content/members/shin-jeongeun.json",
+      "sha256": "996e4724b56eee98653700ab5ca5b34957adc732ae1a36b8963fc3e345ec1d91"
+    },
+    {
+      "path": "src/content/members/sooyoung-kim.json",
+      "sha256": "eb7a2769c3a3c1e45c2a136622d53872f21cc02e58a38e62c0ec7a93eb1d5183"
+    },
+    {
+      "path": "src/content/members/taeyang-lee.json",
+      "sha256": "e2b900efa85352c3a4697507875a54ad9e9f44ad16dca9e8df7135c8e49a1394"
+    },
+    {
+      "path": "src/content/members/yoonjung-yoonie-joo.json",
+      "sha256": "909781f7afc467880a53df335e2e56cf08158ecec547b46a65075284d8626b87"
+    },
+    {
+      "path": "src/content/members/yujin-yun.json",
+      "sha256": "6d1d5ce1b0f5fb5b73abc7f937d7879177a08cbbd2f8b043b998241feaba25ca"
+    },
+    {
+      "path": "src/content/news/2025-07-icml-diver0-ko.md",
+      "sha256": "e3f70e12305f099ea7070864d768c5fcfa80b5d55dfc676ba669ee300bcbe68b"
+    },
+    {
+      "path": "src/content/news/2025-07-icml-diver0.md",
+      "sha256": "9d68ed70a583bc41962cea57bb55753f15f09fe5adf81030b339689c68a766b2"
+    },
+    {
+      "path": "src/content/news/2025-09-mol-psychiatry-paper-ko.md",
+      "sha256": "53e37caf0ad63bdcb98c0301ad540e3a821447b03a22da878675a05ea21c91a9"
+    },
+    {
+      "path": "src/content/news/2025-09-mol-psychiatry-paper.md",
+      "sha256": "96459d70e010b126e6858408149f553d774ba614e008bc9eff0a7a1000b81aec"
+    },
+    {
+      "path": "src/content/news/2025-09-nature-comms-paper-ko.md",
+      "sha256": "debab69c2252080f0bb2849c0af565c066d84f754a9396d31c793665ec55b4e0"
+    },
+    {
+      "path": "src/content/news/2025-09-nature-comms-paper.md",
+      "sha256": "2f25f7a16989c769401f25a4c21e8657d0eb009192aa22d93efa05d55045d071"
+    },
+    {
+      "path": "src/content/news/2025-11-obscene-art-exhibit-ko.md",
+      "sha256": "4631b0c9ff44df93bac3231039f2c5023a7882bac1a91c3ad9adbc812b85e871"
+    },
+    {
+      "path": "src/content/news/2025-11-obscene-art-exhibit.md",
+      "sha256": "6b49b5b9b473173e92f55114b370fc4d614eb1e865d8852d6dcd493848838285"
+    },
+    {
+      "path": "src/content/news/2025-12-neurips-neuromamba-ko.md",
+      "sha256": "fc4ade791c4dcbe0b4341daee96c41921e4a83e5fd7626874ac276a0ea3041c9"
+    },
+    {
+      "path": "src/content/news/2025-12-neurips-neuromamba.md",
+      "sha256": "c2110dcfa8f3313cdf9b2624f1ff9dad9a40590b97edb9c04d57bab296bcdc27"
+    },
+    {
+      "path": "src/content/news/2026-01-iclr-2026-acceptance-ko.md",
+      "sha256": "1c5048bc9be0d2d853f50187476d69352462d44aac3149418512ce5299651545"
+    },
+    {
+      "path": "src/content/news/2026-01-iclr-2026-acceptance.md",
+      "sha256": "1726719b3dcdbb33de26f9a7a30ec3c52e465db21591d09ed77d93dd4924cfce"
+    },
+    {
+      "path": "src/content/news/2026-03-nrf-mid-career-grant-ko.md",
+      "sha256": "6f28e8ea24513840cab6fd016c75a8c41b827f2e227c4430aa053e3e9b882a61"
+    },
+    {
+      "path": "src/content/news/2026-03-nrf-mid-career-grant.md",
+      "sha256": "1e8ecf0619a7fef79e78b08957c68bbffe8f77b84c1de21b92848362e0f50a57"
+    },
+    {
+      "path": "src/content/news/2026-05-mbbn-communications-biology-ko.md",
+      "sha256": "c553f8b9570f41be7b166875dc947634cf79f0de0ef953b8b2bd60b5b47ccdbc"
+    },
+    {
+      "path": "src/content/news/2026-05-mbbn-communications-biology.md",
+      "sha256": "dcf82502f9ad68696a536830b1b1c8417d9f636b54623b91ca7c19e864eaac16"
+    },
+    {
+      "path": "src/content/news/2026-08-comm-med-youth-depression-ko.md",
+      "sha256": "0cb35fed712e6f1e6c2bd44b47bcde20b9b2ccbd4353574ca806ba7f911bd8fa"
+    },
+    {
+      "path": "src/content/news/2026-08-comm-med-youth-depression.md",
+      "sha256": "135aedced86aa2d2f88a599f6e0f3a59cedceae2eac6d753dbdc424eef0d8b7a"
+    },
+    {
+      "path": "src/content/news/2026-08-connectome-lab-in-new-york-ko.md",
+      "sha256": "53e62d7e6927901b87a07c5ca1da38d4d6eaebf1c1152bc063c91905ca601fe6"
+    },
+    {
+      "path": "src/content/news/2026-08-connectome-lab-in-new-york.md",
+      "sha256": "bb473a56e3f869d8e6c237ce9cdd77c20e8c9d20a8dfcf572d7248e1f5092904"
+    },
+    {
+      "path": "src/content/projects/abcd-3dcnn.json",
+      "sha256": "7e1dde0b69410f9d6601090d98a56f1e7c1430ef607b640e66d58c7dc017228d"
+    },
+    {
+      "path": "src/content/projects/colorblind-analysis.json",
+      "sha256": "9cec1c3d376967570de4947d3797be48a97440d682813b8f01b21511a2b355b2"
+    },
+    {
+      "path": "src/content/projects/emobrain.json",
+      "sha256": "e77c53374e44b03d411db7bb6183265c03c6d675d43dfc13740f40beabff8a1a"
+    },
+    {
+      "path": "src/content/projects/grfprotocol.json",
+      "sha256": "8e42e0c01b259012469ed172b85dd352748efc0f0296a5953fa1992fbdce0d70"
+    },
+    {
+      "path": "src/content/projects/intell-ple-pathway.json",
+      "sha256": "ae9e18eff4cb730d07fe6e0dd3870d99155b661992b82fb6fb384b03ad567afd"
+    },
+    {
+      "path": "src/content/projects/mbbn-ic.json",
+      "sha256": "1ce9f07249280a16f538d55f1705fb3e30e363ca0adbac5768dc5f1cac5a659a"
+    },
+    {
+      "path": "src/content/projects/mbbn.json",
+      "sha256": "9d8241354a759a81095c6cc45740db66e7e13067d65e860d2a49c564439cdf70"
+    },
+    {
+      "path": "src/content/projects/neuromamba.json",
+      "sha256": "0c421b42db05f18446be75557aae099952d4b904f39a6c1d96407a8bb9e4df64"
+    },
+    {
+      "path": "src/content/projects/quantum-ts-transformer.json",
+      "sha256": "29465b81ef9dda798956aced0a93f933a834f2d731dc0841485bedafcd159bed"
+    },
+    {
+      "path": "src/content/projects/swift.json",
+      "sha256": "446683bad5aa51d45f45fe18b9c679b95acd648032b6ebdd985553372818f88a"
+    },
+    {
+      "path": "src/content/projects/swifun.json",
+      "sha256": "5dc9b5f26956a6fa333d81364c29d90bf3ad47d772a5e80dd6e1ff9ea6599da1"
+    },
+    {
+      "path": "src/content/publications/10-year-epidemiologic-data-of-parkinsons-2018.json",
+      "sha256": "5e02bfc5c04f7e15e98bdd46945ef120fe3bc636b03caa22d439e516584061ff"
+    },
+    {
+      "path": "src/content/publications/3d-distributed-deep-learning-framework-f-2020.json",
+      "sha256": "7c4bf7063dd4b21a034120023632f4a43c3b51ed016f191814e11b8678cff9c0"
+    },
+    {
+      "path": "src/content/publications/a-more-comprehensive-and-reliable-analys-2025.json",
+      "sha256": "b30750f51cdd70a202b4da18348ced5dde9efa27442257d20a4b47751ef3f5c7"
+    },
+    {
+      "path": "src/content/publications/abnormal-hippocampal-structure-and-funct-2016.json",
+      "sha256": "dfddf611f859c7d2b128b17f1003d28e27d122491d317001930e0230336332ed"
+    },
+    {
+      "path": "src/content/publications/abnormal-reward-circuitry-in-anorexia-ne-2016.json",
+      "sha256": "62a71ae9066270e3ff2264084cebb497a38af41bc9fb434d4eb3dd91ef1d93e6"
+    },
+    {
+      "path": "src/content/publications/addressing-the-current-challenges-of-qua-2025.json",
+      "sha256": "50f4bb544ce3b1a7be809fa407c38d85cf41b9c5ae497a69af2d8bfb562fb917"
+    },
+    {
+      "path": "src/content/publications/aesfa-an-aesthetic-feature-aware-arbitra-2024.json",
+      "sha256": "0ffff96e25d46b3008df98df9331f1d422b2cdf6a5cb33d6a9fe5d25774c05a4"
+    },
+    {
+      "path": "src/content/publications/alterations-in-amygdalaprefrontal-circui-2016.json",
+      "sha256": "9ce1f33de69008ce34090804a20a04cfe1f26398500d39e56ef5d0c589908431"
+    },
+    {
+      "path": "src/content/publications/altered-dentate-gyrus-microstructure-in--2020.json",
+      "sha256": "ed849c1a4cd0ed467f7a3b457567ba42e957ad25c0244fbda59de792eee1fe2a"
+    },
+    {
+      "path": "src/content/publications/altered-white-matter-microstructural-org-2019.json",
+      "sha256": "224037f41ed55ed9e77b2749832d4c4a96bfac63cb14c3f1d7b65bdcef7fd42a"
+    },
+    {
+      "path": "src/content/publications/anticipation-of-high-arousal-aversive-an-2014.json",
+      "sha256": "20fb2760f716dd8b94dfa8eab0e4f31f9f6afe053de44f73015f7aadd60cfe07"
+    },
+    {
+      "path": "src/content/publications/application-of-multimodal-deep-learning--2025.json",
+      "sha256": "32b931398336b9509072092f4be93163f286a422e83dc4889f2a5cb7c1f184dd"
+    },
+    {
+      "path": "src/content/publications/association-of-genome-wide-polygenic-sco-2022.json",
+      "sha256": "45193a51e5a12ab6f999b9aece25dfae454a17d55dabfd72b37b060cc88cb4ce"
+    },
+    {
+      "path": "src/content/publications/associations-between-brain-structure-and-2018.json",
+      "sha256": "7765e0eb97388c1136c7b4b7c25137e718c36ac7e48300889d8627f76ed4c39e"
+    },
+    {
+      "path": "src/content/publications/awe-is-characterized-as-an-ambivalent-af-2025.json",
+      "sha256": "c543c6f2032f0d9f71cb2a720c1f6891c4aeb1e1eefac46f5586e3cee8c599c4"
+    },
+    {
+      "path": "src/content/publications/can-natural-image-autoencoders-compactly-2026.json",
+      "sha256": "72e09f68646e96ba8a46c97b84731819ce715214edb764c4887d552c583cc1f7"
+    },
+    {
+      "path": "src/content/publications/causalmamba-scalable-conditional-state-s-2025.json",
+      "sha256": "58637edc578c8bb31a70a21cc1187d48782c872b56f72548c511f9d67f913311"
+    },
+    {
+      "path": "src/content/publications/changes-in-transcript-and-protein-levels-2010.json",
+      "sha256": "823af8338dd69f4ec8893eb8a1b74d80f5a8a0138242f2a2e2a54eeb399d1ad3"
+    },
+    {
+      "path": "src/content/publications/childrens-structural-brain-network-prope-2024.json",
+      "sha256": "01caeae0035d1f82e0f732a66406e7e59f86128b0169b6020c48acae2aa43d00"
+    },
+    {
+      "path": "src/content/publications/circuit-wide-structural-and-functional-m-2014.json",
+      "sha256": "1841ae0185765086b567e1fa74d4821731d5da10c08002285e1bc54af8de95f1"
+    },
+    {
+      "path": "src/content/publications/clinically-anxious-individuals-show-disr-2016.json",
+      "sha256": "41b1e95dcff42214b85ddc8c7503df3206c20fab1d5562f9f1f6b002dd50213d"
+    },
+    {
+      "path": "src/content/publications/cognitive-capacity-genome-wide-polygenic-2022.json",
+      "sha256": "bb4cd17587ad0378e5d2b2cbbe19fd098b19fdd999399e29a9387b9c316bbd9e"
+    },
+    {
+      "path": "src/content/publications/computed-tomography-based-radiomics-diag-2025.json",
+      "sha256": "1086570c17972866bd2d3755fc5760362ad41204593cd949fa4673567042cae5"
+    },
+    {
+      "path": "src/content/publications/concordance-in-parent-and-offspring-cort-2020.json",
+      "sha256": "059e9f7757f322a55b28b88cb0173dcecac5446979e89754c268c422522e62eb"
+    },
+    {
+      "path": "src/content/publications/decoding-dynamic-visual-experience-from--2025.json",
+      "sha256": "11f571c6e85dcbd188c884066a52ffb4010e4f34b83a792fb6138c9fda334c49"
+    },
+    {
+      "path": "src/content/publications/dentate-gyrus-microstructure-is-associat-2023.json",
+      "sha256": "ab5cca89046a021a6059d1257d9a3bd55c353ebcfcb76b730d87941b9cb93d36"
+    },
+    {
+      "path": "src/content/publications/development-and-validation-of-a-predicti-2023.json",
+      "sha256": "5193d00d2bd63fe49a6cd7244ef4b3af22eb05e86267f9659d416ce00f945e58"
+    },
+    {
+      "path": "src/content/publications/diagnosis-and-prognosis-of-alzheimers-di-2019.json",
+      "sha256": "59e065efd774b502e17703c84be5028b1f41f363d5affac372eb480f53917161"
+    },
+    {
+      "path": "src/content/publications/differences-in-brain-structure-and-funct-2020.json",
+      "sha256": "9b9b42212e273b821a30fdf41cb491e86c1528d8c7bda2d9f400827b4157c3b5"
+    },
+    {
+      "path": "src/content/publications/differences-in-white-matter-structural-n-2025.json",
+      "sha256": "162226b56164d5eea4b1025a8e588ca8a2aabe3eb1597bda747fa8f8c0b7b782"
+    },
+    {
+      "path": "src/content/publications/differential-expression-of-two-glutamate-2009.json",
+      "sha256": "92c6e5e562408afc554adbee8549ffcd7c3f407312c70cea2b239d923c5f3265"
+    },
+    {
+      "path": "src/content/publications/diver-1-scaling-intracranial-eeg-foundat-2025.json",
+      "sha256": "d62fc24b8ba41c4fb1ac075e86679094e1eb57b061363efdbfd6f5b1a7753c83"
+    },
+    {
+      "path": "src/content/publications/diver0-icml-2025.json",
+      "sha256": "94e444f5a9fbd3ffdab8556ce57d0d27868cdde03bc9a3fa706154220812c775"
+    },
+    {
+      "path": "src/content/publications/early-life-stress-modulates-the-genetic--2023.json",
+      "sha256": "d235dc8ebd2d73c6e498a5828e3d8c31e12324f016a0cdba20d029fe719c2393"
+    },
+    {
+      "path": "src/content/publications/effects-of-serotonin-transporter-gene-va-2017.json",
+      "sha256": "d535069a1b62939f9902f1bead89cd4f80f991fb7839147172675b63c735baeb"
+    },
+    {
+      "path": "src/content/publications/evidence-for-thalamocortical-circuit-abn-2015.json",
+      "sha256": "a21fb5d0449c65a07fbdded82541997410ef7827c15a83bf028b1a365e29c820"
+    },
+    {
+      "path": "src/content/publications/from-anxious-to-reckless-a-control-syste-2017.json",
+      "sha256": "1548a0fbd430785218e02288108dae9f8faaf7a36d705f1d34d616f1df4a3bd2"
+    },
+    {
+      "path": "src/content/publications/functional-and-structural-amygdala-anter-2013.json",
+      "sha256": "138fcb2211c9fc771e377049505e7d8ec1703195b535abdd7f656902aac32096"
+    },
+    {
+      "path": "src/content/publications/ganbert-generative-adversarial-networks--2020.json",
+      "sha256": "3a69bfb56851202a4a32ab864d02e321ed26a2aacd2d9ebaf5bd69a12e624992"
+    },
+    {
+      "path": "src/content/publications/gandalf-generative-adversarial-networks--2020.json",
+      "sha256": "a359ad8024ff8f2d2709c635119ebf92c2218904bd78206301a89e68728593f4"
+    },
+    {
+      "path": "src/content/publications/geneenvironment-pathways-to-cognitive-in-2024.json",
+      "sha256": "8a9fc1f61f9427e85d364bab6817e4aba330daff3db1a634dd17283cb5ab8409"
+    },
+    {
+      "path": "src/content/publications/hybrid-quantum-temporal-convolutional-ne-2026.json",
+      "sha256": "4863a3bda35f08f575a34d0ecd9e154c901ef831db545e50064e6400279f4d0e"
+    },
+    {
+      "path": "src/content/publications/hyper-reactive-human-ventral-tegmental-a-2014.json",
+      "sha256": "1d91fca53987e2367a5e0e339490c423465b5b6660a18e4edbd04f81bd5c857f"
+    },
+    {
+      "path": "src/content/publications/identifying-neurobehavioral-biomarkers-o-2025.json",
+      "sha256": "518aa8dea89ea3fea7f722d59d5533d505dc5c7c01d0d1e445d0185ee9f83120"
+    },
+    {
+      "path": "src/content/publications/identifying-prepubertal-children-with-ri-2022.json",
+      "sha256": "f212f2141fa43915927763cd67a7e6ab1a36a46a0ca8ee4e1ae3bf5d31450083"
+    },
+    {
+      "path": "src/content/publications/image-classification-on-ibm-quantum-comp-2026.json",
+      "sha256": "2feaabd63cec5bcc0f906333d354f0073fc81951946f667d867a855c661797ed"
+    },
+    {
+      "path": "src/content/publications/increased-default-mode-network-connectiv-2015.json",
+      "sha256": "84629c4384be686c8c08b87bccc6051a55ef10dd04465e6563283699c2a98305"
+    },
+    {
+      "path": "src/content/publications/individual-differences-in-effects-of-str-2025.json",
+      "sha256": "6bf9f36f6c4d398c6eba68d4756e611c5109ab8b175733ab450ae109a74323b8"
+    },
+    {
+      "path": "src/content/publications/individual-differences-in-the-effects-of-2024.json",
+      "sha256": "fba871c2506a1dbaea6fec97ac5968804134e0f0dcf8c773895f318dcff30b0f"
+    },
+    {
+      "path": "src/content/publications/individual-differences-in-the-intergener-2025.json",
+      "sha256": "0bf366bccd7cb6b596ee9c559825cadcabe8e9b6f67da2a4162fc812a8300272"
+    },
+    {
+      "path": "src/content/publications/influence-of-the-bdnf-genotype-on-amygda-2013.json",
+      "sha256": "c84cb033bf82274d9ff82f57ef10f330f05d6e49aa1ee9a383969fad7b5cb4e7"
+    },
+    {
+      "path": "src/content/publications/its-a-me-quantum-mario-scalable-quantum--2025.json",
+      "sha256": "8cc345d8684abdaceef4aaac9e3b2cc9d0289dfa4db560eb1f799123d1fc84bf"
+    },
+    {
+      "path": "src/content/publications/latent-space-causal-discovery-from-indir-2026.json",
+      "sha256": "51e9d853ea24eb5bd43e6af38a8af9df8c83a712d010eb1feef6209357a66cd0"
+    },
+    {
+      "path": "src/content/publications/left-medial-orbitofrontal-cortex-volume--2015.json",
+      "sha256": "a9d424890214fcb4c26bc6c668852a3031f44f87481f8ed8632bb3eeb94c1487"
+    },
+    {
+      "path": "src/content/publications/longitudinal-magnetic-resonance-imaging--2016.json",
+      "sha256": "b5fd0448550f31c03fa1bcdf0f3a460ace43f0c9157ff144d0c78335d292bb8e"
+    },
+    {
+      "path": "src/content/publications/machine-learning-aided-prediction-of-fam-2017.json",
+      "sha256": "2616ce9f9faf37c87fec68dfa519a2b4eadb1657f30d05c4e055acdc65f30a10"
+    },
+    {
+      "path": "src/content/publications/machine-learning-prediction-of-incidence-2020.json",
+      "sha256": "93d64d177cbc35f644a6f25cedc7ea97b61f163e3ee5370d66f093ea644ace56"
+    },
+    {
+      "path": "src/content/publications/macro2micro-a-rapid-and-precise-cross-mo-2024.json",
+      "sha256": "070fa54024e824c413faea6497f4ee1100fc3992cfcc444b9f4edc989e944dfc"
+    },
+    {
+      "path": "src/content/publications/maternal-age-at-birth-and-child-attentio-2022.json",
+      "sha256": "cd05e7db3df4e7116e25bd8d6b8f602b2ec03c1f9b9081e63cea9cce837d46b9"
+    },
+    {
+      "path": "src/content/publications/maturity-of-gray-matter-structures-and-w-2021.json",
+      "sha256": "6e053e5bd4b2bc6e12c35dfdc52d1b5323948dbc4ff59901cabf56a6dc452ccf"
+    },
+    {
+      "path": "src/content/publications/mind-the-gap-2025.json",
+      "sha256": "9bb03190810a7d8a6c8fb63e8f4148f05063f39c49a46a63b29981791f3e4aee"
+    },
+    {
+      "path": "src/content/publications/mol-psych-2025.json",
+      "sha256": "d04dab8a745dd6fe25f2d64f8aa616b16f87d3fbdb97dd0f2653ac4f0988f893"
+    },
+    {
+      "path": "src/content/publications/morphology-and-distribution-of-gap-junct-2008.json",
+      "sha256": "cad64ee6b4e7e5bde8905da8cd0654227f8daa931b84e7d8d28a7eb1d685e277"
+    },
+    {
+      "path": "src/content/publications/multivariate-associations-between-struct-2023.json",
+      "sha256": "5a688d606df2fcb4f565dfaf9ddf228b660ef128038ce2587760b45e2eaae904"
+    },
+    {
+      "path": "src/content/publications/neural-correlates-of-aggression-in-medic-2015.json",
+      "sha256": "9216e07b390ae8fbd353c2df12cf3b463def76680fdbe2ec9afb8dd84c264532"
+    },
+    {
+      "path": "src/content/publications/neural-reactivity-tracks-fear-generaliza-2011.json",
+      "sha256": "e1e9325d4d58c6fb0e9e9ead3cb0289397a5b0a8c33e0c358988ba509cc14f07"
+    },
+    {
+      "path": "src/content/publications/neurodevelopmental-imprints-of-sociomark-2024.json",
+      "sha256": "cbc8a8e3090b74c878fcc495cadae929ce9aeae80774e801b8a2ab45a9fcbacf"
+    },
+    {
+      "path": "src/content/publications/neuromamba-2025.json",
+      "sha256": "bf182b96673cdaefd5bf1427834d202f05deafb66d7e90a12c7a78e84816188e"
+    },
+    {
+      "path": "src/content/publications/over-the-quantum-rainbow-explaining-hybr-2024.json",
+      "sha256": "c7c122597bd20d69d97abc5617712d2393ae7ac8f9f29ba89f997bb84b29b4fe"
+    },
+    {
+      "path": "src/content/publications/overestimated-prediction-using-polygenic-2023.json",
+      "sha256": "f6700381428cd99d24235c799ef45db97611f3aa59ca44407662d848478a4c27"
+    },
+    {
+      "path": "src/content/publications/polygenic-architecture-of-brain-structur-2025.json",
+      "sha256": "1c4c5335650a065e175512f367c024b2889c4708b8bd5baa900a54b1779f8408"
+    },
+    {
+      "path": "src/content/publications/polygenic-risk-informed-white-matter-int-2026.json",
+      "sha256": "5c4b6109c174d37dbb5bbff62bcbc05789eca009b299afe39706a0977c1819ca"
+    },
+    {
+      "path": "src/content/publications/predicting-task-related-brain-activity-f-2025.json",
+      "sha256": "f755d03f5dc0b50ae9213f25bee1916e01af70dd54d0759fedd4cee6cef57b53"
+    },
+    {
+      "path": "src/content/publications/prevalence-incidence-pi-ratio-and-main-c-2017.json",
+      "sha256": "2e5f2875993d4597995963ed87ad4cfae261df7a822bb52fb1525a5ca80370dd"
+    },
+    {
+      "path": "src/content/publications/psychological-resources-confer-greatest--2026.json",
+      "sha256": "33829132921e6f4bb35cce0c884e2a383a1dd89d4da8f7d2def27f0b44ab7249"
+    },
+    {
+      "path": "src/content/publications/q-diver-integrated-quantum-transfer-lear-2026.json",
+      "sha256": "e801c7df1fa5e06265b5b4783dce953652906ab80fb67b4022a86c63da464466"
+    },
+    {
+      "path": "src/content/publications/quantum-privacy-aggregation-of-teacher-e-2024.json",
+      "sha256": "408bfe37d16f5469c998471d61d59f7441db9b31a621b698a16388f702d5640a"
+    },
+    {
+      "path": "src/content/publications/repurposing-image-diffusion-models-for-t-2026.json",
+      "sha256": "5d59c522f7de839ce47808cffbd81841a8214ec6f540f6fafe201ece687f3018"
+    },
+    {
+      "path": "src/content/publications/resting-state-fmri-analysis-using-quantu-2025.json",
+      "sha256": "917abe397a92c510fb69a32d9c3afa0b68bdd8cfbd5f3b75638c113ee6390576"
+    },
+    {
+      "path": "src/content/publications/restingstate-thetaphase-gamma-amplitude--2023.json",
+      "sha256": "a9264c674d214964e6cc89e70a614aea5d7f488cd828cd4c00eae509c8af0138"
+    },
+    {
+      "path": "src/content/publications/revisiting-your-memory-reconstruction-of-2025.json",
+      "sha256": "d3d2458cd29964fe9cfce10b365a6056c97d7396d149599935560bea6810ceb6"
+    },
+    {
+      "path": "src/content/publications/risk-factors-associated-with-parkinsons--2018.json",
+      "sha256": "a57d6f7e917bbf0953ee1c4b76235773d44c468f32d4e8a565dc4b800d798a04"
+    },
+    {
+      "path": "src/content/publications/sex-specific-effects-of-anxiety-on-cogni-2024.json",
+      "sha256": "ae3811b9c671d9bf31dcfb8f5e11c08f5a74cc857baee95599be5d2f458f71bf"
+    },
+    {
+      "path": "src/content/publications/simulated-virtual-reality-experiences-fo-2025.json",
+      "sha256": "049f612f2bd0f9910a29a8fe14705e06b211e1b61c89f744af875705732d80a5"
+    },
+    {
+      "path": "src/content/publications/slower-cardiac-coupled-cortical-dynamics-2026.json",
+      "sha256": "54da092f1ffc0488fb315e6bd15d797d23e2f0d377ee7ad84b8bf8292b08fdf0"
+    },
+    {
+      "path": "src/content/publications/small-world-network-properties-in-prefro-2013.json",
+      "sha256": "cd6f604e6352b9d368cd51c0209b774cee1d842a409484d995fd5f15097359d6"
+    },
+    {
+      "path": "src/content/publications/spatiotemporal-learning-of-brain-dynamic-2025.json",
+      "sha256": "ca2a514fbe51504368f90cda677c721f47aba0749fe6134173d341ecf67faccb"
+    },
+    {
+      "path": "src/content/publications/stress-vulnerability-and-resilience-in-c-2024.json",
+      "sha256": "fa489beddc89b11ddfee0d703cbdeb57693481611a395e943546ae8220a08668"
+    },
+    {
+      "path": "src/content/publications/structural-neural-markers-of-response-to-2019.json",
+      "sha256": "37ed8dfda7b67ec8b38980c289fc1baa5ecf901c7866bb5960e2931b41b8e919"
+    },
+    {
+      "path": "src/content/publications/subcortical-volumes-in-offspring-with-a--2024.json",
+      "sha256": "b5fec92fa8aedacbdd87b7e0e60cc3b5e1d256837454cfcf15d9ed56f29fb9c2"
+    },
+    {
+      "path": "src/content/publications/swift-swin-4d-fmri-transformer-2023.json",
+      "sha256": "9d9322cd6616c8cb056f29ec2720104e652473d5cf90b41bf40970812494e56c"
+    },
+    {
+      "path": "src/content/publications/swin-fmri-transformer-predicts-early-neu-2024.json",
+      "sha256": "d27cd889257412c94bd363d6c42994a68bc9a4ea177c33cf3bf8360e99b51d83"
+    },
+    {
+      "path": "src/content/publications/synaptic-connections-of-calbindin-immuno-2009.json",
+      "sha256": "cf2406b88965cb051ccc70b4806125df6f80b4bb6f033d0f77b9db3ecbab0f59"
+    },
+    {
+      "path": "src/content/publications/the-effects-of-obstructive-sleep-apnea-s-2017.json",
+      "sha256": "4a9d82e5d6f213f3dcc033b4dcb75701dcdc0afd064fa487f1bf60988570435f"
+    },
+    {
+      "path": "src/content/publications/the-fine-line-between-brave-and-reckless-2014.json",
+      "sha256": "aca6c68400e2b798921dd0648440014483df93042b4413a9b9f231a0d2d82f69"
+    },
+    {
+      "path": "src/content/publications/the-sexual-brain-genes-and-cognition-a-m-2022.json",
+      "sha256": "e043ceb30d17d4c3f533f76d5c26224c21f245f0dbc4cc90f5ebd2b107887952"
+    },
+    {
+      "path": "src/content/publications/therapeutic-effect-of-repetitive-transcr-2022.json",
+      "sha256": "93c5aba05202ad4e304dab952086348961b2c5e2af34cf4961cddda820172d2c"
+    },
+    {
+      "path": "src/content/publications/toward-trustworthy-clinical-ai-for-obses-2026.json",
+      "sha256": "1cf9aa5f570a610d25ee73406ef367b26fb08d9a1b165909fcf82cdb0ca033b0"
+    },
+    {
+      "path": "src/content/publications/training-a-large-scale-3d-convolutional--2021.json",
+      "sha256": "f39807a5e0d7f31b40ada66a7ac623c71c57e5d23b523485200781edd4aaa311"
+    },
+    {
+      "path": "src/content/publications/variety-of-horizontal-cell-gap-junctions-2012.json",
+      "sha256": "a9584c3f1c2c9ed0833e085f3956d6cbc311911c4cfe4e6d320202f6bddcbc9b"
+    },
+    {
+      "path": "src/content/publications/ventromedial-prefrontal-cortex-reactivit-2012.json",
+      "sha256": "a7c08a02d0ceba2d73758df0a95d217bddd49d92e38e9ebc377cc61dc2c3e82d"
+    },
+    {
+      "path": "src/content/publications/white-matter-diffusion-estimates-in-obse-2024.json",
+      "sha256": "80cb74275707d5d2e9b2582e25819447384721d94688c2b1c845890f86145832"
+    },
+    {
+      "path": "src/content/research/art-and-neuroscience-ko.md",
+      "sha256": "dac6d16a3502fb4a5cd953f6041216bab75abbab42408d06cd21026b70c3c5f4"
+    },
+    {
+      "path": "src/content/research/art-and-neuroscience.md",
+      "sha256": "2fd196720d342a9c5b7166831aa5c6c2bd00d157e301642b066e079f52386ee1"
+    },
+    {
+      "path": "src/content/research/computational-genetics-psychiatry-ko.md",
+      "sha256": "c632bed1d00d721a7b949f8acf3f5faaa6717fa8d826f251c72deaa73db9a771"
+    },
+    {
+      "path": "src/content/research/computational-genetics-psychiatry.md",
+      "sha256": "cb42a3a2d61c84e82e3eabd4fb3420b74539fbccff0ecc76f9eaac77b2f9bc61"
+    },
+    {
+      "path": "src/content/research/neuro-x-ko.md",
+      "sha256": "8f7a0926bd381fbbc05cccb47b1e824c1b8a553b9e88d24827b3b2d5e620ef87"
+    },
+    {
+      "path": "src/content/research/neuro-x.md",
+      "sha256": "4c4020cc0054975fc35102f26475979f1b54404332942218148726bb0bfa4ba6"
+    },
+    {
+      "path": "src/content/research/quantum-machine-learning-ko.md",
+      "sha256": "1c519c7274bf1ee1c9a11043042c14e136907ef5cbde82f4c4e7e3c60bd54bb4"
+    },
+    {
+      "path": "src/content/research/quantum-machine-learning.md",
+      "sha256": "5a546f59a249a7f5edcd4ebebe87d8835acbdca636724f207914d5d5377c5906"
+    },
+    {
+      "path": "src/content/trends/brain-llm-alignment.json",
+      "sha256": "ceba369304f89caf76be8adff1d9c41e47fa91edb8a89ceeef77615c00d932ae"
+    },
+    {
+      "path": "src/content/trends/continuous-latent-predictive-modeling-wi.json",
+      "sha256": "0c58828ca21a12f960537c981b7c80441149619b4254a93ba2593d9d526955f8"
+    },
+    {
+      "path": "src/content/trends/discretization-aware-fine-tuning-for-qua.json",
+      "sha256": "e7aee0ad0e66a209b9c9e0203bb0426c36ed7685e3a178e5975f0eea7a30fc2b"
+    },
+    {
+      "path": "src/content/trends/diver0-eeg-trends.json",
+      "sha256": "b16a65e06df7ed9e6ab056ac802118e62f81b2989478db2d86b2104191713f37"
+    },
+    {
+      "path": "src/content/trends/eeg-jepa-structured-latent-prediction-fo.json",
+      "sha256": "e04e3611a29738cd3a3e4b5c277f74aac0678ff55543d51f694487a29367cf7d"
+    },
+    {
+      "path": "src/content/trends/eeg-prime-prototype-aligned-representati.json",
+      "sha256": "daadab5560f5a3f704354952d80ad9fae8e9e9f5161ae5e92336ead9cbd884d0"
+    },
+    {
+      "path": "src/content/trends/eeg-prism-physiologically-grounded-inter.json",
+      "sha256": "53bdef5af8daea1910d6a5d74f3a8656eb5294fd025b1dd34ca6c8f9eb714a18"
+    },
+    {
+      "path": "src/content/trends/neuromamba-sota.json",
+      "sha256": "f823c0453f87cc23df347f62e363eddc60a2efcff668c158f5644d78f6ab451e"
+    },
+    {
+      "path": "src/content/trends/polygenic-nature-trends.json",
+      "sha256": "e5df43373fd9c9d8698c9a90aa74c6d06dae17381b18102c02c0a08535de5a04"
+    },
+    {
+      "path": "src/content/trends/steam-a-spatio-temporal-alignment-mixtur.json",
+      "sha256": "8954c3223a27a3f3a325fb68e529136142f6c6d2e430f1569dd6448dac8f5be0"
+    },
+    {
+      "path": "src/content/trends/sw-proxyce-zero-query-adversarial-transf.json",
+      "sha256": "432f1e69eb7b68133fddb4b63ac9b4d1da963879bf33a7a3ea1c647c025fb0c3"
+    },
+    {
+      "path": "src/content/trends/understanding-and-correcting-low-frequen.json",
+      "sha256": "fffc3cc53a960377b5345174bfe1191ad108b453c1ba896d1ba66d2913c76728"
+    },
+    {
+      "path": "src/content/trends/zipbrain-can-eeg-foundation-models-be-fa.json",
+      "sha256": "81d322c55af8a66d8013acf20aeee0f9d63fe1e350de7afbe1d568747c537c32"
+    },
+    {
+      "path": "src/content.config.ts",
+      "sha256": "f1fcae0c18f3e2810abe53212f8b07454ee67dbce6935773cc259fe8682a5f58"
+    },
+    {
+      "path": "src/data/dailyThemes.ts",
+      "sha256": "16277953ac4b8729d3921b8945d0fddf5fd1c725e34c4aee40d526c4375aef2f"
+    },
+    {
+      "path": "src/data/researchMap.ts",
+      "sha256": "2842e8ff19a52c250c3e7a6ecaa851a8606c07d15ca68230a7c66de27153587e"
+    },
+    {
+      "path": "src/data/researchStories.ts",
+      "sha256": "d26a735d6118f2e779dfa60d60002639b4835d7f40aa1c053ca9016d7329c823"
+    },
+    {
+      "path": "src/data/siteMedia.ts",
+      "sha256": "dbdcfe8c1212ff45cf0ac048c3d3173eb94d15bf1f8f62f13adf31d9f7ef86b2"
+    },
+    {
+      "path": "src/i18n/ui.ts",
+      "sha256": "011d508093fd66cf93f5637b0ccbd0cd1abee56be4a030fd907bd4ed33b33bee"
+    },
+    {
+      "path": "src/layouts/BaseLayout.astro",
+      "sha256": "08d62c996fef8e8a7fd2ffcb1ae4d245f0ebb727a4b153f09dd001cd412e24f9"
+    },
+    {
+      "path": "src/pages/en/ideas/index.astro",
+      "sha256": "d476144db5fdd2d7c66d71929afecd05433322f1a68c296acda0ea387e9b39c4"
+    },
+    {
+      "path": "src/pages/en/index.astro",
+      "sha256": "a18380a092cd98ca44bf5447daeac8bf0d837329b8a60c2a6073d7d7c21822f6"
+    },
+    {
+      "path": "src/pages/en/join/index.astro",
+      "sha256": "9ca5c7b427829eca5df6d19cb857ff88aecce6ac3260ceec818fa46d366563bc"
+    },
+    {
+      "path": "src/pages/en/news/index.astro",
+      "sha256": "cc9dc9f7a9d2d7ee6273b1ea7b46f25909bb560ebb29e296d9e045dcfa3743aa"
+    },
+    {
+      "path": "src/pages/en/publications/index.astro",
+      "sha256": "60e08676f5de0d39914b5cde5a1a2063fcb717793ddad143da2ba9f406a812fb"
+    },
+    {
+      "path": "src/pages/en/radar/index.astro",
+      "sha256": "f93d85172a204128d9f84fb80bf11fb2b7c598ca271dffa0e05552d8180d1191"
+    },
+    {
+      "path": "src/pages/en/research/index.astro",
+      "sha256": "79171c2ba109dad2db21a9c7a3c3dc015b0d3fb5e7190e3505f854afb61cafae"
+    },
+    {
+      "path": "src/pages/en/team/index.astro",
+      "sha256": "7fcffe3bc09eb8e90a1039f76e918093fe1b60888e0c2d6a520f3e042424ebf0"
+    },
+    {
+      "path": "src/pages/ideas/index.astro",
+      "sha256": "206d171953093f4ff0fecd6c3aa48cf2a58badefc53762ec6cb08e8693662261"
+    },
+    {
+      "path": "src/pages/index.astro",
+      "sha256": "dbe0866f3bd58d7173759429c3d243471a7ece535e83be9566bf7e27498eed5d"
+    },
+    {
+      "path": "src/pages/join/index.astro",
+      "sha256": "433d967cb9441c7b3737710b9748cb7758d76d6b51fae87f21dce610c0cda5e3"
+    },
+    {
+      "path": "src/pages/news/index.astro",
+      "sha256": "7f982728d07cf23b636258aa3e661ab398a33ae6dd53bcba803a682e931d1632"
+    },
+    {
+      "path": "src/pages/publications/index.astro",
+      "sha256": "f12a22516a9f6a0409c438f484a6799a97642a1818dfe08b19dc496899152686"
+    },
+    {
+      "path": "src/pages/radar/index.astro",
+      "sha256": "86b04f04daa28736ad238907503d35f088096945bab430c4e1bc15b7c6c90ec4"
+    },
+    {
+      "path": "src/pages/research/index.astro",
+      "sha256": "6e4962095482cc1e5eec8cf5630b679ab26e9cac59c6d550b75f6a40818f0ad6"
+    },
+    {
+      "path": "src/pages/team/index.astro",
+      "sha256": "bd5d5880f1cedd132de72f3e16df92fddd345006c50290bfc9b9d820bbca41fb"
+    },
+    {
+      "path": "src/styles/global.css",
+      "sha256": "943ebcbb17c530435d5c2823c1f91ac65de9325a01af4497cbfac015d4f251a4"
+    },
+    {
+      "path": "src/utils/inlineLinks.ts",
+      "sha256": "87b782aff7fa712aee969c06bc002206464856a73cc3840b36f700fe61aa9685"
+    },
+    {
+      "path": "src/utils/publications.ts",
+      "sha256": "0e6686495b95132dcad7ed3569fa52fdf3f8f41b30d710c7509465911827b76a"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "6eaaa524c598ab2a432bf8fde1ccbd7e0443768852caa29342dd70468bdf6c72"
+    }
+  ]
+}
