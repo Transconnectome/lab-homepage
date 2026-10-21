@@ -1,0 +1,23 @@
+{
+  "title": "Predicting Emotion from EEG with Spatio-Temporal Alignment Mixture-of-Experts",
+  "titleKo": "시공간 정렬 MoE 모델로 EEG 감정 예측",
+  "date": "2026-10-12",
+  "category": "affective-neuro",
+  "hypothesis": "A spatio-temporal alignment Mixture-of-Experts (MoE) model, pre-trained on diverse EEG datasets, can robustly decode emotional states across individuals and recording settings.",
+  "hypothesisKo": "다양한 EEG 데이터셋으로 사전 훈련된 시공간 정렬 MoE 모델은 개인과 기록 설정에 걸쳐 감정 상태를 견고하게 디코딩할 수 있다.",
+  "rationale": "The lab studies emotion with EEG. Adapting a novel MoE architecture designed for generalizability across EEG decoding challenges could improve the robustness of emotion recognition.",
+  "rationaleKo": "연구실은 EEG로 감정을 연구한다. EEG 디코딩 문제 전반에 걸쳐 일반화를 위해 설계된 새로운 MoE 아키텍처를 적용하면 감정 인식의 견고성을 향상시킬 수 있다.",
+  "labThreads": [
+    "Affective Neuroscience: Awe, Memory, and Aesthetic Experience",
+    "The Neuro-X Project: Brain Foundation Models"
+  ],
+  "externalInspiration": [
+    "STEAM: A Spatio-TEmporal Alignment Mixture-of-Experts Model with Hierarchical Pre-training for EEG Decoding",
+    "DIVER-0: Fully Channel-Equivariant EEG Foundation Model"
+  ],
+  "firstExperiment": "A STEAM-like model would be pre-trained on publicly available EEG emotion datasets (e.g., DEAP, SEED) and fine-tuned on the lab's VR-EEG affective dataset, evaluating emotion classification accuracy and cross-subject generalization metrics.",
+  "firstExperimentKo": "STEAM과 유사한 모델을 공개 EEG 감정 데이터셋(예: DEAP, SEED)으로 사전 훈련하고, 연구실의 VR-EEG 감정 데이터셋에 미세 조정하여 감정 분류 정확도와 교차 피험자 일반화 지표를 평가할 수 있다.",
+  "risks": "The MoE architecture may introduce significant computational overhead, making real-time application in VR challenging without further optimization.",
+  "risksKo": "MoE 아키텍처는 상당한 계산 오버헤드를 발생시켜 추가 최적화 없이는 VR에서의 실시간 적용이 어려울 수 있다.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}

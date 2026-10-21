@@ -1,0 +1,22 @@
+{
+  "title": "Agentic AI for Cross-Modal Neuroimaging Pipeline Optimization",
+  "titleKo": "교차 모달 신경영상 파이프라인 최적화를 위한 에이전트 AI",
+  "date": "2026-09-28",
+  "category": "agentic-ai",
+  "hypothesis": "An autonomous AI agent could intelligently explore and optimize multimodal neuroimaging analysis pipelines, adapting them across fMRI and EEG data for specific research questions, leading to more robust and generalized findings.",
+  "hypothesisKo": "자율적인 AI 에이전트가 fMRI 및 EEG 데이터 전반에 걸쳐 특정 연구 질문에 맞게 다중 모달 신경영상 분석 파이프라인을 지능적으로 탐색하고 최적화하여, 더 견고하고 일반화된 결과를 도출할 수 있을 것이다.",
+  "rationale": "The lab already works with fMRI (NeuroMamba) and EEG (DIVER) foundation models. An agentic AI that can autonomously integrate and optimize these diverse modalities for specific research aims would be a powerful tool for accelerating neuroimaging research.",
+  "rationaleKo": "우리 연구실은 이미 fMRI(NeuroMamba) 및 EEG(DIVER) 파운데이션 모델을 다루고 있다. 특정 연구 목표를 위해 이러한 다양한 양식을 자율적으로 통합하고 최적화할 수 있는 에이전트 AI는 신경영상 연구를 가속화하는 강력한 도구가 될 것이다.",
+  "labThreads": [
+    "The Neuro-X Project: Brain Foundation Models"
+  ],
+  "externalInspiration": [
+    "EEG-PRIME: Prototype-Aligned Representation Learning with Multi-Level Conditioning for EEG Decoding",
+    "PIMSM: Physics-Informed Multi-Scale Mamba for Stable Neural Representations under Distribution Shift"
+  ],
+  "firstExperiment": "An agent could be designed to explore parameter spaces and model combinations (e.g., pre-trained DIVER for EEG and NeuroMamba for fMRI) to optimize a cross-modal prediction task, such as predicting affective states from combined EEG and fMRI data. The agent's performance in discovering optimal pipeline configurations would be benchmarked against manual optimization.",
+  "firstExperimentKo": "에이전트는 매개변수 공간과 모델 조합(예: EEG용 DIVER 사전 훈련 모델, fMRI용 NeuroMamba)을 탐색하여 결합된 EEG 및 fMRI 데이터로부터 정서 상태를 예측하는 것과 같은 교차 모달 예측 작업을 최적화하도록 설계될 수 있다. 최적의 파이프라인 구성을 찾는 에이전트의 성능은 수동 최적화와 비교하여 벤치마킹될 것이다.",
+  "risks": "Defining robust evaluation metrics and objective functions for an autonomous agent to optimize complex neuroimaging pipelines without human oversight is challenging.",
+  "risksKo": "인간의 감독 없이 복잡한 신경영상 파이프라인을 최적화하기 위한 자율 에이전트의 견고한 평가 지표 및 목표 함수를 정의하는 것은 어렵다.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}

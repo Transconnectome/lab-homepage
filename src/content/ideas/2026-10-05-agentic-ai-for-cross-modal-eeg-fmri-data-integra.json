@@ -1,0 +1,23 @@
+{
+  "title": "Agentic AI for Cross-Modal EEG-fMRI Data Integration",
+  "titleKo": "EEG-fMRI 교차 모달 데이터 통합을 위한 에이전트 AI",
+  "date": "2026-10-05",
+  "category": "agentic-ai",
+  "hypothesis": "An agentic AI system could autonomously design and execute optimal preprocessing and fusion pipelines for multimodal EEG and fMRI datasets, improving integrated analyses for affective neuroscience questions.",
+  "hypothesisKo": "에이전트 AI 시스템은 다중 모달 EEG 및 fMRI 데이터셋에 대한 최적의 전처리 및 융합 파이프라인을 자율적으로 설계하고 실행하여 정서 신경과학 질문에 대한 통합 분석을 개선할 수 있을 것이다.",
+  "rationale": "The lab frequently works with multimodal data (EEG/fMRI), but manual pipeline design is time-consuming. Agentic AI, a nascent interest in the lab, could automate and optimize this complex process, extending current capabilities for data integration.",
+  "rationaleKo": "연구실은 다중 모달 데이터(EEG/fMRI)를 자주 다루지만, 수동 파이프라인 설계는 시간이 많이 소요된다. 연구실의 새로운 관심사인 에이전트 AI는 이 복잡한 과정을 자동화하고 최적화하여 데이터 통합을 위한 현재 역량을 확장할 수 있다.",
+  "labThreads": [
+    "The Neuro-X Project: Brain Foundation Models",
+    "Affective Neuroscience: Awe, Memory, and Aesthetic Experience"
+  ],
+  "externalInspiration": [
+    "EEG-JEPA: Structured Latent Prediction for EEG Foundation Models",
+    "Can Natural Image Autoencoders Compactly Tokenize fMRI Volumes for Long-Range Dynamics Modeling?"
+  ],
+  "firstExperiment": "An agent could be tasked to identify optimal preprocessing steps (e.g., noise reduction, artifact removal) and fusion techniques (e.g., joint ICA, deep learning fusion) for a combined EEG-fMRI dataset aimed at predicting emotional states, using a performance metric like classification accuracy.",
+  "firstExperimentKo": "에이전트는 정서적 상태 예측을 목표로 하는 EEG-fMRI 통합 데이터셋에 대해 최적의 전처리 단계(예: 노이즈 감소, 아티팩트 제거)와 융합 기술(예: 공동 ICA, 딥러닝 융합)을 식별하도록 작업할 수 있으며, 분류 정확도와 같은 성능 지표를 사용할 수 있다.",
+  "risks": "Designing an agent with sufficient neuroscientific domain knowledge to robustly generalize across diverse datasets and research questions poses a significant challenge.",
+  "risksKo": "다양한 데이터셋과 연구 질문에 걸쳐 강력하게 일반화할 수 있는 충분한 신경과학 도메인 지식을 갖춘 에이전트를 설계하는 것은 상당한 어려움을 안고 있다.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}

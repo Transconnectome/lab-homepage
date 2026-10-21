@@ -1,0 +1,22 @@
+{
+  "title": "Agentic AI for Automated Multi-Modal Causal Discovery in Developmental Cohorts",
+  "titleKo": "발달 코호트의 다중 모드 인과 관계 발견을 위한 에이전트 AI",
+  "date": "2026-09-21",
+  "category": "agentic-ai",
+  "hypothesis": "An agentic AI framework capable of iteratively generating hypotheses and designing experiments for causal discovery on multi-modal developmental data (genes, brain, behavior, environment) can uncover previously unknown relationships more efficiently than manual approaches.",
+  "hypothesisKo": "다중 모드 발달 데이터(유전자, 뇌, 행동, 환경)에 대한 인과 관계 발견을 위해 가설을 반복적으로 생성하고 실험을 설계할 수 있는 에이전트 AI 프레임워크는 수동 방식보다 효율적으로 알려지지 않은 관계를 밝힐 수 있다.",
+  "rationale": "The lab's focus on agentic AI for brain research and multi-modal genetics/computational psychiatry makes this a natural extension. Leveraging AI for hypothesis generation in complex causal discovery is a novel application.",
+  "rationaleKo": "뇌 연구를 위한 에이전트 AI와 다중 모드 유전학/계산 정신의학에 대한 연구실의 초점은 이것을 자연스러운 확장으로 만든다. 복잡한 인과 관계 발견에서 가설 생성을 위한 AI 활용은 새로운 응용 분야이다.",
+  "labThreads": [
+    "Polygenic architecture of brain structure and function, behaviors, and psychopathologies in children",
+    "Latent-Space Causal Discovery from Indirect Neuroimaging Observations"
+  ],
+  "externalInspiration": [
+    "Polygenic architecture of brain structure and function, behaviors, and psychopathologies in children"
+  ],
+  "firstExperiment": "An agent would be designed to ingest ABCD data (polygenic scores, MRI, behavioral, environmental measures) and a predefined set of causal discovery algorithms. It would then generate and test causal graphs, prioritizing those with higher statistical evidence and novelty, to identify associations among genes, brain, and behavior related to childhood development.",
+  "firstExperimentKo": "ABCD 데이터(유전자 점수, MRI, 행동, 환경 측정치)와 미리 정의된 인과 관계 발견 알고리즘 세트를 입력으로 받아 가설을 생성하고 테스트하는 에이전트를 설계한다. 이 에이전트는 통계적 증거와 참신성이 높은 인과 그래프를 우선시하여 아동 발달과 관련된 유전자, 뇌, 행동 간의 연관성을 식별한다.",
+  "risks": "The agent's ability to generate truly novel and testable hypotheses, rather than simply rediscovering known associations, may be limited, and interpreting its generated causal graphs could be challenging.",
+  "risksKo": "에이전트가 알려진 연관성을 단순히 재발견하는 대신, 진정으로 새롭고 검증 가능한 가설을 생성하는 능력은 제한적일 수 있으며, 생성된 인과 그래프를 해석하는 것이 어려울 수 있다.",
+  "generatedBy": "llm:google/gemini-2.5-flash"
+}
