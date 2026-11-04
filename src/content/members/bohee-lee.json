@@ -1,23 +1,28 @@
 {
   "name": "Bohee Lee",
   "nameKo": "이보희",
-  "role": "Graduate Student",
-  "roleKo": "대학원생",
-  "category": "ms",
+  "role": "PhD / Graduate Student",
+  "roleKo": "대학원생 (뇌인지과학과)",
+  "category": "phd",
   "email": "bohee.lee@snu.ac.kr",
   "avatar": "/assets/members/bohee-lee.jpg",
   "affiliations": [
     "Department of Brain and Cognitive Sciences, SNU"
   ],
   "education": [
+    "MS in Brain and Cognitive Sciences, Seoul National University",
     "BA in Psychology, Université Paris Cité"
   ],
   "researchInterests": [
-    "EEG / ECoG",
-    "Biosignal Processing",
-    "Attention & Cognitive Control",
-    "Mind-wandering"
+    "Individual Differences in Higher Cognition: Control, Flexibility & Resilience",
+    "EEG, iEEG & Wearable Biosignals",
+    "EEG/MEG Foundation Models",
+    "Agentic AI for Neuroscience"
   ],
-  "passions": [],
+  "passions": [
+    "Museums & Art",
+    "Small-town Travel",
+    "Science Fiction"
+  ],
   "order": 13
 }
