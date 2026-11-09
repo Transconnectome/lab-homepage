@@ -92,7 +92,7 @@ const enDates = [
         <h2 id="intro-title" class="font-display text-2xl font-semibold text-ink">어떤 학생을 찾나요</h2>
         <div class="space-y-5 measure text-base text-ink-soft leading-relaxed">
           <p>커넥톰 연구실은 뇌 신호(fMRI·EEG·MEG) 파운데이션 모델을 만들고, 이 모델들을 도구로 삼아 연구 질문과 가설, 실험(분석) 설계, 데이터 분석, 결과에서 배우고 다음을 추론하는 일까지 스스로 해내는 것을 목표로 하는 AI 연구자, <strong class="text-ink">NeuroX 자율 연구 에이전트</strong>를 만들고 있습니다. 2026년 겨울방학 동안 이 프로젝트를 함께 만들 학부 연구 인턴 <strong class="text-ink">3명</strong>을 모집합니다. 앞으로 사람 뇌에서 마우스·원숭이 뇌 데이터까지 넓혀 갈 계획이며, <strong class="text-ink">동물 신경 데이터에 깊은 관심이 있는 학생을 특히 환영합니다.</strong></p>
-          <p>특히 <strong class="text-ink">2027년 또는 2028년에 대학원 진학을 계획하는 학부생(전공 무관)</strong> 가운데, 처음 보는 어려운 문제를 두려워하지 않고 가장 좋은 해법을 찾을 때까지 스스로를 끝까지 밀어붙이는 학생을 찾습니다. 겨울 8주 과정을 마친 뒤 2027년 학기 중에도 연구를 이어 가며 대학원 수준의 연구를 미리 시작할 수 있습니다.</p>
+          <p>특히 <strong class="text-ink">2027년 또는 2028년에 대학원 진학을 계획하는 학부생(전공 무관)</strong> 가운데, 처음 보는 어려운 문제를 두려워하지 않고 가장 좋은 해법을 찾을 때까지 스스로를 끝까지 밀어붙이는 학생, 그리고 주어진 문제를 그대로 받아들이지 않고 더 중요한 질문으로 새롭게 정의하는 학생을 찾습니다. 겨울 8주 과정을 마친 뒤 2027년 학기 중에도 연구를 이어 가며 대학원 수준의 연구를 미리 시작할 수 있습니다.</p>
         </div>
       </section>
 
@@ -112,7 +112,7 @@ const enDates = [
           </dl>
 
           <div class="card p-6 space-y-3">
-            <h3 class="font-semibold text-ink">1개월 중간 평가 · {midterm.date}</h3>
+            <h3 class="font-semibold text-ink">1개월 중간 점검 · {midterm.date}</h3>
             <ul class="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-ink-soft">
               {midterm.checks.map((c) => <li class="flex gap-2"><span class="text-oxblood" aria-hidden="true">✓</span><span>{c}</span></li>)}
             </ul>
@@ -307,7 +307,7 @@ const enDates = [
         <a href={localePath(lang, '/join/')} class="text-link text-sm">← Join us</a>
         <p class="eyebrow">SNU Connectome Lab · PI Jiook Cha</p>
         <h1 class="font-display text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">2026 Winter Undergraduate Research Internship</h1>
-        <p class="text-lg text-ink leading-relaxed measure">Help build the NeuroX autonomous research agent, an AI researcher meant to form and test its own hypotheses with brain foundation models. Three undergraduates (any major) will spend eight weeks, 4 January – 26 February 2027, building one module that goes into a lab paper, from implementation to the results table. The lab plans to extend the agent from human to mouse and monkey brain data, and students with a deep interest in animal neural data are especially welcome, as are students planning graduate study in 2027 or 2028.</p>
+        <p class="text-lg text-ink leading-relaxed measure">Help build the NeuroX autonomous research agent, an AI researcher meant to form and test its own hypotheses with brain foundation models. Three undergraduates (any major) will spend eight weeks, 4 January – 26 February 2027, building one module that goes into a lab paper, from implementation to the results table. The lab plans to extend the agent from human to mouse and monkey brain data, and students with a deep interest in animal neural data are especially welcome, as are students planning graduate study in 2027 or 2028. We look for students who push through hard problems until they find the best solution, and for students who reframe a given problem into a more important question.</p>
         <p class="text-sm text-ink-faint">The full announcement, including the three research tracks and the learning task, is in Korean. <a href={localePath('ko', '/join/winter-intern-2026/')} class="text-link" lang="ko">공고 전문 (한국어)</a></p>
       </header>
       <section class="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16" aria-labelledby="en-project">
