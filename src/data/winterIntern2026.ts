@@ -1,5 +1,6 @@
 // 2026 동계 학부 연구 인턴 모집 공고.
-// 정본: Transconnectome/intern-2026-winter `ops/ANNOUNCEMENT_DRAFT.md` 버전 1 (11/9 일정 +7일 반영).
+// 정본: 연구실 내부 모집 문서의 공고 초안 버전 1 (11/9 일정 +7일 반영,
+// 11/9 연구 과제 목록을 'NeuroX 자율 연구 에이전트' 1개 프레임워크 + 세 트랙(T1~T3)으로 재구성).
 // 공고 문구를 바꿀 때는 정본과 이 파일을 함께 고친다.
 
 export interface Link {
@@ -7,19 +8,17 @@ export interface Link {
   href: string;
 }
 
-export interface Project {
+export interface Track {
   id: string;
   code: string;
-  modality: string;
+  area: string;
   title: string;
-  stack: string;
-  overview: string;
-  note?: string;
-  question: string;
-  deliverables: string;
-  refsLabel: string;
+  what: string;
+  why: string;
+  deliverable: string;
+  who: string;
+  welcome?: string;
   refs: Link[];
-  refsNote?: string;
 }
 
 export interface Step {
@@ -71,7 +70,7 @@ export const overview = [
     term: '필요 역량',
     desc: [
       '선형대수·미적분·확률통계 기초, Python 데이터 분석 경험',
-      '모델 구현 과제는 PyTorch 경험을 권장합니다.',
+      'T1 트랙은 PyTorch 경험을 권장합니다. T2 트랙은 동물 신경 데이터에 깊은 관심이 있으면 PyTorch 경험이 적어도 지원할 수 있습니다.',
     ],
   },
 ];
@@ -95,9 +94,9 @@ export const readiness = [
 
 export const support = [
   {
-    title: '연구 과제 중 1개 모듈 전담',
-    body: '아래 후보 과제(F1~F5) 중 하나에 배정되어 맡은 모듈을 구현·검증합니다. 가설이 기각되더라도 기준선 재현과 원인 분석이 엄밀히 입증된 음성 결과(negative result)는 성공한 결과와 동등하게 평가합니다.',
-    link: { label: '연구 과제 보기', href: '#projects' },
+    title: 'NeuroX 자율 연구 에이전트의 핵심 모듈 하나 전담',
+    body: '아래 세 트랙(T1~T3) 중 하나에서 맡은 모듈을 구현·검증합니다. 가설이 기각되더라도 기준선 재현과 원인 분석이 엄밀히 입증된 음성 결과(negative result)는 성공한 결과와 동등하게 평가합니다.',
+    link: { label: '연구 프로젝트 보기', href: '#projects' },
   },
   {
     title: '전용 연산 인프라 (NVIDIA DGX Spark)',
@@ -120,96 +119,55 @@ export const support = [
 export const supportNote =
   '인턴 참여는 커넥톰 연구실을 포함한 어느 대학원의 입학이나 연구실 배정도 보장하지 않습니다. 공저자 자격은 인턴 수료 후에도 연구에 지속 참여해 ICMJE 국제 저자 기준을 충족한 경우 심의를 거쳐 부여합니다.';
 
-export const projects: Project[] = [
+export const framework = {
+  name: 'NeuroX 자율 연구 에이전트',
+  lead: [
+    '연구실은 NeuroX 자율 연구 에이전트를 만들고 있습니다. 목표는 뇌 파운데이션 모델을 도구로 삼아 연구 질문에서 가설을 세우고, 그 가설을 검증할 실험(분석)을 설계해 미리 기록(사전등록)하고, 데이터를 분석해 결과가 통계적으로 믿을 만한지 스스로 점검하고, 그 결과에서 배우고 추론해 다음 가설을 고치는 AI 연구자를 만드는 것입니다. 뇌 데이터는 빠르게 늘지만 가설 하나를 엄밀하게 검증하는 데는 여전히 몇 달이 걸립니다. 빠르기만 한 AI가 아니라 거짓 발견을 스스로 막는 AI, 사람의 뇌에서 마우스·원숭이의 뇌까지 같은 고리 안에서 다루는 AI를 만드는 것이 이 프로젝트의 방향입니다.',
+    '지금은 연구 고리의 뼈대, 통계 자기검증, 사전등록 기록, 뇌 모델 하나의 연결까지 첫 버전을 만들었고, 이번 겨울 인턴과 함께 넓힙니다. 세 트랙은 한 에이전트의 핵심 모듈입니다. T1은 에이전트가 뇌 데이터를 읽는 눈, T2는 그 시야를 사람에서 마우스·원숭이까지 넓히는 일, T3는 결과를 스스로 의심하고 검증하는 판단력입니다. 인턴은 이 중 한 트랙에서 핵심 모듈 하나를 구현·검증하며, 배정은 선발 후 관심·준비도를 보고 정합니다.',
+  ],
+};
+
+export const tracks: Track[] = [
   {
-    id: 'f1',
-    code: 'F1',
-    modality: 'fMRI',
-    title: 'SwiFT 확장',
-    stack: 'PyTorch',
-    overview:
-      '4차원 뇌 영상(4D fMRI)을 트랜스포머에 넣을 때 정보량이 적은 배경·비활성 토큰을 동적으로 가지치기(token pruning)해 메모리를 줄이고, 적은 데이터(N=20~50)로도 사전학습 표상의 전이 성능이 유지되는지 실험합니다.',
-    question:
-      '토큰 가지치기로 긴 4D fMRI 스캔의 어텐션 메모리를 줄이면서 정보 손실을 얼마나 막을 수 있는가? 휴지기 fMRI로 사전학습한 표상이 소표본(N=20~50) 인지·임상 과제로 효과적으로 전이되는가?',
-    deliverables:
-      '시공간 토큰 가지치기 어텐션 모듈 구현, 소표본 미세조정 벤치마크 파이프라인 구축, 5개 시드 반복 실험 및 절제 실험 결과표 작성.',
-    refsLabel: '참고 논문 및 공개 코드',
+    id: 't1',
+    code: 'T1',
+    area: '사람 뇌 · fMRI·EEG',
+    title: '에이전트의 눈: 사람 뇌 모델을 도구로',
+    what: '연구실의 fMRI·뇌파 파운데이션 모델(SwiFT, DIVER 등)을 에이전트가 부를 수 있는 도구로 연결하고, 맞지 않는 데이터가 들어오면 추측하지 않고 거부하게 만듭니다.',
+    why: '좋은 질문도 뇌 데이터를 제대로 읽지 못하면 소용없습니다. 에이전트가 뇌를 읽는 능력은 이 도구의 품질에서 나옵니다.',
+    deliverable: '뇌 모델 하나를 에이전트 도구로 연결하고, 정상·잘못된 입력에서의 동작을 검증한 결과표.',
+    who: '딥러닝과 뇌영상·뇌파에 관심이 있고 PyTorch 경험이 있는 학생.',
     refs: [
-      { label: 'SwiFT: Swin 4D fMRI Transformer (NeurIPS 2023)', href: 'https://arxiv.org/abs/2307.05916' },
+      { label: 'SwiFT (arXiv:2307.05916)', href: 'https://arxiv.org/abs/2307.05916' },
       { label: 'GitHub: Transconnectome/SwiFT', href: 'https://github.com/Transconnectome/SwiFT' },
-      { label: 'GitHub: Transconnectome/NeuroMamba (후속 4D fMRI 상태공간 모델)', href: 'https://github.com/Transconnectome/NeuroMamba' },
+      { label: 'DIVER-1 (arXiv:2512.19097)', href: 'https://arxiv.org/abs/2512.19097' },
     ],
   },
   {
-    id: 'f2',
-    code: 'F2',
-    modality: 'EEG',
-    title: 'DIVER 전극 불변성 확장',
-    stack: 'PyTorch',
-    overview:
-      '두피 뇌파(scalp EEG) 모델 DIVER-0에서 다룬 전극 불변(electrode-invariant) 표상 학습을 확장합니다. 병원용 19채널 이상 뇌파로 배운 모델이 웨어러블처럼 채널이 극소수이거나(예: 이마 2채널) 실환경 잡음이 많은 환경에서도 견고하게 작동하는지 평가·보강합니다.',
-    question:
-      '19채널 이상 임상 뇌파로 학습한 DIVER-0 표상이 극소수 채널(2~4채널)이나 이종 장비 몽타주로 옮겨 갈 때 성능이 어디까지 유지되는가? 실환경 잡음(전원선 잡음, 접촉 불량, 부분 채널 탈락)에 표상이 얼마나 흔들리며 어떻게 보강할 수 있는가?',
-    deliverables:
-      'DIVER-0 기반 극단적 채널 축소·전극 마스킹·잡음 주입 절제 파이프라인 구현, 이종 공개 EEG 데이터셋 간 제로샷/소표본 견고성 평가, 채널 수·잡음 강도별 부트스트랩 신뢰구간 산출.',
-    refsLabel: '참고 논문',
-    refs: [{ label: 'DIVER: Brain Electrophysiology Foundation Model (arXiv:2512.19097)', href: 'https://arxiv.org/abs/2512.19097' }],
-    refsNote:
-      'DIVER 코드 저장소는 연구실 내부 저장소로, 선발 후 온보딩을 마치면 권한을 드립니다. 논문은 두개내 뇌파(iEEG) 기반 DIVER-1 참고 문헌이며, F2 과제는 두피 뇌파 모델 DIVER-0를 극소수 채널·잡음 환경으로 확장합니다.',
-  },
-  {
-    id: 'f3',
-    code: 'F3',
-    modality: 'AI4Science',
-    title: 'NeuroX 가설 근거 합성',
-    stack: 'Python · LLM API',
-    overview:
-      '연구 가설마다 지지·반대 논문 근거를 학술 문헌에서 찾아 구조화하는 합성 에이전트와, 인용의 실존·맥락 정합성을 독립 점검하는 비평 에이전트가 서로 검증하는 파이프라인을 구축합니다.',
-    note: '뇌영상·딥러닝 직접 구현 경험이 적은 학생도 지원할 수 있습니다.',
-    question:
-      'NeuroX 핵심 가설마다 지지 근거와 반대(반증) 근거를 문헌에서 균형 있게 찾아, AI 합성 에이전트와 비평 에이전트가 서로 검증하며 인간 연구자 평가와 높은 일치도를 달성할 수 있는가?',
-    deliverables:
-      '가설 지지·반대 근거 합성-비평 멀티에이전트 파이프라인 구축, DOI/초록 기반 인용 검증 자동화 모듈 구현, 공개 문헌·기발표 학술 가설 대상 인간 평가자와의 일치도 측정 보고서 작성.',
-    refsLabel: '참고 공개 코드',
+    id: 't2',
+    code: 'T2',
+    area: '마우스 · 원숭이',
+    title: '종을 넘는 뇌: 마우스·원숭이 데이터',
+    what: '공개된 마우스(칼슘 영상·Neuropixels)와 원숭이(스파이크 기록) 데이터를 에이전트의 연구 고리에 연결하고, 동물에서 먼저 물을 수 있는 질문을 에이전트와 함께 시험합니다. 예를 들어 한 종에서 배운 뇌 신호 표상이 다른 종으로 옮겨 가는가, 세포 유형·연결 같은 해부학 지식이 모델을 실제로 돕는가 같은 질문입니다.',
+    why: '동물 연구는 사람에게서 얻기 어려운 세포·회로 수준의 기록을 줍니다. 사람·마우스·원숭이를 잇는 뇌 모델이 가능한지는 아직 열린 질문이고, 이 트랙은 그 질문을 정면으로 다룹니다.',
+    deliverable: '공개 동물 데이터를 에이전트 고리에 연결하고, 첫 종간 비교 또는 지식 주입 실험의 결과표. 효과가 없다는 결과도 결과로 인정합니다.',
+    who: '동물 신경과학·신경생리 데이터를 다뤄 봤거나 깊은 관심이 있는 학생. PyTorch 경험이 적어도 지원할 수 있습니다. 관심 종은 학생이 고르고, 공개 데이터셋(예: Allen Brain Observatory, IBL, DANDI)으로 시작합니다.',
+    welcome: '동물 신경 데이터에 깊은 관심이 있는 학생을 특히 환영합니다.',
     refs: [
-      { label: 'GitHub: Transconnectome/AI-CoScientist', href: 'https://github.com/Transconnectome/AI-CoScientist' },
-      { label: 'GitHub: Transconnectome/sci-method', href: 'https://github.com/Transconnectome/sci-method' },
+      { label: 'POYO-CAP (arXiv:2510.18516)', href: 'https://arxiv.org/abs/2510.18516' },
+      { label: 'GitHub: Transconnectome/POYO-CAP', href: 'https://github.com/Transconnectome/POYO-CAP' },
     ],
   },
   {
-    id: 'f4',
-    code: 'F4',
-    modality: 'FM + 에이전트',
-    title: 'NeuroX-Reason 도구 통합',
-    stack: 'Python · LLM API · 테스트 코드',
-    overview:
-      '추론형 언어 모델 에이전트(LLM Agent)가 뇌영상·뇌파 파운데이션 모델(SwiFT, DIVER 등)을 분석 도구로 호출해 복합 추론을 수행하도록 연결합니다. 모달리티 불일치나 잘못된 입력은 추측하지 않고 명확히 거부(abstention)하도록 입출력 계약과 테스트를 구현합니다.',
-    note: '뇌영상·딥러닝 직접 구현 경험이 적은 학생도 지원할 수 있습니다.',
-    question:
-      '뇌 신호 파운데이션 모델을 언어 모델 에이전트가 호출하는 도구로 붙일 때, 모달리티 불일치나 규격 외 입력을 받으면 환각으로 추측하지 않고 신뢰성 있게 거부하게 만들 수 있는가?',
-    deliverables:
-      '뇌영상·뇌파 파운데이션 모델 1~2개의 에이전트 도구 래퍼(tool wrapper) 및 입출력 계약 스키마 구현, 단위·통합 테스트 스위트 구축, 합성 오류 입력 벤치마크 제작 및 거부율(abstention rate) 정량 평가 보고서 작성.',
-    refsLabel: '연동 대상 모델',
-    refs: [
-      { label: 'SwiFT (GitHub)', href: 'https://github.com/Transconnectome/SwiFT' },
-      { label: 'DIVER (arXiv:2512.19097)', href: 'https://arxiv.org/abs/2512.19097' },
-    ],
-  },
-  {
-    id: 'f5',
-    code: 'F5',
-    modality: 'EEG · 해외 공동연구',
-    title: 'EEG GINR',
-    stack: 'PyTorch',
-    overview:
-      '여러 사람의 뇌파를 연속 좌표 함수 신경망(Generalized Implicit Neural Representation, GINR) 하나로 표현하고, 새로운 피험자에게는 작은 잠재 벡터만 맞춰 신호가 정밀하게 재구성되는지 공개 데이터(BCI Competition IV-2a)로 해외 공동연구진과 함께 검증합니다.',
-    question:
-      '피험자 공통 좌표 신경망과 개인별 저차원 잠재 벡터를 분리해 학습하면, 처음 보는 피험자에게 작은 잠재 벡터만 맞춰서 단순 전이학습이나 보간법보다 뇌파 재구성 성능이 나아지는가?',
-    deliverables:
-      '공개 데이터셋(BCI Competition IV-2a) 전처리 및 좌표 질의 로더 구축, 소형 프로토타입을 다피험자 규모로 키우는 PyTorch 학습 파이프라인 구현, 미관측 피험자 간 재구성 성능 비교 결과표 작성.',
-    refsLabel: '공개 데이터 및 연습 챌린지',
-    refs: [{ label: 'GitHub: Transconnectome/connectome-challenges-public', href: 'https://github.com/Transconnectome/connectome-challenges-public' }],
-    refsNote: '공개 데이터: BCI Competition IV-2a',
+    id: 't3',
+    code: 'T3',
+    area: 'AI 과학자 · 통계',
+    title: '스스로 검증하는 AI 과학자',
+    what: '언어 모델이 연구 고리(가설 → 실험 설계·사전등록 → 분석 → 검증)를 직접 돌리게 연결하고, 통계 자기검증이 거짓 발견을 얼마나 막는지 잽니다.',
+    why: '빠르기만 하고 틀리는 AI 과학자는 해롭습니다. 자율 연구를 믿으려면 다중비교·데이터 누수 같은 흔한 오류를 AI가 스스로 걸러야 합니다.',
+    deliverable: '언어 모델이 돌리는 연구 고리 한 바퀴와, 자기검증을 켰을 때와 껐을 때를 비교한 결과표.',
+    who: 'LLM 에이전트, 통계, 과학 방법론에 관심이 있는 학생. 뇌영상·딥러닝 구현 경험이 적어도 지원할 수 있습니다.',
+    refs: [],
   },
 ];
 
@@ -285,7 +243,7 @@ export const materials = [
   {
     file: '지원서_이름.pdf',
     tag: '필수 · A4 1쪽',
-    body: '희망 연구 프로젝트(F1~F5 중 1·2순위와 이유), 대학원 진학 계획(희망 시기·과정·분야), 8주 후 학기 중 가용 시간, 8주 기간 중 중복 일정 유무',
+    body: '관심 트랙(T1~T3 중 1·2순위와 이유), 대학원 진학 계획(희망 시기·과정·분야), 8주 후 학기 중 가용 시간, 8주 기간 중 중복 일정 유무',
   },
   {
     file: '과제_이름.pdf',
