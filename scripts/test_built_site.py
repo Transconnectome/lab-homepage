@@ -8,7 +8,9 @@ import sys
 
 ROOT = Path(__file__).resolve().parent.parent / "dist"
 SITE = "https://www.connectomelab.com"
-ROUTES = ("", "research", "publications", "team", "news", "radar", "ideas", "join")
+# Pages that existed under /ko/ before the language swap keep a legacy redirect.
+LEGACY_ROUTES = ("", "research", "publications", "team", "news", "radar", "ideas", "join")
+ROUTES = LEGACY_ROUTES + ("join/winter-intern-2026",)
 
 
 class Page(HTMLParser):
@@ -104,7 +106,7 @@ def main():
                     failures.append(f"{url_path}: missing local target {reference}")
                 elif parsed.fragment and destination in pages and unquote(parsed.fragment) not in pages[destination].ids:
                     failures.append(f"{url_path}: missing fragment {reference}")
-    for route in ROUTES:
+    for route in LEGACY_ROUTES:
         legacy = target("/ko/" + route)
         if not legacy.exists() or "http-equiv=" not in legacy.read_text().lower():
             failures.append(f"Missing legacy Korean redirect: /ko/{route}")

@@ -94,6 +94,12 @@ const pageTitle = lang === 'ko' ? '함께하기 | 서울대학교 커넥톰 연�
         <h2 class="font-display text-2xl font-semibold text-ink">{t('join.internTitle')}</h2>
       </div>
       <p class="text-base text-ink-soft leading-relaxed measure">{t('join.internDesc')}</p>
+      <a href={localePath(lang, '/join/winter-intern-2026/')} class="card block p-5 sm:p-6 max-w-3xl hover:border-lab-700 transition-colors">
+        <span class="eyebrow">{lang === 'ko' ? '모집 공고' : 'Now recruiting'}</span>
+        <span class="mt-1 block font-display text-lg sm:text-xl font-semibold text-ink">{lang === 'ko' ? '2026 동계 학부 연구 인턴 모집 (3명)' : '2026 Winter Undergraduate Research Internship (3 positions)'}</span>
+        <span class="mt-1 block text-sm text-ink-soft">{lang === 'ko' ? '2027. 1. 4.–2. 26. (8주) · 서류 마감 2026. 11. 20. (금) 18:00' : '4 Jan – 26 Feb 2027 (8 weeks) · Apply by 20 Nov 2026, 18:00 KST'}</span>
+        <span class="mt-3 inline-block text-link text-sm">{lang === 'ko' ? '공고 보기 →' : 'Read the announcement →'}</span>
+      </a>
     </section>
 
     <!-- How to apply -->

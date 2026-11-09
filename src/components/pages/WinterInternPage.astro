@@ -1,0 +1,338 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localePath, type Lang } from '../../i18n/ui';
+import {
+  keyFacts,
+  overview,
+  midterm,
+  readiness,
+  support,
+  supportNote,
+  projects,
+  steps,
+  stepsNote,
+  apply,
+  materials,
+  task,
+  privacy,
+  swiftPaper,
+  swiftCode,
+} from '../../data/winterIntern2026';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ko = lang === 'ko';
+const pageTitle = ko
+  ? '2026 동계 학부 연구 인턴 모집 | 서울대학교 커넥톰 연구실'
+  : '2026 Winter Undergraduate Research Internship | SNU Connectome Laboratory';
+const description = ko
+  ? '서울대학교 심리학과 커넥톰 연구실 2026 동계 학부 연구 인턴 모집 공고. 3명, 2027년 1월 4일~2월 26일(8주), 서류 마감 2026년 11월 20일(금) 18:00.'
+  : 'SNU Connectome Lab 2026 winter undergraduate research internship: 3 positions, 4 Jan–26 Feb 2027 (8 weeks), applications due 20 Nov 2026, 18:00 KST.';
+const mailto = `mailto:${apply.email}?subject=${encodeURIComponent('[2026동계인턴지원] ')}`;
+const toc = [
+  { href: '#overview', label: '모집 개요' },
+  { href: '#support', label: '지원 내용' },
+  { href: '#projects', label: '연구 과제' },
+  { href: '#process', label: '선발 일정' },
+  { href: '#apply', label: '지원 방법' },
+];
+const enDates = [
+  ['20 Nov (Fri), 18:00 KST', 'Application deadline (documents, learning task, online survey)'],
+  ['25 Nov (Wed)', 'Screening results; research challenge and personal AI API key sent'],
+  ['25 Nov – 7 Dec (Mon), 23:59', 'Research challenge (pre-registered prediction due 1 Dec)'],
+  ['11 Dec (Fri)', 'Interview invitations (about 2–3× the 3 positions)'],
+  ['14–18 Dec', '30-minute in-person interview at SNU'],
+  ['22 Dec (Tue)', 'Final offers; programme starts 4 Jan 2027'],
+];
+---
+
+<BaseLayout lang={lang} title={pageTitle} description={description}>
+  {ko ? (
+    <article class="section-shell py-14 sm:py-20 space-y-16">
+      <header class="space-y-8 border-b border-ink pb-10">
+        <div class="space-y-4 max-w-3xl">
+          <a href={localePath(lang, '/join/')} class="text-link text-sm">← 함께하기</a>
+          <p class="eyebrow">서울대학교 심리학과 커넥톰 연구실 · 지도교수 차지욱</p>
+          <h1 class="font-display text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
+            2026 동계 학부 연구 인턴 모집
+          </h1>
+          <p class="text-lg sm:text-xl text-ink leading-relaxed measure">
+            8주 동안 연구실 논문에 실제로 들어갈 모듈 하나를 구현하고 결과표까지 만듭니다. 희망자는 2027년 학기 중에도 연구를 이어 갑니다.
+          </p>
+        </div>
+
+        <dl class="grid grid-cols-2 lg:grid-cols-4 border-t border-line">
+          {keyFacts.map((fact) => (
+            <div class="border-b lg:border-b-0 border-line py-5 pr-4 space-y-1">
+              <dt class="text-sm text-ink-faint">{fact.label}</dt>
+              <dd class="font-display text-lg sm:text-xl font-semibold text-ink [overflow-wrap:anywhere]">{fact.value}</dd>
+              {fact.sub && <dd class="text-sm text-ink-faint">{fact.sub}</dd>}
+            </div>
+          ))}
+        </dl>
+
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a href="#apply" class="inline-flex items-center px-6 py-3 rounded-lg bg-lab-700 hover:bg-lab-800 text-white font-semibold transition-colors">지원 방법 보기</a>
+          <a href="#projects" class="text-link">연구 과제 F1~F5</a>
+        </div>
+
+        <nav aria-label="공고 목차" class="border-t border-line pt-5">
+          <ol class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            {toc.map((item, i) => (
+              <li><a href={item.href} class="text-ink-soft hover:text-ink"><span class="text-oxblood mr-1.5">{String(i + 1).padStart(2, '0')}</span>{item.label}</a></li>
+            ))}
+          </ol>
+        </nav>
+      </header>
+
+      <section class="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16" aria-labelledby="intro-title">
+        <h2 id="intro-title" class="font-display text-2xl font-semibold text-ink">어떤 학생을 찾나요</h2>
+        <div class="space-y-5 measure text-base text-ink-soft leading-relaxed">
+          <p>커넥톰 연구실은 (1) 초거대 뇌 신호(fMRI·EEG·MEG) 파운데이션 모델을 개발하고, (2) 과학적 가설 생성과 검증 과정 자체를 에이전틱 AI로 자동화하는 연구를 합니다. 2026년 겨울방학 동안 프론티어 뉴로AI(NeuroAI)와 자율형 과학 연구(AI4Science) 프로젝트를 함께 수행할 학부 연구 인턴 <strong class="text-ink">3명</strong>을 모집합니다.</p>
+          <p>특히 <strong class="text-ink">2027년 또는 2028년에 대학원 진학을 계획하는 학부생(전공 무관)</strong> 가운데, 처음 보는 어려운 문제를 두려워하지 않고 가장 좋은 해법을 찾을 때까지 스스로를 끝까지 밀어붙이는 학생을 찾습니다. 겨울 8주 과정을 마친 뒤 2027년 학기 중에도 연구를 이어 가며 대학원 수준의 연구를 미리 시작할 수 있습니다.</p>
+        </div>
+      </section>
+
+      <section id="overview" class="border-t border-ink pt-8 grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16 scroll-mt-24" aria-labelledby="overview-title">
+        <div class="space-y-1">
+          <p class="eyebrow">01</p>
+          <h2 id="overview-title" class="font-display text-2xl font-semibold text-ink">모집 개요</h2>
+        </div>
+        <div class="space-y-8">
+          <dl class="divide-y divide-line border-y border-line">
+            {overview.map((row) => (
+              <div class="grid sm:grid-cols-[8rem_1fr] gap-1 sm:gap-6 py-4">
+                <dt class="font-semibold text-ink">{row.term}</dt>
+                <dd class="space-y-1 text-ink-soft leading-relaxed">{row.desc.map((d) => <p>{d}</p>)}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <div class="card p-6 space-y-3">
+            <h3 class="font-semibold text-ink">1개월 중간 평가 · {midterm.date}</h3>
+            <ul class="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-ink-soft">
+              {midterm.checks.map((c) => <li class="flex gap-2"><span class="text-oxblood" aria-hidden="true">✓</span><span>{c}</span></li>)}
+            </ul>
+            <p class="text-sm text-ink-soft leading-relaxed">{midterm.after}</p>
+          </div>
+
+          <div class="space-y-3">
+            <h3 class="font-semibold text-ink">뇌과학 지식이 없어도 지원할 수 있나요?</h3>
+            {readiness.map((p) => <p class="text-ink-soft leading-relaxed measure">{p}</p>)}
+          </div>
+        </div>
+      </section>
+
+      <section id="support" class="border-t border-ink pt-8 grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16 scroll-mt-24" aria-labelledby="support-title">
+        <div class="space-y-1">
+          <p class="eyebrow">02</p>
+          <h2 id="support-title" class="font-display text-2xl font-semibold text-ink">선발된 인턴에게 제공하는 지원과 책임</h2>
+        </div>
+        <div class="space-y-6">
+          <ol class="space-y-6">
+            {support.map((item, i) => (
+              <li class="grid grid-cols-[2rem_1fr] gap-3">
+                <span class="font-display text-oxblood" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <div class="space-y-1.5">
+                  <h3 class="font-semibold text-ink">{item.title}</h3>
+                  <p class="text-ink-soft leading-relaxed measure">{item.body}</p>
+                  {item.link && <a href={item.link.href} class="text-link text-sm">{item.link.label}</a>}
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p class="text-sm text-ink-faint leading-relaxed measure border-l-2 border-line pl-4">{supportNote}</p>
+        </div>
+      </section>
+
+      <section id="projects" class="border-t border-ink pt-8 space-y-8 scroll-mt-24" aria-labelledby="projects-title">
+        <div class="space-y-2 max-w-3xl">
+          <p class="eyebrow">03</p>
+          <h2 id="projects-title" class="font-display text-2xl font-semibold text-ink">연구 과제 (F1~F5)</h2>
+          <p class="text-ink-soft leading-relaxed measure">다섯 과제 중 하나에 배정되어 맡은 모듈을 구현·검증합니다. 실제 배정은 선발 후 관심 분야·준비도·대학원생 멘토와의 논의를 거쳐 정합니다.</p>
+        </div>
+        <div class="space-y-5">
+          {projects.map((p) => (
+            <article id={`project-${p.id}`} class="card p-6 sm:p-8 space-y-5 scroll-mt-24">
+              <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+                <span class="font-display text-2xl font-semibold text-oxblood">{p.code}</span>
+                <h3 class="font-display text-xl font-semibold text-ink">{p.title}</h3>
+                <span class="chip">{p.modality}</span>
+                <span class="chip">{p.stack}</span>
+              </div>
+              <p class="text-ink leading-relaxed measure">{p.overview}</p>
+              {p.note && <p class="text-sm text-lab-800 font-semibold">{p.note}</p>}
+              <dl class="grid md:grid-cols-2 gap-6 border-t border-line pt-5">
+                <div class="space-y-1.5">
+                  <dt class="text-sm font-semibold text-ink">핵심 연구 질문</dt>
+                  <dd class="text-sm text-ink-soft leading-relaxed">{p.question}</dd>
+                </div>
+                <div class="space-y-1.5">
+                  <dt class="text-sm font-semibold text-ink">인턴 전담 모듈 및 산출물</dt>
+                  <dd class="text-sm text-ink-soft leading-relaxed">{p.deliverables}</dd>
+                </div>
+              </dl>
+              <div class="space-y-1.5 text-sm">
+                <p class="font-semibold text-ink">{p.refsLabel}</p>
+                <ul class="space-y-1">
+                  {p.refs.map((r) => <li><a href={r.href} class="text-link [overflow-wrap:anywhere]" target="_blank" rel="noopener">{r.label}</a></li>)}
+                </ul>
+                {p.refsNote && <p class="text-ink-faint leading-relaxed">{p.refsNote}</p>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="process" class="border-t border-ink pt-8 grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16 scroll-mt-24" aria-labelledby="process-title">
+        <div class="space-y-2">
+          <p class="eyebrow">04</p>
+          <h2 id="process-title" class="font-display text-2xl font-semibold text-ink">선발 절차와 일정</h2>
+          <p class="text-sm text-ink-soft leading-relaxed">스펙이나 학벌이 아니라 실제 문제 해결력, 지적 정직성, 집요함을 보기 위해 3단계로 선발합니다. 모든 시각은 한국 시간입니다.</p>
+        </div>
+        <div class="space-y-6">
+          <ol class="relative border-l border-line ml-1.5">
+            {steps.map((s) => (
+              <li class="relative pl-7 pb-8 last:pb-0">
+                <span class="absolute -left-[7px] top-1.5 h-3 w-3 rounded-full bg-oxblood" aria-hidden="true"></span>
+                <p class="text-sm"><span class="font-semibold text-oxblood mr-2">{s.stage}</span><time datetime={s.datetime} class="text-ink-faint">{s.date}</time></p>
+                <h3 class="mt-1 font-semibold text-ink text-lg">{s.title}</h3>
+                <p class="mt-1 text-ink-soft leading-relaxed measure">{s.body}</p>
+                {s.detail && (
+                  <ol class="mt-3 space-y-1.5 text-sm text-ink-soft list-decimal pl-5">
+                    {s.detail.map((d) => <li>{d}</li>)}
+                  </ol>
+                )}
+              </li>
+            ))}
+          </ol>
+          <div class="text-sm text-ink-faint leading-relaxed measure border-l-2 border-line pl-4 space-y-1">
+            {stepsNote.map((n) => <p>{n}</p>)}
+          </div>
+        </div>
+      </section>
+
+      <section id="apply" class="border-t border-ink pt-8 space-y-10 scroll-mt-24" aria-labelledby="apply-title">
+        <div class="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16">
+          <div class="space-y-1">
+            <p class="eyebrow">05</p>
+            <h2 id="apply-title" class="font-display text-2xl font-semibold text-ink">제출 서류와 지원 방법</h2>
+          </div>
+          <div class="card p-6 sm:p-8 space-y-5">
+            <dl class="space-y-4">
+              <div class="grid sm:grid-cols-[7rem_1fr] gap-1 sm:gap-4">
+                <dt class="font-semibold text-ink">접수 마감</dt>
+                <dd class="text-ink font-semibold">{apply.deadline}</dd>
+              </div>
+              <div class="grid sm:grid-cols-[7rem_1fr] gap-1 sm:gap-4">
+                <dt class="font-semibold text-ink">접수처</dt>
+                <dd><a href={mailto} class="text-link [overflow-wrap:anywhere]">{apply.email}</a></dd>
+              </div>
+              <div class="grid sm:grid-cols-[7rem_1fr] gap-1 sm:gap-4">
+                <dt class="font-semibold text-ink">메일 제목</dt>
+                <dd class="space-y-1">
+                  <code class="block w-fit max-w-full [overflow-wrap:anywhere] bg-paper border border-line px-3 py-1.5 text-sm text-ink">{apply.subject}</code>
+                  <p class="text-sm text-ink-faint">예: {apply.subjectExample}</p>
+                </dd>
+              </div>
+              <div class="grid sm:grid-cols-[7rem_1fr] gap-1 sm:gap-4">
+                <dt class="font-semibold text-ink">메일 본문</dt>
+                <dd class="text-ink-soft">“{apply.consent}” 문구를 반드시 적어 주세요.</dd>
+              </div>
+            </dl>
+            <a href={mailto} class="inline-flex max-w-full [overflow-wrap:anywhere] items-center px-6 py-3 rounded-lg bg-lab-700 hover:bg-lab-800 text-white font-semibold transition-colors">메일로 지원하기</a>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16">
+          <h3 class="font-display text-xl font-semibold text-ink">제출 항목 (PDF 첨부 + 온라인 설문)</h3>
+          <ol class="divide-y divide-line border-y border-line">
+            {materials.map((m, i) => (
+              <li class="grid grid-cols-[2rem_1fr] gap-3 py-4">
+                <span class="font-display text-oxblood" aria-hidden="true">{i + 1}</span>
+                <div class="space-y-1">
+                  <p class="flex flex-wrap items-baseline gap-x-3 gap-y-1"><span class="font-semibold text-ink [overflow-wrap:anywhere]">{m.file}</span><span class="text-sm text-ink-faint">{m.tag}</span></p>
+                  <p class="text-ink-soft leading-relaxed measure">{m.body}</p>
+                  {m.link && <a href={m.link.href} class="text-link text-sm">{m.link.label}</a>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div id="task" class="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16 scroll-mt-24">
+          <div class="space-y-1">
+            <p class="eyebrow">학습·설명 과제</p>
+            <h3 class="font-display text-xl font-semibold text-ink">“{task.topic}”</h3>
+          </div>
+          <div class="space-y-5">
+            <p class="text-ink-soft leading-relaxed measure">{task.intro}</p>
+            <ol class="space-y-3">
+              {task.items.map((item, i) => (
+                <li class="grid grid-cols-[2rem_1fr] gap-3">
+                  <span class="font-display text-oxblood" aria-hidden="true">{i + 1}</span>
+                  <p class="text-ink leading-relaxed measure">{item}</p>
+                </li>
+              ))}
+            </ol>
+            <p class="text-sm">
+              참고: <a href={swiftPaper.href} class="text-link" target="_blank" rel="noopener">{swiftPaper.label}</a> · <a href={swiftCode.href} class="text-link" target="_blank" rel="noopener">{swiftCode.label}</a>
+            </p>
+            <ul class="space-y-1.5 text-sm text-ink-soft leading-relaxed list-disc pl-5 measure">
+              {task.notes.map((n) => <li>{n}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16">
+          <h3 class="font-display text-xl font-semibold text-ink">개인정보 수집·이용</h3>
+          <p class="text-ink-soft leading-relaxed measure">{privacy}</p>
+        </div>
+
+        <div class="border-t border-line pt-6 text-ink-soft">
+          문의: <a href={`mailto:${apply.email}`} class="text-link">{apply.email}</a>
+        </div>
+      </section>
+    </article>
+  ) : (
+    <article class="section-shell py-14 sm:py-20 space-y-12">
+      <header class="space-y-5 border-b border-ink pb-10 max-w-3xl">
+        <a href={localePath(lang, '/join/')} class="text-link text-sm">← Join us</a>
+        <p class="eyebrow">SNU Connectome Lab · PI Jiook Cha</p>
+        <h1 class="font-display text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">2026 Winter Undergraduate Research Internship</h1>
+        <p class="text-lg text-ink leading-relaxed measure">Three undergraduates (any major) will spend eight weeks, 4 January – 26 February 2027, building one module that goes into a lab paper, from implementation to the results table. Students planning graduate study in 2027 or 2028 are especially welcome.</p>
+        <p class="text-sm text-ink-faint">The full announcement, including the five projects and the learning task, is in Korean. <a href={localePath('ko', '/join/winter-intern-2026/')} class="text-link" lang="ko">공고 전문 (한국어)</a></p>
+      </header>
+      <section class="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16" aria-labelledby="en-support">
+        <h2 id="en-support" class="font-display text-2xl font-semibold">What selected interns receive</h2>
+        <ul class="space-y-2 text-ink-soft leading-relaxed list-disc pl-5 measure">
+          <li>A personal NVIDIA DGX Spark account from week 2</li>
+          <li>Research AI API usage (OpenRouter and similar) covered by the lab without a usage cap, for research purposes</li>
+          <li>A stipend of KRW 600,000 per month before tax</li>
+          <li>Weekly mentor meetings, lab meetings and PR-based code review</li>
+        </ul>
+      </section>
+      <section class="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16" aria-labelledby="en-dates">
+        <h2 id="en-dates" class="font-display text-2xl font-semibold">Selection timeline (KST)</h2>
+        <dl class="divide-y divide-line border-y border-line">
+          {enDates.map(([d, t]) => (
+            <div class="grid sm:grid-cols-[13rem_1fr] gap-1 sm:gap-6 py-3">
+              <dt class="font-semibold text-ink">{d}</dt>
+              <dd class="text-ink-soft">{t}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+      <section class="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 lg:gap-16" aria-labelledby="en-apply">
+        <h2 id="en-apply" class="font-display text-2xl font-semibold">How to apply</h2>
+        <div class="space-y-3 text-ink-soft leading-relaxed measure">
+          <p>Email a CV, an application statement, the learning task (two A4 pages) and the online survey to <a href={mailto} class="text-link">{apply.email}</a> by 20 November 2026, 18:00 KST.</p>
+          <p>Subject line: <code class="[overflow-wrap:anywhere] bg-paper border border-line px-2 py-0.5 text-sm text-ink" lang="ko">{apply.subject}</code></p>
+          <p>Details of each document are in the <a href={localePath('ko', '/join/winter-intern-2026/')} class="text-link">Korean announcement</a>.</p>
+        </div>
+      </section>
+    </article>
+  )}
+</BaseLayout>
