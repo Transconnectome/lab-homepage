@@ -190,7 +190,7 @@ export const ui = {
     'join.internEyebrow': 'Undergraduate internships',
     'join.internTitle': 'Research internships',
     'join.internDesc':
-      'Intern projects have included quantum machine learning, EEG foundation models, and imaging genetics. Please email to ask about current openings and project requirements.',
+      'Intern projects have included quantum machine learning, EEG foundation models, and imaging genetics. For the 2026 winter undergraduate internship, see the announcement below. For internships at other times, please email to ask about openings and project requirements.',
     'join.applyEyebrow': 'Applications',
     'join.applyTitle': 'How to apply',
     'join.materialsTitle': 'What to send',
@@ -407,7 +407,7 @@ export const ui = {
     'join.psychDesc': '유전·뇌·행동·환경 사이의 관계를 통해 발달과 정신건강의 개인차를 연구합니다.',
     'join.internEyebrow': '학부 인턴십',
     'join.internTitle': '연구 인턴십',
-    'join.internDesc': '인턴 프로젝트에서는 양자 머신러닝, EEG 파운데이션 모델, 뇌영상과 유전체를 다루어 왔습니다. 현재 모집 여부와 프로젝트별 요건은 이메일로 문의해 주세요.',
+    'join.internDesc': '인턴 프로젝트에서는 양자 머신러닝, EEG 파운데이션 모델, 뇌영상과 유전체를 다루어 왔습니다. 2026 동계 학부 연구 인턴은 아래 공고를 참고해 주세요. 그 밖의 시기 인턴 모집 여부와 프로젝트별 요건은 이메일로 문의해 주세요.',
     'join.applyEyebrow': '지원 안내',
     'join.applyTitle': '지원 방법',
     'join.materialsTitle': '준비 서류',
