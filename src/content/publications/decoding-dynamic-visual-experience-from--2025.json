@@ -6,10 +6,10 @@
     "Blake A. Richards",
     "Jiook Cha"
   ],
-  "venue": "arXiv preprint",
-  "year": 2025,
+  "venue": "ICLR 2026",
+  "year": 2026,
   "doi": "10.48550/arxiv.2510.18516",
-  "url": "https://doi.org/10.48550/arxiv.2510.18516",
+  "url": "https://openreview.net/forum?id=z9kAjjRejs",
   "tags": [
     "Neuroscience"
   ],
@@ -18,5 +18,7 @@
     "Sangyoon Bae",
     "Jiook Cha"
   ],
-  "kind": "preprint"
+  "kind": "conference",
+  "pdfUrl": "https://arxiv.org/abs/2510.18516",
+  "abstract": "Neural recordings exhibit a distinctive form of heterogeneity rooted in differences in cell types, intrinsic circuit dynamics, and stochastic stimulus–response variability that goes beyond ordinary dataset variability, mixing statistically regular neurons with highly stochastic, stimulus-contingent ones within the same dataset. This heterogeneity poses a challenge for self-supervised learning (SSL)—learnable statistical regularity—thereby destabilizing representation learning and limiting reliable scaling. We introduce POYO-CAP (Cell-pattern Aware Pretraining), a biologically grounded hybrid pretraining strategy that first trains with masked reconstruction plus lightweight auxiliary supervision on statistically regular neurons—identified via skewness and kurtosis—and then finetunes on more stochastic populations. On the Allen Brain Observatory dataset, this curriculum yields 12–13% relative improvements over from-scratch training and enables smooth, monotonic scaling with model size, whereas baselines trained on mixed populations plateau or destabilize. By making statistical predictability an explicit data-selection criterion, POYO-CAP turns neural heterogeneity into a scalable learning advantage for robust neural decoding."
 }
